@@ -3,6 +3,4 @@
 
 <xsl:template match="/">
 <success>test DBE2</success>
-</xsl:template>
-
 </xsl:stylesheet>
