@@ -7,7 +7,7 @@
        pi.xsl - transforms some Epic formatting PIs into HTML
      ********************************************************** -->
 
-<xsl:import href="../common/common.xsl"/>
+<xsl:import href="common.xsl"/>
 
 <xsl:param name="Use-atievent-elements" select="''"/>
 
