@@ -1,0 +1,167 @@
+
+
+
+
+
+
+ .x--sfe-BeforeOrAfterText-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-CollectionItem-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-CollectionItem-2-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-CollectionItem-3-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-CollectionItem-4-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-CrossReference-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-CrossReferenceTitle-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-CrossReferenceTitle-2-0 {margin-left: 0pt; margin-right: 0pt; font-style: italic; }
+
+
+
+ .x--sfe-Gentext-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-HeaderOrFooter-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 0pt; }
+
+
+
+ .x--sfe-Index-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+ .x--sfe-IndexAlphaGroup-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 1.5pc; }
+
+
+
+ .x--sfe-IndexEndPage-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-IndexEntry-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1em; text-indent: -.5em; text-align: left; }
+
+
+
+ .x--sfe-IndexEntry-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1em; text-indent: -.5em; text-align: left; }
+
+
+
+ .x--sfe-IndexEntry-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1em; text-indent: -.5em; text-align: left; }
+
+
+
+ .x--sfe-IndexEntry-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: .5em; margin-right: 2pc; text-indent: -.5em; text-align: left; }
+
+
+
+ .x--sfe-IndexGroupHead-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; font-weight: bold; font-size: 14pt; text-transform: uppercase; text-align: left; margin-bottom: .5pc; }
+
+
+
+ .x--sfe-IndexHeading-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-IndexLocators-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-IndexPage-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-IndexPage-2-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-IndexPostGroup-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 1.5pc; }
+
+
+
+ .x--sfe-IndexPreGroup-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 1.5pc; }
+
+
+
+ .x--sfe-IndexRangeGroup-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 1.5pc; }
+
+
+
+ .x--sfe-IndexSee-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+
+
+ .x--sfe-IndexSeeAlso-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 3em; text-indent: -1.5em; }
+
+
+
+ .x--sfe-IndexSubGroupHead-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; text-transform: uppercase; text-align: left; margin-top: 2pc; }
+
+
+
+ .x--sfe-RepeatingTitle-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+ .x--sfe-TableOfContents-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+ .x-atidlm-inclusion-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+ .x-atidlm-linkcontent-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+ .x-atidlm-metadata-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+ .x-atidlm-resourcepair-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+ .x-atidlm-source-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+ .x-atidlm-target-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+
+
+
+table {border-color: #000000; font-size: 100%; border-collapse: collapse; }
+
+td, th, { border-color: #000000; }
+
+table[rules][rules="none"]  > tr > td, table[rules][rules="none"] > * > tr > td, table[rules][rules="none"] > tr > th, table[rules][rules="none"] > * > tr > th, table[rules][rules="none"] > td, table[rules][rules="none"] > th { border-width: thin; border-style: none; }
+
+table[frame="box"][border]:not([border="0"]), table[frame="border"][border]:not([border="0"]), table:not([frame])[border]:not([border="0"]) { border-style: solid; }
+
+ .entry-in-tbody {}
+
+
+
+ .x--zero-left-margins {margin-left: 0pt; text-indent: 0pt; }
+
+ .x--zero-text-indent {text-indent: 0pt; }
+
+ .x--zero-top-bot-margins {margin-top: 0pt; margin-bottom: 0pt; }
