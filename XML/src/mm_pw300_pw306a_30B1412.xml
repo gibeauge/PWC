@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-
-<book doctype="mm_pw300" status="New" object-key="30B1412" family="pw300" model="pw306a" manualpnr="30B1412" exportdate="20140618" revdate="20140618" revnbr="36" point-revnbr="1">
+<book doctype="mm_pw300" status="New" object-key="30B1412" family="pw300" model="pw306a" manualpnr="30B1412" exportdate="20140618" revdate="20140618" revnbr="36" point-revnbr="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="migrate.xsd" >
    <frontmatter object-key="30B1412.front">
       <page-block pb-name="title-page" object-key="30B1412.front.title-page" id="pbfronttitlepage">
          <module module-name="title-page" applic="pw306a">
