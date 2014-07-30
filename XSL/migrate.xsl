@@ -17,9 +17,7 @@
    xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0"
    exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
 
-   <xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"
-      doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
-      doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+   <xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>
 
    <xsl:variable name="doctype" select="'migrate'"/>
    
@@ -67,28 +65,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: limits/annot-->
-   <xsl:template match="limits/annot" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: limits/annot-->
    <xsl:template match="limits/annot" mode="set-countas" priority="1">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: limits/annot-->
-   <xsl:template match="limits/annot" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -133,28 +113,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: annot-->
-   <xsl:template match="annot" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: annot-->
    <xsl:template match="annot" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: annot-->
-   <xsl:template match="annot" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -176,28 +138,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: at-length-->
-   <xsl:template match="at-length" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: at-length-->
    <xsl:template match="at-length" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: at-length-->
-   <xsl:template match="at-length" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -257,31 +201,13 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: build-spec-->
-   <xsl:template match="build-spec" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: build-spec-->
    <xsl:template match="build-spec" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
       </xsl:copy>
    </xsl:template>
-
-   <!--Set ch:chunk template for Context: build-spec-->
-   <xsl:template match="build-spec" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
-      </xsl:copy>
-   </xsl:template>
-
+   
    <!--Template for Context: _ufe:cir-title-->
    <xsl:template match="_ufe:cir-title" priority="0">
       <div>
@@ -406,32 +332,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: consumables-->
-   <xsl:template match="consumables" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: consumables-->
    <xsl:template match="consumables" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: consumables-->
-   <xsl:template match="consumables" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:variable name="Breaks-chunkBoundary"/>
-            <xsl:if test="$Breaks-chunkBoundary = 'yes'">
-               <xsl:attribute name="ch:chunk">yes</xsl:attribute>
-            </xsl:if>
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -525,28 +429,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: fandc-proc-->
-   <xsl:template match="fandc-proc" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: fandc-proc-->
    <xsl:template match="fandc-proc" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: fandc-proc-->
-   <xsl:template match="fandc-proc" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -610,26 +496,11 @@
          <xsl:apply-templates mode="expand-gentext" select="@*|node()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: figure[descendant::graphic]-->
-   <xsl:template match="figure[descendant::graphic]" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Set count-as pass template for Context: figure[descendant::graphic]-->
    <xsl:template match="figure[descendant::graphic]" mode="set-countas" priority="1">
       <xsl:copy>
          <xsl:apply-templates mode="set-countas" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: figure[descendant::graphic]-->
-   <xsl:template match="figure[descendant::graphic]" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"/>
       </xsl:copy>
    </xsl:template>
 
@@ -677,28 +548,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: figure-->
-   <xsl:template match="figure" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: figure-->
    <xsl:template match="figure" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: figure-->
-   <xsl:template match="figure" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -743,28 +596,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: fits-->
-   <xsl:template match="fits" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: fits-->
    <xsl:template match="fits" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: fits-->
-   <xsl:template match="fits" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -812,28 +647,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: fits-and-clears-->
-   <xsl:template match="fits-and-clears" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: fits-and-clears-->
    <xsl:template match="fits-and-clears" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: fits-and-clears-->
-   <xsl:template match="fits-and-clears" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -855,28 +672,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: fix-equip-list-->
-   <xsl:template match="fix-equip-list" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: fix-equip-list-->
    <xsl:template match="fix-equip-list" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: fix-equip-list-->
-   <xsl:template match="fix-equip-list" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -968,32 +767,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: fixtures-and-equipment-->
-   <xsl:template match="fixtures-and-equipment" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: fixtures-and-equipment-->
    <xsl:template match="fixtures-and-equipment" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: fixtures-and-equipment-->
-   <xsl:template match="fixtures-and-equipment" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:variable name="Breaks-chunkBoundary"/>
-            <xsl:if test="$Breaks-chunkBoundary = 'yes'">
-               <xsl:attribute name="ch:chunk">yes</xsl:attribute>
-            </xsl:if>
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1056,28 +833,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: general-->
-   <xsl:template match="general" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: general-->
    <xsl:template match="general" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: general-->
-   <xsl:template match="general" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1341,15 +1100,8 @@
                         <xsl:variable name="height"/>
                         <xsl:variable name="width"/>
                         <script>    
-                       <xsl:value-of select="$viewer"/>          
-                 <xsl:text>_Insert('</xsl:text>                  
-         <xsl:value-of select="$idval"/>                         
-  <xsl:text>', '</xsl:text>                            <xsl:value-of select="$width"/>                            <xsl:text>', '</xsl:text>                            <xsl:value-of select="$height"/>    
-                       <xsl:text>', '</xsl:text>                 
-          <xsl:value-of select="$annotation"/>                   
-        <xsl:text>', '</xsl:text>                            <xsl:call-template name="get-downloaduri">
-<xsl:with-param name="viewer" select="$viewer"/>
-</xsl:call-template>                            <xsl:text>');</xsl:text>                         </script>
+                       <xsl:value-of select="$viewer"/><xsl:text>_Insert('</xsl:text><xsl:value-of select="$idval"/><xsl:text>', '</xsl:text><xsl:value-of select="$width"/><xsl:text>', '</xsl:text><xsl:value-of select="$height"/><xsl:text>', '</xsl:text><xsl:value-of select="$annotation"/><xsl:text>', '</xsl:text><xsl:call-template name="get-downloaduri"><xsl:with-param name="viewer" select="$viewer"/></xsl:call-template><xsl:text>');</xsl:text>
+						</script>
                      </span>
                   </xsl:when>
                   <xsl:otherwise>
@@ -1457,30 +1209,11 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: graphic-->
-   <xsl:template match="graphic" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"> </xsl:call-template>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Set count-as pass template for Context: graphic-->
    <xsl:template match="graphic" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates mode="set-countas" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: graphic-->
-   <xsl:template match="graphic" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:variable name="Breaks-chunkBoundary"/>
-            <xsl:if test="$Breaks-chunkBoundary = 'yes'">
-               <xsl:attribute name="ch:chunk">yes</xsl:attribute>
-            </xsl:if>
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1538,28 +1271,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: ifr-->
-   <xsl:template match="ifr" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: ifr-->
    <xsl:template match="ifr" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: ifr-->
-   <xsl:template match="ifr" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1581,28 +1296,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: imp-->
-   <xsl:template match="imp" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: imp-->
    <xsl:template match="imp" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: imp-->
-   <xsl:template match="imp" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1647,28 +1344,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: atidlm:inclusion-->
-   <xsl:template match="atidlm:inclusion" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: atidlm:inclusion-->
    <xsl:template match="atidlm:inclusion" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: atidlm:inclusion-->
-   <xsl:template match="atidlm:inclusion" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1725,29 +1404,11 @@
          <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
       </xsl:copy>
    </xsl:template>
-
-   <!--Initial pass template for Context: limits-->
-   <xsl:template match="limits" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
+   
    <!--Set count-as pass template for Context: limits-->
    <xsl:template match="limits" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: limits-->
-   <xsl:template match="limits" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1792,28 +1453,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: atidlm:linkcontent-->
-   <xsl:template match="atidlm:linkcontent" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: atidlm:linkcontent-->
    <xsl:template match="atidlm:linkcontent" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: atidlm:linkcontent-->
-   <xsl:template match="atidlm:linkcontent" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1835,28 +1478,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: mating-part-->
-   <xsl:template match="mating-part" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: mating-part-->
    <xsl:template match="mating-part" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: mating-part-->
-   <xsl:template match="mating-part" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1878,28 +1503,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: max-->
-   <xsl:template match="max" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: max-->
    <xsl:template match="max" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: max-->
-   <xsl:template match="max" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1921,28 +1528,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: met-->
-   <xsl:template match="met" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: met-->
    <xsl:template match="met" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: met-->
-   <xsl:template match="met" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -1987,28 +1576,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: atidlm:metadata-->
-   <xsl:template match="atidlm:metadata" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: atidlm:metadata-->
    <xsl:template match="atidlm:metadata" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: atidlm:metadata-->
-   <xsl:template match="atidlm:metadata" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2030,28 +1601,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: min-->
-   <xsl:template match="min" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: min-->
    <xsl:template match="min" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: min-->
-   <xsl:template match="min" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2099,28 +1652,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: mm-fits-->
-   <xsl:template match="mm-fits" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: mm-fits-->
    <xsl:template match="mm-fits" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: mm-fits-->
-   <xsl:template match="mm-fits" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2165,28 +1700,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: name-->
-   <xsl:template match="name" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: name-->
    <xsl:template match="name" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: name-->
-   <xsl:template match="name" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2208,28 +1725,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: nomen-->
-   <xsl:template match="nomen" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: nomen-->
    <xsl:template match="nomen" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: nomen-->
-   <xsl:template match="nomen" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2292,28 +1791,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: module/note-->
-   <xsl:template match="module/note" mode="initial-pass-mode" priority="11">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: module/note-->
    <xsl:template match="module/note" mode="set-countas" priority="11">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: module/note-->
-   <xsl:template match="module/note" mode="set-ch-chunk" priority="11">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2376,28 +1857,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: subtask/note-->
-   <xsl:template match="subtask/note" mode="initial-pass-mode" priority="10">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: subtask/note-->
    <xsl:template match="subtask/note" mode="set-countas" priority="10">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: subtask/note-->
-   <xsl:template match="subtask/note" mode="set-ch-chunk" priority="10">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2460,28 +1923,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: task/note-->
-   <xsl:template match="task/note" mode="initial-pass-mode" priority="9">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: task/note-->
    <xsl:template match="task/note" mode="set-countas" priority="9">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: task/note-->
-   <xsl:template match="task/note" mode="set-ch-chunk" priority="9">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2577,32 +2022,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: n-para/note-->
-   <xsl:template match="n-para/note" mode="initial-pass-mode" priority="8">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: n-para/note-->
    <xsl:template match="n-para/note" mode="set-countas" priority="8">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: n-para/note-->
-   <xsl:template match="n-para/note" mode="set-ch-chunk" priority="8">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:variable name="Breaks-chunkBoundary"/>
-            <xsl:if test="$Breaks-chunkBoundary = 'yes'">
-               <xsl:attribute name="ch:chunk">yes</xsl:attribute>
-            </xsl:if>
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2698,32 +2121,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: procedure/note-->
-   <xsl:template match="procedure/note" mode="initial-pass-mode" priority="7">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: procedure/note-->
    <xsl:template match="procedure/note" mode="set-countas" priority="7">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: procedure/note-->
-   <xsl:template match="procedure/note" mode="set-ch-chunk" priority="7">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:variable name="Breaks-chunkBoundary"/>
-            <xsl:if test="$Breaks-chunkBoundary = 'yes'">
-               <xsl:attribute name="ch:chunk">yes</xsl:attribute>
-            </xsl:if>
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2768,28 +2169,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: fandc/note-->
-   <xsl:template match="fandc/note" mode="initial-pass-mode" priority="6">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: fandc/note-->
    <xsl:template match="fandc/note" mode="set-countas" priority="6">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: fandc/note-->
-   <xsl:template match="fandc/note" mode="set-ch-chunk" priority="6">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2834,28 +2217,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: spec-assem/note-->
-   <xsl:template match="spec-assem/note" mode="initial-pass-mode" priority="5">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: spec-assem/note-->
    <xsl:template match="spec-assem/note" mode="set-countas" priority="5">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: spec-assem/note-->
-   <xsl:template match="spec-assem/note" mode="set-ch-chunk" priority="5">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2900,28 +2265,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: spring-pressure/note-->
-   <xsl:template match="spring-pressure/note" mode="initial-pass-mode" priority="4">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: spring-pressure/note-->
    <xsl:template match="spring-pressure/note" mode="set-countas" priority="4">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: spring-pressure/note-->
-   <xsl:template match="spring-pressure/note" mode="set-ch-chunk" priority="4">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -2966,28 +2313,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: torque-and-stretch/note-->
-   <xsl:template match="torque-and-stretch/note" mode="initial-pass-mode" priority="3">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: torque-and-stretch/note-->
    <xsl:template match="torque-and-stretch/note" mode="set-countas" priority="3">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: torque-and-stretch/note-->
-   <xsl:template match="torque-and-stretch/note" mode="set-ch-chunk" priority="3">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -3032,28 +2361,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: fits-and-clears/note-->
-   <xsl:template match="fits-and-clears/note" mode="initial-pass-mode" priority="2">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: fits-and-clears/note-->
    <xsl:template match="fits-and-clears/note" mode="set-countas" priority="2">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: fits-and-clears/note-->
-   <xsl:template match="fits-and-clears/note" mode="set-ch-chunk" priority="2">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -3149,32 +2460,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: note[ancestor::subpara]-->
-   <xsl:template match="note[ancestor::subpara]" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: note[ancestor::subpara]-->
    <xsl:template match="note[ancestor::subpara]" mode="set-countas" priority="1">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: note[ancestor::subpara]-->
-   <xsl:template match="note[ancestor::subpara]" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:variable name="Breaks-chunkBoundary"/>
-            <xsl:if test="$Breaks-chunkBoundary = 'yes'">
-               <xsl:attribute name="ch:chunk">yes</xsl:attribute>
-            </xsl:if>
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -3270,32 +2559,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: note-->
-   <xsl:template match="note" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: note-->
    <xsl:template match="note" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: note-->
-   <xsl:template match="note" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:variable name="Breaks-chunkBoundary"/>
-            <xsl:if test="$Breaks-chunkBoundary = 'yes'">
-               <xsl:attribute name="ch:chunk">yes</xsl:attribute>
-            </xsl:if>
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -3412,28 +2679,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: pageblock-front-->
-   <xsl:template match="pageblock-front" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: pageblock-front-->
    <xsl:template match="pageblock-front" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: pageblock-front-->
-   <xsl:template match="pageblock-front" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -3517,14 +2766,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: frontmatter//module/pageblock-title-->
-   <xsl:template match="frontmatter//module/pageblock-title" mode="initial-pass-mode" priority="2">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="frontmatter//module/pageblock-title" priority="2"
       mode="toc-mode-Table_of_Contents">
@@ -3595,16 +2836,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: frontmatter//module/pageblock-title-->
-   <xsl:template match="frontmatter//module/pageblock-title" mode="set-ch-chunk" priority="2">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
-      </xsl:copy>
    </xsl:template>
 
    <!--Style template for Context: pgblk/pageblock-title-->
@@ -3687,14 +2918,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: pgblk/pageblock-title-->
-   <xsl:template match="pgblk/pageblock-title" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="pgblk/pageblock-title" priority="1" mode="toc-mode-Table_of_Contents"><!--This title doesn't go into this ToC--></xsl:template>
 
@@ -3742,16 +2965,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: pgblk/pageblock-title-->
-   <xsl:template match="pgblk/pageblock-title" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
-      </xsl:copy>
    </xsl:template>
 
    <!--Style template for Context: pageblock-title-->
@@ -3811,14 +3024,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: pageblock-title-->
-   <xsl:template match="pageblock-title" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="pageblock-title" priority="0" mode="toc-mode-Table_of_Contents">
       <_gte:Must-Expand-Gentext/>
@@ -3859,16 +3064,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Set ch:chunk template for Context: pageblock-title-->
-   <xsl:template match="pageblock-title" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Style template for Context: part-->
    <xsl:template name="__style-for_part.1">
       <xsl:text> .x-part-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
@@ -3887,28 +3082,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: part-->
-   <xsl:template match="part" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: part-->
    <xsl:template match="part" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: part-->
-   <xsl:template match="part" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -3966,28 +3143,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: q-and-st-->
-   <xsl:template match="q-and-st" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: q-and-st-->
    <xsl:template match="q-and-st" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: q-and-st-->
-   <xsl:template match="q-and-st" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4009,28 +3168,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: ref-nbr-->
-   <xsl:template match="ref-nbr" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: ref-nbr-->
    <xsl:template match="ref-nbr" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: ref-nbr-->
-   <xsl:template match="ref-nbr" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4148,29 +3289,11 @@
          <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
       </xsl:copy>
    </xsl:template>
-
-   <!--Initial pass template for Context: remarks-->
-   <xsl:template match="remarks" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
+   
    <!--Set count-as pass template for Context: remarks-->
    <xsl:template match="remarks" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: remarks-->
-   <xsl:template match="remarks" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4192,28 +3315,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: repl-->
-   <xsl:template match="repl" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: repl-->
    <xsl:template match="repl" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: repl-->
-   <xsl:template match="repl" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4258,28 +3363,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: atidlm:resourcepair-->
-   <xsl:template match="atidlm:resourcepair" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: atidlm:resourcepair-->
    <xsl:template match="atidlm:resourcepair" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: atidlm:resourcepair-->
-   <xsl:template match="atidlm:resourcepair" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4452,28 +3539,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: title-page/soa[@size='med']-->
-   <xsl:template match="title-page/soa[@size='med']" mode="initial-pass-mode" priority="2">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: title-page/soa[@size='med']-->
    <xsl:template match="title-page/soa[@size='med']" mode="set-countas" priority="2">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: title-page/soa[@size='med']-->
-   <xsl:template match="title-page/soa[@size='med']" mode="set-ch-chunk" priority="2">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4610,28 +3679,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: soa[@size='med']-->
-   <xsl:template match="soa[@size='med']" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: soa[@size='med']-->
    <xsl:template match="soa[@size='med']" mode="set-countas" priority="1">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: soa[@size='med']-->
-   <xsl:template match="soa[@size='med']" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4686,28 +3737,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: soa-->
-   <xsl:template match="soa" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: soa-->
    <xsl:template match="soa" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: soa-->
-   <xsl:template match="soa" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4757,28 +3790,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: atidlm:source-->
-   <xsl:template match="atidlm:source" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: atidlm:source-->
    <xsl:template match="atidlm:source" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: atidlm:source-->
-   <xsl:template match="atidlm:source" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4836,28 +3851,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: spec-assem-->
-   <xsl:template match="spec-assem" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: spec-assem-->
    <xsl:template match="spec-assem" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: spec-assem-->
-   <xsl:template match="spec-assem" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4879,28 +3876,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: spec-tool-->
-   <xsl:template match="spec-tool" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: spec-tool-->
    <xsl:template match="spec-tool" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: spec-tool-->
-   <xsl:template match="spec-tool" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -4992,32 +3971,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: special-tools-->
-   <xsl:template match="special-tools" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: special-tools-->
    <xsl:template match="special-tools" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: special-tools-->
-   <xsl:template match="special-tools" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:variable name="Breaks-chunkBoundary"/>
-            <xsl:if test="$Breaks-chunkBoundary = 'yes'">
-               <xsl:attribute name="ch:chunk">yes</xsl:attribute>
-            </xsl:if>
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -5039,28 +3996,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: spring-->
-   <xsl:template match="spring" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: spring-->
    <xsl:template match="spring" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: spring-->
-   <xsl:template match="spring" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -5082,28 +4021,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: spring-pressure-->
-   <xsl:template match="spring-pressure" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: spring-pressure-->
    <xsl:template match="spring-pressure" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: spring-pressure-->
-   <xsl:template match="spring-pressure" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -5232,14 +4153,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: numlist/step-->
-   <xsl:template match="numlist/step" mode="initial-pass-mode" priority="3">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Numbering template for context=numlist/step-->
    <xsl:template match="numlist/step" mode="styler_numbering" priority="3">
       <xsl:text>(</xsl:text>
@@ -5272,16 +4185,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: numlist/step-->
-   <xsl:template match="numlist/step" mode="set-ch-chunk" priority="3">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
-      </xsl:copy>
    </xsl:template>
 
    <!-- *** Edited Source for the 'procedure//step' context follows ***-->
@@ -5415,13 +4318,7 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: procedure//step-->
-   <xsl:template match="procedure//step" mode="initial-pass-mode" priority="2">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"> </xsl:call-template>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Numbering template for context=procedure//step-->
    <xsl:template match="procedure//step" mode="styler_numbering" priority="2">
       <xsl:text>(</xsl:text>
@@ -5489,15 +4386,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: procedure//step-->
-   <xsl:template match="procedure//step" mode="set-ch-chunk" priority="2">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
    </xsl:template>
 
    <!-- *** Edited Source for the 'step[table/@tabstyle='frac']' context follows ***-->
@@ -5634,13 +4522,7 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step[table/@tabstyle='frac']-->
-   <xsl:template match="step[table/@tabstyle='frac']" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Numbering template for context=step[table/@tabstyle='frac']-->
    <xsl:template match="step[table/@tabstyle='frac']" mode="styler_numbering" priority="1">
       <xsl:text>(</xsl:text>
@@ -5709,15 +4591,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: step[table/@tabstyle='frac']-->
-   <xsl:template match="step[table/@tabstyle='frac']" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"/>
-      </xsl:copy>
    </xsl:template>
 
    <!--Style template for Context: step-->
@@ -5812,28 +4685,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: step-->
-   <xsl:template match="step" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: step-->
    <xsl:template match="step" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: step-->
-   <xsl:template match="step" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -5962,14 +4817,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: numlist/step2-->
-   <xsl:template match="numlist/step2" mode="initial-pass-mode" priority="2">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Numbering template for context=numlist/step2-->
    <xsl:template match="numlist/step2" mode="styler_numbering" priority="2">
       <xsl:text>(</xsl:text>
@@ -6002,16 +4849,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: numlist/step2-->
-   <xsl:template match="numlist/step2" mode="set-ch-chunk" priority="2">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
-      </xsl:copy>
    </xsl:template>
 
    <!-- *** Edited Source for the 'step2[table/@tabstyle='frac']' context follows ***-->
@@ -6146,13 +4983,7 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step2[table/@tabstyle='frac']-->
-   <xsl:template match="step2[table/@tabstyle='frac']" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Numbering template for context=step2[table/@tabstyle='frac']-->
    <xsl:template match="step2[table/@tabstyle='frac']" mode="styler_numbering" priority="1">
       <xsl:text>(</xsl:text>
@@ -6221,15 +5052,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: step2[table/@tabstyle='frac']-->
-   <xsl:template match="step2[table/@tabstyle='frac']" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"/>
-      </xsl:copy>
    </xsl:template>
 
    <!-- *** Edited Source for the 'step2' context follows ***-->
@@ -6364,13 +5186,7 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step2-->
-   <xsl:template match="step2" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"> </xsl:call-template>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Numbering template for context=step2-->
    <xsl:template match="step2" mode="styler_numbering" priority="0">
       <xsl:text>(</xsl:text>
@@ -6437,15 +5253,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: step2-->
-   <xsl:template match="step2" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
    </xsl:template>
 
    <!--Style template for Context: numlist/step3-->
@@ -6575,14 +5382,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: numlist/step3-->
-   <xsl:template match="numlist/step3" mode="initial-pass-mode" priority="2">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Numbering template for context=numlist/step3-->
    <xsl:template match="numlist/step3" mode="styler_numbering" priority="2">
       <xsl:number count="numlist/step3" format="1"/>
@@ -6613,16 +5412,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: numlist/step3-->
-   <xsl:template match="numlist/step3" mode="set-ch-chunk" priority="2">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
-      </xsl:copy>
    </xsl:template>
 
    <!-- *** Edited Source for the 'step3[table/@tabstyle='frac']' context follows ***-->
@@ -6759,13 +5548,7 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step3[table/@tabstyle='frac']-->
-   <xsl:template match="step3[table/@tabstyle='frac']" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Numbering template for context=step3[table/@tabstyle='frac']-->
    <xsl:template match="step3[table/@tabstyle='frac']" mode="styler_numbering" priority="1">
       <xsl:variable name="node-id" select="generate-id(.)"/>
@@ -6832,15 +5615,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: step3[table/@tabstyle='frac']-->
-   <xsl:template match="step3[table/@tabstyle='frac']" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"/>
-      </xsl:copy>
    </xsl:template>
 
    <!-- *** Edited Source for the 'step3' context follows ***-->
@@ -6977,13 +5751,7 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step3-->
-   <xsl:template match="step3" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"> </xsl:call-template>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Numbering template for context=step3-->
    <xsl:template match="step3" mode="styler_numbering" priority="0">
       <xsl:variable name="node-id" select="generate-id(.)"/>
@@ -7049,15 +5817,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: step3-->
-   <xsl:template match="step3" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
    </xsl:template>
 
    <!--Style template for Context: numlist/step4-->
@@ -7187,14 +5946,6 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: numlist/step4-->
-   <xsl:template match="numlist/step4" mode="initial-pass-mode" priority="2">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Numbering template for context=numlist/step4-->
    <xsl:template match="numlist/step4" mode="styler_numbering" priority="2">
       <xsl:number count="numlist/step4" format="a"/>
@@ -7225,16 +5976,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: numlist/step4-->
-   <xsl:template match="numlist/step4" mode="set-ch-chunk" priority="2">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
-      </xsl:copy>
    </xsl:template>
 
    <!-- *** Edited Source for the 'step4[table/@tabstyle='frac']' context follows ***-->
@@ -7371,13 +6112,7 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step4[table/@tabstyle='frac']-->
-   <xsl:template match="step4[table/@tabstyle='frac']" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Numbering template for context=step4[table/@tabstyle='frac']-->
    <xsl:template match="step4[table/@tabstyle='frac']" mode="styler_numbering" priority="1">
       <xsl:variable name="node-id" select="generate-id(.)"/>
@@ -7444,15 +6179,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: step4[table/@tabstyle='frac']-->
-   <xsl:template match="step4[table/@tabstyle='frac']" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"/>
-      </xsl:copy>
    </xsl:template>
 
    <!-- *** Edited Source for the 'step4' context follows ***-->
@@ -7589,13 +6315,7 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step4-->
-   <xsl:template match="step4" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"> </xsl:call-template>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Numbering template for context=step4-->
    <xsl:template match="step4" mode="styler_numbering" priority="0">
       <xsl:variable name="node-id" select="generate-id(.)"/>
@@ -7661,15 +6381,6 @@
             <xsl:value-of select="$gte_id"/>
          </xsl:attribute>
       </_gte:styler_numbering>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: step4-->
-   <xsl:template match="step4" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
    </xsl:template>
 
    <!--Style template for Context: numlist/step5-->
@@ -7780,28 +6491,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: numlist/step5-->
-   <xsl:template match="numlist/step5" mode="initial-pass-mode" priority="2">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: numlist/step5-->
    <xsl:template match="numlist/step5" mode="set-countas" priority="2">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: numlist/step5-->
-   <xsl:template match="numlist/step5" mode="set-ch-chunk" priority="2">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -7918,26 +6611,11 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step5[table/@tabstyle='frac']-->
-   <xsl:template match="step5[table/@tabstyle='frac']" mode="initial-pass-mode" priority="1">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Set count-as pass template for Context: step5[table/@tabstyle='frac']-->
    <xsl:template match="step5[table/@tabstyle='frac']" mode="set-countas" priority="1">
       <xsl:copy>
          <xsl:apply-templates mode="set-countas" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
-   <!--Set ch:chunk template for Context: step5[table/@tabstyle='frac']-->
-   <xsl:template match="step5[table/@tabstyle='frac']" mode="set-ch-chunk" priority="1">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"/>
       </xsl:copy>
    </xsl:template>
 
@@ -8038,29 +6716,14 @@
          <xsl:apply-templates mode="expand-gentext" select="@*|node()"/>
       </xsl:copy>
    </xsl:template>
-   <!--Initial pass template for Context: step5-->
-   <xsl:template match="step5" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"> </xsl:call-template>
-         <xsl:apply-templates mode="initial-pass-mode" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+
    <!--Set count-as pass template for Context: step5-->
    <xsl:template match="step5" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates mode="set-countas" select="@*|node()"> </xsl:apply-templates>
       </xsl:copy>
    </xsl:template>
-   <!--Set ch:chunk template for Context: step5-->
-   <xsl:template match="step5" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates mode="set-ch-chunk" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
-   </xsl:template>
-
+   
    <!--Template for Context: _ufe:supplier-list-title-->
    <xsl:template match="_ufe:supplier-list-title" priority="0">
       <div>
@@ -8138,28 +6801,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: atidlm:target-->
-   <xsl:template match="atidlm:target" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: atidlm:target-->
    <xsl:template match="atidlm:target" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: atidlm:target-->
-   <xsl:template match="atidlm:target" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -9501,28 +8146,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: tool-list-->
-   <xsl:template match="tool-list" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: tool-list-->
    <xsl:template match="tool-list" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: tool-list-->
-   <xsl:template match="tool-list" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -9570,28 +8197,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: torque-and-stretch-->
-   <xsl:template match="torque-and-stretch" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: torque-and-stretch-->
    <xsl:template match="torque-and-stretch" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: torque-and-stretch-->
-   <xsl:template match="torque-and-stretch" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -9613,28 +8222,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: trdata-->
-   <xsl:template match="trdata" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: trdata-->
    <xsl:template match="trdata" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: trdata-->
-   <xsl:template match="trdata" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -9656,28 +8247,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: trlist-->
-   <xsl:template match="trlist" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: trlist-->
    <xsl:template match="trlist" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: trlist-->
-   <xsl:template match="trlist" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -9699,28 +8272,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: trloc-->
-   <xsl:template match="trloc" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: trloc-->
    <xsl:template match="trloc" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: trloc-->
-   <xsl:template match="trloc" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -9742,28 +8297,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: trnbr-->
-   <xsl:template match="trnbr" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: trnbr-->
    <xsl:template match="trnbr" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: trnbr-->
-   <xsl:template match="trnbr" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
@@ -9785,28 +8322,10 @@
       </xsl:copy>
    </xsl:template>
 
-   <!--Initial pass template for Context: trstatus-->
-   <xsl:template match="trstatus" mode="initial-pass-mode" priority="0">
-      <xsl:copy>
-         <xsl:call-template name="maybe-set-gte-id"/>
-         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
-      </xsl:copy>
-   </xsl:template>
-
    <!--Set count-as pass template for Context: trstatus-->
    <xsl:template match="trstatus" mode="set-countas" priority="0">
       <xsl:copy>
          <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
-
-   <!--Set ch:chunk template for Context: trstatus-->
-   <xsl:template match="trstatus" mode="set-ch-chunk" priority="0">
-      <xsl:copy>
-         <xsl:if test="not(@_gte:did-set-chunk)">
-            <xsl:attribute name="_gte:did-set-chunk">yes</xsl:attribute>
-         </xsl:if>
-         <xsl:apply-templates select="@*|node()" mode="set-ch-chunk"/>
       </xsl:copy>
    </xsl:template>
 
