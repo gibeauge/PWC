@@ -144,7 +144,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>Build Specification No. </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -268,7 +267,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text> </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -276,7 +274,6 @@
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text> </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -777,7 +774,7 @@
       <xsl:variable name="foClass">
          <xsl:choose>
             <xsl:when test="not(@size) or (@size and string(@size)!='big')">hidden</xsl:when>
-            <xsl:when test="count(following-sibling::graphic[@size=&#34;big&#34;]) &gt; 0">graphic-block</xsl:when>
+            <xsl:when test="count(following-sibling::graphic[@size='big']) &gt; 0">graphic-block</xsl:when>
             <xsl:otherwise>graphic-block</xsl:otherwise>
          </xsl:choose>
       </xsl:variable>
@@ -785,7 +782,7 @@
       <xsl:variable name="hiddenness">
          <xsl:choose>
             <xsl:when test="not(@size) or (@size and string(@size)!='big')">yes</xsl:when>
-            <xsl:when test="count(following-sibling::graphic[@size=&#34;big&#34;]) &gt; 0">no</xsl:when>
+            <xsl:when test="count(following-sibling::graphic[@size='big']) &gt; 0">no</xsl:when>
             <xsl:otherwise>no</xsl:otherwise>
          </xsl:choose>
       </xsl:variable>
@@ -821,7 +818,7 @@
                   <!--Emit class values to reflect conditions-->
                   <xsl:attribute name="class">
                      <xsl:text> x-graphic-1-0</xsl:text>
-                     <xsl:if test="count(following-sibling::graphic[@size=&#34;big&#34;]) &gt; 0"> x-graphic-1-1</xsl:if>
+                     <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
                      <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
                   </xsl:attribute>
                   <xsl:if test="@xml:lang">
@@ -871,10 +868,10 @@
                <!--Emit class values to reflect conditions-->
                <xsl:attribute name="class">
                   <xsl:text> x-graphic-1-0</xsl:text>
-                  <xsl:if test="count(following-sibling::graphic[@size=&#34;big&#34;]) &gt; 0"> x-graphic-1-1</xsl:if>
+                  <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
                   <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
                </xsl:attribute>
-               <xsl:if test="count(following-sibling::graphic[@size=&#34;big&#34;]) &gt; 0">
+               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0">
                   <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
                </xsl:if>
                <xsl:if test="@xml:lang">
@@ -916,10 +913,10 @@
                <!--Emit class values to reflect conditions-->
                <xsl:attribute name="class">
                   <xsl:text> x-graphic-1-0</xsl:text>
-                  <xsl:if test="count(following-sibling::graphic[@size=&#34;big&#34;]) &gt; 0"> x-graphic-1-1</xsl:if>
+                  <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
                   <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
                </xsl:attribute>
-               <xsl:if test="count(following-sibling::graphic[@size=&#34;big&#34;]) &gt; 0">
+               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0">
                   <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
                </xsl:if>
                <xsl:if test="@xml:lang">
@@ -1069,13 +1066,11 @@
          <xsl:when test="not(@size) or (@size and string(@size)!='big')">
             <!--AddBefore Condition #2-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_gte:Must-Expand-Gentext/>
                <_sfe:BeforeOrAfterText/>
             </xsl:if>
          </xsl:when>
          <xsl:otherwise>
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_gte:Must-Expand-Gentext/>
                <_sfe:BeforeOrAfterText>
                   <_ufe:block-prespace>
                      <xsl:text>(SHEET X OF Y)</xsl:text>
@@ -1312,7 +1307,6 @@
                test="not(@prc=number('1')) and not(@prc=number('2')) and not(@prc=number('3')) and not(@prc=number('6')) and not(@prc=number('7')) and not(@prc and string(@prc)='N') and (@prc and string(@prc)='S')">
                <!--AddBefore Condition #7-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>INTRCHG WITH P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1322,7 +1316,6 @@
                test="not(@prc=number('1')) and not(@prc=number('2')) and not(@prc=number('3')) and not(@prc=number('6')) and not(@prc=number('7')) and (@prc and string(@prc)='N')">
                <!--AddBefore Condition #6-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>NONINTR WITH P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1332,7 +1325,6 @@
                test="not(@prc=number('1')) and not(@prc=number('2')) and not(@prc=number('3')) and not(@prc=number('6')) and (@prc=number('7'))">
                <!--AddBefore Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>RESTRICTED INTERCHANGEABILITY WITH P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1342,7 +1334,6 @@
                test="not(@prc=number('1')) and not(@prc=number('2')) and not(@prc=number('3')) and (@prc=number('6'))">
                <!--AddBefore Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>INTRCHG AS A SET WITH P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1351,7 +1342,6 @@
             <xsl:when test="not(@prc=number('1')) and not(@prc=number('2')) and (@prc=number('3'))">
                <!--AddBefore Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>NOT INTR WITH P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1360,7 +1350,6 @@
             <xsl:when test="not(@prc=number('1')) and (@prc=number('2'))">
                <!--AddBefore Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>TWO-WAY INTRCHG WITH P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1369,7 +1358,6 @@
             <xsl:when test="@prc=number('1')">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>ONE-WAY INTRCHG WITH P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1386,7 +1374,6 @@
                test="not(@prc=number('1')) and not(@prc=number('2')) and not(@prc=number('3')) and not(@prc=number('6')) and (@prc=number('7'))">
                <!--AddAfter Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>. REFER TO APPLICABLE SERVICE BULLETIN.</xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1452,7 +1439,6 @@
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:intro-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -1521,7 +1507,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_ufe:fig-title>
                   <xsl:text>Figure </xsl:text>
@@ -1651,7 +1636,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>KITS, REPAIR/SERVICE PARTS</xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -1762,7 +1746,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>LATEST PARTS LIST NO: </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -2008,7 +1991,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]])">
                <!--AddBefore Condition #12-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -2018,7 +2000,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]])">
                <!--AddBefore Condition #11-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -2028,7 +2009,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]])">
                <!--AddBefore Condition #10-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -2038,7 +2018,6 @@
                test="ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]">
                <!--AddBefore Condition #9-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -2048,7 +2027,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]]) and (not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''][not(parent::_sfe:BeforeOrAfterText)]))">
                <!--AddBefore Condition #8-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2056,7 +2034,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]])">
                <!--AddBefore Condition #7-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -2066,7 +2043,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]) and (not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''][not(parent::_sfe:BeforeOrAfterText)]))">
                <!--AddBefore Condition #6-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2074,7 +2050,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]])">
                <!--AddBefore Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -2084,7 +2059,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and (not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''][not(parent::_sfe:BeforeOrAfterText)]))">
                <!--AddBefore Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2092,7 +2066,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]])">
                <!--AddBefore Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -2102,14 +2075,12 @@
                test="(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and (not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''][not(parent::_sfe:BeforeOrAfterText)]))">
                <!--AddBefore Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
             <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -2122,7 +2093,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]])">
                <!--AddAfter Condition #12-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SEE TABLE FOR OPTIONAL PART NUMBERS</xsl:text>
@@ -2134,7 +2104,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]])">
                <!--AddAfter Condition #11-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SEE TABLE FOR OPTIONAL PART NUMBERS</xsl:text>
@@ -2146,7 +2115,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]])">
                <!--AddAfter Condition #10-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SEE TABLE FOR OPTIONAL PART NUMBERS</xsl:text>
@@ -2158,7 +2126,6 @@
                test="ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]] and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]">
                <!--AddAfter Condition #9-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SEE TABLE FOR OPTIONAL PART NUMBERS</xsl:text>
@@ -2170,7 +2137,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]]) and (not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''][not(parent::_sfe:BeforeOrAfterText)]))">
                <!--AddAfter Condition #8-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2180,7 +2146,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]) and (not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''][not(parent::_sfe:BeforeOrAfterText)]))">
                <!--AddAfter Condition #6-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2190,7 +2155,6 @@
                test="not(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and (ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]) and (not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''][not(parent::_sfe:BeforeOrAfterText)]))">
                <!--AddAfter Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2200,14 +2164,12 @@
                test="(ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]) and (not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''][not(parent::_sfe:BeforeOrAfterText)]))">
                <!--AddAfter Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
             <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]">
                <!--AddAfter Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2322,7 +2284,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
                <!--AddBefore Condition #8-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2330,7 +2291,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
                <!--AddBefore Condition #7-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2338,7 +2298,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
                <!--AddBefore Condition #6-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2346,7 +2305,6 @@
                test="(@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
                <!--AddBefore Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -2357,7 +2315,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and not(@select-at and string(@select-at)='BALANCING') and not(@select-at and string(@select-at)='DETAIL-BAL') and (@select-at and string(@select-at)='TRIM-BAL')">
                <!--AddAfter Condition #13-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SELECT AT TRIM-BAL</xsl:text>
@@ -2369,7 +2326,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and not(@select-at and string(@select-at)='BALANCING') and (@select-at and string(@select-at)='DETAIL-BAL')">
                <!--AddAfter Condition #12-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SELECT AT DETAIL-BAL</xsl:text>
@@ -2381,7 +2337,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and (@select-at and string(@select-at)='BALANCING')">
                <!--AddAfter Condition #11-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SELECT AT BALANCING</xsl:text>
@@ -2393,7 +2348,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and (@select-at and string(@select-at)='ASSEMBLY')">
                <!--AddAfter Condition #10-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SELECT AT ASSEMBLY</xsl:text>
@@ -2405,7 +2359,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
                <!--AddAfter Condition #9-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>(IC) CONSISTS OF:</xsl:text>
@@ -2417,7 +2370,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
                <!--AddAfter Condition #8-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SELECT AT TRIM-BAL</xsl:text>
@@ -2432,7 +2384,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
                <!--AddAfter Condition #7-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SELECT AT DETAIL-BAL</xsl:text>
@@ -2447,7 +2398,6 @@
                test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
                <!--AddAfter Condition #6-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SELECT AT BALANCING</xsl:text>
@@ -2462,7 +2412,6 @@
                test="(@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
                <!--AddAfter Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace>
                         <xsl:text>SELECT AT ASSEMBLY</xsl:text>
@@ -2549,7 +2498,6 @@
             <xsl:when test="(following-sibling::note) or (preceding-sibling::note)">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2577,7 +2525,6 @@
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2718,7 +2665,6 @@
             <xsl:when test="(following-sibling::note) or (preceding-sibling::note)">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2746,7 +2692,6 @@
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -3127,7 +3072,6 @@
             <xsl:when test="(following-sibling::note) or (preceding-sibling::note)">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -3155,7 +3099,6 @@
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -3296,7 +3239,6 @@
             <xsl:when test="(following-sibling::note) or (preceding-sibling::note)">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -3324,7 +3266,6 @@
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -3448,7 +3389,6 @@
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:num-index-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -3757,7 +3697,6 @@
             <xsl:when test="(@ref) and (not(@ref) or (@ref and string(@ref)!=''))">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_sfe:InternalLink>
                         <xsl:if test="string(./@ref)">
@@ -3971,7 +3910,6 @@
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:pdlist-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class">x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -4202,7 +4140,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat='rew'])) and not((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat='field'])) and not((@cat and string(@cat)='use-with') and (preceding-sibling::pntype[1][@cat='use-with'])) and not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat!='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat!='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat!='rew'])) and not((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat!='field'])) and ((@cat and string(@cat)='use-with') and (preceding-sibling::pntype[1][@cat!='use-with']))">
                <!--AddBefore Condition #10-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>use with P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4212,7 +4149,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat='rew'])) and not((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat='field'])) and not((@cat and string(@cat)='use-with') and (preceding-sibling::pntype[1][@cat='use-with'])) and not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat!='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat!='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat!='rew'])) and ((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat!='field']))">
                <!--AddBefore Condition #9-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>Field reidentification P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4222,7 +4158,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat='rew'])) and not((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat='field'])) and not((@cat and string(@cat)='use-with') and (preceding-sibling::pntype[1][@cat='use-with'])) and not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat!='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat!='NewMay'])) and ((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat!='rew']))">
                <!--AddBefore Condition #8-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>Reworked from P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4232,7 +4167,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat='rew'])) and not((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat='field'])) and not((@cat and string(@cat)='use-with') and (preceding-sibling::pntype[1][@cat='use-with'])) and not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat!='comp-of'])) and ((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat!='NewMay']))">
                <!--AddBefore Condition #7-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>May be obtained by rework of P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4242,7 +4176,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat='rew'])) and not((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat='field'])) and not((@cat and string(@cat)='use-with') and (preceding-sibling::pntype[1][@cat='use-with'])) and ((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat!='comp-of']))">
                <!--AddBefore Condition #6-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>component of P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4252,7 +4185,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat='rew'])) and not((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat='field'])) and ((@cat and string(@cat)='use-with') and (preceding-sibling::pntype[1][@cat='use-with']))">
                <!--AddBefore Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text> AND </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4262,7 +4194,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay'])) and not((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat='rew'])) and ((@cat and string(@cat)='field') and (preceding-sibling::pntype[1][@cat='field']))">
                <!--AddBefore Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text> AND </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4272,7 +4203,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and not((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay'])) and ((@cat and string(@cat)='rew') and (preceding-sibling::pntype[1][@cat='rew']))">
                <!--AddBefore Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text> OR </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4282,7 +4212,6 @@
                test="not((@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])) and ((@cat and string(@cat)='NewMay') and (preceding-sibling::pntype[1][@cat='NewMay']))">
                <!--AddBefore Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text> OR </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4292,7 +4221,6 @@
                test="(@cat and string(@cat)='comp-of') and (preceding-sibling::pntype[1][@cat='comp-of'])">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text> AND </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4383,7 +4311,6 @@
                test="not(@cat and string(@cat)='comp-of') and not(@cat and string(@cat)='NewMay') and not(@cat and string(@cat)='rew') and not(@cat and string(@cat)='field') and (@cat and string(@cat)='use-with')">
                <!--AddBefore Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>use with P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4393,7 +4320,6 @@
                test="not(@cat and string(@cat)='comp-of') and not(@cat and string(@cat)='NewMay') and not(@cat and string(@cat)='rew') and (@cat and string(@cat)='field')">
                <!--AddBefore Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>Field reidentification P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4403,7 +4329,6 @@
                test="not(@cat and string(@cat)='comp-of') and not(@cat and string(@cat)='NewMay') and (@cat and string(@cat)='rew')">
                <!--AddBefore Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>Reworked from P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4413,7 +4338,6 @@
                test="not(@cat and string(@cat)='comp-of') and (@cat and string(@cat)='NewMay')">
                <!--AddBefore Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>May be obtained by rework of P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4422,7 +4346,6 @@
             <xsl:when test="@cat and string(@cat)='comp-of'">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>component of P/N </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -4487,7 +4410,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>P&amp;WC P/N: </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -4520,7 +4442,7 @@
          <!--Emit class values to reflect conditions-->
          <xsl:attribute name="class">
             <xsl:text> x-range-1-0</xsl:text>
-            <xsl:if test="substring-before(.,&#34;,&#34;) != '0'"> x-range-1-1</xsl:if>
+            <xsl:if test="substring-before(.,',') != '0'"> x-range-1-1</xsl:if>
          </xsl:attribute>
          <xsl:if test="@xml:lang">
             <xsl:attribute name="lang">
@@ -4574,28 +4496,26 @@
             </xsl:attribute>
          </xsl:if>
          <xsl:choose>
-            <xsl:when test="substring-before(.,&#34;,&#34;) != '0'">
+            <xsl:when test="substring-before(.,',') != '0'">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>USE </xsl:text>
-                     <xsl:value-of select="string(substring-before(.,&#34;,&#34;))"/>
+                     <xsl:value-of select="string(substring-before(.,','))"/>
                      <xsl:text> MIN
 TO </xsl:text>
-                     <xsl:value-of select="string(substring-after(.,&#34;,&#34;))"/>
+                     <xsl:value-of select="string(substring-after(.,','))"/>
                      <xsl:text> MAX.</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>USE </xsl:text>
-                     <xsl:value-of select="string(substring-before(.,&#34;,&#34;))"/>
+                     <xsl:value-of select="string(substring-before(.,','))"/>
                      <xsl:text> TO </xsl:text>
-                     <xsl:value-of select="string(substring-after(.,&#34;,&#34;))"/>
+                     <xsl:value-of select="string(substring-after(.,','))"/>
                      <xsl:text> MAX.</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
@@ -4632,13 +4552,11 @@ TO </xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText/>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -4652,7 +4570,6 @@ TO </xsl:text>
                   <_gte:Link linkRef="{@refid}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -4682,7 +4599,6 @@ TO </xsl:text>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -4696,7 +4612,6 @@ TO </xsl:text>
                   <_gte:Link linkRef="{@refid}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -4854,7 +4769,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-1-1
                test="not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3') and (ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='4')">
                <!--AddBefore Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
@@ -4877,7 +4791,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-1-1
                test="not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2') and (ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3')">
                <!--AddBefore Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
@@ -4899,7 +4812,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-1-1
                test="not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1') and (ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2')">
                <!--AddBefore Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
@@ -4920,7 +4832,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-1-1
                test="not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0') and (ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1')">
                <!--AddBefore Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
@@ -4940,7 +4851,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-1-1
                test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0'">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:value-of select="@cond"/>
@@ -4955,7 +4865,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-1-1
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:value-of select="@cond"/>
@@ -5070,7 +4979,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-2-1
                test="not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3') and (ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='4')">
                <!--AddBefore Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
@@ -5089,7 +4997,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-2-1
                test="not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2') and (ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3')">
                <!--AddBefore Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
@@ -5107,7 +5014,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-2-1
                test="not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0') and not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1') and (ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2')">
                <!--AddBefore Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
@@ -5124,7 +5030,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-2-1
                test="not(ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0') and (ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1')">
                <!--AddBefore Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
@@ -5140,7 +5045,6 @@ text-decoration: underline ; text-decoration: underline ; } .x-sb-stat-2-1
                test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0'">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:block-nospace/>
                      <xsl:value-of select="@cond"/>
@@ -5224,7 +5128,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_ufe:block-nospace/>
                <xsl:value-of select="@cond"/>
@@ -5307,7 +5210,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_ufe:block-nospace/>
                <xsl:value-of select="@cond"/>
@@ -5370,7 +5272,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:sblist-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class">x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -5596,7 +5497,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="not((@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))) and not(@ntype and string(@ntype)='FIGNOTE') and not(@ntype and string(@ntype)='FIGNHA') and not(@ntype and string(@ntype)='CHAPFIG') and not(@ntype and string(@ntype)='CHAPFIGBDN') and not(@ntype and string(@ntype)='CHAPFIGNHA') and (@ntype and string(@ntype)='FIGBDN')">
                <!--AddBefore Condition #7-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_sfe:InternalLink>
                         <xsl:if test="string(./@ref)">
@@ -5621,7 +5521,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="not((@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))) and not(@ntype and string(@ntype)='FIGNOTE') and not(@ntype and string(@ntype)='FIGNHA') and not(@ntype and string(@ntype)='CHAPFIG') and not(@ntype and string(@ntype)='CHAPFIGBDN') and (@ntype and string(@ntype)='CHAPFIGNHA')">
                <!--AddBefore Condition #6-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_sfe:InternalLink>
                         <xsl:if test="string(./@ref)">
@@ -5630,9 +5529,9 @@ underline ; text-decoration: underline ; }</xsl:text>
                            </xsl:attribute>
                         </xsl:if>
                         <xsl:text>SEE </xsl:text>
-                        <xsl:value-of select="string(substring-before(.,&#34; &#34;))"/>
+                        <xsl:value-of select="string(substring-before(.,' '))"/>
                         <xsl:text> FIG.</xsl:text>
-                        <xsl:value-of select="string(substring-after(.,&#34; &#34;))"/>
+                        <xsl:value-of select="string(substring-after(.,' '))"/>
                         <xsl:text> FOR NHA</xsl:text>
                      </_sfe:InternalLink>
                   </_sfe:BeforeOrAfterText>
@@ -5642,7 +5541,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="not((@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))) and not(@ntype and string(@ntype)='FIGNOTE') and not(@ntype and string(@ntype)='FIGNHA') and not(@ntype and string(@ntype)='CHAPFIG') and (@ntype and string(@ntype)='CHAPFIGBDN')">
                <!--AddBefore Condition #5-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_sfe:InternalLink>
                         <xsl:if test="string(./@ref)">
@@ -5651,9 +5549,9 @@ underline ; text-decoration: underline ; }</xsl:text>
                            </xsl:attribute>
                         </xsl:if>
                         <xsl:text>SEE </xsl:text>
-                        <xsl:value-of select="string(substring-before(.,&#34; &#34;))"/>
+                        <xsl:value-of select="string(substring-before(.,' '))"/>
                         <xsl:text> FIG.</xsl:text>
-                        <xsl:value-of select="string(substring-after(.,&#34; &#34;))"/>
+                        <xsl:value-of select="string(substring-after(.,' '))"/>
                         <xsl:text> FOR BREAKDOWN</xsl:text>
                      </_sfe:InternalLink>
                   </_sfe:BeforeOrAfterText>
@@ -5663,7 +5561,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="not((@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))) and not(@ntype and string(@ntype)='FIGNOTE') and not(@ntype and string(@ntype)='FIGNHA') and (@ntype and string(@ntype)='CHAPFIG')">
                <!--AddBefore Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_sfe:InternalLink>
                         <xsl:if test="string(./@ref)">
@@ -5672,9 +5569,9 @@ underline ; text-decoration: underline ; }</xsl:text>
                            </xsl:attribute>
                         </xsl:if>
                         <xsl:text>SEE </xsl:text>
-                        <xsl:value-of select="string(substring-before(.,&#34; &#34;))"/>
+                        <xsl:value-of select="string(substring-before(.,' '))"/>
                         <xsl:text> FIG.</xsl:text>
-                        <xsl:value-of select="string(substring-after(.,&#34; &#34;))"/>
+                        <xsl:value-of select="string(substring-after(.,' '))"/>
                      </_sfe:InternalLink>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
@@ -5683,7 +5580,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="not((@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))) and not(@ntype and string(@ntype)='FIGNOTE') and (@ntype and string(@ntype)='FIGNHA')">
                <!--AddBefore Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_sfe:InternalLink>
                         <xsl:if test="string(./@ref)">
@@ -5708,7 +5604,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="not((@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))) and (@ntype and string(@ntype)='FIGNOTE')">
                <!--AddBefore Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_sfe:InternalLink>
                         <xsl:if test="string(./@ref)">
@@ -5725,7 +5620,6 @@ underline ; text-decoration: underline ; }</xsl:text>
             <xsl:when test="(@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_sfe:InternalLink>
                         <xsl:if test="string(./@ref)">
@@ -5752,7 +5646,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="not((@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))) and not(@ntype and string(@ntype)='FIGNOTE') and not(@ntype and string(@ntype)='FIGNHA') and not(@ntype and string(@ntype)='CHAPFIG') and not(@ntype and string(@ntype)='CHAPFIGBDN') and not(@ntype and string(@ntype)='CHAPFIGNHA') and (@ntype and string(@ntype)='FIGBDN')">
                <!--AddAfter Condition #7-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -5766,7 +5659,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="not((@ntype and string(@ntype)='FIGNOTE') and (not(@fignote-nbr))) and not(@ntype and string(@ntype)='FIGNOTE') and (@ntype and string(@ntype)='FIGNHA')">
                <!--AddAfter Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
@@ -6003,7 +5895,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:spblist-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -6126,7 +6017,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -6291,7 +6181,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -6492,7 +6381,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -6790,7 +6678,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -6955,7 +6842,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -7158,7 +7044,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -7353,7 +7238,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -7518,7 +7402,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -7721,7 +7604,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -7917,7 +7799,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -8082,7 +7963,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -8285,7 +8165,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -8481,7 +8360,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText/>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -8602,7 +8480,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText/>
          </xsl:if>
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
@@ -8768,7 +8645,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>ATTACHING PARTS</xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -8776,7 +8652,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:processing-instruction name="Pub">_newline</xsl:processing-instruction>
                <xsl:text>------ * ------</xsl:text>
@@ -8839,7 +8714,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>SUPPLIER CODE: </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -8902,7 +8776,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>SUPPLIER P/N </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -9082,7 +8955,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:temp-rev-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class">x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -9143,7 +9015,6 @@ underline ; text-decoration: underline ; }</xsl:text>
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" priority="68"
       mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -9318,7 +9189,6 @@ underline ; text-decoration: underline ; }</xsl:text>
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="page-block[@pb-name='record-of-revisions']//n-para/title" priority="55"
       mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -9459,7 +9329,6 @@ underline ; text-decoration: underline ; }</xsl:text>
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="book[contains(@doctype, 'ipc')]//figure/title" priority="52"
       mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -9643,13 +9512,11 @@ underline ; text-decoration: underline ; }</xsl:text>
                test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:task-title>
                         <span style="text-decoration: underline; ">
@@ -10145,7 +10012,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="spb-list/title" priority="14" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -10221,7 +10087,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="service-bull-list/title" priority="10" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -10297,7 +10162,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="module/title" priority="9" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -10373,7 +10237,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="num-index/title" priority="7" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -10485,7 +10348,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -10499,7 +10361,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@ref}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -10530,7 +10391,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -10544,7 +10404,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@ref}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -10574,7 +10433,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -10588,7 +10446,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@ref}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -10619,7 +10476,6 @@ underline ; text-decoration: underline ; }</xsl:text>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -10633,7 +10489,6 @@ underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@ref}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -10650,13 +10505,11 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Label_Number-->
    <xsl:template match="*" mode="styler_xref-Label_Number">
-      <_gte:Must-Expand-Gentext/>
       <xsl:apply-templates mode="styler-LabelAndNumberMarker" select="."/>
    </xsl:template>
 
    <!--Global ReferenceFormat template for referenceFormatName=Label_Number_Text-->
    <xsl:template match="*" mode="styler_xref-Label_Number_Text">
-      <_gte:Must-Expand-Gentext/>
       <xsl:apply-templates mode="styler-LabelAndNumberMarker" select="."/>
       <xsl:text> </xsl:text>
       <_sfe:CrossReferenceTitle>
@@ -10672,7 +10525,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Label_Number_Text_Page-->
    <xsl:template match="*" mode="styler_xref-Label_Number_Text_Page">
-      <_gte:Must-Expand-Gentext/>
       <xsl:apply-templates mode="styler-LabelAndNumberMarker" select="."/>
       <xsl:text> </xsl:text>
       <_sfe:CrossReferenceTitle>
@@ -10689,7 +10541,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Number-->
    <xsl:template match="*" mode="styler_xref-Number">
-      <_gte:Must-Expand-Gentext/>
       <_gte:styler_numbering do-qmark="no">
          <xsl:variable name="gte_id">
             <xsl:choose>
@@ -10710,7 +10561,6 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Number_Text-->
    <xsl:template match="*" mode="styler_xref-Number_Text">
-      <_gte:Must-Expand-Gentext/>
       <_gte:styler_numbering do-qmark="no">
          <xsl:variable name="gte_id">
             <xsl:choose>
@@ -10741,12 +10591,10 @@ underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Page-->
    <xsl:template match="*" mode="styler_xref-Page">
-      <_gte:Must-Expand-Gentext/>
    </xsl:template>
 
    <!--Global ReferenceFormat template for referenceFormatName=Text-->
    <xsl:template match="*" mode="styler_xref-Text">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:CrossReferenceTitle>
          <xsl:if test="node()[not(self::_sfe:BeforeOrAfterText)]">
             <_gte:Gentexted-Content-Wrapper>

@@ -87,13 +87,11 @@
             <xsl:when test="not(./text()[normalize-space(.)!=''])">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>, </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -206,7 +204,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>Build Specification No. </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -405,7 +402,6 @@
                test="not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/adt|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//adt)">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text> </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -503,7 +499,6 @@
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:eipc-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -696,7 +691,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_ufe:glossary-title/>
             </_sfe:BeforeOrAfterText>
@@ -760,7 +754,6 @@
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:glossary-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -927,7 +920,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:if test="(ancestor-or-self::figure[1]//title)[1]">
                   <_gte:Gentexted-Content-Wrapper>
@@ -1177,7 +1169,6 @@
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:intro-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -1270,7 +1261,6 @@
                test="not(@indent=number('1')) and not(@indent=number('2')) and not(@indent=number('3')) and (@indent=number('4'))">
                <!--AddBefore Condition #4-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1280,7 +1270,6 @@
                test="not(@indent=number('1')) and not(@indent=number('2')) and (@indent=number('3'))">
                <!--AddBefore Condition #3-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1289,7 +1278,6 @@
             <xsl:when test="not(@indent=number('1')) and (@indent=number('2'))">
                <!--AddBefore Condition #2-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1298,7 +1286,6 @@
             <xsl:when test="@indent=number('1')">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:text>▪ </xsl:text>
                   </_sfe:BeforeOrAfterText>
@@ -1555,7 +1542,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>SUPPLIER CODE: </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -1810,7 +1796,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
@@ -1876,7 +1861,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
@@ -1942,7 +1926,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
@@ -2026,7 +2009,6 @@
             <xsl:when test="@nbr">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2039,7 +2021,6 @@
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2125,7 +2106,6 @@
             <xsl:when test="@nbr">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2138,7 +2118,6 @@
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2464,7 +2443,6 @@
             <xsl:when test="@nbr">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2477,7 +2455,6 @@
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2563,7 +2540,6 @@
             <xsl:when test="@nbr">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2576,7 +2552,6 @@
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
@@ -2716,7 +2691,6 @@
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:num-index-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -2787,7 +2761,6 @@
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:nut-option-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -3050,7 +3023,6 @@
          <xsl:attribute name="_gte:unhidden-title">yes</xsl:attribute>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_ufe:engine-type>
                   <xsl:if test="string(./@enginetype)">
@@ -3065,7 +3037,6 @@
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="color: #666666; ">
                   <_ufe:title-block>
@@ -3204,7 +3175,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>(</xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -3212,7 +3182,6 @@
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>)</xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -3275,7 +3244,6 @@
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:processing-instruction name="Pub">_newline</xsl:processing-instruction>
             </_sfe:BeforeOrAfterText>
@@ -3484,7 +3452,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_ufe:chapsect-title/>
             </_sfe:BeforeOrAfterText>
@@ -3620,7 +3587,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:value-of select="@spbtype"/>
                <xsl:text>-</xsl:text>
@@ -3652,13 +3618,11 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText/>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -3672,7 +3636,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@refid}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -3702,7 +3665,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -3716,7 +3678,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@refid}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -3992,7 +3953,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:value-of select="@sbtype"/>
                <xsl:text>-</xsl:text>
@@ -4064,7 +4024,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:value-of select="@sbtype"/>
                <xsl:text>-</xsl:text>
@@ -4193,7 +4152,7 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
       <xsl:variable name="foClass">
          <xsl:choose>
             <xsl:when test="not(@size) or (@size and string(@size)!='big')">hidden</xsl:when>
-            <xsl:when test="count(following-sibling::sheet[@size=&#34;big&#34;]) &gt; 0">graphic-block</xsl:when>
+            <xsl:when test="count(following-sibling::sheet[@size='big']) &gt; 0">graphic-block</xsl:when>
             <xsl:otherwise>graphic-block</xsl:otherwise>
          </xsl:choose>
       </xsl:variable>
@@ -4201,7 +4160,7 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
       <xsl:variable name="hiddenness">
          <xsl:choose>
             <xsl:when test="not(@size) or (@size and string(@size)!='big')">yes</xsl:when>
-            <xsl:when test="count(following-sibling::sheet[@size=&#34;big&#34;]) &gt; 0">no</xsl:when>
+            <xsl:when test="count(following-sibling::sheet[@size='big']) &gt; 0">no</xsl:when>
             <xsl:otherwise>no</xsl:otherwise>
          </xsl:choose>
       </xsl:variable>
@@ -4236,7 +4195,7 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                <!--Emit class values to reflect conditions-->
                <xsl:attribute name="class">
                   <xsl:text> x-sheet-1-0</xsl:text>
-                  <xsl:if test="count(following-sibling::sheet[@size=&#34;big&#34;]) &gt; 0">
+                  <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0">
                      x-sheet-1-1</xsl:if>
                   <xsl:if test="not(@size) or (@size and string(@size)!='big')">
                      x-sheet-1-2</xsl:if>
@@ -4287,12 +4246,12 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                <!--Emit class values to reflect conditions-->
                <xsl:attribute name="class">
                   <xsl:text> x-sheet-1-0</xsl:text>
-                  <xsl:if test="count(following-sibling::sheet[@size=&#34;big&#34;]) &gt; 0">
+                  <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0">
                      x-sheet-1-1</xsl:if>
                   <xsl:if test="not(@size) or (@size and string(@size)!='big')">
                      x-sheet-1-2</xsl:if>
                </xsl:attribute>
-               <xsl:if test="count(following-sibling::sheet[@size=&#34;med&#34;]) &gt; 0">
+               <xsl:if test="count(following-sibling::sheet[@size='med']) &gt; 0">
                   <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid
                      #000000;</xsl:attribute>
                </xsl:if>
@@ -4335,12 +4294,12 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                <!--Emit class values to reflect conditions-->
                <xsl:attribute name="class">
                   <xsl:text> x-sheet-1-0</xsl:text>
-                  <xsl:if test="count(following-sibling::sheet[@size=&#34;big&#34;]) &gt; 0">
+                  <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0">
                      x-sheet-1-1</xsl:if>
                   <xsl:if test="not(@size) or (@size and string(@size)!='big')">
                      x-sheet-1-2</xsl:if>
                </xsl:attribute>
-               <xsl:if test="count(following-sibling::sheet[@size=&#34;big&#34;]) &gt; 0">
+               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0">
                   <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid
                      #000000;</xsl:attribute>
                </xsl:if>
@@ -4484,13 +4443,11 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          <xsl:when test="not(@size) or (@size and string(@size)!='big')">
             <!--AddBefore Condition #2-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_gte:Must-Expand-Gentext/>
                <_sfe:BeforeOrAfterText/>
             </xsl:if>
          </xsl:when>
          <xsl:otherwise>
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_gte:Must-Expand-Gentext/>
                <_sfe:BeforeOrAfterText>
                   <_ufe:block-prespace>
                      <xsl:text>(SHEET </xsl:text>
@@ -4709,7 +4666,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -4874,7 +4830,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -5075,7 +5030,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -5373,7 +5327,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -5538,7 +5491,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -5741,7 +5693,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_gte:styler_numbering>
                   <xsl:variable name="gte_id">
@@ -5936,7 +5887,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -6101,7 +6051,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -6304,7 +6253,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -6500,7 +6448,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -6665,7 +6612,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -6868,7 +6814,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="text-decoration: underline; ">
                   <_gte:styler_numbering>
@@ -7064,7 +7009,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText/>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -7185,7 +7129,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText/>
          </xsl:if>
          <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
@@ -7354,7 +7297,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="_ufe:supplier-list-title" priority="0" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -7750,7 +7692,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="page-block[@pb-name='record-of-revisions']//n-para/title" priority="55"
       mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -7811,7 +7752,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="book[contains(@doctype, 'epc')]//figure/title" priority="54"
       mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry5_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-5</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -7873,7 +7813,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="book[contains(@doctype, 'epc')]//graphic/title" priority="53"
       mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -8097,13 +8036,11 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText/>
                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <_ufe:task-title>
                         <span style="text-decoration: underline; ">
@@ -8234,7 +8171,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="intro/title" priority="36" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry3_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-3</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -8357,7 +8293,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="sblist/title" priority="32" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -8480,7 +8415,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="vendlist/title" priority="30" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -8595,7 +8529,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="lof-item/title" priority="21" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry1_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-1</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -8671,7 +8604,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="lof/title" priority="18" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry5_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-5</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -8842,7 +8774,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--TocEntry template for tocNameReference=Table_of_Contents-->
    <xsl:template match="module/title" priority="9" mode="toc-mode-Table_of_Contents">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:TocEntry5_Table_of_Contents>
          <xsl:attribute name="tocentry-indent-class"> x-Table-of-Contents-toc-entry-indent-5</xsl:attribute>
          <xsl:call-template name="maybe-set-id">
@@ -9032,7 +8963,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])">
                <!--AddBefore Condition #1-->
                <xsl:if test="not(@_gte:Gentext-Expanded)">
-                  <_gte:Must-Expand-Gentext/>
                   <_sfe:BeforeOrAfterText>
                      <xsl:if
                         test="(ancestor-or-self::entry[1]//np)[1]/*|(ancestor-or-self::entry[1]//np)[1]/text()|(ancestor-or-self::entry[1]//np)[1]/processing-instruction()">
@@ -9218,7 +9148,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -9232,7 +9161,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@ref}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -9263,7 +9191,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -9277,7 +9204,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@ref}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -9307,7 +9233,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -9321,7 +9246,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@ref}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -9352,7 +9276,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
          <!--Unconditional AddAfter-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <_sfe:CrossReference>
                   <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book
@@ -9366,7 +9289,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
                   <_gte:Link linkRef="{@ref}">
                      <xsl:choose>
                         <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-                           <_gte:Must-Expand-Gentext/>
                            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/>
                         </xsl:when>
                         <xsl:otherwise>
@@ -9383,13 +9305,11 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Label_Number-->
    <xsl:template match="*" mode="styler_xref-Label_Number">
-      <_gte:Must-Expand-Gentext/>
       <xsl:apply-templates mode="styler-LabelAndNumberMarker" select="."/>
    </xsl:template>
 
    <!--Global ReferenceFormat template for referenceFormatName=Label_Number_Text-->
    <xsl:template match="*" mode="styler_xref-Label_Number_Text">
-      <_gte:Must-Expand-Gentext/>
       <xsl:apply-templates mode="styler-LabelAndNumberMarker" select="."/>
       <xsl:text> </xsl:text>
       <_sfe:CrossReferenceTitle>
@@ -9405,7 +9325,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Label_Number_Text_Page-->
    <xsl:template match="*" mode="styler_xref-Label_Number_Text_Page">
-      <_gte:Must-Expand-Gentext/>
       <xsl:apply-templates mode="styler-LabelAndNumberMarker" select="."/>
       <xsl:text> </xsl:text>
       <_sfe:CrossReferenceTitle>
@@ -9422,7 +9341,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Number-->
    <xsl:template match="*" mode="styler_xref-Number">
-      <_gte:Must-Expand-Gentext/>
       <_gte:styler_numbering do-qmark="no">
          <xsl:variable name="gte_id">
             <xsl:choose>
@@ -9443,7 +9361,6 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Number_Text-->
    <xsl:template match="*" mode="styler_xref-Number_Text">
-      <_gte:Must-Expand-Gentext/>
       <_gte:styler_numbering do-qmark="no">
          <xsl:variable name="gte_id">
             <xsl:choose>
@@ -9474,12 +9391,10 @@ text-decoration: underline ; text-decoration: underline ; }</xsl:text>
 
    <!--Global ReferenceFormat template for referenceFormatName=Page-->
    <xsl:template match="*" mode="styler_xref-Page">
-      <_gte:Must-Expand-Gentext/>
    </xsl:template>
 
    <!--Global ReferenceFormat template for referenceFormatName=Text-->
    <xsl:template match="*" mode="styler_xref-Text">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:CrossReferenceTitle>
          <xsl:if test="node()[not(self::_sfe:BeforeOrAfterText)]">
             <_gte:Gentexted-Content-Wrapper>

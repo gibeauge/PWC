@@ -395,7 +395,6 @@
    </xsl:template>
 	
    <xsl:template match="*" mode="ElementContent_All">
-      <_gte:Must-Expand-Gentext/>
       <_sfe:CollectionItem>
          <xsl:apply-templates mode="expand-gentext">
             <xsl:with-param name="skip-expanded-gentext" select="'yes'"/>
@@ -474,7 +473,6 @@
    </xsl:template>
 
    <xsl:template match="_gte:TableOfContents" mode="expand-gentext">
-      <_gte:Must-Expand-Gentext/>
       <_gte:deferredTableOfContents tocNameRef="@tocNameRef"/>
    </xsl:template>
 
@@ -486,9 +484,6 @@
          <xsl:when test="false()"/>
       </xsl:choose>
    </xsl:template>
-
-   <xsl:template match="_gte:Must-Expand-Gentext" mode="expand-gentext"/>
-   <xsl:template match="_gte:Must-Expand-Gentext"/>
 
    <xsl:template match="_gte:FootnoteBody" mode="expand-gentext" priority="-2">
       <xsl:copy>
@@ -585,7 +580,6 @@
    </xsl:template>
 
    <xsl:template match="_gte:deferredCrossReference" mode="expand-gentext">
-      <_gte:Must-Expand-Gentext/>
       <_gte:deferredCrossReference2>
          <xsl:copy-of select="@*"/>
       </_gte:deferredCrossReference2>
@@ -723,7 +717,7 @@
       </xsl:if>
    </xsl:template>
    <xsl:param name="bg_colorizer"
-      select="'&#34;bgreen=#C0FFC0; gray3=#D0D0D0; green=#C0FFC0; lime=#E0FFE0; bviolet=#FFC0FF; gray4=#C0C0C0; maroon=#C08080; navy=#A0A0C0; bred=#FFC0CB; borange=#FFC097; gray5=#B0B0B0; olive=#D0D000; red=#FFC0CB; byellow=#FFFFC0; bwhite=#FFFFFF; bbrown=#DEB887; bblack=#808080; black=#808080; brown=#DEB887; teal=#00E0E0; violet=#FFC0FF; white=#FFFFFF; bblue=#C0C0FF; blue=#C0C0FF; orange=#FFC097; transparent=transparent; aqua=#D0FFFF; gray1=#F0F0F0; bgray=#D0D0D0; gray2=#E0E0E0; gray=#D0D0D0; yellow=#FFFFC0;&#34;'"/>
+      select="''bgreen=#C0FFC0; gray3=#D0D0D0; green=#C0FFC0; lime=#E0FFE0; bviolet=#FFC0FF; gray4=#C0C0C0; maroon=#C08080; navy=#A0A0C0; bred=#FFC0CB; borange=#FFC097; gray5=#B0B0B0; olive=#D0D000; red=#FFC0CB; byellow=#FFFFC0; bwhite=#FFFFFF; bbrown=#DEB887; bblack=#808080; black=#808080; brown=#DEB887; teal=#00E0E0; violet=#FFC0FF; white=#FFFFFF; bblue=#C0C0FF; blue=#C0C0FF; orange=#FFC097; transparent=transparent; aqua=#D0FFFF; gray1=#F0F0F0; bgray=#D0D0D0; gray2=#E0E0E0; gray=#D0D0D0; yellow=#FFFFC0;''"/>
    <xsl:template name="gte-font-posture">
       <xsl:param name="attrval"/>
       <xsl:param name="fontattr"/>
@@ -1760,7 +1754,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>, </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -1824,7 +1817,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>, and </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -2303,7 +2295,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>–</xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -2659,7 +2650,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText> </_sfe:BeforeOrAfterText>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -2720,7 +2710,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>, </xsl:text>
             </_sfe:BeforeOrAfterText>
@@ -2975,7 +2964,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <xsl:text>, </xsl:text>
                <span style="font-style: italic; ">
@@ -3041,7 +3029,6 @@
          </xsl:if>
          <!--Unconditional AddBefore-->
          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_gte:Must-Expand-Gentext/>
             <_sfe:BeforeOrAfterText>
                <span style="font-style: italic; ">
                   <xsl:text>See also </xsl:text>
