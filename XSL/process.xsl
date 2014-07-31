@@ -21,7 +21,7 @@
    <xsl:variable name="generator-version-number">6.0 M011</xsl:variable>
    <xsl:variable name="generator-version-date">June 01, 2012</xsl:variable>
    <xsl:variable name="generator-version-build">R60M011-153</xsl:variable>
-
+ 
    <!-- We try to set a default for graphics-path, but we expect this parameter to be set by the calling code -->
    <xsl:param name="graphics-path">
       <xsl:call-template name="substring-before-last">

@@ -18,7 +18,7 @@
    exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
 
    <xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>
-
+ 
    <xsl:variable name="doctype" select="'jmtosmigrate'"/>
 
    <xsl:include href="base.xsl"/>
