@@ -15,7 +15,7 @@
     xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements"
     xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript"
     xmlns:_3="http://www.pwc.ca/namespace/doctypes/migrate"
-    xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="2.0">
+    xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0">
   
   <xsl:variable name="filename" select="tokenize(tokenize(base-uri(), '/')[last()], '\.')[1]"/>
   <xsl:variable name="xsl-ext">.xsl</xsl:variable>
@@ -25,25 +25,38 @@
     <xsl:variable name="document-tree" select="."/>
     <xsl:for-each select="$modes">
       <xsl:variable name="mode" select="."/>
-      <xsl:result-document method="html" indent="no" encoding="UTF-8" href="./{$filename}_{$mode}.xsl">
+      <xsl:result-document method="xml" indent="no" encoding="UTF-8" href="./{$filename}_{$mode}{$xsl-ext}">
           <xsl:apply-templates select="$document-tree//xsl:stylesheet">
             <xsl:with-param name="mode" select="$mode"/>
           </xsl:apply-templates>
       </xsl:result-document>
     </xsl:for-each>
-    <xsl:result-document method="html" indent="no" encoding="UTF-8" href="./{$filename}_no-mode.xsl">
+    <xsl:result-document method="xml" indent="no" encoding="UTF-8" href="./{$filename}_no-mode.xsl">
       <xsl:apply-templates select="$document-tree//xsl:stylesheet">
         <xsl:with-param name="mode" select="''"/>
+        <xsl:with-param name="modes" select="$modes"/>
       </xsl:apply-templates>
     </xsl:result-document>
   </xsl:template>
   
   <xsl:template match="xsl:stylesheet">
     <xsl:param name="mode"/>
+    <xsl:param name="modes"/>
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:text>&#x0A;</xsl:text>
       <xsl:text>&#x0A;</xsl:text>
+      
+      <xsl:for-each select="$modes">
+        <xsl:if test="string-length(.) > 0">
+          <xsl:element name="xsl:include">
+            <xsl:attribute name="href"><xsl:value-of select="concat($filename, '_', ., $xsl-ext)"/></xsl:attribute>
+          </xsl:element>
+          <xsl:text>&#x0A;</xsl:text>
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:text>&#x0A;</xsl:text>
+      
       <xsl:choose>
         <xsl:when test="string-length($mode) > 0">
           <xsl:apply-templates select="*[@mode = $mode]"/>    
@@ -56,16 +69,19 @@
   </xsl:template>
   
   <xsl:template match="@*|node()">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
+    <xsl:copy><xsl:apply-templates select="@*|node()"/></xsl:copy>
   </xsl:template>
   
-  <xsl:template match="xsl:template|xsl:include|xsl:param|xsl:variable|xsl:output">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
+  <xsl:template match="xsl:template|xsl:include|xsl:param|xsl:variable|xsl:output|xsl:attribute-set">
+    <xsl:copy-of select="."/>
     <xsl:text>&#x0A;</xsl:text>
     <xsl:text>&#x0A;</xsl:text>
   </xsl:template>
+  
+ <!-- <xsl:template match="xsl:param|xsl:variable">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+    </xsl:copy>
+  </xsl:template>-->
+  
 </xsl:stylesheet>
