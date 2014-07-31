@@ -5370,7 +5370,7 @@ mode="set-id" select="."></xsl:apply-templates
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
                </span>
-               <xsl:text>: </xsl:text>
+               <xsl:text>:&#x2003;</xsl:text>
             </_sfe:BeforeOrAfterText>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -5435,7 +5435,7 @@ mode="set-id" select="."></xsl:apply-templates
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
                </span>
-               <xsl:text>: </xsl:text>
+               <xsl:text>:&#x2003;</xsl:text>
             </_sfe:BeforeOrAfterText>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -5500,7 +5500,7 @@ mode="set-id" select="."></xsl:apply-templates
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
                </span>
-               <xsl:text>: </xsl:text>
+               <xsl:text>:&#x2003;</xsl:text>
             </_sfe:BeforeOrAfterText>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -5585,7 +5585,7 @@ mode="set-id" select="."></xsl:apply-templates
                      </span>
                      <xsl:text>: </xsl:text>
                      <xsl:value-of select="@nbr"/>
-                     <xsl:text>. </xsl:text>
+                     <xsl:text>.&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -5595,7 +5595,7 @@ mode="set-id" select="."></xsl:apply-templates
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -5682,7 +5682,7 @@ mode="set-id" select="."></xsl:apply-templates
                      </span>
                      <xsl:text>: </xsl:text>
                      <xsl:value-of select="@nbr"/>
-                     <xsl:text>. </xsl:text>
+                     <xsl:text>.&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -5692,7 +5692,7 @@ mode="set-id" select="."></xsl:apply-templates
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -6019,7 +6019,7 @@ mode="set-id" select="."></xsl:apply-templates
                      </span>
                      <xsl:text>: </xsl:text>
                      <xsl:value-of select="@nbr"/>
-                     <xsl:text>. </xsl:text>
+                     <xsl:text>.&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -6029,7 +6029,7 @@ mode="set-id" select="."></xsl:apply-templates
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -6116,7 +6116,7 @@ mode="set-id" select="."></xsl:apply-templates
                      </span>
                      <xsl:text>: </xsl:text>
                      <xsl:value-of select="@nbr"/>
-                     <xsl:text>. </xsl:text>
+                     <xsl:text>.&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -6126,7 +6126,7 @@ mode="set-id" select="."></xsl:apply-templates
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>

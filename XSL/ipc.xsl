@@ -2519,7 +2519,7 @@
                            <xsl:value-of select="$gte_id"/>
                         </xsl:attribute>
                      </_gte:styler_numbering>
-                     <xsl:text> </xsl:text>
+                     <xsl:text>&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -2529,7 +2529,7 @@
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -2686,7 +2686,7 @@
                            <xsl:value-of select="$gte_id"/>
                         </xsl:attribute>
                      </_gte:styler_numbering>
-                     <xsl:text> </xsl:text>
+                     <xsl:text>&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -2696,7 +2696,7 @@
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -3093,7 +3093,7 @@
                            <xsl:value-of select="$gte_id"/>
                         </xsl:attribute>
                      </_gte:styler_numbering>
-                     <xsl:text> </xsl:text>
+                     <xsl:text>&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -3103,7 +3103,7 @@
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -3260,7 +3260,7 @@
                            <xsl:value-of select="$gte_id"/>
                         </xsl:attribute>
                      </_gte:styler_numbering>
-                     <xsl:text> </xsl:text>
+                     <xsl:text>&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -3270,7 +3270,7 @@
                      <span style="text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>

@@ -1800,7 +1800,7 @@
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
                </span>
-               <xsl:text>: </xsl:text>
+               <xsl:text>:&#x2003;</xsl:text>
             </_sfe:BeforeOrAfterText>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -1865,7 +1865,7 @@
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
                </span>
-               <xsl:text>: </xsl:text>
+               <xsl:text>:&#x2003;</xsl:text>
             </_sfe:BeforeOrAfterText>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -1930,7 +1930,7 @@
                <span style="font-weight: bold; text-decoration: underline; ">
                   <xsl:text>NOTE</xsl:text>
                </span>
-               <xsl:text>: </xsl:text>
+               <xsl:text>:&#x2003;</xsl:text>
             </_sfe:BeforeOrAfterText>
          </xsl:if>
          <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
@@ -2015,7 +2015,7 @@
                      </span>
                      <xsl:text>: </xsl:text>
                      <xsl:value-of select="@nbr"/>
-                     <xsl:text>. </xsl:text>
+                     <xsl:text>.&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -2025,7 +2025,7 @@
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -2112,7 +2112,7 @@
                      </span>
                      <xsl:text>: </xsl:text>
                      <xsl:value-of select="@nbr"/>
-                     <xsl:text>. </xsl:text>
+                     <xsl:text>.&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -2122,7 +2122,7 @@
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -2449,7 +2449,7 @@
                      </span>
                      <xsl:text>: </xsl:text>
                      <xsl:value-of select="@nbr"/>
-                     <xsl:text>. </xsl:text>
+                     <xsl:text>.&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -2459,7 +2459,7 @@
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
@@ -2546,7 +2546,7 @@
                      </span>
                      <xsl:text>: </xsl:text>
                      <xsl:value-of select="@nbr"/>
-                     <xsl:text>. </xsl:text>
+                     <xsl:text>.&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:when>
@@ -2556,7 +2556,7 @@
                      <span style="font-weight: bold; text-decoration: underline; ">
                         <xsl:text>NOTE</xsl:text>
                      </span>
-                     <xsl:text>: </xsl:text>
+                     <xsl:text>:&#x2003;</xsl:text>
                   </_sfe:BeforeOrAfterText>
                </xsl:if>
             </xsl:otherwise>
