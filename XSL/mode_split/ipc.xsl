@@ -6,13 +6,6 @@
 <xsl:include href="ipc_styler_numbering.xsl"/>
 <xsl:include href="ipc_styler-LabelAndNumberMarker.xsl"/>
 <xsl:include href="ipc_styler-collect-footnotes.xsl"/>
-<xsl:include href="ipc_styler_xref-Label_Number.xsl"/>
-<xsl:include href="ipc_styler_xref-Label_Number_Text.xsl"/>
-<xsl:include href="ipc_styler_xref-Label_Number_Text_Page.xsl"/>
-<xsl:include href="ipc_styler_xref-Number.xsl"/>
-<xsl:include href="ipc_styler_xref-Number_Text.xsl"/>
-<xsl:include href="ipc_styler_xref-Page.xsl"/>
-<xsl:include href="ipc_styler_xref-Text.xsl"/>
 <xsl:include href="ipc_startat-xpath.xsl"/>
 
 <xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>

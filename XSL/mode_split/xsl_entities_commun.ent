@@ -1,0 +1,2 @@
+
+<!ENTITY anc-pgblk-0-13 "number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13">

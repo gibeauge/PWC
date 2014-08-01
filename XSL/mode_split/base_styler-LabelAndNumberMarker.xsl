@@ -1,1941 +1,455 @@
-<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ximg="xaln://com.nwalsh.xalan.ImageIntrinsics" xmlns="http://www.w3.org/1999/xhtml" xmlns:exslt="http://exslt.org/common" xmlns:_acl="java:com.arbortext.epic.Acl" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:_="http://www.pwc.ca/namespace/doctypes/emipc" xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements" xmlns:atidlm="http://www.arbortext.com/namespace/atidlm" xmlns:_2="http://www.pwc.ca/namespace/doctypes/jmtosmigrate" xmlns:ch="http://www.arbortext.com/namespace/chunker" xmlns:saxon="http://saxon.sf.net/" xmlns:_5="http://www.pwc.ca/namespace/doctypes/ipc" xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript" xmlns:_3="http://www.pwc.ca/namespace/doctypes/migrate" xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0" exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
+<?xml version="1.0" encoding="UTF-8"?>
 
+<!DOCTYPE xsl:stylesheet [
+    <!ENTITY % entities_commun SYSTEM "xsl_entities_commun.ent">
+    %entities_commun;
+]>
+<xsl:stylesheet 
+  xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:ximg="xaln://com.nwalsh.xalan.ImageIntrinsics" 
+  xmlns="http://www.w3.org/1999/xhtml" 
+  xmlns:exslt="http://exslt.org/common" 
+  xmlns:_acl="java:com.arbortext.epic.Acl" 
+  xmlns:msxsl="urn:schemas-microsoft-com:xslt" 
+  xmlns:_="http://www.pwc.ca/namespace/doctypes/emipc" 
+  xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements" 
+  xmlns:atidlm="http://www.arbortext.com/namespace/atidlm" 
+  xmlns:_2="http://www.pwc.ca/namespace/doctypes/jmtosmigrate" 
+  xmlns:ch="http://www.arbortext.com/namespace/chunker" 
+  xmlns:saxon="http://saxon.sf.net/" 
+  xmlns:_5="http://www.pwc.ca/namespace/doctypes/ipc" 
+  xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" 
+  xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript" 
+  xmlns:_3="http://www.pwc.ca/namespace/doctypes/migrate" 
+  xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" 
+  version="1.0" 
+  exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
 
 <xsl:template match="numlist/address" mode="styler-LabelAndNumberMarker" priority="7">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:chapsect-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:chapsect-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:cir-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:cir-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:consumables-title" mode="styler-LabelAndNumberMarker" priority="5">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:consumables-title" mode="styler-LabelAndNumberMarker" priority="4">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:consumables-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="ata-page-block//consumables//_ufe:consumables-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block//consumables//_ufe:consumables-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:eipc-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:eipc-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:em-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:em-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:fixequ-title" mode="styler-LabelAndNumberMarker" priority="5">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:fixequ-title" mode="styler-LabelAndNumberMarker" priority="4">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:fixequ-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block//fixtures-and-equipment//_ufe:fixequ-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="ata-page-block//fixtures-and-equipment//_ufe:fixequ-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:general-title" mode="styler-LabelAndNumberMarker" priority="5">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:general-title" mode="styler-LabelAndNumberMarker" priority="4">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:general-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block//general//_ufe:general-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="ata-page-block//general//_ufe:general-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:glossary-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:glossary-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:glossary-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:howtouse-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:howtouse-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:intro-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:intro-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="step/step/enumlist/item" mode="styler-LabelAndNumberMarker" priority="30">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prclist4//prclist4//prclist4//prclist4/item" mode="styler-LabelAndNumberMarker" priority="29">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="list4//list4//list4//list4/item" mode="styler-LabelAndNumberMarker" priority="28">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="enumlist//enumlist//enumlist//enumlist/item" mode="styler-LabelAndNumberMarker" priority="27">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prclist4//prclist4//prclist4/item" mode="styler-LabelAndNumberMarker" priority="26">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="list4//list4//list4/item" mode="styler-LabelAndNumberMarker" priority="25">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="enumlist//enumlist//enumlist/item" mode="styler-LabelAndNumberMarker" priority="23">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prclist4//prclist4/item" mode="styler-LabelAndNumberMarker" priority="21">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="list4//list4/item" mode="styler-LabelAndNumberMarker" priority="20">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="enumlist//enumlist/item" mode="styler-LabelAndNumberMarker" priority="18">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="numlist/item" mode="styler-LabelAndNumberMarker" priority="13">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prclist4/item" mode="styler-LabelAndNumberMarker" priority="11">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prclist3/item" mode="styler-LabelAndNumberMarker" priority="10">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prclist2/item" mode="styler-LabelAndNumberMarker" priority="9">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prclist1/item" mode="styler-LabelAndNumberMarker" priority="8">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="list4/item" mode="styler-LabelAndNumberMarker" priority="7">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="list3/item" mode="styler-LabelAndNumberMarker" priority="6">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="list2/item" mode="styler-LabelAndNumberMarker" priority="5">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="list1/item" mode="styler-LabelAndNumberMarker" priority="4">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="enumlist/item" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/manual-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/manual-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/manual-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="ata-page-block//_sfe:BeforeOrAfterText//_ufe:npara-numbering" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block//_sfe:BeforeOrAfterText//_ufe:npara-numbering" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:num-index-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:num-index-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:num-index-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:nut-option-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:nut-option-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:nut-option-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/subpara/subpara[not(title)]/para" mode="styler-LabelAndNumberMarker" priority="51">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/subpara[not(title)]/para" mode="styler-LabelAndNumberMarker" priority="50">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara[not(title)]/para" mode="styler-LabelAndNumberMarker" priority="48">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara[not(title)]/para" mode="styler-LabelAndNumberMarker" priority="47">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="n-para/subpara/para" mode="styler-LabelAndNumberMarker" priority="43">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pageblock-front/general//para" mode="styler-LabelAndNumberMarker" priority="40">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="n-para[ancestor::book[contains(@doctype, 'epc')]]/para" mode="styler-LabelAndNumberMarker" priority="18">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="taskproc/para" mode="styler-LabelAndNumberMarker" priority="7">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="tprereq/para" mode="styler-LabelAndNumberMarker" priority="4">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="numlist/part-group" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:pdlist-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:sblist-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:sblist-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:spblist-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:spblist-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:spectools-title" mode="styler-LabelAndNumberMarker" priority="5">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:spectools-title" mode="styler-LabelAndNumberMarker" priority="4">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:spectools-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block//special-tools//_ufe:spectools-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="ata-page-block//special-tools//_ufe:spectools-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:supplier-list-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:supplier-list-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:supplier-list-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:task-title" mode="styler-LabelAndNumberMarker" priority="3">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:task-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr//_ufe:task-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:temp-rev-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:temp-rev-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/subpara/subpara/title" mode="styler-LabelAndNumberMarker" priority="72">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/subpara/title" mode="styler-LabelAndNumberMarker" priority="71">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/title" mode="styler-LabelAndNumberMarker" priority="70">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
-<xsl:template match="book[contains(@doctype, 'epc')]/frontmatter//graphic/title" mode="styler-LabelAndNumberMarker" priority="69">Figure <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+<xsl:template match="book[contains(@doctype, 'epc')]/frontmatter//graphic/title" mode="styler-LabelAndNumberMarker" priority="69">
+  <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
-<xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" mode="styler-LabelAndNumberMarker" priority="68">Figure <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+<xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" mode="styler-LabelAndNumberMarker" priority="68">
+  <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="ata-page-block//task/graphic/title" mode="styler-LabelAndNumberMarker" priority="67">
       <xsl:choose>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='') and not(ancestor::task/@varnbr!='')"><!--LabelAndNumberMarker for condition #6-->Figure <_gte:styler_numbering>
-               <xsl:variable name="gte_id">
-                  <xsl:choose>
-                     <xsl:when test="@_gte:id">
-                        <xsl:value-of select="@_gte:id"/>
-                     </xsl:when>
-                     <xsl:otherwise>
-                        <xsl:value-of select="'_g_'"/>
-                        <xsl:value-of select="generate-id(.)"/>
-                     </xsl:otherwise>
-                  </xsl:choose>
-               </xsl:variable>
-               <xsl:attribute name="gte_id">
-                  <xsl:value-of select="$gte_id"/>
-               </xsl:attribute>
-            </_gte:styler_numbering>
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='') and 
+                         not(&anc-pgblk-0-13;) and 
+                         not(ancestor::task/@confltr!='') and 
+                         not(ancestor::task/@varnbr!='')">
+	       <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='') and (ancestor::task/@varnbr!='')">
-            <!-- Condition #5-->
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='') and 
+                         not(&anc-pgblk-0-13;) and 
+                         not(ancestor::task/@confltr!='') and 
+                         (ancestor::task/@varnbr!='')">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and (ancestor::task/@confltr!='')">
-            <!-- Condition #4-->
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='') and 
+                         not(&anc-pgblk-0-13;) and 
+                         (ancestor::task/@confltr!='')">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)">
-            <!-- Condition #3-->
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='') and 
+                         (&anc-pgblk-0-13;)">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='')">
-            <!-- Condition #2-->
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         (&anc-pgblk-0-13; and ancestor::task/@varnbr!='')">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!=''">
-            <!-- Condition #1-->
+         <xsl:when test="&anc-pgblk-0-13; and ancestor::task/@confltr!=''">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
       </xsl:choose>
@@ -1943,296 +457,87 @@
 
 <xsl:template match="page-block//task/graphic/title" mode="styler-LabelAndNumberMarker" priority="66">
       <xsl:choose>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='') and not(ancestor::task/@varnbr!='')"><!--LabelAndNumberMarker for condition #6-->Figure <_gte:styler_numbering>
-               <xsl:variable name="gte_id">
-                  <xsl:choose>
-                     <xsl:when test="@_gte:id">
-                        <xsl:value-of select="@_gte:id"/>
-                     </xsl:when>
-                     <xsl:otherwise>
-                        <xsl:value-of select="'_g_'"/>
-                        <xsl:value-of select="generate-id(.)"/>
-                     </xsl:otherwise>
-                  </xsl:choose>
-               </xsl:variable>
-               <xsl:attribute name="gte_id">
-                  <xsl:value-of select="$gte_id"/>
-               </xsl:attribute>
-            </_gte:styler_numbering>
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='') and 
+                         not(&anc-pgblk-0-13;) and 
+                         not(ancestor::task/@confltr!='') and 
+                         not(ancestor::task/@varnbr!='')">
+            <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='') and (ancestor::task/@varnbr!='')">
-            <!-- Condition #5-->
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='') and 
+                         not(&anc-pgblk-0-13;) and 
+                         not(ancestor::task/@confltr!='') and 
+                         (ancestor::task/@varnbr!='')">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and (ancestor::task/@confltr!='')">
-            <!-- Condition #4-->
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='') and 
+                         not(&anc-pgblk-0-13;) and 
+                         (ancestor::task/@confltr!='')">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)">
-            <!-- Condition #3-->
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='') and 
+                         (&anc-pgblk-0-13;)">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='')">
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='') and 
+                         (&anc-pgblk-0-13; and ancestor::task/@varnbr!='')">
             <!-- Condition #2-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!=''">
-            <!-- Condition #1-->
+         <xsl:when test="&anc-pgblk-0-13; and ancestor::task/@confltr!=''">
             <xsl:if test="not(@_gte:Gentext-Expanded)">
-               <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
-                     <xsl:variable name="gte_id">
-                        <xsl:choose>
-                           <xsl:when test="@_gte:id">
-                              <xsl:value-of select="@_gte:id"/>
-                           </xsl:when>
-                           <xsl:otherwise>
-                              <xsl:value-of select="'_g_'"/>
-                              <xsl:value-of select="generate-id(.)"/>
-                           </xsl:otherwise>
-                        </xsl:choose>
-                     </xsl:variable>
-                     <xsl:attribute name="gte_id">
-                        <xsl:value-of select="$gte_id"/>
-                     </xsl:attribute>
-                  </_gte:styler_numbering>
-                  <xsl:text> </xsl:text>
-               </_sfe:BeforeOrAfterText>
+               <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
             </xsl:if>
          </xsl:when>
       </xsl:choose>
    </xsl:template>
 
 <xsl:template match="page-block[@pb-name='glossary']/module/title" mode="styler-LabelAndNumberMarker" priority="61">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block[@pb-name='supp_list']/module/title" mode="styler-LabelAndNumberMarker" priority="60">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="mm-fits/subpara/title" mode="styler-LabelAndNumberMarker" priority="62">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prcitem4/prcitem/title" mode="styler-LabelAndNumberMarker" priority="60">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prcitem3/prcitem/title" mode="styler-LabelAndNumberMarker" priority="60">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prcitem2/prcitem/title" mode="styler-LabelAndNumberMarker" priority="59">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="prcitem1/prcitem/title" mode="styler-LabelAndNumberMarker" priority="55">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/title" mode="styler-LabelAndNumberMarker" priority="57">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="task//table/title" mode="styler-LabelAndNumberMarker" priority="51">
       <xsl:choose>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='' and ../@display='expand') and not(ancestor::task/@varnbr!='' and ../@display='expand') and not(../@display='expand')"><!--LabelAndNumberMarker for condition #8-->Table <_gte:styler_numbering>
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ../@display='expand') and not(&anc-pgblk-0-13;) and not(ancestor::task/@confltr!='' and ../@display='expand') and not(ancestor::task/@varnbr!='' and ../@display='expand') and not(../@display='expand')"><!--LabelAndNumberMarker for condition #8-->Table <_gte:styler_numbering>
                <xsl:variable name="gte_id">
                   <xsl:choose>
                      <xsl:when test="@_gte:id">
@@ -2249,7 +554,7 @@
                </xsl:attribute>
             </_gte:styler_numbering>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='' and ../@display='expand') and not(ancestor::task/@varnbr!='' and ../@display='expand') and (../@display='expand')">
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ../@display='expand') and not(&anc-pgblk-0-13;) and not(ancestor::task/@confltr!='' and ../@display='expand') and not(ancestor::task/@varnbr!='' and ../@display='expand') and (../@display='expand')">
             <!-- Condition #7-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Table <_gte:styler_numbering>
@@ -2272,7 +577,7 @@
                </_sfe:BeforeOrAfterText>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='' and ../@display='expand') and (ancestor::task/@varnbr!='' and ../@display='expand')">
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ../@display='expand') and not(&anc-pgblk-0-13;) and not(ancestor::task/@confltr!='' and ../@display='expand') and (ancestor::task/@varnbr!='' and ../@display='expand')">
             <!-- Condition #6-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Table <_gte:styler_numbering>
@@ -2295,7 +600,7 @@
                </_sfe:BeforeOrAfterText>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and (ancestor::task/@confltr!='' and ../@display='expand')">
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ../@display='expand') and not(&anc-pgblk-0-13;) and (ancestor::task/@confltr!='' and ../@display='expand')">
             <!-- Condition #5-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Table <_gte:styler_numbering>
@@ -2318,7 +623,7 @@
                </_sfe:BeforeOrAfterText>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ../@display='expand') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)">
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ../@display='expand') and (&anc-pgblk-0-13;)">
             <!-- Condition #4-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>
@@ -2343,7 +648,7 @@
                </_sfe:BeforeOrAfterText>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='' and ../@display='expand') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='' and ../@display='expand') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ../@display='expand')">
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='' and ../@display='expand') and not(&anc-pgblk-0-13; and ancestor::task/@varnbr!='' and ../@display='expand') and (&anc-pgblk-0-13; and ../@display='expand')">
             <!-- Condition #3-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Table <_gte:styler_numbering>
@@ -2366,7 +671,7 @@
                </_sfe:BeforeOrAfterText>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='' and ../@display='expand') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='' and ../@display='expand')">
+         <xsl:when test="not(&anc-pgblk-0-13; and ancestor::task/@confltr!='' and ../@display='expand') and (&anc-pgblk-0-13; and ancestor::task/@varnbr!='' and ../@display='expand')">
             <!-- Condition #2-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Table <_gte:styler_numbering>
@@ -2389,7 +694,7 @@
                </_sfe:BeforeOrAfterText>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='' and ../@display='expand'">
+         <xsl:when test="&anc-pgblk-0-13; and ancestor::task/@confltr!='' and ../@display='expand'">
             <!-- Condition #1-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Table <_gte:styler_numbering>
@@ -2417,7 +722,7 @@
 
 <xsl:template match="page-block//graphic/title" mode="styler-LabelAndNumberMarker" priority="50">
       <xsl:choose>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"><!--LabelAndNumberMarker for condition #2-->Figure <_gte:styler_numbering>
+         <xsl:when test="not(&anc-pgblk-0-13;)"><!--LabelAndNumberMarker for condition #2-->Figure <_gte:styler_numbering>
                <xsl:variable name="gte_id">
                   <xsl:choose>
                      <xsl:when test="@_gte:id">
@@ -2434,7 +739,7 @@
                </xsl:attribute>
             </_gte:styler_numbering>
          </xsl:when>
-         <xsl:when test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13">
+         <xsl:when test="&anc-pgblk-0-13;">
             <!-- Condition #1-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
@@ -2462,7 +767,7 @@
 
 <xsl:template match="ata-page-block//graphic/title" mode="styler-LabelAndNumberMarker" priority="49">
       <xsl:choose>
-         <xsl:when test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"><!--LabelAndNumberMarker for condition #2-->Figure <_gte:styler_numbering>
+         <xsl:when test="not(&anc-pgblk-0-13;)"><!--LabelAndNumberMarker for condition #2-->Figure <_gte:styler_numbering>
                <xsl:variable name="gte_id">
                   <xsl:choose>
                      <xsl:when test="@_gte:id">
@@ -2479,7 +784,7 @@
                </xsl:attribute>
             </_gte:styler_numbering>
          </xsl:when>
-         <xsl:when test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13">
+         <xsl:when test="&anc-pgblk-0-13;">
             <!-- Condition #1-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Figure <_gte:styler_numbering>
@@ -2525,99 +830,24 @@
    </xsl:template>
 
 <xsl:template match="ata-page-block//mm-fits/title" mode="styler-LabelAndNumberMarker" priority="46">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="ata-page-block//fits-and-clears/title" mode="styler-LabelAndNumberMarker" priority="46">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block//fits-and-clears/title" mode="styler-LabelAndNumberMarker" priority="45">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="ata-page-block//n-para/title" mode="styler-LabelAndNumberMarker" priority="43">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block//n-para/title" mode="styler-LabelAndNumberMarker" priority="42">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="figure/title" mode="styler-LabelAndNumberMarker" priority="41">
       <xsl:choose>
@@ -3413,23 +1643,8 @@
    </xsl:template>
 
 <xsl:template match="subpara/title" mode="styler-LabelAndNumberMarker" priority="38">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="procedure/title" mode="styler-LabelAndNumberMarker" priority="37">
       <xsl:choose>
@@ -3456,156 +1671,36 @@
    </xsl:template>
 
 <xsl:template match="taskproc/title" mode="styler-LabelAndNumberMarker" priority="34">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="nutopt/title" mode="styler-LabelAndNumberMarker" priority="32">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="tprereq/title" mode="styler-LabelAndNumberMarker" priority="27">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="subtask/title" mode="styler-LabelAndNumberMarker" priority="26">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="task/title" mode="styler-LabelAndNumberMarker" priority="24">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="spec-tool-table/title" mode="styler-LabelAndNumberMarker" priority="15">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="page-block/title" mode="styler-LabelAndNumberMarker" priority="11">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="frontmatter/title" mode="styler-LabelAndNumberMarker" priority="8">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="table[@display='expand']/title" mode="styler-LabelAndNumberMarker" priority="6">
       <xsl:choose>
@@ -4427,7 +2522,7 @@
                <_sfe:BeforeOrAfterText/>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)">
+         <xsl:when test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(&anc-pgblk-0-13;)">
             <!-- Condition #3-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Table <_gte:styler_numbering>
@@ -4450,7 +2545,7 @@
                </_sfe:BeforeOrAfterText>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)">
+         <xsl:when test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and (&anc-pgblk-0-13;)">
             <!-- Condition #2-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>Table <_gte:styler_numbering>
@@ -5384,7 +3479,7 @@
                <_sfe:BeforeOrAfterText/>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)">
+         <xsl:when test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(&anc-pgblk-0-13;)">
             <!-- Condition #3-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>
@@ -5409,7 +3504,7 @@
                </_sfe:BeforeOrAfterText>
             </xsl:if>
          </xsl:when>
-         <xsl:when test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)">
+         <xsl:when test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and (&anc-pgblk-0-13;)">
             <!-- Condition #2-->
             <xsl:if test="not(@_gte:Gentext-Expanded)">
                <_sfe:BeforeOrAfterText>
@@ -5438,155 +3533,35 @@
    </xsl:template>
 
 <xsl:template match="ata-page-block/title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="title-page/title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:tmm-title" mode="styler-LabelAndNumberMarker" priority="2">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:tmm-title" mode="styler-LabelAndNumberMarker" priority="1">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="enumlist//enumlist//enumlist//enumlist/unlitem" mode="styler-LabelAndNumberMarker" priority="12">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="enumlist//enumlist//enumlist/unlitem" mode="styler-LabelAndNumberMarker" priority="11">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="enumlist//enumlist/unlitem" mode="styler-LabelAndNumberMarker" priority="8">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 <xsl:template match="enumlist/unlitem" mode="styler-LabelAndNumberMarker" priority="5">
-      <_gte:styler_numbering>
-         <xsl:variable name="gte_id">
-            <xsl:choose>
-               <xsl:when test="@_gte:id">
-                  <xsl:value-of select="@_gte:id"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="'_g_'"/>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:attribute name="gte_id">
-            <xsl:value-of select="$gte_id"/>
-         </xsl:attribute>
-      </_gte:styler_numbering>
-   </xsl:template>
+  <xsl:call-template name="t-styler-numbering"/>
+</xsl:template>
 
 </xsl:stylesheet>

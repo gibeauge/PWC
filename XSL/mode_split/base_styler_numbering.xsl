@@ -2,51 +2,57 @@
 
 
 <xsl:template match="numlist/address" mode="styler_numbering" priority="7">
-      <xsl:number count="numlist/address" format="1"/>
-      <xsl:text>.</xsl:text>
-   </xsl:template>
+  <xsl:number count="numlist/address" format="1"/>
+  <xsl:text>.</xsl:text>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:chapsect-title" mode="styler_numbering" priority="2">
-      <xsl:variable name="node-id" select="generate-id(ancestor::pgblk[1])"/>
-      <xsl:variable name="num">
-         <xsl:for-each select="//*[not(ancestor-or-self::pgblk)]/pgblk[_ufe:chapsect-title]|/pgblk[_ufe:chapsect-title]">
-            <xsl:if test="generate-id(.) = $node-id">
-               <xsl:value-of select="position()"/>
-            </xsl:if>
-         </xsl:for-each>
-      </xsl:variable>
-      <xsl:choose>
-         <xsl:when test="string(number($num))!='NaN'">
-            <xsl:number value="$num" format="1"/>
-         </xsl:when>
-         <xsl:otherwise>?</xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
+  <!--
+  <xsl:variable name="node-id" select="generate-id(ancestor::pgblk[1])"/>
+  <xsl:variable name="num">
+     <xsl:for-each select="//*[not(ancestor-or-self::pgblk)]/pgblk[_ufe:chapsect-title]|/pgblk[_ufe:chapsect-title]">
+        <xsl:if test="generate-id(.) = $node-id">
+           <xsl:value-of select="position()"/>
+        </xsl:if>
+     </xsl:for-each>
+  </xsl:variable>
+  <xsl:choose>
+     <xsl:when test="string(number($num))!='NaN'">
+        <xsl:number value="$num" format="1"/>
+     </xsl:when>
+     <xsl:otherwise>?</xsl:otherwise>
+  </xsl:choose>
+  -->
+  <xsl:number count="pgblk[not(ancestor::pgblk) and _ufe:chapsect-title]" level="any" format="1"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:chapsect-title" mode="styler_numbering" priority="1">
-      <xsl:variable name="node-id" select="generate-id(.)"/>
-      <xsl:variable name="num">
-         <xsl:for-each select="//*[@_gte:count-as-id='cnt__pbfmatr^-None-.cnt']">
-            <xsl:if test="generate-id(.) = $node-id">
-               <xsl:value-of select="position()"/>
-            </xsl:if>
-         </xsl:for-each>
-      </xsl:variable>
-      <xsl:choose>
-         <xsl:when test="string(number($num))!='NaN'">
-            <xsl:number value="$num" format="1"/>
-         </xsl:when>
-         <xsl:otherwise>?</xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
+  <!--
+  <xsl:variable name="node-id" select="generate-id(.)"/>
+  <xsl:variable name="num">
+     <xsl:for-each select="//*[@_gte:count-as-id='cnt__pbfmatr^-None-.cnt']">
+        <xsl:if test="generate-id(.) = $node-id">
+           <xsl:value-of select="position()"/>
+        </xsl:if>
+     </xsl:for-each>
+  </xsl:variable>
+  <xsl:choose>
+     <xsl:when test="string(number($num))!='NaN'">
+        <xsl:number value="$num" format="1"/>
+     </xsl:when>
+     <xsl:otherwise>?</xsl:otherwise>
+  </xsl:choose>
+  -->
+  <xsl:number count="pbfmatr/*[@_gte:count-as-id='cnt__pbfmatr^-None-.cnt']" level="any" format="1"/>
+</xsl:template>
 
 <xsl:template match="_ufe:chapsect-title" mode="styler_numbering" priority="0">
-      <!--This context has no numbering-->
-      <xsl:param name="do-qmark" select="'yes'"/>
-      <xsl:if test="$do-qmark='yes'">
-         <xsl:value-of select="'?'"/>
-      </xsl:if>
-   </xsl:template>
+  <!--This context has no numbering-->
+  <xsl:param name="do-qmark" select="'yes'"/>
+  <xsl:if test="$do-qmark='yes'">
+     <xsl:value-of select="'?'"/>
+  </xsl:if>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:cir-title" mode="styler_numbering" priority="2">
       <xsl:variable name="node-id" select="generate-id(ancestor::pgblk[1])"/>
@@ -1555,21 +1561,24 @@
    </xsl:template>
 
 <xsl:template match="pgblk/_ufe:task-title" mode="styler_numbering" priority="3">
-      <xsl:variable name="node-id" select="generate-id(ancestor::pgblk[1])"/>
-      <xsl:variable name="num">
-         <xsl:for-each select="//*[not(ancestor-or-self::pgblk)]/pgblk[_ufe:task-title]|/pgblk[_ufe:task-title]">
-            <xsl:if test="generate-id(.) = $node-id">
-               <xsl:value-of select="position()"/>
-            </xsl:if>
-         </xsl:for-each>
-      </xsl:variable>
-      <xsl:choose>
-         <xsl:when test="string(number($num))!='NaN'">
-            <xsl:number value="$num" format="1"/>
-         </xsl:when>
-         <xsl:otherwise>?</xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
+  <!--
+  <xsl:variable name="node-id" select="generate-id(ancestor::pgblk[1])"/>
+  <xsl:variable name="num">
+     <xsl:for-each select="//*[not(ancestor-or-self::pgblk)]/pgblk[_ufe:task-title]|/pgblk[_ufe:task-title]">
+        <xsl:if test="generate-id(.) = $node-id">
+           <xsl:value-of select="position()"/>
+        </xsl:if>
+     </xsl:for-each>
+  </xsl:variable>
+  <xsl:choose>
+     <xsl:when test="string(number($num))!='NaN'">
+        <xsl:number value="$num" format="1"/>
+     </xsl:when>
+     <xsl:otherwise>?</xsl:otherwise>
+  </xsl:choose>
+  -->
+  <xsl:number count="pgblk[not(ancestor::pgblk) and _ufe:task-title]" level="any" format="1"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:task-title" mode="styler_numbering" priority="2">
       <xsl:variable name="node-id" select="generate-id(.)"/>
@@ -1677,19 +1686,71 @@
    </xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/subpara/subpara/title" mode="styler_numbering" priority="72">
-      <xsl:number count="subpara/subpara/subpara/subpara/subpara[title]" format="a"/>
-   </xsl:template>
+  <xsl:number count="subpara/subpara/subpara/subpara/subpara[title]" format="a"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/subpara/title" mode="styler_numbering" priority="71">
-      <xsl:number count="subpara/subpara/subpara/subpara[title]" format="1"/>
-   </xsl:template>
+  <xsl:number count="subpara/subpara/subpara/subpara[title]" format="1"/>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/title" mode="styler_numbering" priority="70">
-      <xsl:text>(</xsl:text>
-      <xsl:number count="subpara/subpara/subpara[title]" format="a"/>
-      <xsl:text>)</xsl:text>
-   </xsl:template>
+  <xsl:number count="subpara/subpara/subpara[title]" format="(a)"/>
+</xsl:template>
 
+<xsl:template match="subpara/subpara/title" mode="styler_numbering" priority="57">
+  <xsl:number count="subpara/subpara[title]" format="(1)"/>
+</xsl:template>
+
+<xsl:template match="subpara/title" mode="styler_numbering" priority="38">
+  <!--
+  <xsl:variable name="node-id" select="generate-id(.)"/>
+  <xsl:variable name="from-node" select="(ancestor-or-self::n-para[not(ancestor::n-para)])[last()]"/>
+  <xsl:variable name="num">
+     <xsl:variable name="candidate-num">
+        <xsl:choose>
+           <xsl:when test="count($from-node) &gt; 0">
+              <xsl:for-each select="$from-node/descendant-or-self::*[@_gte:count-as-id='subpara']">
+                 <xsl:if test="generate-id(.) = $node-id">
+                    <xsl:value-of select="position()"/>
+                 </xsl:if>
+              </xsl:for-each>
+           </xsl:when>
+           <xsl:otherwise>
+              <xsl:for-each select="//*[@_gte:count-as-id='subpara'][not(ancestor-or-self::n-para)]">
+                 <xsl:if test="generate-id(.) = $node-id">
+                    <xsl:value-of select="position()"/>
+                 </xsl:if>
+              </xsl:for-each>
+           </xsl:otherwise>
+        </xsl:choose>
+     </xsl:variable>
+     <xsl:choose>
+        <xsl:when test="string(number($candidate-num))!='NaN'">
+           <xsl:value-of select="$candidate-num"/>
+        </xsl:when>
+        <xsl:otherwise>1</xsl:otherwise>
+     </xsl:choose>
+  </xsl:variable>
+  <xsl:choose>
+     <xsl:when test="string(number($num))!='NaN'">
+        <xsl:number value="$num" format="A"/>
+     </xsl:when>
+     <xsl:otherwise>?</xsl:otherwise>
+  </xsl:choose>
+  <xsl:text>.</xsl:text>
+  -->
+  <xsl:choose>
+    <xsl:when test="ancestor::n-para">
+      <xsl:number count="subpara/title[@_gte:count-as-id='subpara']|procedure/title[@_gte:count-as-id='subpara']" 
+                  from="(ancestor::n-para[not(ancestor::n-para)])[last()]" level="any" format="A."/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:number count="subpara/title[@_gte:count-as-id='subpara']|procedure/title[@_gte:count-as-id='subpara']" 
+                  level="any" format="A."/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+   
 <xsl:template match="book[contains(@doctype, 'epc')]/frontmatter//graphic/title" mode="styler_numbering" priority="69">
       <xsl:variable name="node-id" select="generate-id(.)"/>
       <xsl:variable name="from-node" select="(ancestor-or-self::frontmatter[not(ancestor::frontmatter)])[last()]"/>
@@ -2573,12 +2634,6 @@
          <xsl:otherwise>?</xsl:otherwise>
       </xsl:choose>
       <xsl:text>.</xsl:text>
-   </xsl:template>
-
-<xsl:template match="subpara/subpara/title" mode="styler_numbering" priority="57">
-      <xsl:text>(</xsl:text>
-      <xsl:number count="subpara/subpara[title]" format="1"/>
-      <xsl:text>)</xsl:text>
    </xsl:template>
 
 <xsl:template match="page-block[@pb-name='ni']//mfmatr/title" mode="styler_numbering" priority="56">
@@ -5215,44 +5270,6 @@
       <xsl:if test="$do-qmark='yes'">
          <xsl:value-of select="'?'"/>
       </xsl:if>
-   </xsl:template>
-
-<xsl:template match="subpara/title" mode="styler_numbering" priority="38">
-      <xsl:variable name="node-id" select="generate-id(.)"/>
-      <xsl:variable name="from-node" select="(ancestor-or-self::n-para[not(ancestor::n-para)])[last()]"/>
-      <xsl:variable name="num">
-         <xsl:variable name="candidate-num">
-            <xsl:choose>
-               <xsl:when test="count($from-node) &gt; 0">
-                  <xsl:for-each select="$from-node/descendant-or-self::*[@_gte:count-as-id='subpara']">
-                     <xsl:if test="generate-id(.) = $node-id">
-                        <xsl:value-of select="position()"/>
-                     </xsl:if>
-                  </xsl:for-each>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:for-each select="//*[@_gte:count-as-id='subpara'][not(ancestor-or-self::n-para)]">
-                     <xsl:if test="generate-id(.) = $node-id">
-                        <xsl:value-of select="position()"/>
-                     </xsl:if>
-                  </xsl:for-each>
-               </xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:choose>
-            <xsl:when test="string(number($candidate-num))!='NaN'">
-               <xsl:value-of select="$candidate-num"/>
-            </xsl:when>
-            <xsl:otherwise>1</xsl:otherwise>
-         </xsl:choose>
-      </xsl:variable>
-      <xsl:choose>
-         <xsl:when test="string(number($num))!='NaN'">
-            <xsl:number value="$num" format="A"/>
-         </xsl:when>
-         <xsl:otherwise>?</xsl:otherwise>
-      </xsl:choose>
-      <xsl:text>.</xsl:text>
    </xsl:template>
 
 <xsl:template match="procedure/title" mode="styler_numbering" priority="37">
@@ -9489,21 +9506,24 @@
    </xsl:template>
 
 <xsl:template match="pgblk/_ufe:tmm-title" mode="styler_numbering" priority="2">
-      <xsl:variable name="node-id" select="generate-id(ancestor::pgblk[1])"/>
-      <xsl:variable name="num">
-         <xsl:for-each select="//*[not(ancestor-or-self::pgblk)]/pgblk[_ufe:tmm-title]|/pgblk[_ufe:tmm-title]">
-            <xsl:if test="generate-id(.) = $node-id">
-               <xsl:value-of select="position()"/>
-            </xsl:if>
-         </xsl:for-each>
-      </xsl:variable>
-      <xsl:choose>
-         <xsl:when test="string(number($num))!='NaN'">
-            <xsl:number value="$num" format="1"/>
-         </xsl:when>
-         <xsl:otherwise>?</xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
+  <!--
+  <xsl:variable name="node-id" select="generate-id(ancestor::pgblk[1])"/>
+  <xsl:variable name="num">
+     <xsl:for-each select="//*[not(ancestor-or-self::pgblk)]/pgblk[_ufe:tmm-title]|/pgblk[_ufe:tmm-title]">
+        <xsl:if test="generate-id(.) = $node-id">
+           <xsl:value-of select="position()"/>
+        </xsl:if>
+     </xsl:for-each>
+  </xsl:variable>
+  <xsl:choose>
+     <xsl:when test="string(number($num))!='NaN'">
+        <xsl:number value="$num" format="1"/>
+     </xsl:when>
+     <xsl:otherwise>?</xsl:otherwise>
+  </xsl:choose>
+  -->
+  <xsl:number count="pgblk[not(ancestor::pgblk) and _ufe:tmm-title]" level="any" format="1"/>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:tmm-title" mode="styler_numbering" priority="1">
       <xsl:variable name="node-id" select="generate-id(.)"/>
