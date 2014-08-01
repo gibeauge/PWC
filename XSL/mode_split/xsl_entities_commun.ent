@@ -1,2 +1,6 @@
 
-<!ENTITY anc-pgblk-0-13 "number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13">
+<!ENTITY anc-pgblk-0-13              "number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13">
+<!ENTITY anc-task-c                  "ancestor::task/@confltr!=''">
+<!ENTITY anc-task-v                  "ancestor::task/@varnbr!=''">
+<!ENTITY not-anc-pgblk-0-13-task-c   "not(&anc-pgblk-0-13; and &anc-task-c;)">
+<!ENTITY not-anc-pgblk-0-13-task-v   "not(&anc-pgblk-0-13; and &anc-task-v;)">
