@@ -6,7 +6,6 @@
 <xsl:include href="migrate_styler_numbering.xsl"/>
 <xsl:include href="migrate_styler-LabelAndNumberMarker.xsl"/>
 <xsl:include href="migrate_styler-collect-footnotes.xsl"/>
-<xsl:include href="migrate_startat-xpath.xsl"/>
 
 <xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>
 

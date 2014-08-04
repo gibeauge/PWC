@@ -6,7 +6,6 @@
 <xsl:include href="jmtosmigrate_toc-mode-Table_of_Contents.xsl"/>
 <xsl:include href="jmtosmigrate_styler_numbering.xsl"/>
 <xsl:include href="jmtosmigrate_styler-LabelAndNumberMarker.xsl"/>
-<xsl:include href="jmtosmigrate_startat-xpath.xsl"/>
 
 <xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>
 

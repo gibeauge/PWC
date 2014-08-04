@@ -7,7 +7,6 @@
 <xsl:include href="base_styler-LabelAndNumberMarker.xsl"/>
 <xsl:include href="base_toc-mode-Table_of_Contents.xsl"/>
 <xsl:include href="base_styler-collect-footnotes.xsl"/>
-<xsl:include href="base_startat-xpath.xsl"/>
 <xsl:include href="base_set-id.xsl"/>
 <xsl:include href="base_ElementContent_All.xsl"/>
 <xsl:include href="base_expand-numbering.xsl"/>

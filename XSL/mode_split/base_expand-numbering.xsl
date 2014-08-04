@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <xsl:stylesheet 
   xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
@@ -49,7 +50,7 @@
      <xsl:when test="@xrefStyle='Text'">
         <xsl:apply-templates select="$child-title-node" mode="styler_xref-Text"/>
      </xsl:when>
-     <xsl:when test="false()"/>
+     <xsl:otherwise/>
   </xsl:choose>
 </xsl:template>
 

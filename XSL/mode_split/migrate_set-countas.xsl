@@ -25,66 +25,66 @@
   exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
 
 <xsl:template match="frontmatter//module/pageblock-title" mode="set-countas" priority="2">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__module.xcnt</xsl:attribute>
-         <xsl:apply-templates select="@*|node()" mode="set-countas"/>
-      </xsl:copy>
-   </xsl:template>
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__module.xcnt</xsl:attribute>
+     <xsl:apply-templates select="@*|node()" mode="set-countas"/>
+  </xsl:copy>
+</xsl:template>
 
 <xsl:template match="procedure//step" mode="set-countas" priority="2">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__^procedure.cnt</xsl:attribute>
-         <xsl:apply-templates mode="set-countas" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
-   </xsl:template>
-
-<xsl:template match="step[table/@tabstyle='frac']" mode="set-countas" priority="1">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
-         <xsl:apply-templates mode="set-countas" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
-
-<xsl:template match="step2[table/@tabstyle='frac']" mode="set-countas" priority="1">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
-         <xsl:apply-templates mode="set-countas" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__^procedure.cnt</xsl:attribute>
+     <xsl:apply-templates mode="set-countas" select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
 
 <xsl:template match="step2" mode="set-countas" priority="0">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__^step.cnt</xsl:attribute>
-         <xsl:apply-templates mode="set-countas" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
-   </xsl:template>
-
-<xsl:template match="step3[table/@tabstyle='frac']" mode="set-countas" priority="1">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
-         <xsl:apply-templates mode="set-countas" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__^step.cnt</xsl:attribute>
+     <xsl:apply-templates mode="set-countas" select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
 
 <xsl:template match="step3" mode="set-countas" priority="0">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__^step2.cnt</xsl:attribute>
-         <xsl:apply-templates mode="set-countas" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
-   </xsl:template>
-
-<xsl:template match="step4[table/@tabstyle='frac']" mode="set-countas" priority="1">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
-         <xsl:apply-templates mode="set-countas" select="@*|node()"/>
-      </xsl:copy>
-   </xsl:template>
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__^step2.cnt</xsl:attribute>
+     <xsl:apply-templates mode="set-countas" select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
 
 <xsl:template match="step4" mode="set-countas" priority="0">
-      <xsl:copy>
-         <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
-         <xsl:apply-templates mode="set-countas" select="@*|node()"> </xsl:apply-templates>
-      </xsl:copy>
-   </xsl:template>
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
+     <xsl:apply-templates mode="set-countas" select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="step[table/@tabstyle='frac']" mode="set-countas" priority="1">
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
+     <xsl:apply-templates mode="set-countas" select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="step2[table/@tabstyle='frac']" mode="set-countas" priority="1">
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
+     <xsl:apply-templates mode="set-countas" select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="step3[table/@tabstyle='frac']" mode="set-countas" priority="1">
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
+     <xsl:apply-templates mode="set-countas" select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="step4[table/@tabstyle='frac']" mode="set-countas" priority="1">
+  <xsl:copy>
+     <xsl:attribute name="_gte:count-as-id">cnt__^step3.cnt</xsl:attribute>
+     <xsl:apply-templates mode="set-countas" select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
 
 </xsl:stylesheet>
