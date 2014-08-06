@@ -29,35 +29,11 @@
   <xsl:call-template name="t-styler-numbering"/>
 </xsl:template>
 
-<xsl:template match="numlist/step2" mode="styler-LabelAndNumberMarker" priority="2">
-  <xsl:call-template name="t-styler-numbering"/>
-</xsl:template>
-
-<xsl:template match="step2[table/@tabstyle='frac']" mode="styler-LabelAndNumberMarker" priority="1">
-  <xsl:call-template name="t-styler-numbering"/>
-</xsl:template>
-
 <xsl:template match="step2" mode="styler-LabelAndNumberMarker" priority="0">
   <xsl:call-template name="t-styler-numbering"/>
 </xsl:template>
 
-<xsl:template match="numlist/step3" mode="styler-LabelAndNumberMarker" priority="2">
-  <xsl:call-template name="t-styler-numbering"/>
-</xsl:template>
-
-<xsl:template match="step3[table/@tabstyle='frac']" mode="styler-LabelAndNumberMarker" priority="1">
-  <xsl:call-template name="t-styler-numbering"/>
-</xsl:template>
-
 <xsl:template match="step3" mode="styler-LabelAndNumberMarker" priority="0">
-  <xsl:call-template name="t-styler-numbering"/>
-</xsl:template>
-
-<xsl:template match="numlist/step4" mode="styler-LabelAndNumberMarker" priority="2">
-  <xsl:call-template name="t-styler-numbering"/>
-</xsl:template>
-
-<xsl:template match="step4[table/@tabstyle='frac']" mode="styler-LabelAndNumberMarker" priority="1">
   <xsl:call-template name="t-styler-numbering"/>
 </xsl:template>
 

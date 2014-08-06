@@ -56,7 +56,7 @@
       </xsl:choose>
    </xsl:param>
 
-   <xsl:param name="max-expansion-pass-count"             select="number(5)"/>
+   <xsl:param name="max-expansion-pass-count"             select="number(3)"/>
    <xsl:param name="skip-post-gentext-pass"               select="'no'"/>
    <xsl:param name="gte-namespace-uri"                    select="'http://www.arbortext.com/namespace/Styler/GeneratedTextElements'"/>
    <xsl:param name="skip-remove-xhtml-namespace-pass"     select="'no'"/>
@@ -91,7 +91,7 @@
         <xsl:copy-of select="$tree6"/>
    </xsl:template>
    
-   <!-- INITIAL PASS MODE (IDS AND CHUNKS) -->
+   <!-- INITIAL PASS MODE : add id and chunk attributes -->
    
     <xsl:template match="/*" mode="initial-pass-mode" priority="999">
       <xsl:copy>
@@ -114,7 +114,7 @@
       </xsl:copy>
    </xsl:template>
    
-   <!-- EXPAND GENTEXT MODE -->
+   <!-- EXPAND GENTEXT MODE : add generated text -->
    
    <xsl:template name="t-expand-gentext">
         <xsl:param name="document-tree"/>
@@ -141,7 +141,7 @@
       </xsl:copy>
    </xsl:template>
    
-   <!-- COUNT AS MODE -->
+   <!-- COUNT AS MODE : set labels for numbering -->
    
    <xsl:template match="@*|node()" mode="set-countas">
       <xsl:copy>
@@ -149,7 +149,7 @@
       </xsl:copy>
    </xsl:template>
 
-   <!-- NUMBERING MODE -->
+   <!-- NUMBERING MODE : calculate numbering -->
    
    <xsl:template match="@*|node()" mode="expand-numbering">
       <xsl:copy>
@@ -157,13 +157,13 @@
       </xsl:copy>
    </xsl:template> 
    
-   <!-- POST GENTEXT MODE -->
+   <!-- POST GENTEXT MODE : HTML generation -->
    
    <xsl:template match="/" mode="post-gentext-expansion">
       <xsl:call-template name="user-visible-root-template"/>
    </xsl:template>
    
-   <!-- CLEANUP MODE -->
+   <!-- CLEANUP MODE : remove useless attributes -->
    
    <xsl:template match="node()" mode="remove-xhtml-namespace">
       <xsl:copy>

@@ -12,7 +12,8 @@
 <xsl:variable name="doctype" select="'ipc'"/>
 
 <xsl:include href="base.xsl"/>
-
+<xsl:include href="base_steps_set-countas.xsl"/>
+<xsl:include href="base_steps_styler_numbering.xsl"/>
 <xsl:include href="process.xsl"/>
 
 <xsl:template name="__style-for_attach-parts.1">
