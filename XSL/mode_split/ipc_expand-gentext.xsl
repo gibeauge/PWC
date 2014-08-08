@@ -17,8 +17,6 @@
   version="1.0" 
   exclude-result-prefixes="xml xsi exslt _ufe _sfe _gte atidlm">
 
-  <xsl:include href="base_expand-gentext.xsl"/>
-
   <xsl:template match="build-spec" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
