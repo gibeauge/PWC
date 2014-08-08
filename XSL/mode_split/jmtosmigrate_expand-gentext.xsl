@@ -149,189 +149,86 @@
   </xsl:template>
 
   <xsl:template match="list4/l4item" mode="expand-gentext" priority="1">
-    <xsl:copy>
-      <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
-      <xsl:apply-templates mode="expand-gentext" select="@*"> </xsl:apply-templates>
-      <xsl:if test="not(@_gte:id)">
-        <xsl:attribute name="_gte:id">
-          <xsl:value-of select="'_g_'"/>
-          <xsl:value-of select="generate-id(.)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <!--Unconditional AddBefore-->
-      <xsl:if test="not(@_gte:Gentext-Expanded)">
-        <_sfe:BeforeOrAfterText>
-          <span style="text-decoration: underline; ">
-            <_gte:styler_numbering>
-              <xsl:variable name="gte_id">
-                <xsl:choose>
-                  <xsl:when test="@_gte:id">
-                    <xsl:value-of select="@_gte:id"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="'_g_'"/>
-                    <xsl:value-of select="generate-id(.)"/>
-                  </xsl:otherwise>
-                </xsl:choose>
-              </xsl:variable>
-              <xsl:attribute name="gte_id">
-                <xsl:value-of select="$gte_id"/>
-              </xsl:attribute>
-            </_gte:styler_numbering>
-          </span>
-          <xsl:text> </xsl:text>
-          <xsl:text> </xsl:text>
-        </_sfe:BeforeOrAfterText>
-      </xsl:if>
-      <xsl:apply-templates mode="expand-gentext" select="* | text() | processing-instruction()"/>
-    </xsl:copy>
+    <xsl:call-template name="expand-gentext-numbering2"/>
   </xsl:template>
 
   <xsl:template match="module/note" mode="expand-gentext" priority="11">
-    <xsl:copy>
-      <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
-      <xsl:apply-templates select="@*" mode="expand-gentext"/>
-      <xsl:if test="not(@_gte:id)">
-        <xsl:attribute name="_gte:id">
-          <xsl:value-of select="'_g_'"/>
-          <xsl:value-of select="generate-id(.)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <!--Unconditional AddBefore-->
-      <xsl:if test="not(@_gte:Gentext-Expanded)">
-        <_sfe:BeforeOrAfterText>
-          <span style="font-weight: bold; text-decoration: underline; ">
-            <xsl:text>NOTE</xsl:text>
-          </span>
-          <xsl:text>: </xsl:text>
-        </_sfe:BeforeOrAfterText>
-      </xsl:if>
-      <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
-    </xsl:copy>
+    <xsl:call-template name="expand-gentext">
+      <xsl:with-param name="content">
+        <span style="font-weight: bold; text-decoration: underline; ">
+          <xsl:text>NOTE</xsl:text>
+        </span>
+        <xsl:text>: </xsl:text>
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="subtask/note" mode="expand-gentext" priority="10">
-    <xsl:copy>
-      <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
-      <xsl:apply-templates select="@*" mode="expand-gentext"/>
-      <xsl:if test="not(@_gte:id)">
-        <xsl:attribute name="_gte:id">
-          <xsl:value-of select="'_g_'"/>
-          <xsl:value-of select="generate-id(.)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <!--Unconditional AddBefore-->
-      <xsl:if test="not(@_gte:Gentext-Expanded)">
-        <_sfe:BeforeOrAfterText>
-          <span style="font-weight: bold; text-decoration: underline; ">
-            <xsl:text>NOTE</xsl:text>
-          </span>
-          <xsl:text>: </xsl:text>
-        </_sfe:BeforeOrAfterText>
-      </xsl:if>
-      <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
-    </xsl:copy>
+    <xsl:call-template name="expand-gentext">
+      <xsl:with-param name="content">
+        <span style="font-weight: bold; text-decoration: underline; ">
+          <xsl:text>NOTE</xsl:text>
+        </span>
+        <xsl:text>: </xsl:text>
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="task/note" mode="expand-gentext" priority="9">
-    <xsl:copy>
-      <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
-      <xsl:apply-templates select="@*" mode="expand-gentext"/>
-      <xsl:if test="not(@_gte:id)">
-        <xsl:attribute name="_gte:id">
-          <xsl:value-of select="'_g_'"/>
-          <xsl:value-of select="generate-id(.)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <!--Unconditional AddBefore-->
-      <xsl:if test="not(@_gte:Gentext-Expanded)">
-        <_sfe:BeforeOrAfterText>
-          <span style="font-weight: bold; text-decoration: underline; ">
-            <xsl:text>NOTE</xsl:text>
-          </span>
-          <xsl:text>: </xsl:text>
-        </_sfe:BeforeOrAfterText>
-      </xsl:if>
-      <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
-    </xsl:copy>
+    <xsl:call-template name="expand-gentext">
+      <xsl:with-param name="content">
+        <span style="font-weight: bold; text-decoration: underline; ">
+          <xsl:text>NOTE</xsl:text>
+        </span>
+        <xsl:text>: </xsl:text>
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="n-para/note" mode="expand-gentext" priority="8">
-    <xsl:copy>
-      <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
-      <xsl:apply-templates select="@*" mode="expand-gentext"/>
-      <xsl:if test="not(@_gte:id)">
-        <xsl:attribute name="_gte:id">
-          <xsl:value-of select="'_g_'"/>
-          <xsl:value-of select="generate-id(.)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:choose>
-        <xsl:when test="@nbr">
-          <!--AddBefore Condition #1-->
-          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_sfe:BeforeOrAfterText>
-              <span style="font-weight: bold; text-decoration: underline; ">
-                <xsl:text>NOTE</xsl:text>
-              </span>
-              <xsl:text>: </xsl:text>
-              <xsl:value-of select="@nbr"/>
-              <xsl:text>. </xsl:text>
-            </_sfe:BeforeOrAfterText>
-          </xsl:if>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_sfe:BeforeOrAfterText>
-              <span style="font-weight: bold; text-decoration: underline; ">
-                <xsl:text>NOTE</xsl:text>
-              </span>
-              <xsl:text>: </xsl:text>
-            </_sfe:BeforeOrAfterText>
-          </xsl:if>
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
-    </xsl:copy>
+    <xsl:call-template name="expand-gentext">
+      <xsl:with-param name="content">
+        <xsl:choose>
+          <xsl:when test="@nbr">
+                <span style="font-weight: bold; text-decoration: underline; ">
+                  <xsl:text>NOTE</xsl:text>
+                </span>
+                <xsl:text>: </xsl:text>
+                <xsl:value-of select="@nbr"/>
+                <xsl:text>. </xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+                <span style="font-weight: bold; text-decoration: underline; ">
+                  <xsl:text>NOTE</xsl:text>
+                </span>
+                <xsl:text>: </xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="procedure/note" mode="expand-gentext" priority="7">
-    <xsl:copy>
-      <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
-      <xsl:apply-templates select="@*" mode="expand-gentext"/>
-      <xsl:if test="not(@_gte:id)">
-        <xsl:attribute name="_gte:id">
-          <xsl:value-of select="'_g_'"/>
-          <xsl:value-of select="generate-id(.)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:choose>
-        <xsl:when test="@nbr">
-          <!--AddBefore Condition #1-->
-          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_sfe:BeforeOrAfterText>
-              <span style="font-weight: bold; text-decoration: underline; ">
-                <xsl:text>NOTE</xsl:text>
-              </span>
-              <xsl:text>: </xsl:text>
-              <xsl:value-of select="@nbr"/>
-              <xsl:text>. </xsl:text>
-            </_sfe:BeforeOrAfterText>
-          </xsl:if>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:if test="not(@_gte:Gentext-Expanded)">
-            <_sfe:BeforeOrAfterText>
-              <span style="font-weight: bold; text-decoration: underline; ">
-                <xsl:text>NOTE</xsl:text>
-              </span>
-              <xsl:text>: </xsl:text>
-            </_sfe:BeforeOrAfterText>
-          </xsl:if>
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
-    </xsl:copy>
+    <xsl:call-template name="expand-gentext">
+      <xsl:with-param name="content">
+        <xsl:choose>
+          <xsl:when test="@nbr">
+            <span style="font-weight: bold; text-decoration: underline; ">
+              <xsl:text>NOTE</xsl:text>
+            </span>
+            <xsl:text>: </xsl:text>
+            <xsl:value-of select="@nbr"/>
+            <xsl:text>. </xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <span style="font-weight: bold; text-decoration: underline; ">
+              <xsl:text>NOTE</xsl:text>
+            </span>
+            <xsl:text>: </xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="fandc/note" mode="expand-gentext" priority="6">
@@ -382,13 +279,11 @@
   </xsl:template>
 
   <xsl:template match="frontmatter//module/pageblock-title" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-numbering3">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
-    </xsl:call-template>
+    <xsl:call-template name="expand-gentext-numbering3"/>
   </xsl:template>
 
   <xsl:template match="pageblock-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="prclist1/prcitem1" mode="expand-gentext" priority="1">
@@ -420,8 +315,8 @@
   </xsl:template>
 
   <xsl:template match="pwcem-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <_ufe:engine-type>
           <xsl:if test="string(./@enginetype)">
             <xsl:attribute name="enginetype">
@@ -464,8 +359,8 @@
   </xsl:template>
 
   <xsl:template match="pwclmm-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <_ufe:engine-type>
           <xsl:if test="string(./@enginetype)">
             <xsl:attribute name="enginetype">
@@ -508,8 +403,8 @@
   </xsl:template>
 
   <xsl:template match="refint[name(id(@refid))='table' and (id(@refid)/ancestor::figure or id(@refid)/ancestor::graphic)]" mode="expand-gentext" priority="4">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <_sfe:CrossReference>
           <_gte:Link linkRef="{@refid}">
             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
@@ -521,8 +416,8 @@
   </xsl:template>
 
   <xsl:template match="refint[id(@refid)/self::table]" mode="expand-gentext" priority="3">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <_sfe:CrossReference>
           <_gte:Link linkRef="{@refid}">
             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
@@ -554,8 +449,8 @@
   </xsl:template>
 
   <xsl:template match="sbnbr" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <xsl:text> </xsl:text>
         <xsl:value-of select="@pwcrevno"/>
       </xsl:with-param>
@@ -793,31 +688,19 @@
   </xsl:template>
 
   <xsl:template match="module[@module-name='Airworthiness_Limits']/pgblk/title" mode="expand-gentext" priority="65">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="page-block[@pb-name='ni']//mfmatr/title" mode="expand-gentext" priority="56">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="page-block[@pb-name='record-of-revisions']//n-para/title" mode="expand-gentext" priority="55">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="pbfmatr/title" mode="expand-gentext" priority="40">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">
-        <xsl:variable name="gentext-inserts-current-title">
-          <xsl:choose>
-            <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">true</xsl:when>
-            <xsl:otherwise>true</xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-        <xsl:choose>
-          <xsl:when test="$gentext-inserts-current-title='true'">yes</xsl:when>
-          <xsl:otherwise>no</xsl:otherwise>
-        </xsl:choose>
-      </xsl:with-param>
+    <xsl:call-template name="expand-gentext">     
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"/>
@@ -840,53 +723,51 @@
   </xsl:template>
 
   <xsl:template match="pwcpbfront/title" mode="expand-gentext" priority="39">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="intro/title" mode="expand-gentext" priority="36">
-    <xsl:call-template name="expand-gentext-unhidden-title">
-      <xsl:with-param name="unhidden">no</xsl:with-param>
-    </xsl:call-template>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="pwcspblist/title" mode="expand-gentext" priority="35">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="sblist/title" mode="expand-gentext" priority="32">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="pwcni/title" mode="expand-gentext" priority="31">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="vendlist/title" mode="expand-gentext" priority="30">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="lof-item/title" mode="expand-gentext" priority="21">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="lof/title" mode="expand-gentext" priority="18">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="spb-list/title" mode="expand-gentext" priority="14">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="service-bull-list/title" mode="expand-gentext" priority="10">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="module/title" mode="expand-gentext" priority="9">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="num-index/title" mode="expand-gentext" priority="7">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="trlist" mode="expand-gentext" priority="0">
@@ -964,8 +845,8 @@
   </xsl:template>
 
   <xsl:template match="xref" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <_sfe:CrossReference>
           <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter graphic highlights howtouse intro list list1 list2 list3 list4 lof lof-item lot lot-item module n-para num-index num-list numlist page-block pbfmatr pgblk prcitem prclist1 prclist2 prclist3 prclist4 procedure pwcchapsect-list pwcni pwcspblist sblist section spec-tool-table subject subpara subtask table task taskproc title-page tprereq unlist </xsl:variable>
           <xsl:variable name="refed-id" select="@ref"/>

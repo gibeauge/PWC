@@ -26,8 +26,8 @@
   </xsl:template>
 
   <xsl:template match="dimen" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <xsl:text> </xsl:text>
       </xsl:with-param>
       <xsl:with-param name="content-after">
@@ -57,8 +57,8 @@
   </xsl:template>
 
   <xsl:template match="inter" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <xsl:choose>
           <xsl:when test="@prc='S'">
             <xsl:text>INTRCHG WITH P/N </xsl:text>
@@ -131,8 +131,8 @@
   </xsl:template>
 
   <xsl:template match="name" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <xsl:choose>
           <xsl:when test="&anc-pre-partnbr-nut-table; and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]]">
             <xsl:text>▪▪▪▪ </xsl:text>
@@ -146,16 +146,20 @@
           <xsl:when test="&anc-pre-partnbr-nut-table; and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]">
             <xsl:text>▪ </xsl:text>
           </xsl:when>
-          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]] and not(&anc-txt-not-in-sfe;)">
+          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]] and &par-not-cont-text;"/>
+          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]]">
             <xsl:text>▪▪▪▪ </xsl:text>
           </xsl:when>
-          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]] and not(&anc-txt-not-in-sfe;)">
+          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]] and &par-not-cont-text;"/>
+          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]">
             <xsl:text>▪▪▪ </xsl:text>
           </xsl:when>
-          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]] and not(&anc-txt-not-in-sfe;)">
+          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]] and &par-not-cont-text;"/>
+          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]">
             <xsl:text>▪▪ </xsl:text>
           </xsl:when>
-          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]] and not(&anc-txt-not-in-sfe;)">
+          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]] and &par-not-cont-text;"/>
+          <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]">
             <xsl:text>▪ </xsl:text>
           </xsl:when>
         </xsl:choose>
@@ -188,8 +192,8 @@
   </xsl:template>
 
   <xsl:template match="nomen-col" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and not(@select-at and string(@select-at)='BALANCING') and not(@select-at and string(@select-at)='DETAIL-BAL') and (@select-at and string(@select-at)='TRIM-BAL')">
             <_ufe:block-nospace>
@@ -299,20 +303,21 @@
   <xsl:template match="part-nbr" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <_sfe:InternalLink>
-          <xsl:if test="string(./@ref)">
-            <xsl:attribute name="targetId">
-              <xsl:value-of select="string(./@ref)"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="node()[not(self::_sfe:BeforeOrAfterText)]">
-            <_gte:Gentexted-Content-Wrapper>
-              <xsl:apply-templates mode="expand-gentext">
-                <xsl:with-param name="skip-expanded-gentext" select="'yes'"/>
-              </xsl:apply-templates>
-            </_gte:Gentexted-Content-Wrapper>
-          </xsl:if>
-        </_sfe:InternalLink>
+        <xsl:if test="@ref!=''">
+          <_sfe:InternalLink>
+              <xsl:attribute name="targetId">
+                <xsl:value-of select="@ref"/>
+              </xsl:attribute>
+              <xsl:if test="node()[not(self::_sfe:BeforeOrAfterText)]">
+                <_gte:Gentexted-Content-Wrapper>
+                  <xsl:apply-templates mode="expand-gentext">
+                    <xsl:with-param name="skip-expanded-gentext" select="'yes'"/>
+                  </xsl:apply-templates>
+                </_gte:Gentexted-Content-Wrapper>
+              </xsl:if>
+            
+          </_sfe:InternalLink>
+        </xsl:if>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -410,8 +415,8 @@
   </xsl:template>
 
   <xsl:template match="refint[name(id(@refid))='table' and (id(@refid)/ancestor::figure or id(@refid)/ancestor::graphic)]" mode="expand-gentext" priority="4">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <_sfe:CrossReference>
           <_gte:Link linkRef="{@refid}">
             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
@@ -423,8 +428,8 @@
   </xsl:template>
 
   <xsl:template match="refint[id(@refid)/self::table]" mode="expand-gentext" priority="3">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <_sfe:CrossReference>
           <_gte:Link linkRef="{@refid}">
             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
@@ -441,16 +446,30 @@
         <_ufe:block-nospace/>
         <xsl:choose>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='4'">
-            <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3'">
-            <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2'">
-            <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1'">
-            <xsl:text>&#xa0;&#xa0;&#xa0;</xsl:text>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
           </xsl:when>
         </xsl:choose>
         <xsl:value-of select="@cond"/>
@@ -470,28 +489,42 @@
         <xsl:choose>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='4'">
             <_ufe:block-nospace/>
-            <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3'">
             <_ufe:block-nospace/>
-            <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2'">
             <_ufe:block-nospace/>
-            <xsl:text>&#xa0;&#xa0;&#xa0;&#xa0;</xsl:text>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1'">
             <_ufe:block-nospace/>
-            <xsl:text>&#xa0;&#xa0;&#xa0;</xsl:text>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
@@ -715,8 +748,8 @@
   </xsl:template>
 
   <xsl:template match="subattach" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <xsl:text>ATTACHING PARTS</xsl:text>
       </xsl:with-param>
       <xsl:with-param name="content-after">
@@ -743,33 +776,19 @@
   </xsl:template>
 
   <xsl:template match="module[@module-name='Airworthiness_Limits']/pgblk/title" mode="expand-gentext" priority="65">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="page-block[@pb-name='ni']//mfmatr/title" mode="expand-gentext" priority="56">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="page-block[@pb-name='record-of-revisions']//n-para/title" mode="expand-gentext" priority="55">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="pbfmatr/title" mode="expand-gentext" priority="40">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">
-        <xsl:variable name="gentext-inserts-current-title">
-          <xsl:choose>
-            <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">false</xsl:when>
-            <xsl:otherwise>true</xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-        <xsl:attribute name="_gte:unhidden-title">
-          <xsl:choose>
-            <xsl:when test="$gentext-inserts-current-title='true'">yes</xsl:when>
-            <xsl:otherwise>no</xsl:otherwise>
-          </xsl:choose>
-        </xsl:attribute>
-      </xsl:with-param>
+    <xsl:call-template name="expand-gentext">      
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"/>
@@ -792,51 +811,51 @@
   </xsl:template>
 
   <xsl:template match="pwcpbfront/title" mode="expand-gentext" priority="39">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="intro/title" mode="expand-gentext" priority="36">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="pwcspblist/title" mode="expand-gentext" priority="35">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="sblist/title" mode="expand-gentext" priority="32">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="pwcni/title" mode="expand-gentext" priority="31">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="vendlist/title" mode="expand-gentext" priority="30">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="lof-item/title" mode="expand-gentext" priority="21">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="lof/title" mode="expand-gentext" priority="18">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="spb-list/title" mode="expand-gentext" priority="14">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="service-bull-list/title" mode="expand-gentext" priority="10">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="module/title" mode="expand-gentext" priority="9">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="num-index/title" mode="expand-gentext" priority="7">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="table/title/xref[id(@ref)/self::figure]" mode="expand-gentext" priority="7">
@@ -878,7 +897,7 @@
   </xsl:template>
 
   <xsl:template match="xref" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
+    <xsl:call-template name="expand-gentext2">
       <xsl:with-param name="content">
         <_sfe:CrossReference>
           <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter highlights intro list lof lof-item lot lot-item module n-para num-index num-list page-block procedure sblist section service-bull-list spb-list spec-tool-table subject subpara table title-page unlist </xsl:variable>

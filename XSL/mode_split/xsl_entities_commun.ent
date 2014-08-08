@@ -39,3 +39,4 @@
 
 <!ENTITY anc-table-fac-title          "ancestor-or-self::table[1]/@tabstyle[.='fits-and-clears'] and (/ata-page-block//table/title or /page-block//table/title)">
 <!ENTITY anc-pre-partnbr-nut-table    "ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]]">
+<!ENTITY par-not-cont-text            "not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''])">
