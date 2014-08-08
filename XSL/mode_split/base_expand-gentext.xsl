@@ -24,45 +24,54 @@
       <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
     </xsl:copy>  
   </xsl:template>
-
-  <xsl:template name="expand-gentext-unhidden-title">
-    <xsl:param name="unhidden" select="'yes'"/>
-    <xsl:copy>
-      <xsl:attribute name="_gte:unhidden-title">
-        <xsl:value-of select="$unhidden"/>
-      </xsl:attribute>
-      <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
-    </xsl:copy>
-  </xsl:template>
     
-  <xsl:template name="expand-gentext-unhidden-title2">
+  <xsl:template name="expand-gentext-expanded">
     <xsl:copy>
       <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
-      <xsl:apply-templates select="@*" mode="expand-gentext"/>
-      <xsl:attribute name="_gte:unhidden-title">yes</xsl:attribute>
-      <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
+      <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
     </xsl:copy>
   </xsl:template>
   
   <xsl:template name="expand-gentext">
     <xsl:param name="content" as="item()*"/>
-    <xsl:param name="content-after" as="item()*"/>
-    <xsl:param name="unhidden" select="''"/>
     <xsl:copy>
       <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
       <xsl:apply-templates select="@*" mode="expand-gentext"/>
-      <xsl:if test="string-length($unhidden) &gt; 0">
-        <xsl:attribute name="_gte:unhidden-title">
-          <xsl:value-of select="$unhidden"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="not(count($content)=0) and not(@_gte:Gentext-Expanded)">
+      <xsl:if test="not(@_gte:Gentext-Expanded)">
         <_sfe:BeforeOrAfterText>
           <xsl:copy-of select="exslt:node-set($content)"/>
         </_sfe:BeforeOrAfterText>
       </xsl:if>
       <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
-      <xsl:if test="not(count($content-after)=0) and not(@_gte:Gentext-Expanded)">
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template name="expand-gentext2">
+    <xsl:param name="content" as="item()*"/>
+    <xsl:copy>
+      <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
+      <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
+      <xsl:if test="not(@_gte:Gentext-Expanded)">
+        <_sfe:BeforeOrAfterText>
+          <xsl:copy-of select="exslt:node-set($content)"/>
+        </_sfe:BeforeOrAfterText>
+      </xsl:if>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template name="expand-gentext3">
+    <xsl:param name="content-before" as="item()*"/>
+    <xsl:param name="content-after" as="item()*"/>
+    <xsl:copy>
+      <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
+      <xsl:apply-templates select="@*" mode="expand-gentext"/>
+      <xsl:if test="not(@_gte:Gentext-Expanded)">
+        <_sfe:BeforeOrAfterText>
+          <xsl:copy-of select="exslt:node-set($content-before)"/>
+        </_sfe:BeforeOrAfterText>
+      </xsl:if>
+      <xsl:apply-templates select="* | text() | processing-instruction()" mode="expand-gentext"/>
+      <xsl:if test="not(@_gte:Gentext-Expanded)">
         <_sfe:BeforeOrAfterText>
           <xsl:copy-of select="exslt:node-set($content-after)"/>
         </_sfe:BeforeOrAfterText>
@@ -71,9 +80,7 @@
   </xsl:template>
   
   <xsl:template name="expand-gentext-numbering">
-    <xsl:param name="unhidden" select="''"/>
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden" select="$unhidden"/>
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering"/>
       </xsl:with-param>
@@ -81,9 +88,7 @@
   </xsl:template>
   
   <xsl:template name="expand-gentext-numbering2">
-    <xsl:param name="unhidden" select="'yes'"/>
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden" select="$unhidden"/>
       <xsl:with-param name="content">
         <span style="text-decoration: underline; "><xsl:call-template name="t-styler-numbering"/></span>
         <xsl:text> </xsl:text>
@@ -93,9 +98,7 @@
   </xsl:template>
   
   <xsl:template name="expand-gentext-numbering3">
-    <xsl:param name="unhidden" select="'yes'"/>
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden" select="$unhidden"/>
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering"/>
         <xsl:text> </xsl:text>
@@ -107,7 +110,6 @@
     <xsl:copy>
       <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
       <xsl:apply-templates mode="expand-gentext" select="@*"/>
-      <xsl:attribute name="_gte:unhidden-title">yes</xsl:attribute>
       <xsl:if test="not(@_gte:Gentext-Expanded)">
         <_sfe:BeforeOrAfterText>
           <xsl:call-template name="t-styler-numbering"/>
@@ -129,9 +131,7 @@
   </xsl:template>
   
   <xsl:template name="expand-gentext-numbering5">
-    <xsl:param name="unhidden" select="'yes'"/>
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden" select="$unhidden"/>
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering"/>          
         <xsl:text> </xsl:text>
@@ -171,16 +171,6 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
-  <xsl:template name="expand-gentext-numbering-title">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
-      <xsl:with-param name="content">
-        <xsl:call-template name="t-styler-numbering"/>             
-        <xsl:text> </xsl:text>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
       
   <!--  UFE  -->
   
@@ -201,7 +191,6 @@
   
   <xsl:template name="expand-gentext-ufe">
     <xsl:param name="content" as="item()*"/>
-    <xsl:param name="unhidden" select="''"/>
     <xsl:copy>
       <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
       <xsl:apply-templates select="@*" mode="expand-gentext"/>
@@ -209,11 +198,6 @@
         <xsl:attribute name="_gte:id">
           <xsl:value-of select="'_g_'"/>
           <xsl:value-of select="generate-id(.)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="string-length($unhidden) &gt; 0">
-        <xsl:attribute name="_gte:unhidden-title">
-          <xsl:value-of select="$unhidden"/>
         </xsl:attribute>
       </xsl:if>
       <xsl:if test="not(@_gte:Gentext-Expanded)">
@@ -243,20 +227,9 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-  
-  <xsl:template name="expand-gentext-ufe-numbering-title">
-    <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
-      <xsl:with-param name="content">
-        <xsl:call-template name="t-styler-numbering-ufe"/>
-        <xsl:text> </xsl:text>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
     
   <xsl:template name="expand-gentext-pgblk-ufe-title">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
         <xsl:text> </xsl:text>
@@ -264,15 +237,14 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template name="expand-gentext-pgblk-ufe-title-with-param">
-    <xsl:param name="gentext" select="''"/>
+  <xsl:template name="expand-gentext-pgblk-ufe-title2">
+    <xsl:param name="content" select="''"/>
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
         <xsl:text> </xsl:text>
         <xsl:text> </xsl:text>
-        <span style="text-decoration: underline; "><xsl:value-of select="$gentext"/></span>
+        <span style="text-decoration: underline; "><xsl:value-of select="$content"/></span>
       </xsl:with-param>
     </xsl:call-template>
 </xsl:template>
@@ -331,14 +303,14 @@
   </xsl:template>
   
   <xsl:template match="brk" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after"><xsl:processing-instruction name="Pub">_newline</xsl:processing-instruction></xsl:with-param>
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content"><xsl:processing-instruction name="Pub">_newline</xsl:processing-instruction></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="figure/key/callout" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after"><xsl:text> </xsl:text></xsl:with-param>
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content"><xsl:text> </xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -367,7 +339,6 @@
   <xsl:template match="_ufe:chapsect-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">LIST OF CHAPTER/SECTION/SUBJECTS</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>    
   </xsl:template>
     
@@ -382,13 +353,12 @@
   <xsl:template match="_ufe:cir-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">CLEANING INSPECTION REPAIR (CIR) MANUAL</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>    
   </xsl:template>
   
   <xsl:template match="city" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"/>
           <xsl:otherwise>
@@ -418,19 +388,19 @@
   </xsl:template>
   
   <xsl:template match="ata-page-block//consumables//_ufe:consumables-title" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext-pgblk-ufe-title-with-param">
-      <xsl:with-param name="gentext">Consumable Materials</xsl:with-param>
+    <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
+      <xsl:with-param name="content">Consumable Materials</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="page-block//consumables//_ufe:consumables-title" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-pgblk-ufe-title-with-param">
-      <xsl:with-param name="gentext">Consumable Materials</xsl:with-param>
+    <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
+      <xsl:with-param name="content">Consumable Materials</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="_ufe:consumables-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
     
   <xsl:template match="dash" mode="expand-gentext" priority="0">
@@ -442,8 +412,8 @@
   </xsl:template>
     
   <xsl:template match="deflist/def|key/def" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after"><xsl:processing-instruction name="Pub">_newline</xsl:processing-instruction></xsl:with-param>
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content"><xsl:processing-instruction name="Pub">_newline</xsl:processing-instruction></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
@@ -464,7 +434,6 @@
   <xsl:template match="_ufe:eipc-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">ILLUSTRATED PARTS CATALOG</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -479,7 +448,6 @@
   <xsl:template match="_ufe:em-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">OVERHAUL MANUAL</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>    
   </xsl:template>
   
@@ -559,19 +527,19 @@
   </xsl:template>
   
   <xsl:template match="page-block//fixtures-and-equipment//_ufe:fixequ-title" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext-pgblk-ufe-title-with-param">
-      <xsl:with-param name="gentext">Fixtures, Equipment and Supplier Tools</xsl:with-param>
+    <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
+      <xsl:with-param name="content">Fixtures, Equipment and Supplier Tools</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="ata-page-block//fixtures-and-equipment//_ufe:fixequ-title" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-pgblk-ufe-title-with-param">
-      <xsl:with-param name="gentext">Fixtures, Equipment and Supplier Tools</xsl:with-param>
+    <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
+      <xsl:with-param name="content">Fixtures, Equipment and Supplier Tools</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="_ufe:fixequ-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="eqn/frac" mode="expand-gentext" priority="20">
@@ -625,19 +593,19 @@
   </xsl:template>
   
   <xsl:template match="page-block//general//_ufe:general-title" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext-pgblk-ufe-title-with-param">
-      <xsl:with-param name="gentext">General</xsl:with-param>   
+    <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
+      <xsl:with-param name="content">General</xsl:with-param>   
     </xsl:call-template>    
   </xsl:template>
   
   <xsl:template match="ata-page-block//general//_ufe:general-title" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-pgblk-ufe-title-with-param">
-      <xsl:with-param name="gentext">General</xsl:with-param>   
+    <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
+      <xsl:with-param name="content">General</xsl:with-param>   
     </xsl:call-template>    
   </xsl:template>
   
   <xsl:template match="_ufe:general-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="pgblk/_ufe:glossary-title" mode="expand-gentext" priority="3">
@@ -655,7 +623,6 @@
   <xsl:template match="_ufe:glossary-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">GLOSSARY</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -685,13 +652,12 @@
   <xsl:template match="_ufe:howtouse-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">HOW TO USE MANUAL</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="int-mail" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <xsl:text>(</xsl:text>
       </xsl:with-param>
       <xsl:with-param name="content-after">
@@ -711,7 +677,6 @@
   <xsl:template match="_ufe:intro-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">INTRODUCTION</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -866,8 +831,8 @@
   </xsl:template>
     
   <xsl:template match="figure/key" mode="expand-gentext" priority="20">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after"><hr/></xsl:with-param>
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content"><hr/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -878,19 +843,19 @@
   </xsl:template>
   
   <xsl:template match="pbfmatr/manual-title" mode="expand-gentext" priority="3">
-    <xsl:call-template name="expand-gentext-numbering-title"/>
+    <xsl:call-template name="expand-gentext-numbering2"/>
   </xsl:template>
   
   <xsl:template match="pwcspblist/manual-title" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext-numbering-title"/>
+    <xsl:call-template name="expand-gentext-numbering2"/>
   </xsl:template>
   
   <xsl:template match="pgblk/manual-title" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-numbering-title"/>
+    <xsl:call-template name="expand-gentext-numbering2"/>
   </xsl:template>
   
   <xsl:template match="manual-title" mode="expand-gentext" priority="0">    
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="model" mode="expand-gentext" priority="0">
@@ -945,36 +910,34 @@
   </xsl:template>
   
   <xsl:template match="pbfmatr/_ufe:num-index-title" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext-ufe-numbering-title"/>
+    <xsl:call-template name="expand-gentext-ufe-numbering2"/>
   </xsl:template>
   
   <xsl:template match="pwcspblist/_ufe:num-index-title" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-ufe-numbering-title"/>
+    <xsl:call-template name="expand-gentext-ufe-numbering2"/>
   </xsl:template>
   
   <xsl:template match="_ufe:num-index-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">NUMERICAL INDEX</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="pgblk/_ufe:nut-option-title" mode="expand-gentext" priority="3">
-    <xsl:call-template name="expand-gentext-ufe-numbering-title"/>
+    <xsl:call-template name="expand-gentext-ufe-numbering2"/>
   </xsl:template>
   
   <xsl:template match="pbfmatr/_ufe:nut-option-title" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext-ufe-numbering-title"/>
+    <xsl:call-template name="expand-gentext-ufe-numbering2"/>
   </xsl:template>
   
   <xsl:template match="pwcspblist/_ufe:nut-option-title" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-ufe-numbering-title"/>
+    <xsl:call-template name="expand-gentext-ufe-numbering2"/>
   </xsl:template>
   
   <xsl:template match="_ufe:nut-option-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">NUT OPTIONS</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1272,13 +1235,12 @@
   <xsl:template match="_ufe:pdlist-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">PARTS DIGEST LIST</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
   <xsl:template match="postal" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after"><xsl:text>&#xa0;</xsl:text></xsl:with-param>
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content"><xsl:text>&#xa0;</xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1442,7 +1404,6 @@
   <xsl:template match="_ufe:sblist-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">SERVICE BULLETIN LIST</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1457,7 +1418,6 @@
   <xsl:template match="_ufe:spblist-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">SPARE PARTS BULLETIN LIST</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1500,7 +1460,7 @@
   </xsl:template>
   
   <xsl:template match="_ufe:spectools-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="sqrt" mode="expand-gentext" priority="0">
@@ -1510,8 +1470,8 @@
   </xsl:template>
   
   <xsl:template match="state" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"/>
           <xsl:otherwise>
@@ -1537,7 +1497,6 @@
   <xsl:template match="_ufe:supplier-list-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">SUPPLIER LIST</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1621,7 +1580,7 @@
   </xsl:template>
   
   <xsl:template match="_ufe:task-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="address/tel[1]" mode="expand-gentext" priority="2">
@@ -1641,13 +1600,12 @@
   <xsl:template match="_ufe:temp-rev-title" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">TEMPORARY REVISION INDEX</xsl:with-param>
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="deflist/term" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after"><xsl:text>     </xsl:text></xsl:with-param>
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content"><xsl:text>     </xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
@@ -1676,9 +1634,8 @@
   </xsl:template>
   
   <xsl:template match="ata-page-block//task/graphic/title" mode="expand-gentext" priority="67">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <xsl:text>Figure </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
         <xsl:text> </xsl:text>        
@@ -1702,9 +1659,8 @@
   </xsl:template>
   
   <xsl:template match="page-block//task/graphic/title" mode="expand-gentext" priority="66">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <xsl:text>Figure </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
         <xsl:text> </xsl:text>        
@@ -1788,9 +1744,8 @@
   </xsl:template>
   
   <xsl:template match="task//table/title" mode="expand-gentext" priority="51">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">no</xsl:with-param>
-      <xsl:with-param name="content">
+    <xsl:call-template name="expand-gentext3">
+      <xsl:with-param name="content-before">
         <xsl:choose>
           <xsl:when test="../@display='expand'">
             <xsl:text>Table </xsl:text>
@@ -1842,7 +1797,6 @@
   
   <xsl:template match="page-block//graphic/title" mode="expand-gentext" priority="50">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
       <xsl:with-param name="content">
         <xsl:text>Figure </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
@@ -1853,7 +1807,6 @@
   
   <xsl:template match="ata-page-block//graphic/title" mode="expand-gentext" priority="49">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
       <xsl:with-param name="content">
         <xsl:text>Figure </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
@@ -1887,14 +1840,11 @@
   </xsl:template>
   
   <xsl:template match="mfmatr/title" mode="expand-gentext" priority="42">
-    <xsl:call-template name="expand-gentext-unhidden-title">
-      <xsl:with-param name="unhidden">no</xsl:with-param>
-    </xsl:call-template>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
       
   <xsl:template match="figure/title" mode="expand-gentext" priority="41">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="&pb-01;"/>
@@ -1941,7 +1891,7 @@
   </xsl:template>
   
   <xsl:template match="pwcchapsect-item/title" mode="expand-gentext" priority="28">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="tprereq/title" mode="expand-gentext" priority="27">
@@ -1953,7 +1903,7 @@
   </xsl:template>
   
   <xsl:template match="fits/title" mode="expand-gentext" priority="25">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="task/title" mode="expand-gentext" priority="24">
@@ -1961,29 +1911,27 @@
   </xsl:template>
   
   <xsl:template match="howtouse/title" mode="expand-gentext" priority="23">
-    <xsl:call-template name="expand-gentext-unhidden-title">
-      <xsl:with-param name="unhidden">no</xsl:with-param>
-    </xsl:call-template>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="highlights/title" mode="expand-gentext" priority="22">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="lot-item/title" mode="expand-gentext" priority="20">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="lot/title" mode="expand-gentext" priority="19">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="table//procedure//title" mode="expand-gentext" priority="17">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="torque-and-stretch/title" mode="expand-gentext" priority="16">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="spec-tool-table/title" mode="expand-gentext" priority="15">
@@ -1991,11 +1939,11 @@
   </xsl:template>
   
   <xsl:template match="subject/title" mode="expand-gentext" priority="13">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="section/title" mode="expand-gentext" priority="12">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="page-block/title" mode="expand-gentext" priority="11">
@@ -2008,7 +1956,6 @@
   
   <xsl:template match="table[@display='expand']/title" mode="expand-gentext" priority="6">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="&anc-doc-cir; or &anc-doc-em; or &anc-doc-tmm;">
@@ -2031,15 +1978,14 @@
  
   <xsl:template match="table/title" mode="expand-gentext" priority="5">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">no</xsl:with-param>
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="&anc-doc-cir; or &anc-doc-em; or &anc-doc-tmm;">
             <_ufe:hidden>
               <xsl:text>Table </xsl:text>
               <xsl:call-template name="t-styler-numbering"/>
-              <xsl:text> </xsl:text>
             </_ufe:hidden>
+            <xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="&pb-01;"/>
           <xsl:when test="&pb-02; or &pb-03; or &pb-04; or &pb-05; or &pb-06; or &pb-07; or &pb-08; or &pb-09; or 
@@ -2056,11 +2002,11 @@
   </xsl:template>
   
   <xsl:template match="chapter/title" mode="expand-gentext" priority="4">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="book/title" mode="expand-gentext" priority="3">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="ata-page-block/title" mode="expand-gentext" priority="2">
@@ -2072,12 +2018,12 @@
   </xsl:template>
   
   <xsl:template match="title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
   <xsl:template match="title-page" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after"><_ufe:proprietary-notice/></xsl:with-param>
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content"><_ufe:proprietary-notice/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -2252,12 +2198,12 @@
   </xsl:template>
   
   <xsl:template match="xref[id(@ref)/self::figure]" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="zip" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"/>
           <xsl:otherwise>
@@ -2274,13 +2220,19 @@
     </xsl:copy>
   </xsl:template>
   
+  <xsl:template match="_gte:Gentexted-Content-Wrapper" mode="expand-gentext">
+    <xsl:call-template name="expand-gentext"/>
+  </xsl:template>
+  
   <xsl:template match="_gte:deferredCrossReference" mode="expand-gentext">
     <_gte:deferredCrossReference2>
        <xsl:copy-of select="@*"/>
     </_gte:deferredCrossReference2>
   </xsl:template>
   
-  <xsl:template match="_gte:deferredCrossReference2" mode="expand-gentext">
+  <xsl:template match="_gte:deferredCrossReference2" mode="expand-gentext"/>
+  
+  <!--<xsl:template match="_gte:deferredCrossReference2" mode="expand-gentext">
     <xsl:variable name="refed-id" select="@refed-id"/>
     <xsl:variable name="child-title-node" select="(//*[@_gte:id=$refed-id]/*[@_gte:unhidden-title]|//*[@_gte:id=$refed-id]/_sfe:BeforeOrAfterText/*[@_gte:unhidden-title])[1]"/>
     <xsl:choose>
@@ -2307,7 +2259,7 @@
        </xsl:when>
        <xsl:when test="false()"/>
     </xsl:choose>
-  </xsl:template>
+  </xsl:template>-->
   
   <xsl:template match="_sfe:BeforeOrAfterText" mode="expand-gentext" priority="100">
     <xsl:param name="skip-expanded-gentext" select="'no'"/>
@@ -2319,6 +2271,10 @@
           </xsl:copy>
        </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template match="_sfe:CollectionItem[1]" mode="expand-gentext" priority="3">
+    <xsl:call-template name="expand-gentext"/>
   </xsl:template>
   
   <xsl:template match="_sfe:CollectionItem[position()&gt;1 and not(position()=last())]" mode="expand-gentext" priority="2">

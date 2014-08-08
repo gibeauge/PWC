@@ -83,3 +83,5 @@
 <!ENTITY lib-gentxt                   " _sfe:BeforeOrAfterText ">
 <!ENTITY lib-gentxt-warn-caut         " _sfe:BeforeOrAfterText warning caution ">
 <!ENTITY lib-gentxt-warn-caut-note    " _sfe:BeforeOrAfterText warning caution note ">
+
+<!ENTITY par-not-cont-text            "not(ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/text()[normalize-space(.)!='']|ancestor::*[not(self::_sfe:BeforeOrAfterText)][1]/*[not(self::_sfe:BeforeOrAfterText)]//text()[normalize-space(.)!=''])">

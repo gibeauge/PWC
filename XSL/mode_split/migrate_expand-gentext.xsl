@@ -215,24 +215,20 @@
   </xsl:template>
 
   <xsl:template match="frontmatter//module/pageblock-title" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext-numbering3">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
-    </xsl:call-template>
+    <xsl:call-template name="expand-gentext-numbering3"/>
   </xsl:template>
 
   <xsl:template match="pgblk/pageblock-title" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-numbering3">
-      <xsl:with-param name="unhidden">yes</xsl:with-param>
-    </xsl:call-template>
+    <xsl:call-template name="expand-gentext-numbering3"/>
   </xsl:template>
 
   <xsl:template match="pageblock-title" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="refint[name(id(@refid))='table' and (id(@refid)/ancestor::figure or id(@refid)/ancestor::graphic)]" mode="expand-gentext" priority="4">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <_sfe:CrossReference>
           <_gte:Link linkRef="{@refid}">
             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
@@ -244,8 +240,8 @@
   </xsl:template>
 
   <xsl:template match="refint[id(@refid)/self::table]" mode="expand-gentext" priority="3">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <_sfe:CrossReference>
           <_gte:Link linkRef="{@refid}">
             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
@@ -329,31 +325,19 @@
   </xsl:template>
 
   <xsl:template match="module[@module-name='Airworthiness_Limits']/pgblk/title" mode="expand-gentext" priority="65">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="page-block[@pb-name='ni']//mfmatr/title" mode="expand-gentext" priority="56">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="page-block[@pb-name='record-of-revisions']//n-para/title" mode="expand-gentext" priority="55">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="pbfmatr/title" mode="expand-gentext" priority="40">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="unhidden">
-        <xsl:variable name="gentext-inserts-current-title">
-          <xsl:choose>
-            <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">false</xsl:when>
-            <xsl:otherwise>true</xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-        <xsl:choose>
-          <xsl:when test="$gentext-inserts-current-title='true'">yes</xsl:when>
-          <xsl:otherwise>no</xsl:otherwise>
-        </xsl:choose>
-      </xsl:with-param>
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"/>
@@ -376,53 +360,51 @@
   </xsl:template>
 
   <xsl:template match="pwcpbfront/title" mode="expand-gentext" priority="39">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="intro/title" mode="expand-gentext" priority="36">
-    <xsl:call-template name="expand-gentext-unhidden-title">
-      <xsl:with-param name="unhidden">no</xsl:with-param>
-    </xsl:call-template>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="pwcspblist/title" mode="expand-gentext" priority="35">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="sblist/title" mode="expand-gentext" priority="32">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="pwcni/title" mode="expand-gentext" priority="31">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="vendlist/title" mode="expand-gentext" priority="30">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="lof-item/title" mode="expand-gentext" priority="21">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="lof/title" mode="expand-gentext" priority="18">
-    <xsl:call-template name="expand-gentext-unhidden-title2"/>
+    <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
 
   <xsl:template match="spb-list/title" mode="expand-gentext" priority="14">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="service-bull-list/title" mode="expand-gentext" priority="10">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="module/title" mode="expand-gentext" priority="9">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="num-index/title" mode="expand-gentext" priority="7">
-    <xsl:call-template name="expand-gentext-unhidden-title"/>
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="table/title/xref[id(@ref)/self::figure]" mode="expand-gentext" priority="7">
@@ -464,8 +446,8 @@
   </xsl:template>
 
   <xsl:template match="xref" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content-after">
+    <xsl:call-template name="expand-gentext2">
+      <xsl:with-param name="content">
         <_sfe:CrossReference>
           <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book bullist chapsect-list chapter consumables enumlist figure fits-and-clears fixtures-and-equipment frontmatter general highlights intro list lof lof-item lot lot-item mm-fits module n-para num-index num-list page-block procedure sblist section spec-tool-table special-tools subject subpara table title-page torque-and-stretch unlist </xsl:variable>
           <xsl:variable name="refed-id" select="@ref"/>
