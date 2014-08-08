@@ -38,3 +38,4 @@
 <!ENTITY pb-18                        "&anc-pgblks;@pb-name[.='it-oh' or .='lt-oh']">
 
 <!ENTITY anc-table-fac-title          "ancestor-or-self::table[1]/@tabstyle[.='fits-and-clears'] and (/ata-page-block//table/title or /page-block//table/title)">
+<!ENTITY anc-pre-partnbr-nut-table    "ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]]">
