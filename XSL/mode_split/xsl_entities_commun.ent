@@ -17,6 +17,8 @@
 <!ENTITY anc-doc-cir-em-tmm           "ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]">
 
 <!ENTITY anc-pgblks                   "ancestor::*[self::page-block or self::ata-page-block]/">
+<!ENTITY anc-page-block               "ancestor::page-block/">
+<!ENTITY anc-ata-page-block               "ancestor::ata-page-block/">
 
 <!ENTITY pb-01                        "&anc-doc-oh; and &anc-pgblks;@pb-name[.='service']">
 <!ENTITY pb-02                        "&anc-pgblks;@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']">
@@ -37,5 +39,47 @@
 <!ENTITY pb-17                        "&anc-pgblks;@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]">
 <!ENTITY pb-18                        "&anc-pgblks;@pb-name[.='it-oh' or .='lt-oh']">
 
+<!ENTITY pb-01-ata                    "&anc-doc-oh; and &anc-ata-page-block;@pb-name[.='service']">
+<!ENTITY pb-02-ata                    "&anc-ata-page-block;@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']">
+<!ENTITY pb-03-ata                    "&anc-ata-page-block;@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']">
+<!ENTITY pb-04-ata                    "&anc-ata-page-block;@pb-name[.='intro00']">
+<!ENTITY pb-05-ata                    "&anc-ata-page-block;@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]">
+<!ENTITY pb-06-ata                    "&anc-doc-oh; and &anc-ata-page-block;@pb-name[starts-with(., 'clean')]">
+<!ENTITY pb-07-ata                    "&anc-ata-page-block;@pb-name[starts-with(., 'mainprac')]">
+<!ENTITY pb-08-ata                    "&anc-doc-oh; and &anc-ata-page-block;@pb-name[starts-with(., 'inspect')]">
+<!ENTITY pb-09-ata                    "&anc-ata-page-block;@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]">
+<!ENTITY pb-10-ata                    "&anc-doc-oh; and &anc-ata-page-block;@pb-name[starts-with(., 'repair')]">
+<!ENTITY pb-11-ata                    "&anc-doc-oh; and &anc-ata-page-block;@pb-name[starts-with(., 'test')]">
+<!ENTITY pb-12-ata                    "&anc-ata-page-block;@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]">
+<!ENTITY pb-13-ata                    "&anc-ata-page-block;@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']">
+<!ENTITY pb-14-ata                    "&anc-ata-page-block;@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]">
+<!ENTITY pb-15-ata                    "&anc-ata-page-block;@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]">
+<!ENTITY pb-16-ata                    "&anc-ata-page-block;@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']">
+<!ENTITY pb-17-ata                    "&anc-ata-page-block;@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]">
+<!ENTITY pb-18-ata                    "&anc-ata-page-block;@pb-name[.='it-oh' or .='lt-oh']">
+
+<!ENTITY pb-01-p                      "&anc-doc-oh; and &anc-page-block;@pb-name[.='service']">
+<!ENTITY pb-02-p                      "&anc-page-block;@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']">
+<!ENTITY pb-03-p                      "&anc-page-block;@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']">
+<!ENTITY pb-04-p                      "&anc-page-block;@pb-name[.='intro00']">
+<!ENTITY pb-05-p                      "&anc-page-block;@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]">
+<!ENTITY pb-06-p                      "&anc-doc-oh; and &anc-page-block;@pb-name[starts-with(., 'clean')]">
+<!ENTITY pb-07-p                      "&anc-page-block;@pb-name[starts-with(., 'mainprac')]">
+<!ENTITY pb-08-p                      "&anc-doc-oh; and &anc-page-block;@pb-name[starts-with(., 'inspect')]">
+<!ENTITY pb-09-p                      "&anc-page-block;@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]">
+<!ENTITY pb-10-p                      "&anc-doc-oh; and &anc-page-block;@pb-name[starts-with(., 'repair')]">
+<!ENTITY pb-11-p                      "&anc-doc-oh; and &anc-page-block;@pb-name[starts-with(., 'test')]">
+<!ENTITY pb-12-p                      "&anc-page-block;@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]">
+<!ENTITY pb-13-p                      "&anc-page-block;@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']">
+<!ENTITY pb-14-p                      "&anc-page-block;@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]">
+<!ENTITY pb-15-p                      "&anc-page-block;@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]">
+<!ENTITY pb-16-p                      "&anc-page-block;@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']">
+<!ENTITY pb-17-p                      "&anc-page-block;@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]">
+<!ENTITY pb-18-p                      "&anc-page-block;@pb-name[.='it-oh' or .='lt-oh']">
+
 <!ENTITY anc-table-fac-title          "ancestor-or-self::table[1]/@tabstyle[.='fits-and-clears'] and (/ata-page-block//table/title or /page-block//table/title)">
 <!ENTITY anc-pre-partnbr-nut-table    "ancestor::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'NUT-TABLE']]]">
+
+<!ENTITY lib-gentxt                   " _sfe:BeforeOrAfterText ">
+<!ENTITY lib-gentxt-warn-caut         " _sfe:BeforeOrAfterText warning caution ">
+<!ENTITY lib-gentxt-warn-caut-note    " _sfe:BeforeOrAfterText warning caution note ">

@@ -1,4 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ximg="xaln://com.nwalsh.xalan.ImageIntrinsics" xmlns="http://www.w3.org/1999/xhtml" xmlns:exslt="http://exslt.org/common" xmlns:_acl="java:com.arbortext.epic.Acl" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:_="http://www.pwc.ca/namespace/doctypes/emipc" xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements" xmlns:atidlm="http://www.arbortext.com/namespace/atidlm" xmlns:_2="http://www.pwc.ca/namespace/doctypes/jmtosmigrate" xmlns:ch="http://www.arbortext.com/namespace/chunker" xmlns:saxon="http://saxon.sf.net/" xmlns:_5="http://www.pwc.ca/namespace/doctypes/ipc" xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript" xmlns:_3="http://www.pwc.ca/namespace/doctypes/migrate" xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0" exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE xsl:stylesheet [
+    <!ENTITY % entities_commun SYSTEM "xsl_entities_commun.ent">
+    %entities_commun;
+]>
+<xsl:stylesheet xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ximg="xaln://com.nwalsh.xalan.ImageIntrinsics" xmlns="http://www.w3.org/1999/xhtml" xmlns:exslt="http://exslt.org/common" xmlns:_acl="java:com.arbortext.epic.Acl" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:_="http://www.pwc.ca/namespace/doctypes/emipc" xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements" xmlns:atidlm="http://www.arbortext.com/namespace/atidlm" xmlns:_2="http://www.pwc.ca/namespace/doctypes/jmtosmigrate" xmlns:ch="http://www.arbortext.com/namespace/chunker" xmlns:saxon="http://saxon.sf.net/" xmlns:_5="http://www.pwc.ca/namespace/doctypes/ipc" xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript" xmlns:_3="http://www.pwc.ca/namespace/doctypes/migrate" xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0" exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
 
 <xsl:include href="base_initial-pass-mode.xsl"/>
 <xsl:include href="base_expand-gentext.xsl"/>
@@ -11,757 +17,255 @@
 <xsl:include href="base_ElementContent_All.xsl"/>
 <xsl:include href="base_expand-numbering.xsl"/>
 
-<xsl:template name="__style-for_address.8nuisss151">
-      <xsl:text> .x-address-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+<xsl:variable name="pf-id" select="'styler-id'"/>
+
+<xsl:template name="t-base-div-basic">
+  <xsl:copy-of select="@ch:*"/>
+  <xsl:call-template name="maybe-set-id"/>
+  <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template name="t-base-div-basic2">
+  <xsl:copy-of select="@ch:*"/>
+  <xsl:call-template name="maybe-set-id">
+    <xsl:with-param name="only-if-id-attr" select="'no'"/>
+    <xsl:with-param name="generated-id-prefix" select="$pf-id"/>
+  </xsl:call-template>
+  <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template name="t-base-div-basic-h">
+  <xsl:param name="hidden"/>
+
+  <xsl:copy-of select="@ch:*"/>
+  <xsl:call-template name="maybe-set-id"/>
+  <xsl:choose>
+    <xsl:when test="$hidden='no'">
+       <xsl:apply-templates/>
+    </xsl:when>
+    <xsl:otherwise>
+       <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+           
+<xsl:template name="t-base-div-title">
+  <xsl:copy-of select="@ch:*"/>
+  <xsl:attribute name="id"><xsl:call-template name="object.id"/></xsl:attribute>
+  <xsl:call-template name="maybe-set-id">
+    <xsl:with-param name="only-if-id-attr" select="'no'"/>
+    <xsl:with-param name="generated-id-prefix" select="$pf-id"/>
+  </xsl:call-template>
+  <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template name="t-base-img-graphic">
+  <xsl:param name="filename" select="@negnumber"/>
+  
+  <xsl:copy-of select="@ch:*"/>
+  <img alt="Graphic">
+    <xsl:copy-of select="@ch:*"/>
+    <xsl:variable name="graphic-prop-filename">
+       <xsl:if test="$graphics-path!=''">
+          <xsl:call-template name="substring-before-last">
+             <xsl:with-param name="str" select="$graphics-path"/>
+             <xsl:with-param name="delim" select="'/'"/>
+          </xsl:call-template>
+          <xsl:text>/</xsl:text>
+       </xsl:if>
+       <xsl:value-of select="$filename"/>
+    </xsl:variable>
+    <xsl:attribute name="src">
+       <xsl:value-of select="string($filename)"/>
+    </xsl:attribute>
+    <xsl:attribute name="style">max-width: 100%; </xsl:attribute>
+    <xsl:call-template name="maybe-set-id"/>
+    <xsl:apply-templates/>
+  </img>
+</xsl:template>
+
+<xsl:template name="t-base-step-table">
+  <xsl:param name="col1-width"/>
+  <xsl:param name="col2-width"/>
+  <xsl:param name="col3-width"/>
+  <xsl:param name="label-col"/>
+  <xsl:param name="col2-align"/>
+  <xsl:param name="apply"/>
+
+  <xsl:copy-of select="@ch:*"/>
+  <xsl:call-template name="maybe-set-id"/>
+  <col>
+    <xsl:if test="$col1-width!=''">
+      <xsl:attribute name="style"><xsl:text>width: </xsl:text><xsl:value-of select="$col1-width"/></xsl:attribute>
+    </xsl:if>
+  </col>
+  <col>
+    <xsl:if test="$col2-width!=''">
+      <xsl:attribute name="style"><xsl:text>width: </xsl:text><xsl:value-of select="$col2-width"/></xsl:attribute>
+    </xsl:if>
+  </col>
+  <col>
+    <xsl:if test="$col3-width!=''">
+      <xsl:attribute name="style"><xsl:text>width: </xsl:text><xsl:value-of select="$col3-width"/></xsl:attribute>
+      </xsl:if>
+   </col>
+   <tbody>
+      <tr valign="baseline">
+         <td align="right">
+            <xsl:if test="$label-col='1'">
+               <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
+               <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
+            </xsl:if>
+         </td>
+         <td align="{$col2-align}">
+            <xsl:if test="$label-col='2'">
+               <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
+               <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
+            </xsl:if>
+         </td>
+         <td>
+            <xsl:if test="$label-col='3'">
+               <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
+               <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
+            </xsl:if>
+            <xsl:apply-templates select="node()[not(contains($apply,concat(' ',name(),' ')))]"/>
+            <!--
+            <xsl:choose>
+              <xsl:when test="$apply='no-warn'">
+                <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText' and name()!='warning' and name()!='caution']"/>
+              </xsl:when>
+              <xsl:when test="$apply='no-warn-note'">
+                <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText' and name()!='warning' and name()!='caution' and name()!='note']"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
+              </xsl:otherwise>
+            </xsl:choose>
+            -->
+         </td>
+      </tr>
+   </tbody>
+</xsl:template>
 
 <xsl:template match="numlist/address" priority="7">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">tab</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-address-1-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">1.5em</xsl:variable>
-         <xsl:variable name="col2-width">12pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">1</xsl:variable>
-         <xsl:variable name="col2-align">right</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_address.8sbtass142">
-      <xsl:text> .x-address-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-address-1-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'1.5em'"/>
+      <xsl:with-param name="col2-width" select="'12pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'1'"/>
+      <xsl:with-param name="col2-align" select="'right'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="sbdata/address" priority="6">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">tab</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-address-2-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0em</xsl:variable>
-         <xsl:variable name="col2-width">15pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">2</xsl:variable>
-         <xsl:variable name="col2-align">left</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_address.8ala-ss183">
-      <xsl:text> .x-address-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-address-2-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0em'"/>
+      <xsl:with-param name="col2-width" select="'15pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'2'"/>
+      <xsl:with-param name="col2-align" select="'left'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="alpha-list/address" priority="5">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">tab</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-address-3-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0em</xsl:variable>
-         <xsl:variable name="col2-width">15pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">2</xsl:variable>
-         <xsl:variable name="col2-align">left</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_address.8nuliss164">
-      <xsl:text> .x-address-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-address-3-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0em'"/>
+      <xsl:with-param name="col2-width" select="'15pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'2'"/>
+      <xsl:with-param name="col2-align" select="'left'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="num-list/address" priority="4">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">tab</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-address-4-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0em</xsl:variable>
-         <xsl:variable name="col2-width">15pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">2</xsl:variable>
-         <xsl:variable name="col2-align">left</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_address.8glsass165">
-      <xsl:text> .x-address-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-address-4-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0em'"/>
+      <xsl:with-param name="col2-width" select="'15pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'2'"/>
+      <xsl:with-param name="col2-align" select="'left'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="glossary/address" priority="3">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith"/>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-address-5-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0pt</xsl:variable>
-         <xsl:variable name="col2-width">0pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">3</xsl:variable>
-         <xsl:variable name="col2-align">center</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_address.8pwhass246">
-      <xsl:text> .x-address-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-address-5-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0pt'"/>
+      <xsl:with-param name="col2-width" select="'0pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'3'"/>
+      <xsl:with-param name="col2-align" select="'center'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="pwcchapsect-list/address" priority="2">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">tab</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-address-6-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0em</xsl:variable>
-         <xsl:variable name="col2-width">15pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">2</xsl:variable>
-         <xsl:variable name="col2-align">left</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_address.8enliss167">
-      <xsl:text> .x-address-7-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-address-6-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0em'"/>
+      <xsl:with-param name="col2-width" select="'15pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'2'"/>
+      <xsl:with-param name="col2-align" select="'left'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="enumlist/address" priority="1">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith"/>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-address-7-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0pt</xsl:variable>
-         <xsl:variable name="col2-width">0pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">3</xsl:variable>
-         <xsl:variable name="col2-align">center</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_address.8adesss78">
-      <xsl:text> .x-address-8-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-address-7-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0pt'"/>
+      <xsl:with-param name="col2-width" select="'0pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'3'"/>
+      <xsl:with-param name="col2-align" select="'center'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="address" priority="0">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith"/>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-address-8-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0pt</xsl:variable>
-         <xsl:variable name="col2-width">0pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">3</xsl:variable>
-         <xsl:variable name="col2-align">center</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_aispart.1">
-      <xsl:text> .x-aispart-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-address-8-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0pt'"/>
+      <xsl:with-param name="col2-width" select="'0pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'3'"/>
+      <xsl:with-param name="col2-align" select="'center'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="aispart" priority="0">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-aispart-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_alpha-list.1">
-      <xsl:text> .x-alpha-list-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }</xsl:text>
-   </xsl:template>
+  <span class=" x-airspart-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </span>
+</xsl:template>
 
 <xsl:template match="alpha-list" priority="0">
-      <div>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-alpha-list-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_applic-group.1">
-      <xsl:text> .x-applic-group-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div class=" x-alpha-list-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="applic-group" priority="0">
-      <!--Emit a nostyle template-->
-      <xsl:apply-templates/>
-   </xsl:template>
+    <xsl:apply-templates/>
+ </xsl:template>
 
 <xsl:template name="__style-for_applic-item.1">
       <xsl:text> .x-applic-item-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
@@ -1916,122 +1420,23 @@
       </dd>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-chapsect-title.3pgk_le251">
-      <xsl:text> .x--ufe-chapsect-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:chapsect-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-chapsect-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-chapsect-title.3pbatle272">
-      <xsl:text> .x--ufe-chapsect-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-chapsect-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:chapsect-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-chapsect-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-chapsect-title.3_uchle193">
-      <xsl:text> .x--ufe-chapsect-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-chapsect-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="_ufe:chapsect-title" priority="0">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-chapsect-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-chapsect-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_chapter.1">
       <xsl:text> .x-chapter-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
@@ -2125,87 +1530,17 @@
       </xsl:if>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-cir-title.3pgk_le201">
-      <xsl:text> .x--ufe-cir-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:cir-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-cir-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-cir-title.3pbatle222">
-      <xsl:text> .x--ufe-cir-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-cir-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:cir-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-cir-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-cir-title.3_ucile143">
-      <xsl:text> .x--ufe-cir-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 36pt; text-align: center; margin-bottom: 12pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-cir-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_city.1">
       <xsl:text> .x-city-1-0 {margin-left: 0pt; margin-right: 0pt; } .x-city-1-1 {}</xsl:text>
@@ -2354,239 +1689,41 @@
       </a>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-consumables-title.6pgk_le281">
-      <xsl:text> .x--ufe-consumables-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:consumables-title" priority="5">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-consumables-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-consumables-title.6pbatle302">
-      <xsl:text> .x--ufe-consumables-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-consumables-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:consumables-title" priority="4">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-consumables-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-consumables-title.6pwpble333">
-      <xsl:text> .x--ufe-consumables-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-consumables-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:consumables-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-consumables-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-consumables-title.6atpale514">
-      <xsl:text> .x--ufe-consumables-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-consumables-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//consumables//_ufe:consumables-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-consumables-title-4-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-consumables-title.6pa-ble475">
-      <xsl:text> .x--ufe-consumables-title-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-consumables-title-4-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block//consumables//_ufe:consumables-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-consumables-title-5-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-consumables-title.6_ucole226">
-      <xsl:text> .x--ufe-consumables-title-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-consumables-title-5-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="_ufe:consumables-title" priority="0">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-consumables-title-6-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-consumables-title-6-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_consume-list.1">
       <xsl:text> .x-consume-list-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
@@ -3036,164 +2173,28 @@
    </xsl:template>
 
 <xsl:template match="pgblk/_ufe:eipc-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-eipc-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-eipc-title.3pbatle232">
-      <xsl:text> .x--ufe-eipc-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-eipc-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:eipc-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-eipc-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-eipc-title.3_ueile153">
-      <xsl:text> .x--ufe-eipc-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 36pt; text-align: center; margin-bottom: 12pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-em-title.3pgk_le191">
-      <xsl:text> .x--ufe-em-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-eipc-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:em-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-em-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-em-title.3pbatle212">
-      <xsl:text> .x--ufe-em-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-em-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:em-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-em-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-em-title.3_uemle133">
-      <xsl:text> .x--ufe-em-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 36pt; text-align: center; margin-bottom: 12pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-em-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_email.1">
       <xsl:text> .x-email-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
@@ -3906,234 +2907,40 @@
    </xsl:template>
 
 <xsl:template match="pgblk/_ufe:fixequ-title" priority="5">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-fixequ-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-fixequ-title.6pbatle252">
-      <xsl:text> .x--ufe-fixequ-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-fixequ-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:fixequ-title" priority="4">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-fixequ-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-fixequ-title.6pwpble283">
-      <xsl:text> .x--ufe-fixequ-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-fixequ-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:fixequ-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-fixequ-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-fixequ-title.6pa-ble534">
-      <xsl:text> .x--ufe-fixequ-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-fixequ-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block//fixtures-and-equipment//_ufe:fixequ-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-fixequ-title-4-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-fixequ-title.6atpale575">
-      <xsl:text> .x--ufe-fixequ-title-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-fixequ-title-4-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//fixtures-and-equipment//_ufe:fixequ-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-fixequ-title-5-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-fixequ-title.6_ufile176">
-      <xsl:text> .x--ufe-fixequ-title-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-fixequ-title-5-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="_ufe:fixequ-title" priority="0">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-fixequ-title-6-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-fixequ-title-6-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_frac.2eqraac81">
       <xsl:text> .x-frac-1-0 {margin-left: 0pt; margin-right: 0pt;  display:inline-table;
@@ -4228,360 +3035,59 @@ class values to reflect conditions -->
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-general-title.6pgk_le241">
-      <xsl:text> .x--ufe-general-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:general-title" priority="5">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-general-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-general-title.6pbatle262">
-      <xsl:text> .x--ufe-general-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-general-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:general-title" priority="4">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-general-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-general-title.6pwpble293">
-      <xsl:text> .x--ufe-general-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-general-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:general-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-general-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-general-title.6pa-ble394">
-      <xsl:text> .x--ufe-general-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-general-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block//general//_ufe:general-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-general-title-4-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-general-title.6atpale435">
-      <xsl:text> .x--ufe-general-title-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-general-title-4-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//general//_ufe:general-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-general-title-5-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-general-title.6_ugele186">
-      <xsl:text> .x--ufe-general-title-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-general-title-5-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="_ufe:general-title" priority="0">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-general-title-6-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-glossary-title.4pgk_le251">
-      <xsl:text> .x--ufe-glossary-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-general-title-6-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pgblk/_ufe:glossary-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-glossary-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-glossary-title.4pbatle272">
-      <xsl:text> .x--ufe-glossary-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-glossary-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:glossary-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-glossary-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-glossary-title.4pwpble303">
-      <xsl:text> .x--ufe-glossary-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-glossary-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:glossary-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-glossary-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-glossary-title.4_uglle194">
-      <xsl:text> .x--ufe-glossary-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-glossary-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for__ufe-hidden.1">
       <xsl:text> .x--ufe-hidden-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
@@ -4849,82 +3355,16 @@ class values to reflect conditions -->
    </xsl:template>
 
 <xsl:template match="pgblk/_ufe:howtouse-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-howtouse-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-howtouse-title.3pbatle272">
-      <xsl:text> .x--ufe-howtouse-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-howtouse-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:howtouse-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-howtouse-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-howtouse-title.3_uhole193">
-      <xsl:text> .x--ufe-howtouse-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-howtouse-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_insert.1">
       <xsl:text> .x-insert-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
@@ -5002,96 +3442,21 @@ class values to reflect conditions -->
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-intro-title.3pgk_le221">
-      <xsl:text> .x--ufe-intro-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:intro-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-intro-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-intro-title.3pbatle242">
-      <xsl:text> .x--ufe-intro-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-intro-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:intro-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-intro-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-intro-title.3_uinle163">
-      <xsl:text> .x--ufe-intro-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_isempty.1">
-      <xsl:text> .x-isempty-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-intro-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="isempty" priority="0">
-      <!--Emit a nostyle template-->
-      <xsl:apply-templates/>
-   </xsl:template>
+  <xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template name="__style-for_item.31ststem231">
       <xsl:text> .x-item-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; font-size: 9pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
@@ -8253,165 +6618,29 @@ var tableObj = document.getElementById(tableId);       if (tableObj)
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for_manual-title.4pbatle201">
-      <xsl:text> .x-manual-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pbfmatr/manual-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-manual-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_manual-title.4pwpble232">
-      <xsl:text> .x-manual-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-manual-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/manual-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-manual-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_manual-title.4pgkmle183">
-      <xsl:text> .x-manual-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-manual-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pgblk/manual-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-manual-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_manual-title.4maalle124">
-      <xsl:text> .x-manual-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 36pt; text-align: center; margin-bottom: 12pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-manual-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="manual-title" priority="0">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-manual-title-4-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_marker.1">
-      <xsl:text> .x-marker-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-manual-title-4-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="marker" priority="0">
       <span>
@@ -9006,121 +7235,22 @@ var tableObj = document.getElementById(tableId);       if (tableObj)
    </xsl:template>
 
 <xsl:template match="pgblk/_ufe:num-index-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-num-index-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-num-index-title.4pbatle282">
-      <xsl:text> .x--ufe-num-index-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-num-index-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:num-index-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-num-index-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-num-index-title.4pwpble313">
-      <xsl:text> .x--ufe-num-index-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-num-index-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:num-index-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-num-index-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-num-index-title.4_unule204">
-      <xsl:text> .x--ufe-num-index-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-num-index-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_num-list.1">
       <xsl:text> .x-num-list-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }</xsl:text>
@@ -9159,121 +7289,22 @@ var tableObj = document.getElementById(tableId);       if (tableObj)
    </xsl:template>
 
 <xsl:template match="pgblk/_ufe:nut-option-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-nut-option-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-nut-option-title.4pbatle292">
-      <xsl:text> .x--ufe-nut-option-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-nut-option-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:nut-option-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-nut-option-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-nut-option-title.4pwpble323">
-      <xsl:text> .x--ufe-nut-option-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-nut-option-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:nut-option-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-nut-option-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-nut-option-title.4_unule214">
-      <xsl:text> .x--ufe-nut-option-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-nut-option-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_orig-date.1">
       <xsl:text> .x-orig-date-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-size: 14pt; color: #666666; text-align: center; margin-bottom: 12pt; }</xsl:text>
@@ -13139,57 +11170,15 @@ page; }</xsl:text>
       <xsl:apply-templates/>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-pdlist-title.2pgk_le231">
-      <xsl:text> .x--ufe-pdlist-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:pdlist-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-pdlist-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-pdlist-title.2_updle172">
-      <xsl:text> .x--ufe-pdlist-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_pgblk-name.1">
-      <xsl:text> .x-pgblk-name-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-pdlist-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pgblk-name" priority="0">
-      <!--Emit a nostyle template-->
-      <xsl:apply-templates/>
-   </xsl:template>
+  <xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template name="__style-for_pnr.1">
       <xsl:text> .x-pnr-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
@@ -14299,87 +12288,17 @@ page; }</xsl:text>
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-sblist-title.3pgk_le231">
-      <xsl:text> .x--ufe-sblist-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:sblist-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-sblist-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-sblist-title.3pbatle252">
-      <xsl:text> .x--ufe-sblist-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-sblist-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:sblist-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-sblist-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-sblist-title.3_usble173">
-      <xsl:text> .x--ufe-sblist-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-sblist-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_section.1">
       <xsl:text> .x-section-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
@@ -14473,105 +12392,25 @@ page; }</xsl:text>
       <xsl:apply-templates/>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-spblist-title.3pgk_le241">
-      <xsl:text> .x--ufe-spblist-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:spblist-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-spblist-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-spblist-title.3pbatle262">
-      <xsl:text> .x--ufe-spblist-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-spblist-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:spblist-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-spblist-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-spblist-title.3_usple183">
-      <xsl:text> .x--ufe-spblist-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_spec-tool-head.1">
-      <xsl:text> .x-spec-tool-head-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-spblist-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="spec-tool-head" priority="0">
-      <!--Emit a nostyle template-->
-      <xsl:apply-templates/>
-   </xsl:template>
-
-<xsl:template name="__style-for_spec-tool-row.1">
-      <xsl:text> .x-spec-tool-row-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template match="spec-tool-row" priority="0">
-      <!--Emit a nostyle template-->
-      <xsl:apply-templates/>
-   </xsl:template>
+  <xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template name="__style-for_spec-tool-table.1">
       <xsl:text> .x-spec-tool-table-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }</xsl:text>
@@ -14608,239 +12447,41 @@ page; }</xsl:text>
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-spectools-title.6pgk_le261">
-      <xsl:text> .x--ufe-spectools-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:spectools-title" priority="5">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-spectools-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-spectools-title.6pbatle282">
-      <xsl:text> .x--ufe-spectools-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-spectools-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:spectools-title" priority="4">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-spectools-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-spectools-title.6pwpble313">
-      <xsl:text> .x--ufe-spectools-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-spectools-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:spectools-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-spectools-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-spectools-title.6pa-ble474">
-      <xsl:text> .x--ufe-spectools-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-spectools-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block//special-tools//_ufe:spectools-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-spectools-title-4-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-spectools-title.6atpale515">
-      <xsl:text> .x--ufe-spectools-title-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-spectools-title-4-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//special-tools//_ufe:spectools-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-spectools-title-5-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-spectools-title.6_usple206">
-      <xsl:text> .x--ufe-spectools-title-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x--ufe-spectools-title-5-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="_ufe:spectools-title" priority="0">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-spectools-title-6-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-spectools-title-6-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for_sqrt.1">
       <xsl:text> .x-sqrt-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
@@ -15585,130 +13226,23 @@ page; }</xsl:text>
       </span>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-supplier-list-title.4pgk_le301">
-      <xsl:text> .x--ufe-supplier-list-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:supplier-list-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-supplier-list-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-supplier-list-title.4pbatle322">
-      <xsl:text> .x--ufe-supplier-list-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-supplier-list-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:supplier-list-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-supplier-list-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-supplier-list-title.4pwpble353">
-      <xsl:text> .x--ufe-supplier-list-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-supplier-list-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcspblist/_ufe:supplier-list-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-supplier-list-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-supplier-list-title.4_usule244">
-      <xsl:text> .x--ufe-supplier-list-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_table.14taele241">
-      <xsl:text> .x-table-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-family: Arial; margin-left: 18pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-supplier-list-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="table[@display='expand']" priority="13">
       <div>
@@ -16389,130 +13923,23 @@ text  */</xsl:text>
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-task-title.4pgk_le211">
-      <xsl:text> .x--ufe-task-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:task-title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-task-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-task-title.4pbatle232">
-      <xsl:text> .x--ufe-task-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-task-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:task-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-task-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-task-title.4pbatle243">
-      <xsl:text> .x--ufe-task-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-task-title.4_utale154">
-      <xsl:text> .x--ufe-task-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-task-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="_ufe:task-title" priority="0">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-task-title-4-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_tel.3adesel141">
-      <xsl:text> .x-tel-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-task-title-4-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="address/tel[1]" priority="2">
       <div>
@@ -16606,91 +14033,17 @@ text  */</xsl:text>
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-temp-rev-title.3pgk_le251">
-      <xsl:text> .x--ufe-temp-rev-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:temp-rev-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-temp-rev-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-temp-rev-title.3pbatle272">
-      <xsl:text> .x--ufe-temp-rev-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-temp-rev-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:temp-rev-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-temp-rev-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-temp-rev-title.3_utele193">
-      <xsl:text> .x--ufe-temp-rev-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_term.2deisrm121">
-      <xsl:text> .x-term-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-temp-rev-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="deflist/term" priority="1">
       <span>
@@ -16752,633 +14105,111 @@ text  */</xsl:text>
       </span>
    </xsl:template>
 
-<xsl:template name="__style-for_title.73suarle451">
-      <xsl:text> .x-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="subpara/subpara/subpara/subpara/subpara/title" priority="72">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73suarle372">
-      <xsl:text> .x-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/subpara/title" priority="71">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73suarle293">
-      <xsl:text> .x-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/subpara/title" priority="70">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-3-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73bofrle584">
-      <xsl:text> .x-title-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: -0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-3-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="book[contains(@doctype, 'epc')]/frontmatter//graphic/title" priority="69">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-4-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73bofrle575">
-      <xsl:text> .x-title-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: -0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73atpale346">
-      <xsl:text> .x-title-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 3em; text-indent: -3em; } .x-title-6-1 {margin-left: 3em; text-indent: -3em; } .x-title-6-2 {margin-left: 3em; text-indent: -3em; } .x-title-6-3 {margin-left: 3em; text-indent: -3em; } .x-title-6-4 {margin-left: 3em; text-indent: -3em; } .x-title-6-5 {margin-left: 3em; text-indent: -3em; } .x-title-6-6 {margin-left: 3em; text-indent: -3em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-4-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//task/graphic/title" priority="67">
-      <xsl:variable name="foClass">title</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-6-0</xsl:text>
-            <xsl:if test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!=''"> x-title-6-1</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='')"> x-title-6-2</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"> x-title-6-3</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and (ancestor::task/@confltr!='')"> x-title-6-4</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='') and (ancestor::task/@varnbr!='')"> x-title-6-5</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='') and not(ancestor::task/@varnbr!='')"> x-title-6-6</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pa-ble307">
-      <xsl:text> .x-title-7-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; } .x-title-7-1 {margin-left: 3em; text-indent: -3em; } .x-title-7-2 {margin-left: 3em; text-indent: -3em; } .x-title-7-3 {margin-left: 3em; text-indent: -3em; } .x-title-7-4 {margin-left: 3em; text-indent: -3em; } .x-title-7-5 {margin-left: 3em; text-indent: -3em; } .x-title-7-6 {margin-left: 3em; text-indent: -3em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc">
+	 <xsl:attribute name="class">
+		<xsl:text> x-title-6-0</xsl:text>
+        <xsl:choose>
+          <xsl:when test="&anc-pgblk-0-13; and &anc-task-c;"> x-title-6-1</xsl:when>
+          <xsl:when test="&anc-pgblk-0-13; and &anc-task-v;"> x-title-6-2</xsl:when>
+          <xsl:when test="&anc-pgblk-0-13;"> x-title-6-3</xsl:when>
+          <xsl:when test="&anc-task-c;"> x-title-6-4</xsl:when>
+          <xsl:when test="&anc-task-v;"> x-title-6-5</xsl:when>
+          <xsl:otherwise> x-title-6-6</xsl:otherwise>
+        </xsl:choose>
+	 </xsl:attribute>
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block//task/graphic/title" priority="66">
-      <xsl:variable name="foClass">title</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-7-0</xsl:text>
-            <xsl:if test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!=''"> x-title-7-1</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='')"> x-title-7-2</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"> x-title-7-3</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and (ancestor::task/@confltr!='')"> x-title-7-4</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='') and (ancestor::task/@varnbr!='')"> x-title-7-5</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@confltr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13 and ancestor::task/@varnbr!='') and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13) and not(ancestor::task/@confltr!='') and not(ancestor::task/@varnbr!='')"> x-title-7-6</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73molele558">
-      <xsl:text> .x-title-8-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.64pa-ble443">
-      <xsl:text> .x-title-7-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top:
-8pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc">
+	 <xsl:attribute name="class">
+		<xsl:text> x-title-7-0</xsl:text>
+        <xsl:choose>
+          <xsl:when test="&anc-pgblk-0-13; and &anc-task-c;"> x-title-7-1</xsl:when>
+          <xsl:when test="&anc-pgblk-0-13; and &anc-task-v;"> x-title-7-2</xsl:when>
+          <xsl:when test="&anc-pgblk-0-13;"> x-title-7-3</xsl:when>
+          <xsl:when test="&anc-task-c;"> x-title-7-4</xsl:when>
+          <xsl:when test="&anc-task-v;"> x-title-7-5</xsl:when>
+          <xsl:otherwise> x-title-7-6</xsl:otherwise>
+        </xsl:choose>
+	 </xsl:attribute>
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block[@pb-name='glossary']/module/title" priority="61">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-7-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.64pa-ble454">
-      <xsl:text> .x-title-8-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top:
-8pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-7-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block[@pb-name='supp_list']/module/title" priority="60">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-8-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73mmitle2111">
-      <xsl:text> .x-title-11-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 18pt; text-indent: -18pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-8-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="mm-fits/subpara/title" priority="62">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-11-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.66prtele226">
-      <xsl:text> .x-title-10-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-size:
-12pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-11-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="prcitem4/prcitem/title" priority="60">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-10-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73prtele2213">
-      <xsl:text> .x-title-13-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 19pt; text-indent: -19pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-10-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="prcitem3/prcitem/title" priority="60">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-13-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73prtele2214">
-      <xsl:text> .x-title-14-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-13-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="prcitem2/prcitem/title" priority="59">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-14-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.64prtele229">
-      <xsl:text> .x-title-13-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight:
-bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-14-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="prcitem1/prcitem/title" priority="55">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-13-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73suarle2116">
-      <xsl:text> .x-title-16-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-13-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="subpara/subpara/title" priority="57">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-16-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pa-ble3917">
-      <xsl:text> .x-title-17-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pa-ble5618">
-      <xsl:text> .x-title-18-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; text-transform: uppercase; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73bofile4519">
-      <xsl:text> .x-title-19-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73bogrle4620">
-      <xsl:text> .x-title-20-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73bofile4521">
-      <xsl:text> .x-title-21-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73tatale1722">
-      <xsl:text> .x-title-22-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; font-weight: bold; font-size: 14pt; margin-left: 3em; text-indent: -3em; } .x-title-22-1 {margin-left: 3em; text-indent: -3em; } .x-title-22-2 {margin-left: 3em; text-indent: -3em; } .x-title-22-3 {margin-left: 3em; text-indent: -3em; } .x-title-22-4 {margin-left: 3em; text-indent: -3em; } .x-title-22-5 {margin-left: 3em; text-indent: -3em; } .x-title-22-6 {margin-left: 3em; text-indent: -3em; } .x-title-22-7 {margin-left: 3em; text-indent: -3em; } .x-title-22-8 {margin-left: 3em; text-indent: -3em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-16-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="task//table/title" priority="51">
       <xsl:param name="hidden" select="'yes'"/>
@@ -17440,363 +14271,67 @@ bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for_title.73pa-ble2523">
-      <xsl:text> .x-title-23-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; font-weight: bold; font-size: 14pt; margin-left: 3em; text-indent: -3em; } .x-title-23-1 {margin-left: 3em; text-indent: -3em; } .x-title-23-2 {margin-left: 3em; text-indent: -3em; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="page-block//graphic/title" priority="50">
-      <xsl:variable name="foClass">title</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-23-0</xsl:text>
-            <xsl:if test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13"> x-title-23-1</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"> x-title-23-2</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73atpale2924">
-      <xsl:text> .x-title-24-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; font-weight: bold; font-size: 14pt; margin-left: 3em; text-indent: -3em; } .x-title-24-1 {margin-left: 3em; text-indent: -3em; } .x-title-24-2 {margin-left: 3em; text-indent: -3em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc">
+	 <xsl:attribute name="class">
+		<xsl:text> x-title-23-0</xsl:text>
+        <xsl:choose>
+          <xsl:when test="&anc-pgblk-0-13;"> x-title-23-1</xsl:when>
+          <xsl:otherwise> x-title-23-2</xsl:otherwise>
+        </xsl:choose>
+	 </xsl:attribute>
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//graphic/title" priority="49">
-      <xsl:variable name="foClass">title</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-24-0</xsl:text>
-            <xsl:if test="number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13"> x-title-24-1</xsl:if>
-            <xsl:if test="not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"> x-title-24-2</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.64pa-ble2517">
-      <xsl:text> .x-title-23-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight:
-bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc">
+	 <xsl:attribute name="class">
+		<xsl:text> x-title-24-0</xsl:text>
+        <xsl:choose>
+          <xsl:when test="&anc-pgblk-0-13;"> x-title-24-1</xsl:when>
+          <xsl:otherwise> x-title-24-2</xsl:otherwise>
+        </xsl:choose>
+	 </xsl:attribute>
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block//mm-fits/title" priority="47">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-23-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.64atpale2918">
-      <xsl:text> .x-title-24-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight:
-bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-23-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//mm-fits/title" priority="46">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-24-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73atpale3727">
-      <xsl:text> .x-title-27-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-24-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//fits-and-clears/title" priority="46">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-27-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pa-ble3328">
-      <xsl:text> .x-title-28-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-27-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block//fits-and-clears/title" priority="45">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-28-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.64atpale2821">
-      <xsl:text> .x-title-27-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight:
-bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-28-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block//n-para/title" priority="43">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-27-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.64pa-ble2422">
-      <xsl:text> .x-title-28-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight:
-bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-27-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block//n-para/title" priority="42">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-28-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73mftrle1231">
-      <xsl:text> .x-title-31-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-28-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="mfmatr/title" priority="42">
       <xsl:param name="hidden" select="'yes'"/>
@@ -17841,497 +14376,109 @@ bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
    </xsl:template>
 
 <xsl:template match="figure/title" priority="41">
-      <xsl:variable name="foClass">title</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-32-0</xsl:text>
-            <xsl:if test="ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']"> x-title-32-1</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service'])"> x-title-32-2</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and (ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page'])"> x-title-32-3</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and (ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page'])"> x-title-32-4</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk'])"> x-title-32-5</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and (ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk'])"> x-title-32-6</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and (ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00')"> x-title-32-7</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and (ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00')"> x-title-32-8</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and (ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')])"> x-title-32-9</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and (ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')])"> x-title-32-10</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')])"> x-title-32-11</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')])"> x-title-32-12</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and (ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')])"> x-title-32-13</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and (ancestor::page-block/@pb-name[starts-with(., 'mainprac')])"> x-title-32-14</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')])"> x-title-32-15</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')])"> x-title-32-16</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')])"> x-title-32-17</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and (ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')])"> x-title-32-18</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')])"> x-title-32-19</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')])"> x-title-32-20</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')])"> x-title-32-21</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')])"> x-title-32-22</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)])"> x-title-32-23</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and (ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)])"> x-title-32-24</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and (ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test'])"> x-title-32-25</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and (ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test'])"> x-title-32-26</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and (ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-32-27</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-32-28</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)])"> x-title-32-29</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and (ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)])"> x-title-32-30</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble'])"> x-title-32-31</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and (ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble'])"> x-title-32-32</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and (ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-32-33</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-32-34</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::ata-page-block/@pb-name[.='it-oh' or .='lt-oh'])"> x-title-32-35</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[.='it-oh' or .='lt-oh']) and (ancestor::page-block/@pb-name[.='it-oh' or .='lt-oh'])"> x-title-32-36</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pbatle1333">
-      <xsl:text> .x-title-33-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; } .x-title-33-1 {}</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pwbfle1634">
-      <xsl:text> .x-title-34-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; text-transform: uppercase; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73suarle1335">
-      <xsl:text> .x-title-35-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc">
+	 <xsl:attribute name="class">
+		<xsl:text> x-title-32-0</xsl:text>
+        <xsl:choose>
+          <xsl:when test="&pb-01-ata;"> x-title-32-1</xsl:when>
+          <xsl:when test="&pb-01-p;"> x-title-32-2</xsl:when>
+          <xsl:when test="&pb-02-ata;"> x-title-32-3</xsl:when>
+          <xsl:when test="&pb-02-p;"> x-title-32-4</xsl:when>
+          <xsl:when test="&pb-03-ata;"> x-title-32-5</xsl:when>
+          <xsl:when test="&pb-03-p;"> x-title-32-6</xsl:when>
+          <xsl:when test="&pb-04-ata;"> x-title-32-7</xsl:when>
+          <xsl:when test="&pb-04-p;"> x-title-32-8</xsl:when>
+          <xsl:when test="&pb-05-ata;"> x-title-32-9</xsl:when>
+          <xsl:when test="&pb-05-p;"> x-title-32-10</xsl:when>
+          <xsl:when test="&pb-06-ata;"> x-title-32-11</xsl:when>
+          <xsl:when test="&pb-06-p;"> x-title-32-12</xsl:when>
+          <xsl:when test="&pb-07-ata;"> x-title-32-13</xsl:when>
+          <xsl:when test="&pb-07-p;"> x-title-32-14</xsl:when>
+          <xsl:when test="&pb-08-ata;"> x-title-32-15</xsl:when>
+          <xsl:when test="&pb-08-p;"> x-title-32-16</xsl:when>
+          <xsl:when test="&pb-09-ata;"> x-title-32-17</xsl:when>
+          <xsl:when test="&pb-09-p;"> x-title-32-18</xsl:when>
+          <xsl:when test="&pb-10-ata;"> x-title-32-19</xsl:when>
+          <xsl:when test="&pb-10-p;"> x-title-32-20</xsl:when>
+          <xsl:when test="&pb-11-ata;"> x-title-32-21</xsl:when>
+          <xsl:when test="&pb-11-p;"> x-title-32-22</xsl:when>
+          <xsl:when test="&pb-12-ata;"> x-title-32-23</xsl:when>
+          <xsl:when test="&pb-12-p;"> x-title-32-24</xsl:when>
+          <xsl:when test="&pb-13-ata;"> x-title-32-25</xsl:when>
+          <xsl:when test="&pb-13-p;"> x-title-32-26</xsl:when>
+          <xsl:when test="&pb-14-ata;"> x-title-32-27</xsl:when>
+          <xsl:when test="&pb-14-p;"> x-title-32-28</xsl:when>
+          <xsl:when test="&pb-15-ata;"> x-title-32-29</xsl:when>
+          <xsl:when test="&pb-15-p;"> x-title-32-30</xsl:when>
+          <xsl:when test="&pb-16-ata;"> x-title-32-31</xsl:when>
+          <xsl:when test="&pb-16-p;"> x-title-32-32</xsl:when>
+          <xsl:when test="&pb-17-ata;"> x-title-32-33</xsl:when>
+          <xsl:when test="&pb-17-p;"> x-title-32-34</xsl:when>
+          <xsl:when test="&pb-18-ata;"> x-title-32-35</xsl:when>
+          <xsl:when test="&pb-18-p;"> x-title-32-36</xsl:when>
+        </xsl:choose>
+	 </xsl:attribute>
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="subpara/title" priority="38">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-35-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73predle1536">
-      <xsl:text> .x-title-36-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; } .x-title-36-1 {}</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-35-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="procedure/title" priority="37">
-      <xsl:variable name="foClass">title</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-36-0</xsl:text>
-            <xsl:if test="(ancestor-or-self::table[1]/@role and string(ancestor-or-self::table[1]/@role)='torque-and-stretch') or (ancestor-or-self::table[1]/@role and string(ancestor-or-self::table[1]/@role)='spec-assem')"> x-title-36-1</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73inotle1137">
-      <xsl:text> .x-title-37-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pwpble1638">
-      <xsl:text> .x-title-38-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; text-transform: uppercase; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73taprle1439">
-      <xsl:text> .x-title-39-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 18pt; text-indent: -18pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc">
+	 <xsl:attribute name="class">
+		<xsl:text> x-title-36-0</xsl:text>
+		<xsl:if test="(ancestor-or-self::table[1]/@role and string(ancestor-or-self::table[1]/@role)='torque-and-stretch') or (ancestor-or-self::table[1]/@role and string(ancestor-or-self::table[1]/@role)='spec-assem')"> x-title-36-1</xsl:if>
+	 </xsl:attribute>
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="taskproc/title" priority="34">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-39-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.64nuptle1232">
-      <xsl:text> .x-title-38-0
-{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top:
-8pt; font-weight: bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-39-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="nutopt/title" priority="32">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-38-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73sbstle1241">
-      <xsl:text> .x-title-41-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; text-transform: uppercase; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pwitle1142">
-      <xsl:text> .x-title-42-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73velile1443">
-      <xsl:text> .x-title-43-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-size: 12pt; text-decoration: underline ; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pgktle1144">
-      <xsl:text> .x-title-44-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pwhale2245">
-      <xsl:text> .x-title-45-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-39-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pwcchapsect-item/title" priority="28">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-45-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73tprele1346">
-      <xsl:text> .x-title-46-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 18pt; text-indent: -18pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-45-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="tprereq/title" priority="27">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-46-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73suasle1347">
-      <xsl:text> .x-title-47-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-46-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="subtask/title" priority="26">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-47-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73fitile1048">
-      <xsl:text> .x-title-48-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 12pt; margin-left: 1em; text-indent: -1em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-47-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="fits/title" priority="25">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-48-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.70tatile1046">
-      <!--removed text-decoration: underline to support title underlining-->
-      <xsl:text> .x-title-47-0 {margin-left: 0pt; margin-right: 0pt; text-indent:
-0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-48-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="task/title" priority="24">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-47-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates> </xsl:apply-templates>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73hooule1450">
-      <xsl:text> .x-title-50-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-47-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="howtouse/title" priority="23">
       <xsl:param name="hidden" select="'yes'"/>
@@ -18376,511 +14523,116 @@ bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
    </xsl:template>
 
 <xsl:template match="highlights/title" priority="22">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-51-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73loitle1452">
-      <xsl:text> .x-title-52-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73loitle1453">
-      <xsl:text> .x-title-53-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-51-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="lot-item/title" priority="20">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-53-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73loitle954">
-      <xsl:text> .x-title-54-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 12pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-53-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="lot/title" priority="19">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-54-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73loitle955">
-      <xsl:text> .x-title-55-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 12pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73taeple2356">
-      <xsl:text> .x-title-56-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-54-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="table//procedure//title" priority="17">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-56-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73touele2457">
-      <xsl:text> .x-title-57-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-56-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="torque-and-stretch/title" priority="16">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-57-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73sp-tle2158">
-      <xsl:text> .x-title-58-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 18pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-57-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="spec-tool-table/title" priority="15">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-58-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73splile1459">
-      <xsl:text> .x-title-59-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73suecle1360">
-      <xsl:text> .x-title-60-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 12pt; text-decoration: underline ; margin-left: 0pt; text-indent: -0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-58-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="subject/title" priority="13">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-60-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73seiole1361">
-      <xsl:text> .x-title-61-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 12pt; text-decoration: underline ; margin-left: 0pt; text-indent: -0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-60-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="section/title" priority="12">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-61-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73pa-ble1662">
-      <xsl:text> .x-title-62-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-61-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="page-block/title" priority="11">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-62-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73seicle2363">
-      <xsl:text> .x-title-63-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73molele1264">
-      <xsl:text> .x-title-64-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: -0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73frtmle1765">
-      <xsl:text> .x-title-65-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-62-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="frontmatter/title" priority="8">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-65-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73nuinle1566">
-      <xsl:text> .x-title-66-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73taetle3067">
-      <xsl:text> .x-title-67-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: -0pt; } .x-title-67-1 {} .x-title-67-2 {margin-left: 3em; text-indent: -3em; } .x-title-67-3 {margin-left: 3em; text-indent: -3em; } .x-title-67-4 {margin-left: 3em; text-indent: -3em; } .x-title-67-5 {margin-left: 3em; text-indent: -3em; } .x-title-67-6 {margin-left: 3em; text-indent: -3em; } .x-title-67-7 {margin-left: 3em; text-indent: -3em; } .x-title-67-8 {margin-left: 3em; text-indent: -3em; } .x-title-67-9 {margin-left: 3em; text-indent: -3em; } .x-title-67-10 {margin-left: 3em; text-indent: -3em; } .x-title-67-11 {margin-left: 3em; text-indent: -3em; } .x-title-67-12 {margin-left: 3em; text-indent: -3em; } .x-title-67-13 {margin-left: 3em; text-indent: -3em; } .x-title-67-14 {margin-left: 3em; text-indent: -3em; } .x-title-67-15 {margin-left: 3em; text-indent: -3em; } .x-title-67-16 {margin-left: 3em; text-indent: -3em; } .x-title-67-17 {margin-left: 3em; text-indent: -3em; } .x-title-67-18 {margin-left: 3em; text-indent: -3em; } .x-title-67-19 {margin-left: 3em; text-indent: -3em; } .x-title-67-20 {margin-left: 3em; text-indent: -3em; } .x-title-67-21 {margin-left: 3em; text-indent: -3em; } .x-title-67-22 {margin-left: 3em; text-indent: -3em; } .x-title-67-23 {margin-left: 3em; text-indent: -3em; } .x-title-67-24 {margin-left: 3em; text-indent: -3em; } .x-title-67-25 {margin-left: 3em; text-indent: -3em; } .x-title-67-26 {margin-left: 3em; text-indent: -3em; } .x-title-67-27 {margin-left: 3em; text-indent: -3em; } .x-title-67-28 {margin-left: 3em; text-indent: -3em; } .x-title-67-29 {margin-left: 3em; text-indent: -3em; } .x-title-67-30 {margin-left: 3em; text-indent: -3em; } .x-title-67-31 {margin-left: 3em; text-indent: -3em; } .x-title-67-32 {margin-left: 3em; text-indent: -3em; } .x-title-67-33 {margin-left: 3em; text-indent: -3em; } .x-title-67-34 {margin-left: 3em; text-indent: -3em; } .x-title-67-35 {margin-left: 3em; text-indent: -3em; } .x-title-67-36 {margin-left: 3em; text-indent: -3em; } .x-title-67-37 {margin-left: 3em; text-indent: -3em; } .x-title-67-38 {font-size: 10pt; margin-left: 1.5em; text-indent: -1.5em; } .x-title-67-39 {font-size: 10pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-65-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="table[@display='expand']/title" priority="6">
-      <xsl:variable name="foClass">title</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-67-0</xsl:text>
-            <xsl:if test="ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]"> x-title-67-1</xsl:if>
-            <xsl:if test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"> x-title-67-2</xsl:if>
-            <xsl:if test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"> x-title-67-3</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service'])"> x-title-67-4</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service'])"> x-title-67-5</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and (ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page'])"> x-title-67-6</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and (ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page'])"> x-title-67-7</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk'])"> x-title-67-8</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and (ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk'])"> x-title-67-9</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and (ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00')"> x-title-67-10</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and (ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00')"> x-title-67-11</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and (ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')])"> x-title-67-12</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and (ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')])"> x-title-67-13</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')])"> x-title-67-14</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')])"> x-title-67-15</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and (ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')])"> x-title-67-16</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and (ancestor::page-block/@pb-name[starts-with(., 'mainprac')])"> x-title-67-17</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')])"> x-title-67-18</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')])"> x-title-67-19</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')])"> x-title-67-20</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and (ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')])"> x-title-67-21</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')])"> x-title-67-22</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')])"> x-title-67-23</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)])"> x-title-67-24</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and (ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)])"> x-title-67-25</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and (ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test'])"> x-title-67-26</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and (ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test'])"> x-title-67-27</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and (ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-67-28</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-67-29</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)])"> x-title-67-30</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and (ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)])"> x-title-67-31</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble'])"> x-title-67-32</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and (ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble'])"> x-title-67-33</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and (ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-67-34</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-67-35</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='it-oh')"> x-title-67-36</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='it-oh') and (ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='it-oh')"> x-title-67-37</xsl:if>
-            <xsl:if test="(ancestor-or-self::table[1]/@tabstyle and string(ancestor-or-self::table[1]/@tabstyle)='fits-and-clears') and (/page-block//table/title)"> x-title-67-38</xsl:if>
-            <xsl:if test="(ancestor-or-self::table[1]/@tabstyle and string(ancestor-or-self::table[1]/@tabstyle)='fits-and-clears') and (/ata-page-block//table/title)"> x-title-67-39</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73taetle1168">
-      <xsl:text> .x-title-68-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: -0pt; } .x-title-68-1 {} .x-title-68-2 {margin-left: 3em; text-indent: -3em; } .x-title-68-3 {margin-left: 3em; text-indent: -3em; } .x-title-68-4 {margin-left: 3em; text-indent: -3em; } .x-title-68-5 {margin-left: 3em; text-indent: -3em; } .x-title-68-6 {margin-left: 3em; text-indent: -3em; } .x-title-68-7 {margin-left: 3em; text-indent: -3em; } .x-title-68-8 {margin-left: 3em; text-indent: -3em; } .x-title-68-9 {margin-left: 3em; text-indent: -3em; } .x-title-68-10 {margin-left: 3em; text-indent: -3em; } .x-title-68-11 {margin-left: 3em; text-indent: -3em; } .x-title-68-12 {margin-left: 3em; text-indent: -3em; } .x-title-68-13 {margin-left: 3em; text-indent: -3em; } .x-title-68-14 {margin-left: 3em; text-indent: -3em; } .x-title-68-15 {margin-left: 3em; text-indent: -3em; } .x-title-68-16 {margin-left: 3em; text-indent: -3em; } .x-title-68-17 {margin-left: 3em; text-indent: -3em; } .x-title-68-18 {margin-left: 3em; text-indent: -3em; } .x-title-68-19 {margin-left: 3em; text-indent: -3em; } .x-title-68-20 {margin-left: 3em; text-indent: -3em; } .x-title-68-21 {margin-left: 3em; text-indent: -3em; } .x-title-68-22 {margin-left: 3em; text-indent: -3em; } .x-title-68-23 {margin-left: 3em; text-indent: -3em; } .x-title-68-24 {margin-left: 3em; text-indent: -3em; } .x-title-68-25 {margin-left: 3em; text-indent: -3em; } .x-title-68-26 {margin-left: 3em; text-indent: -3em; } .x-title-68-27 {margin-left: 3em; text-indent: -3em; } .x-title-68-28 {margin-left: 3em; text-indent: -3em; } .x-title-68-29 {margin-left: 3em; text-indent: -3em; } .x-title-68-30 {margin-left: 3em; text-indent: -3em; } .x-title-68-31 {margin-left: 3em; text-indent: -3em; } .x-title-68-32 {margin-left: 3em; text-indent: -3em; } .x-title-68-33 {margin-left: 3em; text-indent: -3em; } .x-title-68-34 {margin-left: 3em; text-indent: -3em; } .x-title-68-35 {margin-left: 3em; text-indent: -3em; } .x-title-68-36 {margin-left: 3em; text-indent: -3em; } .x-title-68-37 {margin-left: 3em; text-indent: -3em; } .x-title-68-38 {margin-left: 3em; text-indent: -3em; } .x-title-68-39 {margin-left: 3em; text-indent: -3em; } .x-title-68-40 {font-size: 10pt; margin-left: 1.5em; text-indent: -1.5em; } .x-title-68-41 {font-size: 10pt; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc">
+	 <xsl:attribute name="class">
+		<xsl:text> x-title-67-0</xsl:text>
+        <xsl:if test="(&anc-doc-cir-em-tmm;)"> x-title-67-1</xsl:if>
+        <xsl:choose>
+          <xsl:when test="(&anc-doc-cir-em-tmm;) and (&anc-pgblk-0-13;)"> x-title-67-2</xsl:when>
+          <xsl:when test="(&anc-doc-cir-em-tmm;)"> x-title-67-3</xsl:when>
+          <xsl:when test="&pb-01-ata;"> x-title-67-4</xsl:when>
+          <xsl:when test="&pb-01-p;"> x-title-67-5</xsl:when>
+          <xsl:when test="&pb-02-ata;"> x-title-67-6</xsl:when>
+          <xsl:when test="&pb-02-p;"> x-title-67-7</xsl:when>
+          <xsl:when test="&pb-03-ata;"> x-title-67-8</xsl:when>
+          <xsl:when test="&pb-03-p;"> x-title-67-9</xsl:when>
+          <xsl:when test="&pb-04-ata;"> x-title-67-10</xsl:when>
+          <xsl:when test="&pb-04-p;"> x-title-67-11</xsl:when>
+          <xsl:when test="&pb-05-ata;"> x-title-67-12</xsl:when>
+          <xsl:when test="&pb-05-p;"> x-title-67-13</xsl:when>
+          <xsl:when test="&pb-06-ata;"> x-title-67-14</xsl:when>
+          <xsl:when test="&pb-06-p;"> x-title-67-15</xsl:when>
+          <xsl:when test="&pb-07-ata;"> x-title-67-16</xsl:when>
+          <xsl:when test="&pb-07-p;"> x-title-67-17</xsl:when>
+          <xsl:when test="&pb-08-ata;"> x-title-67-18</xsl:when>
+          <xsl:when test="&pb-08-p;"> x-title-67-19</xsl:when>
+          <xsl:when test="&pb-09-ata;"> x-title-67-20</xsl:when>
+          <xsl:when test="&pb-09-p;"> x-title-67-21</xsl:when>
+          <xsl:when test="&pb-10-ata;"> x-title-67-22</xsl:when>
+          <xsl:when test="&pb-10-p;"> x-title-67-23</xsl:when>
+          <!--
+          <xsl:when test="&pb-11-ata;"> x-title-67-</xsl:when>
+          <xsl:when test="&pb-11-p;"> x-title-67-</xsl:when>
+          -->
+          <xsl:when test="&pb-12-ata;"> x-title-67-24</xsl:when>
+          <xsl:when test="&pb-12-p;"> x-title-67-25</xsl:when>
+          <xsl:when test="&pb-13-ata;"> x-title-67-26</xsl:when>
+          <xsl:when test="&pb-13-p;"> x-title-67-27</xsl:when>
+          <xsl:when test="&pb-14-ata;"> x-title-67-28</xsl:when>
+          <xsl:when test="&pb-14-p;"> x-title-67-29</xsl:when>
+          <xsl:when test="&pb-15-ata;"> x-title-67-30</xsl:when>
+          <xsl:when test="&pb-15-p;"> x-title-67-31</xsl:when>
+          <xsl:when test="&pb-16-ata;"> x-title-67-32</xsl:when>
+          <xsl:when test="&pb-16-p;"> x-title-67-33</xsl:when>
+          <xsl:when test="&pb-17-ata;"> x-title-67-34</xsl:when>
+          <xsl:when test="&pb-17-p;"> x-title-67-35</xsl:when>
+          <xsl:when test="&pb-18-ata;"> x-title-67-36</xsl:when>
+          <xsl:when test="&pb-18-p;"> x-title-67-37</xsl:when>
+        </xsl:choose>
+	 </xsl:attribute>
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="table/title" priority="5">
       <xsl:param name="hidden" select="'yes'"/>
@@ -18890,50 +14642,49 @@ bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
       <xsl:variable name="startnew"/>
       <xsl:variable name="newpageset">#noChange</xsl:variable>
       <div>
-         <!--Emit class values to reflect conditions-->
          <xsl:attribute name="class">
             <xsl:text> x-title-68-0</xsl:text>
-            <xsl:if test="ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]"> x-title-68-1</xsl:if>
-            <xsl:if test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and (number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"> x-title-68-2</xsl:if>
-            <xsl:if test="(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(number(ancestor::pgblk/@pgblknbr)&gt;0 and number(ancestor::pgblk/@pgblknbr)&lt;=13)"> x-title-68-3</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service'])"> x-title-68-4</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service'])"> x-title-68-5</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and (ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page'])"> x-title-68-6</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and (ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page'])"> x-title-68-7</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk'])"> x-title-68-8</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and (ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk'])"> x-title-68-9</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and (ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00')"> x-title-68-10</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and (ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00')"> x-title-68-11</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and (ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')])"> x-title-68-12</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and (ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')])"> x-title-68-13</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')])"> x-title-68-14</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')])"> x-title-68-15</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and (ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')])"> x-title-68-16</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and (ancestor::page-block/@pb-name[starts-with(., 'mainprac')])"> x-title-68-17</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')])"> x-title-68-18</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')])"> x-title-68-19</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')])"> x-title-68-20</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and (ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')])"> x-title-68-21</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')])"> x-title-68-22</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')])"> x-title-68-23</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')])"> x-title-68-24</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and (ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')])"> x-title-68-25</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)])"> x-title-68-26</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and (ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)])"> x-title-68-27</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and (ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test'])"> x-title-68-28</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and (ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test'])"> x-title-68-29</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and (ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-68-30</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-68-31</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)])"> x-title-68-32</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and (ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)])"> x-title-68-33</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and (ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble'])"> x-title-68-34</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and (ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble'])"> x-title-68-35</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and (ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-68-36</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)])"> x-title-68-37</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and (ancestor::ata-page-block/@pb-name[.='it-oh' or .='lt-oh'])"> x-title-68-38</xsl:if>
-            <xsl:if test="not(ancestor::book[contains(@doctype,'cir') or contains(@doctype,'em') or contains(@doctype,'tmm')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[.='service']) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[.='service']) and not(ancestor::ata-page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::page-block/@pb-name[.='00awl' or .='00intro' or .='airlim' or .='awl' or .='awlror' or .='chapsect' or .='consume' or .='d-and-o' or .='frontmatte' or .='howtouse' or .='00howtouse' or .='intro' or .='nut_option' or .='oplimits' or .='sblist' or .='schedchk' or .='spectool' or .='timelim' or .='title-page']) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor::page-block/@pb-name[(starts-with(., 'do') and 'do' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'in') and 'in' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'tl') and 'tl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='toolsht' or .='trlist' or .='unschedc' or .='unschedchk']) and not(ancestor-or-self::ata-page-block[1]/@pb-name and string(ancestor-or-self::ata-page-block[1]/@pb-name)='intro00') and not(ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='intro00') and not(ancestor::ata-page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::page-block/@pb-name[starts-with(., 'disassy') or starts-with(., 'fault')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'clean')]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::page-block/@pb-name[starts-with(., 'mainprac')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'inspect')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::page-block/@pb-name[(starts-with(., 'di') and 'di' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'service')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'repair')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::ata-page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::book[contains(@doctype,'oh')] and ancestor::page-block/@pb-name[starts-with(., 'test')]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'cl') and 'cl' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='install' or starts-with(.,'rem-inst') or (starts-with(., 'reminst') and 'reminst' = translate(., '0123456789', '') and string-length(.) &gt; 7) or .='remove' or (starts-with(., 'repair') and 'repair' = translate(., '0123456789', '') and string-length(.) &gt; 6)]) and not(ancestor::ata-page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::page-block/@pb-name[starts-with(., 'assy') or (starts-with(., 'ic') and 'ic' = translate(., '0123456789', '') and string-length(.) &gt; 2) or (starts-with(., 'te') and 'te' = translate(., '0123456789', '') and string-length(.) &gt; 2) or .='test']) and not(ancestor::ata-page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[.='f-and-c' or starts-with(., 'inspect') or (starts-with(., 're') and 're' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::page-block/@pb-name[(starts-with(., 'as') and 'as' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'clean') or (starts-with(., 'test') and 'test' = translate(., '0123456789', '') and string-length(.) &gt; 4)]) and not(ancestor::ata-page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::page-block/@pb-name[(starts-with(., 'fc') and 'fc' = translate(., '0123456789', '') and string-length(.) &gt; 2) or starts-with(.,'repair') or .='trouble']) and not(ancestor::ata-page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::page-block/@pb-name[starts-with(.,'storage') or (starts-with(., 'to') and 'to' = translate(., '0123456789', '') and string-length(.) &gt; 2)]) and not(ancestor::ata-page-block/@pb-name[.='it-oh' or .='lt-oh']) and (ancestor::page-block/@pb-name[.='it-oh' or .='lt-oh'])"> x-title-68-39</xsl:if>
-            <xsl:if test="(ancestor-or-self::table[1]/@tabstyle and string(ancestor-or-self::table[1]/@tabstyle)='fits-and-clears') and (/page-block//table/title)"> x-title-68-40</xsl:if>
-            <xsl:if test="(ancestor-or-self::table[1]/@tabstyle and string(ancestor-or-self::table[1]/@tabstyle)='fits-and-clears') and (/ata-page-block//table/title)"> x-title-68-41</xsl:if>
+        <xsl:if test="(&anc-doc-cir-em-tmm;)"> x-title-68-1</xsl:if>
+        <xsl:choose>
+          <xsl:when test="(&anc-doc-cir-em-tmm;) and (&anc-pgblk-0-13;)"> x-title-68-2</xsl:when>
+          <xsl:when test="(&anc-doc-cir-em-tmm;)"> x-title-68-3</xsl:when>
+          <xsl:when test="&pb-01-ata;"> x-title-68-4</xsl:when>
+          <xsl:when test="&pb-01-p;"> x-title-68-5</xsl:when>
+          <xsl:when test="&pb-02-ata;"> x-title-68-6</xsl:when>
+          <xsl:when test="&pb-02-p;"> x-title-68-7</xsl:when>
+          <xsl:when test="&pb-03-ata;"> x-title-68-8</xsl:when>
+          <xsl:when test="&pb-03-p;"> x-title-68-9</xsl:when>
+          <xsl:when test="&pb-04-ata;"> x-title-68-10</xsl:when>
+          <xsl:when test="&pb-04-p;"> x-title-68-11</xsl:when>
+          <xsl:when test="&pb-05-ata;"> x-title-68-12</xsl:when>
+          <xsl:when test="&pb-05-p;"> x-title-68-13</xsl:when>
+          <xsl:when test="&pb-06-ata;"> x-title-68-14</xsl:when>
+          <xsl:when test="&pb-06-p;"> x-title-68-15</xsl:when>
+          <xsl:when test="&pb-07-ata;"> x-title-68-16</xsl:when>
+          <xsl:when test="&pb-07-p;"> x-title-68-17</xsl:when>
+          <xsl:when test="&pb-08-ata;"> x-title-68-18</xsl:when>
+          <xsl:when test="&pb-08-p;"> x-title-68-19</xsl:when>
+          <xsl:when test="&pb-09-ata;"> x-title-68-20</xsl:when>
+          <xsl:when test="&pb-09-p;"> x-title-68-21</xsl:when>
+          <xsl:when test="&pb-10-ata;"> x-title-68-22</xsl:when>
+          <xsl:when test="&pb-10-p;"> x-title-68-23</xsl:when>
+          <xsl:when test="&pb-11-ata;"> x-title-68-24</xsl:when>
+          <xsl:when test="&pb-11-p;"> x-title-68-25</xsl:when>
+          <xsl:when test="&pb-12-ata;"> x-title-68-26</xsl:when>
+          <xsl:when test="&pb-12-p;"> x-title-68-27</xsl:when>
+          <xsl:when test="&pb-13-ata;"> x-title-68-28</xsl:when>
+          <xsl:when test="&pb-13-p;"> x-title-68-29</xsl:when>
+          <xsl:when test="&pb-14-ata;"> x-title-68-30</xsl:when>
+          <xsl:when test="&pb-14-p;"> x-title-68-31</xsl:when>
+          <xsl:when test="&pb-15-ata;"> x-title-68-32</xsl:when>
+          <xsl:when test="&pb-15-p;"> x-title-68-33</xsl:when>
+          <xsl:when test="&pb-16-ata;"> x-title-68-34</xsl:when>
+          <xsl:when test="&pb-16-p;"> x-title-68-35</xsl:when>
+          <xsl:when test="&pb-17-ata;"> x-title-68-36</xsl:when>
+          <xsl:when test="&pb-17-p;"> x-title-68-37</xsl:when>
+          <xsl:when test="&pb-18-ata;"> x-title-68-38</xsl:when>
+          <xsl:when test="&pb-18-p;"> x-title-68-39</xsl:when>
+        </xsl:choose>
          </xsl:attribute>
          <xsl:if test="@xml:lang">
             <xsl:attribute name="lang">
@@ -18975,216 +14726,39 @@ bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for_title.73chtele1369">
-      <xsl:text> .x-title-69-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 12pt; text-decoration: underline ; margin-left: 0pt; text-indent: -0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="chapter/title" priority="4">
-      <div>
-         <xsl:attribute name="ch:title">toc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-69-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73botile1070">
-      <xsl:text> .x-title-70-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 24pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="toc" class=" x-title-69-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="book/title" priority="3">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-70-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73atpale2071">
-      <xsl:text> .x-title-71-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 0pt; text-indent: -0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-70-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ata-page-block/title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-71-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73tie-le1672">
-      <xsl:text> .x-title-72-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 14pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-71-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="title-page/title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-72-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_title.73tiele573">
-      <xsl:text> .x-title-73-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; } .x-title-73-1 {font-weight: normal; text-decoration: underline ; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x-title-72-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="title" priority="0">
-      <xsl:variable name="foClass">title</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-title-73-0</xsl:text>
-            <xsl:if test="parent::list"> x-title-73-1</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
+  <div ch:title="notoc">
+	 <xsl:attribute name="class">
+		<xsl:text> x-title-73-0</xsl:text>
+		<xsl:if test="parent::list"> x-title-73-1</xsl:if>
+	 </xsl:attribute>
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template name="__style-for__ufe-title-block.1">
       <xsl:text> .x--ufe-title-block-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: normal; font-size: 16pt; margin-top: 12pt; margin-bottom: 12pt; }</xsl:text>
@@ -19283,100 +14857,21 @@ bold; margin-left: 1.5em; text-indent: -1.5em; }</xsl:text>
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for__ufe-tmm-title.3pgk_le201">
-      <xsl:text> .x--ufe-tmm-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="pgblk/_ufe:tmm-title" priority="2">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-tmm-title-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-tmm-title.3pbatle222">
-      <xsl:text> .x--ufe-tmm-title-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-family: sans-serif; color: #0000FF; text-align: left; line-height: 1.1; margin-top: 1.5em; margin-bottom: 1em; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-tmm-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:tmm-title" priority="1">
-      <div>
-         <xsl:attribute name="ch:title">notoc</xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x--ufe-tmm-title-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:attribute name="id">
-            <xsl:call-template name="object.id"/>
-         </xsl:attribute>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for__ufe-tmm-title.3_utmle143">
-      <xsl:text> .x--ufe-tmm-title-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 36pt; text-align: center; margin-bottom: 12pt; } .x--ufe-tmm-title-3-1 {}</xsl:text>
-   </xsl:template>
-
-<xsl:template name="__style-for_toc.1">
-      <xsl:text> .x-toc-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div ch:title="notoc" class=" x--ufe-tmm-title-2-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="toc" priority="0">
-      <!--Emit a nostyle template-->
-      <xsl:apply-templates/>
-   </xsl:template>
-
-<xsl:template name="__style-for_tool.1">
-      <xsl:text> .x-tool-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template match="tool" priority="0">
       <span>
@@ -24622,5 +20117,143 @@ mode="set-id" select="."></xsl:apply-templates
          <xsl:apply-templates/>
       </span>
    </xsl:template>
+
+<!--  FROM SPECIFIC FILES -->
+
+<xsl:template name="_gte-toc-Table_of_Contents"/> <!-- TO BE DELETED -->
+
+<xsl:template match="*[starts-with(local-name(.),'_')]" priority="-0.9">
+  <xsl:element name="{name(.)}">
+     <xsl:copy-of select="@*"/>
+     <xsl:apply-templates/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template xmlns:atievent="http://www.arbortext.com/namespace/AtiSaxEvents" match="atievent:*">
+  <xsl:element name="{name(.)}">
+     <xsl:copy-of select="@*"/>
+     <xsl:apply-templates/>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="*" priority="-1">
+  <xsl:call-template name="emit-unstyled-template-content"/>
+</xsl:template>
+
+<xsl:param name="table.border.thickness" select="'1pt'"/>
+
+<xsl:param name="table.cell.padding.amount" select="'5pt'"/>
+
+<xsl:param name="thead.tfoot.style">font-weight: bold; </xsl:param>
+
+<xsl:template name="tgroup.first">
+  <xsl:attribute name="class">
+     <xsl:text> x-tgroup-1-0</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="tgroup.notfirst">
+  <xsl:attribute name="class">
+     <xsl:text> x-tgroup-1-0</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="row">
+  <xsl:attribute name="class">
+     <xsl:text> x-row-1-0</xsl:text>
+     <xsl:if test="(@role and string(@role)='changebar') or (entry[1]/marker)"> x-row-1-1</xsl:if>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="entry">
+  <xsl:param name="context" select="'tbody'"/>
+  <xsl:attribute name="class">entry-in-tbody</xsl:attribute>
+</xsl:template>
+
+<xsl:template name="thead">
+  <xsl:attribute name="class">
+     <xsl:text> x-thead-1-0</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="tfoot">
+  <xsl:attribute name="class">
+     <xsl:text> x-tfoot-1-0</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="tbody">
+  <xsl:attribute name="class">
+     <xsl:text> x-tbody-1-0</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="htmltbl-tr">
+  <xsl:attribute name="class">
+     <xsl:text> x-tr-1-0</xsl:text>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template name="htmltbl-td"/>
+
+<xsl:template name="htmltbl-th"/>
+
+<xsl:template name="htmltbl-caption"/>
+
+<xsl:template name="FormatDate">
+  <xsl:param name="DateTime"/>
+  <xsl:param name="DateFormat"/>
+  <xsl:variable name="year">
+     <xsl:value-of select="substring($DateTime,1,4)"/>
+  </xsl:variable>
+  <xsl:variable name="month">
+     <xsl:value-of select="substring($DateTime,5,2)"/>
+  </xsl:variable>
+  <xsl:variable name="day">
+     <xsl:value-of select="substring($DateTime,7,2)"/>
+  </xsl:variable>
+  <xsl:choose>
+     <xsl:when test="$DateFormat = 'dmy'">
+        <xsl:value-of select="$day"/>
+        <xsl:value-of select="' '"/>
+        <xsl:choose>
+           <xsl:when test="$month = 01">January</xsl:when>
+           <xsl:when test="$month = 02">February</xsl:when>
+           <xsl:when test="$month = 03">March</xsl:when>
+           <xsl:when test="$month = 04">April</xsl:when>
+           <xsl:when test="$month = 05">May</xsl:when>
+           <xsl:when test="$month = 06">June</xsl:when>
+           <xsl:when test="$month = 07">July</xsl:when>
+           <xsl:when test="$month = 08">August</xsl:when>
+           <xsl:when test="$month = 09">September</xsl:when>
+           <xsl:when test="$month = 10">October</xsl:when>
+           <xsl:when test="$month = 11">November</xsl:when>
+           <xsl:when test="$month = 12">December</xsl:when>
+        </xsl:choose>
+        <xsl:value-of select="' '"/>
+        <xsl:value-of select="$year"/>
+     </xsl:when>
+     <xsl:when test="$DateFormat = 'mdy'">
+        <xsl:choose>
+           <xsl:when test="$month = 01">January</xsl:when>
+           <xsl:when test="$month = 02">February</xsl:when>
+           <xsl:when test="$month = 03">March</xsl:when>
+           <xsl:when test="$month = 04">April</xsl:when>
+           <xsl:when test="$month = 05">May</xsl:when>
+           <xsl:when test="$month = 06">June</xsl:when>
+           <xsl:when test="$month = 07">July</xsl:when>
+           <xsl:when test="$month = 08">August</xsl:when>
+           <xsl:when test="$month = 09">September</xsl:when>
+           <xsl:when test="$month = 10">October</xsl:when>
+           <xsl:when test="$month = 11">November</xsl:when>
+           <xsl:when test="$month = 12">December</xsl:when>
+        </xsl:choose>
+        <xsl:value-of select="' '"/>
+        <xsl:value-of select="$day"/>
+        <xsl:value-of select="'/'"/>
+        <xsl:value-of select="$year"/>
+     </xsl:when>
+  </xsl:choose>
+</xsl:template>
 
 </xsl:stylesheet>

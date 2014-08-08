@@ -575,7 +575,7 @@
                   from="n-para" level="any" format="A."/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:number count="subpara/title[@_gte:count-as-id='subpara']|procedure/title[@_gte:count-as-id='subpara']" 
+      <xsl:number count="subpara/title[@_gte:count-as-id='subpara' and not(ancestor::n-para)]|procedure/title[@_gte:count-as-id='subpara' and not(ancestor::n-para)]" 
                   level="any" format="A."/>
     </xsl:otherwise>
   </xsl:choose>
@@ -707,7 +707,7 @@
 </xsl:template>
 
 <xsl:template match="prcitem3/prcitem/title" mode="styler_numbering" priority="60">
-  <xsl:number count="prcitem3/prcitem[title]" from="prclist3" level="any" format="1)"/>
+  <xsl:number count="prcitem3/prcitem[title]" from="prclist3" level="any" format="(1)"/>
 </xsl:template>
 
 <xsl:template match="prcitem2/prcitem/title" mode="styler_numbering" priority="59">
@@ -1368,7 +1368,7 @@
         <xsl:with-param name="offset" select="number(concat(number(ancestor::pgblk/@pgblknbr),'01'))"/>
       </xsl:call-template>
     </xsl:when>
-    <xsl:when test="(&anc-doc-cir-em-tmm;) and not(&anc-pgblk-0-13;)">
+    <xsl:when test="(&anc-doc-cir-em-tmm;)">
       <xsl:call-template name="t-numbering-task-table"/>
     </xsl:when>
     <xsl:when test="&pb-01;">
@@ -1499,7 +1499,7 @@
 </xsl:template>
 
 <xsl:template match="pgblk/_ufe:tmm-title" mode="styler_numbering" priority="2">
-  <xsl:number count="pgblk[not(ancestor::pgblk) and _ufe:tmm-title]" level="any" format="1"/>
+  <xsl:number count="pgblk[_ufe:tmm-title]" level="any" format="1"/>
 </xsl:template>
 
 <xsl:template match="pbfmatr/_ufe:tmm-title" mode="styler_numbering" priority="1">
@@ -1544,7 +1544,7 @@
   <xsl:param name="fmt"/>
   <xsl:choose>
     <xsl:when test="ancestor::step3">
-      <xsl:number count="*[@_gte:count-as-id='cnt__^step3.cnt']" from="step3[not(ancestor::step3)]" level="any" format="{$fmt}"/>
+      <xsl:number count="*[@_gte:count-as-id='cnt__^step3.cnt']" from="step3" level="any" format="{$fmt}"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:number count="*[@_gte:count-as-id='cnt__^step3.cnt' and not(ancestor::step3)]" level="any" format="{$fmt}"/>
