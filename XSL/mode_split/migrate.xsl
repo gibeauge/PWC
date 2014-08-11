@@ -522,7 +522,7 @@
 
 <xsl:template match="step[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -535,7 +535,7 @@
 </xsl:template>
 
 <xsl:template match="step" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step-4-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step-4-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -562,7 +562,7 @@
 
 <xsl:template match="step2[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step2-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step2-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -576,7 +576,7 @@
 
 <xsl:template match="step2" priority="0">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step2-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step2-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -603,7 +603,7 @@
 
 <xsl:template match="step3[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step3-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step3-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -617,7 +617,7 @@
 
 <xsl:template match="step3" priority="0">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step3-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step3-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -644,7 +644,7 @@
 
 <xsl:template match="step4[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step4-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step4-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -658,7 +658,7 @@
 
 <xsl:template match="step4" priority="0">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step4-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step4-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -671,7 +671,7 @@
 </xsl:template>
 
 <xsl:template match="numlist/step5" priority="2">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step5-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step5-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -685,7 +685,7 @@
 
 <xsl:template match="step5[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step5-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step5-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -699,7 +699,7 @@
 
 <xsl:template match="step5" priority="0">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step5-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step5-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>

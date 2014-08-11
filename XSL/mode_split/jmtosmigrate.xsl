@@ -252,7 +252,7 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr//list1/l1item[child::*[1] != 'note']" priority="4">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l1item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l1item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -265,7 +265,7 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr//list1/l1item" priority="3">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l1item-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l1item-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -279,7 +279,7 @@
 
 <xsl:template match="list1/l1item[child::*[1] != 'note']" priority="2">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l1item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l1item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -293,7 +293,7 @@
 
 <xsl:template match="list1/l1item" priority="1">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' or name() = 'note' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l1item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l1item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -306,7 +306,7 @@
 </xsl:template>
 
 <xsl:template match="l1item" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l1item-5-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l1item-5-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -319,7 +319,7 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr//list2/l2item[child::*[1] != 'note']" priority="4">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l2item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l2item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -332,7 +332,7 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr//list2/l2item" priority="3">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l2item-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l2item-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -346,7 +346,7 @@
 
 <xsl:template match="list2/l2item[child::*[1] != 'note']" priority="2">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l2item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l2item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -360,7 +360,7 @@
 
 <xsl:template match="list2/l2item" priority="1">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' or name() = 'note' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l2item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l2item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -373,7 +373,7 @@
 </xsl:template>
 
 <xsl:template match="l2item" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l2item-5-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l2item-5-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -386,7 +386,7 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr//list3/l3item[child::*[1] != 'note']" priority="4">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l3item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l3item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -399,7 +399,7 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr//list3/l3item" priority="3">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l3item-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l3item-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -412,7 +412,7 @@
 </xsl:template>
 
 <xsl:template match="list3/l3item[child::*[1] != 'note']" priority="2">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l3item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l3item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -425,7 +425,7 @@
 </xsl:template>
 
 <xsl:template match="list3/l3item" priority="1">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l3item-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l3item-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -438,7 +438,7 @@
 </xsl:template>
 
 <xsl:template match="l3item" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l3item-5-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l3item-5-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -451,7 +451,7 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr//list4/l4item[child::*[1] != 'note']" priority="4">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l4item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l4item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -464,7 +464,7 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr//list4/l4item" priority="3">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l4item-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l4item-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -477,7 +477,7 @@
 </xsl:template>
 
 <xsl:template match="list4/l4item[child::*[1] != 'note']" priority="2">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l4item-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l4item-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -490,7 +490,7 @@
 </xsl:template>
 
 <xsl:template match="list4/l4item" priority="1">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l4item-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l4item-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -503,7 +503,7 @@
 </xsl:template>
 
 <xsl:template match="l4item" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-l4item-5-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-l4item-5-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -688,7 +688,7 @@
 </xsl:template>
 
 <xsl:template match="numlist/numlitem" priority="1">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-numlitem-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-numlitem-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -701,7 +701,7 @@
 </xsl:template>
 
 <xsl:template match="numlitem" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-numlitem-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-numlitem-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -762,7 +762,7 @@
 </xsl:template>
 
 <xsl:template match="prclist1/prcitem1" priority="1">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem1-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem1-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -775,7 +775,7 @@
 </xsl:template>
 
 <xsl:template match="prcitem1" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem1-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem1-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -788,7 +788,7 @@
 </xsl:template>
 
 <xsl:template match="prclist2/prcitem2" priority="1">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem2-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem2-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -801,7 +801,7 @@
 </xsl:template>
 
 <xsl:template match="prcitem2" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem2-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem2-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -814,7 +814,7 @@
 </xsl:template>
 
 <xsl:template match="prclist3/prcitem3" priority="1">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem3-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem3-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -827,7 +827,7 @@
 </xsl:template>
 
 <xsl:template match="prcitem3" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem3-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem3-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -840,7 +840,7 @@
 </xsl:template>
 
 <xsl:template match="prclist4/prcitem4" priority="2">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem4-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem4-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -853,7 +853,7 @@
 </xsl:template>
 
 <xsl:template match="numlist/prcitem4" priority="1">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem4-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem4-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -866,7 +866,7 @@
 </xsl:template>
 
 <xsl:template match="prcitem4" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-prcitem4-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-prcitem4-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -1342,7 +1342,7 @@
 
 <xsl:template match="procedure//step[child::*[1] != 'note']" priority="2">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -1356,7 +1356,7 @@
 
 <xsl:template match="procedure//step" priority="10">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' or name() = 'note' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="" class=" x-step-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" class=" x-step-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -1369,7 +1369,7 @@
 </xsl:template>
 
 <xsl:template match="step" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step-4-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step-4-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -1396,7 +1396,7 @@
 
 <xsl:template match="step2[child::*[1] != 'note']" priority="1">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step2-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step2-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -1410,7 +1410,7 @@
 
 <xsl:template match="step2" priority="0">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' or name() = 'note' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="" class=" x-step2-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" class=" x-step2-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -1437,7 +1437,7 @@
 
 <xsl:template match="step3[child::*[1] != 'note']" priority="1">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step3-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step3-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -1451,7 +1451,7 @@
 
 <xsl:template match="step3" priority="0">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' or name() = 'note' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step3-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step3-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -1478,7 +1478,7 @@
 
 <xsl:template match="step4[child::*[1] != 'note']" priority="1">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step4-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step4-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -1492,7 +1492,7 @@
 
 <xsl:template match="step4" priority="0">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' or name() = 'note' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step4-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step4-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -1519,7 +1519,7 @@
 
 <xsl:template match="step5[child::*[1] != 'note']" priority="1">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step5-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step5-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -1533,7 +1533,7 @@
 
 <xsl:template match="step5" priority="0">
   <xsl:apply-templates select="node()[name() = 'warning' or name() = 'caution' or name() = 'note' ]"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-step5-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-step5-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -1582,120 +1582,31 @@
   </div>
 </xsl:template>
 
-<xsl:template name="__style-for_taskproc.1">
-      <xsl:text> .x-taskproc-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 18pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="taskproc" priority="0">
-      <div>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-taskproc-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_ted.1">
-      <xsl:text> .x-ted-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div class=" x-taskproc-1-0">
+    <xsl:call-template name="t-base-div-basic2"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="ted" priority="0">
-      <xsl:param name="hidden" select="'yes'"/>
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-ted-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Suppress element contents (but not gentext) unless unhidden-->
-         <xsl:choose>
-            <xsl:when test="$hidden='no'">
-               <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
-            </xsl:otherwise>
-         </xsl:choose>
-      </span>
-   </xsl:template>
+  <xsl:param name="hidden" select="'yes'"/>
 
-<xsl:template name="__style-for_teddtl.1">
-      <xsl:text> .x-teddtl-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <span class=" x-ted-1-0">
+    <xsl:call-template name="t-base-div-basic-h">
+      <xsl:with-param name="hidden" select="$hidden"/>
+    </xsl:call-template>
+  </span>
+</xsl:template>
 
 <xsl:template match="teddtl" priority="0">
-      <xsl:param name="hidden" select="'yes'"/>
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-teddtl-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Suppress element contents (but not gentext) unless unhidden-->
-         <xsl:choose>
-            <xsl:when test="$hidden='no'">
-               <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
-            </xsl:otherwise>
-         </xsl:choose>
-      </span>
-   </xsl:template>
+  <xsl:param name="hidden" select="'yes'"/>
+
+  <span class=" x-teddtl-1-0">
+    <xsl:call-template name="t-base-div-basic-h">
+      <xsl:with-param name="hidden" select="$hidden"/>
+    </xsl:call-template>
+  </span>
+</xsl:template>
 
 <xsl:template match="_ufe:temp-rev-title" priority="0">
   <div ch:title="toc" class=" x--ufe-temp-rev-title-3-0">
@@ -1703,37 +1614,11 @@
   </div>
 </xsl:template>
 
-<xsl:template name="__style-for_tfmatr.1">
-      <xsl:text> .x-tfmatr-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-left: 18pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="tfmatr" priority="0">
-      <div>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-tfmatr-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
+  <div class=" x-tfmatr-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" priority="68">
   <div ch:title="notoc" class=" x-title-5-0">
@@ -1778,135 +1663,53 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr/title" priority="40">
-      <xsl:param name="hidden" select="'yes'"/>
-      <!--Dynamically determine the fo-class-->
-      <xsl:variable name="foClass">
-         <xsl:choose>
-            <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">hidden</xsl:when>
-            <xsl:otherwise>hidden-block</xsl:otherwise>
-         </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="hiddenness">yes</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <xsl:variable name="fo-class">
-         <xsl:choose>
-            <xsl:when test="$hiddenness='yes'">
-               <xsl:text>hidden-</xsl:text>
-               <xsl:value-of select="$blockness"/>
-            </xsl:when>
-            <xsl:when test="$hiddenness='no' and starts-with($foClass,'hidden-')">
-               <xsl:value-of select="substring($foClass,8)"/>
-            </xsl:when>
-            <xsl:when test="true()">
-               <!--This is the "otherwise" clause, but there may be no when's-->
-               <xsl:value-of select="$foClass"/>
-            </xsl:when>
-         </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="given-lre-override-name"/>
-      <xsl:variable name="lre-override-name">
-         <xsl:call-template name="determine-lre-override-name">
-            <xsl:with-param name="given-lre-override-name" select="$given-lre-override-name"/>
-            <xsl:with-param name="fo-class" select="$fo-class"/>
-         </xsl:call-template>
-      </xsl:variable>
-      <!--Execute the appropriate code for the dynamically determined fo-class-->
-      <xsl:choose>
-         <xsl:when test="$fo-class='hidden-block'">
-            <div>
-               <!--Emit class values to reflect conditions-->
-               <xsl:attribute name="class">
-                  <xsl:text> x-title-33-0</xsl:text>
-                  <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
-               </xsl:attribute>
-               <xsl:if test="@xml:lang">
-                  <xsl:attribute name="lang">
-                     <xsl:call-template name="return-lang-applying-language-map">
-                        <xsl:with-param name="doclang" select="@xml:lang"/>
-                     </xsl:call-template>
-                  </xsl:attribute>
-               </xsl:if>
-               <xsl:copy-of select="@ch:*"/>
-               <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-               <xsl:variable name="Breaks-chunkFilenameXPath"/>
-               <xsl:variable name="Breaks-persistentFilename"/>
-               <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-                  <xsl:variable name="chunkFilename"/>
-                  <xsl:if test="$chunkFilename!=''">
-                     <xsl:attribute name="ch:filename">
-                        <xsl:value-of select="$chunkFilename"/>
-                     </xsl:attribute>
-                     <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-                  </xsl:if>
-               </xsl:if>
-               <xsl:if test="@xml:lang">
-                  <xsl:attribute name="lang">
-                     <xsl:call-template name="return-lang-applying-language-map">
-                        <xsl:with-param name="doclang" select="@xml:lang"/>
-                     </xsl:call-template>
-                  </xsl:attribute>
-               </xsl:if>
-               <xsl:call-template name="maybe-set-id">
-                  <xsl:with-param name="only-if-id-attr" select="'no'"/>
-                  <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-               </xsl:call-template>
-               <!--Suppress element contents (but not gentext) unless unhidden-->
-               <xsl:choose>
-                  <xsl:when test="$hidden='no'">
-                     <xsl:apply-templates/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
-                  </xsl:otherwise>
-               </xsl:choose>
-            </div>
-         </xsl:when>
-         <xsl:when test="$fo-class='block'">
-            <div>
-               <!--Emit class values to reflect conditions-->
-               <xsl:attribute name="class">
-                  <xsl:text> x-title-33-0</xsl:text>
-                  <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
-               </xsl:attribute>
-               <xsl:if test="@xml:lang">
-                  <xsl:attribute name="lang">
-                     <xsl:call-template name="return-lang-applying-language-map">
-                        <xsl:with-param name="doclang" select="@xml:lang"/>
-                     </xsl:call-template>
-                  </xsl:attribute>
-               </xsl:if>
-               <xsl:copy-of select="@ch:*"/>
-               <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-               <xsl:variable name="Breaks-chunkFilenameXPath"/>
-               <xsl:variable name="Breaks-persistentFilename"/>
-               <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-                  <xsl:variable name="chunkFilename"/>
-                  <xsl:if test="$chunkFilename!=''">
-                     <xsl:attribute name="ch:filename">
-                        <xsl:value-of select="$chunkFilename"/>
-                     </xsl:attribute>
-                     <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-                  </xsl:if>
-               </xsl:if>
-               <xsl:if test="@xml:lang">
-                  <xsl:attribute name="lang">
-                     <xsl:call-template name="return-lang-applying-language-map">
-                        <xsl:with-param name="doclang" select="@xml:lang"/>
-                     </xsl:call-template>
-                  </xsl:attribute>
-               </xsl:if>
-               <xsl:call-template name="maybe-set-id">
-                  <xsl:with-param name="only-if-id-attr" select="'no'"/>
-                  <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-               </xsl:call-template>
-               <!--Process this element's content-->
-               <xsl:apply-templates/>
-            </div>
-         </xsl:when>
-      </xsl:choose>
-   </xsl:template>
+  <xsl:param name="hidden" select="'yes'"/>
+
+  <xsl:variable name="foClass">
+     <xsl:choose>
+        <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">hidden</xsl:when>
+        <xsl:otherwise>hidden-block</xsl:otherwise>
+     </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="blockness">block</xsl:variable>
+  <xsl:variable name="hiddenness">yes</xsl:variable>
+  <xsl:variable name="fo-class">
+     <xsl:choose>
+        <xsl:when test="$hiddenness='yes'">
+           <xsl:text>hidden-</xsl:text>
+           <xsl:value-of select="$blockness"/>
+        </xsl:when>
+        <xsl:when test="$hiddenness='no' and starts-with($foClass,'hidden-')">
+           <xsl:value-of select="substring($foClass,8)"/>
+        </xsl:when>
+        <xsl:otherwise>
+           <xsl:value-of select="$foClass"/>
+        </xsl:otherwise>
+     </xsl:choose>
+  </xsl:variable>
+  <xsl:choose>
+     <xsl:when test="$fo-class='hidden-block'">
+        <div>
+           <xsl:attribute name="class">
+              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
+           </xsl:attribute>
+           <xsl:call-template name="t-base-div-basic2-h">
+              <xsl:with-param name="hidden" select="$hidden"/>
+           </xsl:call-template>
+        </div>
+     </xsl:when>
+     <xsl:when test="$fo-class='block'">
+        <div>
+           <xsl:attribute name="class">
+              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
+           </xsl:attribute>
+           <xsl:call-template name="t-base-div-basic2"/>
+        </div>
+     </xsl:when>
+  </xsl:choose>
+</xsl:template>
 
 <xsl:template match="pwcpbfront/title" priority="39">
   <div ch:title="toc" class=" x-title-34-0">
@@ -1915,42 +1718,14 @@
 </xsl:template>
 
 <xsl:template match="intro/title" priority="36">
-      <xsl:param name="hidden" select="'yes'"/>
-      <xsl:if test="$hidden='no'">
-         <div>
-            <!--Emit class values to reflect conditions-->
-            <xsl:attribute name="class">
-               <xsl:text> x-title-37-0</xsl:text>
-            </xsl:attribute>
-            <xsl:if test="@xml:lang">
-               <xsl:attribute name="lang">
-                  <xsl:call-template name="return-lang-applying-language-map">
-                     <xsl:with-param name="doclang" select="@xml:lang"/>
-                  </xsl:call-template>
-               </xsl:attribute>
-            </xsl:if>
-            <xsl:copy-of select="@ch:*"/>
-            <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-            <xsl:if test="@xml:lang">
-               <xsl:attribute name="lang">
-                  <xsl:call-template name="return-lang-applying-language-map">
-                     <xsl:with-param name="doclang" select="@xml:lang"/>
-                  </xsl:call-template>
-               </xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="maybe-set-id"/>
-            <!--Suppress element contents (but not gentext) unless unhidden-->
-            <xsl:choose>
-               <xsl:when test="$hidden='no'">
-                  <xsl:apply-templates/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
-               </xsl:otherwise>
-            </xsl:choose>
-         </div>
-      </xsl:if>
-   </xsl:template>
+  <xsl:param name="hidden" select="'yes'"/>
+  
+  <xsl:if test="$hidden='no'">
+    <div class=" x-title-37-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
+  </xsl:if>
+</xsl:template>
 
 <xsl:template match="pwcspblist/title" priority="35">
   <div ch:title="toc" class=" x-title-38-0">
@@ -2019,41 +1794,17 @@
 </xsl:template>
 
 <xsl:template match="pwcchapsect-list//pwcchapsect-item/title" priority="100">
-      <dd>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:if test="name(..)='chapsect-item' or name(..)='chapsect-title' or name(..)='ics' or name(..)='pwcchapsect-item' or name(..)='pwcspbdata' or name(..)='sbdata' or name(..)='spbnbr'">
-               <xsl:text/>
-               <xsl:text>x-</xsl:text>
-               <xsl:value-of select="string(translate(name(..),':._','---'))"/>
-               <xsl:text>-1-0</xsl:text>
-            </xsl:if>
-            <xsl:text> x-title-45-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </dd>
-   </xsl:template>
+  <xsl:variable name="l-par" select="name(..)"/>
+  <dd>
+     <xsl:attribute name="class">
+        <xsl:if test="$l-par='chapsect-item' or $l-par='chapsect-title' or $l-par='ics' or $l-par='pwcchapsect-item' or $l-par='pwcspbdata' or $l-par='sbdata' or $l-par='spbnbr'">
+           <xsl:value-of select="concat(' x-',$l-par,'-1-0')"/>
+        </xsl:if>
+        <xsl:text> x-title-45-0</xsl:text>
+     </xsl:attribute>
+     <xsl:call-template name="t-base-div-basic2"/>
+  </dd>
+</xsl:template>
 
 <xsl:template match="_ufe:tmm-title" priority="0">
   <div ch:title="toc">
@@ -2065,209 +1816,45 @@
   </div>
 </xsl:template>
 
-<xsl:template name="__style-for_tprereq.1">
-      <xsl:text> .x-tprereq-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="tprereq" priority="0">
-      <div>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-tprereq-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id">
-            <xsl:with-param name="only-if-id-attr" select="'no'"/>
-            <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-         </xsl:call-template>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_transltr.1">
-      <xsl:text> .x-transltr-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div class=" x-tprereq-1-0">
+    <xsl:call-template name="t-base-div-basic2"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="transltr" priority="0">
-      <!--Emit a nostyle template-->
-      <xsl:apply-templates/>
-   </xsl:template>
-
-<xsl:template name="__style-for_trdata.1">
-      <xsl:text> .x-trdata-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template match="trdata" priority="0">
-      <div>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-trdata-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_trlist.1">
-      <xsl:text> .x-trlist-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <div class=" x-trdata-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="trlist" priority="0">
-      <div>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-trlist-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </div>
-   </xsl:template>
-
-<xsl:template name="__style-for_trloc.1">
-      <xsl:text> .x-trloc-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <div class=" x-trlist-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </div>
+</xsl:template>
 
 <xsl:template match="trloc" priority="0">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-trloc-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_trnbr.1">
-      <xsl:text> .x-trnbr-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <span class=" x-trloc-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </span>
+</xsl:template>
 
 <xsl:template match="trnbr" priority="0">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-trnbr-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_trstatus.1">
-      <xsl:text> .x-trstatus-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+  <span class=" x-trnbr-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </span>
+</xsl:template>
 
 <xsl:template match="trstatus" priority="0">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-trstatus-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </span>
-   </xsl:template>
+  <span class=" x-trstatus-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </span>
+</xsl:template>
 
 <xsl:template match="txtgrphc" priority="0">
   <xsl:apply-templates/>

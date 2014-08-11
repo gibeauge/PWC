@@ -48,7 +48,25 @@
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
-           
+
+<xsl:template name="t-base-div-basic2-h">
+  <xsl:param name="hidden"/>
+
+  <xsl:copy-of select="@ch:*"/>
+  <xsl:call-template name="maybe-set-id">
+    <xsl:with-param name="only-if-id-attr" select="'no'"/>
+    <xsl:with-param name="generated-id-prefix" select="$pf-id"/>
+  </xsl:call-template>
+  <xsl:choose>
+    <xsl:when test="$hidden='no'">
+       <xsl:apply-templates/>
+    </xsl:when>
+    <xsl:otherwise>
+       <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template name="t-base-div-title">
   <xsl:copy-of select="@ch:*"/>
   <xsl:attribute name="id"><xsl:call-template name="object.id"/></xsl:attribute>
@@ -200,7 +218,7 @@
 </xsl:template>
 
 <xsl:template match="glossary/address" priority="3">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-address-5-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-address-5-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -226,7 +244,7 @@
 </xsl:template>
 
 <xsl:template match="enumlist/address" priority="1">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-address-7-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-address-7-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -239,7 +257,7 @@
 </xsl:template>
 
 <xsl:template match="address" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" style="" class=" x-address-8-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-address-8-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -252,7 +270,7 @@
 </xsl:template>
 
 <xsl:template match="aispart" priority="0">
-  <span class=" x-airspart-1-0">
+  <span class=" x-aispart-1-0">
     <xsl:call-template name="t-base-div-basic"/>
   </span>
 </xsl:template>
@@ -5787,343 +5805,57 @@ class values to reflect conditions -->
       </table>
    </xsl:template>
 
-<xsl:template name="__style-for_item.31liitem928">
-      <xsl:text> .x-item-28-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; font-size: 9pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="list/item" priority="3">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith"/>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-item-28-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0pt</xsl:variable>
-         <xsl:variable name="col2-width">0pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">3</xsl:variable>
-         <xsl:variable name="col2-align">center</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_item.31enliem1329">
-      <xsl:text> .x-item-29-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; font-size: 9pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-item-28-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0pt'"/>
+      <xsl:with-param name="col2-width" select="'0pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'3'"/>
+      <xsl:with-param name="col2-align" select="'center'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="enumlist/item" priority="2">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">emspace</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-item-29-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0pt</xsl:variable>
-         <xsl:variable name="col2-width"/>
-         <xsl:variable name="col3-width">100%</xsl:variable>
-         <xsl:variable name="itemlabel-colnum">2</xsl:variable>
-         <xsl:variable name="col2-align">left</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_item.31buisem1230">
-      <xsl:text> .x-item-30-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-item-29-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0pt'"/>
+      <xsl:with-param name="col2-width" select="''"/>
+      <xsl:with-param name="col3-width" select="'100%'"/>
+      <xsl:with-param name="label-col"  select="'2'"/>
+      <xsl:with-param name="col2-align" select="'left'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="bullist/item" priority="1">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">tab</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-item-30-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0em</xsl:variable>
-         <xsl:variable name="col2-width">15pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">2</xsl:variable>
-         <xsl:variable name="col2-align">left</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_item.31item431">
-      <xsl:text> .x-item-31-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-item-30-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0em'"/>
+      <xsl:with-param name="col2-width" select="'15pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'2'"/>
+      <xsl:with-param name="col2-align" select="'left'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="item" priority="0">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith"/>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-item-31-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0pt</xsl:variable>
-         <xsl:variable name="col2-width">0pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">3</xsl:variable>
-         <xsl:variable name="col2-align">center</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-item-31-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0pt'"/>
+      <xsl:with-param name="col2-width" select="'0pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'3'"/>
+      <xsl:with-param name="col2-align" select="'center'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template name="__style-for_item-nbr.1">
       <xsl:text> .x-item-nbr-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }</xsl:text>
@@ -16119,409 +15851,81 @@ text  */</xsl:text>
       </table>
    </xsl:template>
 
-<xsl:template name="__style-for_unlitem.13unstem1410">
-      <xsl:text> .x-unlitem-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; } .x-unlitem-10-1 {margin-left: 0pt; text-indent: 0pt; } .x-unlitem-10-2 {margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
-
 <xsl:template match="unlist/unlitem" priority="3">
-      <xsl:variable name="foClass">listItem</xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">
-               <xsl:choose>
-                  <xsl:when test="not(ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH') and (ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='BULLET')">
-                     <xsl:value-of select="'emspace'"/>
-                  </xsl:when>
-                  <xsl:when test="ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH'">
-                     <xsl:value-of select="'tab'"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:value-of select="''"/>
-                  </xsl:otherwise>
-               </xsl:choose>
-            </xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-unlitem-10-0</xsl:text>
-            <xsl:if test="ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH'"> x-unlitem-10-1</xsl:if>
-            <xsl:if test="not(ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH') and (ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='BULLET')"> x-unlitem-10-2</xsl:if> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">
-            <xsl:choose>
-               <xsl:when test="not(ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH') and (ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='BULLET')">0pt</xsl:when>
-               <xsl:when test="ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH'">0pt</xsl:when>
-               <xsl:otherwise>0pt</xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:variable name="col2-width">
-            <xsl:choose>
-               <xsl:when test="not(ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH') and (ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='BULLET')"/>
-               <xsl:when test="ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH'">12pt</xsl:when>
-               <xsl:otherwise/>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:variable name="col3-width">
-            <xsl:choose>
-               <xsl:when test="not(ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH') and (ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='BULLET')">100%</xsl:when>
-               <xsl:when test="ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH'"/>
-               <xsl:otherwise>100%</xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:variable name="itemlabel-colnum">
-            <xsl:choose>
-               <xsl:when test="not(ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH') and (ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='BULLET')">2</xsl:when>
-               <xsl:when test="ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH'">2</xsl:when>
-               <xsl:otherwise>0</xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <xsl:variable name="col2-align">
-            <xsl:choose>
-               <xsl:when test="not(ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH') and (ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='BULLET')">left</xsl:when>
-               <xsl:when test="ancestor-or-self::unlist[1]/@bulltype and string(ancestor-or-self::unlist[1]/@bulltype)='NDASH'">left</xsl:when>
-               <xsl:otherwise>left</xsl:otherwise>
-            </xsl:choose>
-         </xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_unlitem.13liunem1211">
-      <xsl:text> .x-unlitem-11-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0">
+     <xsl:if test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH']"><xsl:attribute name="style">table-layout: fixed; </xsl:attribute></xsl:if>
+     <xsl:attribute name="class">
+        <xsl:text> x-unlitem-10-0</xsl:text>
+        <xsl:choose>
+          <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH']"> x-unlitem-10-1</xsl:when>
+          <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='BULLET']"> x-unlitem-10-2</xsl:when>
+        </xsl:choose>
+        <xsl:text> x--zero-left-margins</xsl:text>
+     </xsl:attribute>
+      <xsl:call-template name="t-base-step-table">
+        <xsl:with-param name="col1-width" select="'0pt'"/>
+        <xsl:with-param name="col2-width">
+          <xsl:choose>
+             <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH']">12pt</xsl:when>
+             <xsl:otherwise></xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+        <xsl:with-param name="col3-width">
+          <xsl:choose>
+             <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH']"></xsl:when>
+             <xsl:otherwise>100%</xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+        <xsl:with-param name="label-col">
+          <xsl:choose>
+             <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH'] or ancestor-or-self::unlist[1]/@bulltype[.='BULLET']">2</xsl:when>
+             <xsl:otherwise>0</xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+        <xsl:with-param name="col2-align" select="'left'"/>
+        <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+      </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="list/unlitem" priority="2">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">tab</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-unlitem-11-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0em</xsl:variable>
-         <xsl:variable name="col2-width">15pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">2</xsl:variable>
-         <xsl:variable name="col2-align">left</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_unlitem.13buisem1512">
-      <xsl:text> .x-unlitem-12-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-unlitem-11-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0em'"/>
+      <xsl:with-param name="col2-width" select="'15pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'2'"/>
+      <xsl:with-param name="col2-align" select="'left'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="bullist/unlitem" priority="1">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith">tab</xsl:variable>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-unlitem-12-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0em</xsl:variable>
-         <xsl:variable name="col2-width">15pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">2</xsl:variable>
-         <xsl:variable name="col2-align">left</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText[1]"/>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_unlitem.13unteem713">
-      <xsl:text> .x-unlitem-13-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-unlitem-12-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0em'"/>
+      <xsl:with-param name="col2-width" select="'15pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'2'"/>
+      <xsl:with-param name="col2-align" select="'left'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="unlitem" priority="0">
-      <table border="0" cellpadding="0" cellspacing="0">
-         <xsl:attribute name="style">
-            <xsl:variable name="followWith"/>
-            <xsl:if test="$followWith='tab'">table-layout: fixed; </xsl:if>
-         </xsl:attribute>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-unlitem-13-0</xsl:text> x--zero-left-margins</xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <xsl:variable name="col1-width">0pt</xsl:variable>
-         <xsl:variable name="col2-width">0pt</xsl:variable>
-         <xsl:variable name="col3-width"/>
-         <xsl:variable name="itemlabel-colnum">3</xsl:variable>
-         <xsl:variable name="col2-align">center</xsl:variable>
-         <col>
-            <xsl:if test="$col1-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col1-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col2-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col2-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <col>
-            <xsl:if test="$col3-width!=''">
-               <xsl:attribute name="style">
-                  <xsl:text>width: </xsl:text>
-                  <xsl:value-of select="$col3-width"/>
-               </xsl:attribute>
-            </xsl:if>
-         </col>
-         <tbody>
-            <tr valign="baseline">
-               <td align="right">
-                  <xsl:if test="$itemlabel-colnum=1">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td align="{$col2-align}">
-                  <xsl:if test="$itemlabel-colnum=2">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-               </td>
-               <td>
-                  <xsl:if test="$itemlabel-colnum=3">
-                     <xsl:attribute name="style">word-break: keep-all; </xsl:attribute>
-                  </xsl:if>
-                  <!--Process this element's content-->
-                  <xsl:apply-templates select="node()[name(.)!='_sfe:BeforeOrAfterText']"/>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </xsl:template>
-
-<xsl:template name="__style-for_url.1">
-      <xsl:text> .x-url-1-0 {margin-left: 0pt; margin-right: 0pt; margin-top: 8pt; }</xsl:text>
-   </xsl:template>
+  <table border="0" cellpadding="0" cellspacing="0" class=" x-unlitem-13-0 x--zero-left-margins">
+    <xsl:call-template name="t-base-step-table">
+      <xsl:with-param name="col1-width" select="'0pt'"/>
+      <xsl:with-param name="col2-width" select="'0pt'"/>
+      <xsl:with-param name="col3-width" select="''"/>
+      <xsl:with-param name="label-col"  select="'3'"/>
+      <xsl:with-param name="col2-align" select="'center'"/>
+      <xsl:with-param name="apply"      select="'&lib-gentxt;'"/>
+    </xsl:call-template>
+  </table>
+</xsl:template>
 
 <xsl:template match="url" priority="0">
       <xsl:param name="hidden" select="'yes'"/>
