@@ -12187,387 +12187,126 @@ text  */</xsl:text>
       </div>
    </xsl:template>
 
-<xsl:template name="__style-for_xref.8taetef391">
-      <xsl:text> .x-xref-1-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
-
-<xsl:template match="table/title/xref[id(@ref)/self::figure]" priority="7">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-xref-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
+<xsl:template match="xref">
+  <xsl:param name="hidden" select="'yes'"/>
+  
+  <xsl:variable name="l-ref" select="@ref"/>
+  <xsl:variable name="l-dest-node" select="//*[@id=$l-ref]"/>
+  <xsl:variable name="l-dest-name" select="$l-dest-node/name()"/>
+  <xsl:variable name="l-dest-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="$l-dest-node"/></xsl:variable>
+  
+  <xsl:choose>
+    <xsl:when test="ancestor::lof-item and ($l-dest-name='figure' or $l-dest-name='graphic')">
+      <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
+      <xsl:variable name="l-file">
+        <xsl:choose>
+          <xsl:when test="ancestor::ata-page-block">
+             <xsl:value-of select="concat(ancestor::ata-page-block/@object-key, '.html')"/>
+          </xsl:when>
+          <xsl:otherwise>
+             <xsl:value-of select="concat(ancestor::page-block/@object-key, '.html')"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:choose>
+        <xsl:when test="$l-dest-name='figure'">
+          <span style="display:none" class=" x-xref-1-0">
+            <xsl:copy-of select="@ch:*"/>
+            <xsl:call-template name="maybe-set-id"/>
+            <a href="#{$l-id}" onClick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
+              <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
+              <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+            </a>
+          </span>
+        </xsl:when>
+        <xsl:otherwise>
+          <span class=" x-xref-1-0">
+            <xsl:copy-of select="@ch:*"/>
+            <xsl:call-template name="maybe-set-id"/>
+            <a href="#{$l-id}" onClick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
+              <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
+              <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+            </a>
+          </span>
+        </xsl:otherwise>
+      </xsl:choose>      
+    </xsl:when>
+    <xsl:when test="parent::title/parent::table and $l-dest-name='figure'">
+      <span class=" x-xref-1-0">
+        <xsl:call-template name="t-base-div-basic"/>
       </span>
-   </xsl:template>
+    </xsl:when>
+    <xsl:when test="ancestor::highlights">
+      <span class=" x-xref-4-0">
+        <xsl:call-template name="t-base-div-basic-h">
+          <xsl:with-param name="hidden" select="$hidden"/>
+        </xsl:call-template>
+      </span>
+    </xsl:when>
+    <xsl:when test="$l-dest-name='table' and $l-dest-node[ancestor::figure or ancestor::graphic]">
+      <span class=" x-xref-5-0">
+        <xsl:call-template name="t-base-div-basic"/>
+      </span>
+    </xsl:when>
+    <xsl:when test="$l-dest-name='table'">
+      <span class=" x-xref-6-0">
+        <xsl:call-template name="t-base-div-basic"/>
+      </span>
+    </xsl:when>
+    <xsl:when test="$l-dest-name='figure'">
+      <span class=" x-xref-6-0">
+        <xsl:copy-of select="@ch:*"/>
+        <xsl:call-template name="maybe-set-id"/>
+        <a href="#none" onClick="displayGraphics('{$l-dest-id}');">
+          <xsl:text> </xsl:text>
+          <xsl:apply-templates mode="styler_numbering" select="$l-dest-node//title"/>
+        </a>
+      </span>
+    </xsl:when>
+    <xsl:otherwise>
+      <span class=" x-xref-8-0">
+        <xsl:call-template name="t-base-div-basic"/>
+      </span>
+    </xsl:otherwise>
+  </xsl:choose>
+  
+</xsl:template>
 
-<xsl:template name="__style-for_xref.7loitef382">
-      <xsl:text> .x-xref-2-0 {margin-left:
-0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+<!--
+<xsl:template match="table/title/xref[id(@ref)/self::figure]" priority="7">
+</xsl:template>
 
 <xsl:template match="lof-item//xref[id(@ref)[name() = 'graphic']]" priority="5">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-xref-2-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <a>
-            <xsl:attribute name="href">
-               <xsl:text>#styler-id</xsl:text>
-               <xsl:apply-templates mode="set-id" select="."/>
-            </xsl:attribute>
-            <xsl:attribute name="onClick">
-               <xsl:text>displayGraphicsNav('</xsl:text>
-               <xsl:choose>
-                  <xsl:when test="ancestor::ata-page-block">
-                     <xsl:value-of select="concat(ancestor::ata-page-block/@object-key, '.html')"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:value-of select="concat(ancestor::page-block/@object-key, '.html')"/>
-                  </xsl:otherwise>
-               </xsl:choose>
-               <xsl:text>','styler-id</xsl:text>
-               <xsl:apply-templates mode="set-id" select="id(@ref)"/>
-               <xsl:text>');</xsl:text>
-            </xsl:attribute>
-            <xsl:text>GRAPHICNAVLINK^</xsl:text>
-            <xsl:choose>
-               <xsl:when test="ancestor::ata-page-block">
-                  <xsl:value-of select="concat(ancestor::ata-page-block/@object-key, '.html')"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="concat(ancestor::page-block/@object-key, '.html')"/>
-               </xsl:otherwise>
-            </xsl:choose>
-            <xsl:text>^</xsl:text>
-            <xsl:text>styler-id</xsl:text>
-            <xsl:apply-templates mode="set-id" select="id(@ref)"/>
-            <xsl:text>^</xsl:text>
-            <xsl:apply-templates mode="numbering" select="id(@ref)"> </xsl:apply-templates>
-         </a>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_xref.4loitef371">
-      <xsl:text> .x-xref-1-0 {margin-left:
-0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+</xsl:template>
 
 <xsl:template match="lof-item//xref[id(@ref)[name() = 'figure']]" priority="16">
-      <span xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" style="display:none">
-         <!--Emit class values to reflect conditions -->
-         <xsl:attribute name="class">
-            <xsl:text> x-xref-1-0</xsl:text>
-         </xsl:attribute>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of select="@dmp:*"/>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content -->
-         <a>
-            <xsl:attribute name="href">
-               <xsl:text>#styler-id</xsl:text>
-               <xsl:apply-templates mode="set-id" select="."/>
-            </xsl:attribute>
-            <xsl:attribute name="onClick">
-               <xsl:text>displayGraphicsNav('</xsl:text>
-               <xsl:choose>
-                  <xsl:when test="ancestor::ata-page-block">
-                     <xsl:value-of select="concat(ancestor::ata-page-block/@object-key, '.html')"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:value-of select="concat(ancestor::page-block/@object-key, '.html')"/>
-                  </xsl:otherwise>
-               </xsl:choose>
-               <xsl:text>','styler-id</xsl:text>
-               <xsl:apply-templates mode="set-id" select="id(@ref)"/>
-               <xsl:text>');</xsl:text>
-            </xsl:attribute>
-            <xsl:text>GRAPHICNAVLINK^</xsl:text>
-            <xsl:choose>
-               <xsl:when test="ancestor::ata-page-block">
-                  <xsl:value-of select="concat(ancestor::ata-page-block/@object-key, '.html')"/>
-               </xsl:when>
-               <xsl:otherwise>
-                  <xsl:value-of select="concat(ancestor::page-block/@object-key, '.html')"/>
-               </xsl:otherwise>
-            </xsl:choose>
-            <xsl:text>^</xsl:text>
-            <xsl:text>styler-id</xsl:text>
-            <xsl:apply-templates mode="set-id" select="id(@ref)"/>
-            <xsl:text>^</xsl:text>
-            <xsl:apply-templates mode="numbering" select="id(@ref)"> </xsl:apply-templates>
-         </a>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_xref.8hilief164">
-      <xsl:text> .x-xref-4-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+</xsl:template>
 
 <xsl:template match="highlights//xref" priority="4">
-      <xsl:param name="hidden" select="'yes'"/>
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-xref-4-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Suppress element contents (but not gentext) unless unhidden-->
-         <xsl:choose>
-            <xsl:when test="$hidden='no'">
-               <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:otherwise>
-               <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
-            </xsl:otherwise>
-         </xsl:choose>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_xref.8xref905">
-      <xsl:text> .x-xref-5-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+</xsl:template>
 
 <xsl:template match="xref[name(id(@ref))='table' and (id(@ref)/ancestor::figure or id(@ref)/ancestor::graphic)]" priority="3">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-xref-5-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_xref.8xref266">
-      <xsl:text> .x-xref-6-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+</xsl:template>
 
 <xsl:template match="xref[id(@ref)/self::table]" priority="2">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-xref-6-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_xref.7xref276">
-      <xsl:text> .x-xref-6-0 {margin-left:
-0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+</xsl:template>
 
 <xsl:template match="xref[id(@ref)/self::figure]" priority="1">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-xref-6-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <a>
-            <!--<xsl:attribute name="href">              
-          <xsl:text>#styler-id</xsl:text> 
-                       <xsl:apply-templates
-mode="set-id" select="."></xsl:apply-templates
->                   </xsl:attribute>-->
-            <xsl:attribute name="href">
-               <xsl:text>#none</xsl:text>
-            </xsl:attribute>
-            <xsl:attribute name="onClick">
-               <xsl:text>displayGraphics('</xsl:text>
-               <xsl:text>styler-id</xsl:text>
-               <xsl:apply-templates mode="set-id" select="id(@ref)"> </xsl:apply-templates>
-               <xsl:text>');</xsl:text>
-            </xsl:attribute>
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates mode="styler_numbering" select="id(@ref)//title"/>
-         </a>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_xref.8xref48">
-      <xsl:text> .x-xref-8-0 {margin-left: 0pt; margin-right: 0pt; }</xsl:text>
-   </xsl:template>
+</xsl:template>
 
 <xsl:template match="xref" priority="0">
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-xref-8-0</xsl:text>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </span>
-   </xsl:template>
-
-<xsl:template name="__style-for_zip.1">
-      <xsl:text> .x-zip-1-0 {margin-left: 0pt; margin-right: 0pt; } .x-zip-1-1 {}</xsl:text>
-   </xsl:template>
+</xsl:template>
+-->
 
 <xsl:template match="zip" priority="0">
-      <xsl:variable name="foClass">inline</xsl:variable>
-      <xsl:variable name="blockness">inline</xsl:variable>
-      <span>
-         <!--Emit class values to reflect conditions-->
-         <xsl:attribute name="class">
-            <xsl:text> x-zip-1-0</xsl:text>
-            <xsl:if test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"> x-zip-1-1</xsl:if>
-         </xsl:attribute>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:copy-of select="@ch:*"/>
-         <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-         <xsl:variable name="Breaks-chunkFilenameXPath"/>
-         <xsl:variable name="Breaks-persistentFilename"/>
-         <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-            <xsl:variable name="chunkFilename"/>
-            <xsl:if test="$chunkFilename!=''">
-               <xsl:attribute name="ch:filename">
-                  <xsl:value-of select="$chunkFilename"/>
-               </xsl:attribute>
-               <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-            </xsl:if>
-         </xsl:if>
-         <xsl:if test="@xml:lang">
-            <xsl:attribute name="lang">
-               <xsl:call-template name="return-lang-applying-language-map">
-                  <xsl:with-param name="doclang" select="@xml:lang"/>
-               </xsl:call-template>
-            </xsl:attribute>
-         </xsl:if>
-         <xsl:call-template name="maybe-set-id"/>
-         <!--Process this element's content-->
-         <xsl:apply-templates/>
-      </span>
-   </xsl:template>
+  <span>
+     <xsl:attribute name="class">
+        <xsl:text> x-zip-1-0</xsl:text>
+        <xsl:if test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"> x-zip-1-1</xsl:if>
+     </xsl:attribute>
+     <xsl:call-template name="t-base-div-basic"/>
+  </span>
+</xsl:template>
 
 <xsl:include href="ext/tbls.xsl"/>
 
@@ -12761,6 +12500,7 @@ mode="set-id" select="."></xsl:apply-templates
     <xsl:when test="$only-if-id-attr!='yes'">
       <xsl:attribute name="id">
         <xsl:value-of select="$generated-id-prefix"/>
+        <xsl:if test="namespace-uri(.)='http://www.arbortext.com/namespace/Styler/UserFormattingElements'">u</xsl:if>
         <xsl:apply-templates select="." mode="set-id"/>
       </xsl:attribute>
     </xsl:when>
@@ -14578,7 +14318,7 @@ mode="set-id" select="."></xsl:apply-templates
   <xsl:apply-templates/>
 </xsl:template>
 
-<xsl:param name="table.border.thickness" select="'1pt'"/>
+<xsl:param name="table.border.thickness" select="'1.0pt'"/>
 
 <xsl:param name="table.cell.padding.amount" select="'5pt'"/>
 

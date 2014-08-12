@@ -966,7 +966,7 @@
 
     <xsl:choose>
       <xsl:when test="$empty.cell">
-        <xsl:text>&#160;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates/>
