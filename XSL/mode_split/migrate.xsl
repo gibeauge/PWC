@@ -17,12 +17,10 @@
   exclude-result-prefixes="ch saxon #default exslt _ufe _sfe _gte">
 
 <xsl:include href="migrate_expand-gentext.xsl"/>
-<xsl:include href="migrate_toc-mode-Table_of_Contents.xsl"/>
 <xsl:include href="migrate_styler_numbering.xsl"/>
 <xsl:include href="migrate_styler-LabelAndNumberMarker.xsl"/>
-<xsl:include href="migrate_styler-collect-footnotes.xsl"/>
 
-<xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>
+<xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes" indent="yes"/>
 
 <xsl:variable name="doctype" select="'migrate'"/>
 

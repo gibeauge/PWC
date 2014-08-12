@@ -705,8 +705,8 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering"/>
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

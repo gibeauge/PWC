@@ -8,10 +8,8 @@
 
 <xsl:include href="ipc_expand-gentext.xsl"/>
 <xsl:include href="ipc_set-countas.xsl"/>
-<xsl:include href="ipc_toc-mode-Table_of_Contents.xsl"/>
 <xsl:include href="ipc_styler_numbering.xsl"/>
 <xsl:include href="ipc_styler-LabelAndNumberMarker.xsl"/>
-<xsl:include href="ipc_styler-collect-footnotes.xsl"/>
 
 <xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>
 
@@ -111,7 +109,7 @@
      <xsl:apply-templates/>
   </div>
   <a href="#{$l-id}" onClick="displayGraphics('{$l-id}');">
-     <img alt="Graphic" src="{descendant::sheet[@size='thm']/@gnbr}">
+     <img alt="Graphic" src="{descendant::graphic[@size='thm']/@negnumber}">
      </img>
   </a>
 </xsl:template>

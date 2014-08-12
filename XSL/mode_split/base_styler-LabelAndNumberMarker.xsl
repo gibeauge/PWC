@@ -24,19 +24,19 @@
 <xsl:template name="t-styler-numbering-sp-sp">
   <!--
   <xsl:if test="not(@_gte:Gentext-Expanded)">
-     <_sfe:BeforeOrAfterText><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text><xsl:text> </xsl:text></_sfe:BeforeOrAfterText>
+     <_sfe:BeforeOrAfterText><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text><xsl:text>&#xa0;</xsl:text></_sfe:BeforeOrAfterText>
   </xsl:if>
   -->
-  <xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text><xsl:text> </xsl:text>
+  <xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text><xsl:text>&#xa0;</xsl:text>
 </xsl:template>
 
 <xsl:template name="t-styler-numbering-fig-sp">
   <!--
   <xsl:if test="not(@_gte:Gentext-Expanded)">
-    <_sfe:BeforeOrAfterText>Figure <xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text></_sfe:BeforeOrAfterText>
+    <_sfe:BeforeOrAfterText>Figure <xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></_sfe:BeforeOrAfterText>
   </xsl:if>
   -->
-  <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
+  <xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text>
 </xsl:template>
 
 <xsl:template name="t-styler-numbering-table">
@@ -46,23 +46,23 @@
 <xsl:template name="t-styler-numbering-table-sp">
   <!--
   <xsl:if test="not(@_gte:Gentext-Expanded)">
-    <_sfe:BeforeOrAfterText>Table <xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text></_sfe:BeforeOrAfterText>
+    <_sfe:BeforeOrAfterText>Table <xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></_sfe:BeforeOrAfterText>
   </xsl:if>
   -->
-  <xsl:text>Table </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
+  <xsl:text>Table </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text>
 </xsl:template>
 
 <xsl:template name="t-styler-numbering-table-sp-h">
   <!--
   <xsl:if test="not(@_gte:Gentext-Expanded)">
-    <_sfe:BeforeOrAfterText><_ufe:hidden>Table <xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text></_ufe:hidden></_sfe:BeforeOrAfterText>
+    <_sfe:BeforeOrAfterText><_ufe:hidden>Table <xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></_ufe:hidden></_sfe:BeforeOrAfterText>
   </xsl:if>
   -->
-  <xsl:text>Table </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text>
+  <xsl:text>Table </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text>
 </xsl:template>
 
 <xsl:template name="t-styler-numbering-table-sp-sp">
-  <xsl:call-template name="t-styler-numbering-table-sp"/><xsl:text> </xsl:text>
+  <xsl:call-template name="t-styler-numbering-table-sp"/><xsl:text>&#xa0;</xsl:text>
 </xsl:template>
 
 <xsl:template match="numlist/address" mode="styler-LabelAndNumberMarker" priority="7">

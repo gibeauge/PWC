@@ -91,8 +91,8 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <span style="text-decoration: underline; "><xsl:call-template name="t-styler-numbering"/></span>
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -101,7 +101,7 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering"/>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -113,8 +113,8 @@
       <xsl:if test="not(@_gte:Gentext-Expanded)">
         <_sfe:BeforeOrAfterText>
           <xsl:call-template name="t-styler-numbering"/>
-          <xsl:text> </xsl:text>
-          <xsl:text> </xsl:text>
+          <xsl:text>&#xa0;</xsl:text>
+          <xsl:text>&#xa0;</xsl:text>
         </_sfe:BeforeOrAfterText>
       </xsl:if>
       <xsl:choose>
@@ -134,8 +134,8 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering"/>          
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -145,7 +145,7 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:value-of select="$bullet"/>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -213,7 +213,7 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
         <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
@@ -223,7 +223,7 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -232,7 +232,7 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -242,8 +242,8 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
         <span style="text-decoration: underline; "><xsl:value-of select="$content"/></span>
       </xsl:with-param>
     </xsl:call-template>
@@ -310,7 +310,7 @@
   
   <xsl:template match="figure/key/callout" mode="expand-gentext" priority="1">
     <xsl:call-template name="expand-gentext2">
-      <xsl:with-param name="content"><xsl:text> </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:text>&#xa0;</xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -686,8 +686,8 @@
         <span style="text-decoration: underline; ">
           <xsl:call-template name="t-styler-numbering"/>
         </span>
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -818,8 +818,8 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering"/>
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -1437,8 +1437,8 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
         <span style="text-decoration: underline; ">
           <xsl:text>Special Tools</xsl:text>
         </span>
@@ -1450,8 +1450,8 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
         <span style="text-decoration: underline; ">
           <xsl:text>Special Tools</xsl:text>
         </span>
@@ -1573,8 +1573,8 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <xsl:call-template name="t-styler-numbering-ufe"/>
-        <xsl:text> </xsl:text>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -1623,13 +1623,13 @@
   
   <xsl:template match="book[contains(@doctype, 'epc')]/frontmatter//graphic/title" mode="expand-gentext" priority="69">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" mode="expand-gentext" priority="68">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text> </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1638,7 +1638,7 @@
       <xsl:with-param name="content-before">
         <xsl:text>Figure </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
-        <xsl:text> </xsl:text>        
+        <xsl:text>&#xa0;</xsl:text>        
       </xsl:with-param>
       <xsl:with-param name="content-after">
         <xsl:variable name="task" select="ancestor-or-self::task[1]"/>
@@ -1663,7 +1663,7 @@
       <xsl:with-param name="content-before">
         <xsl:text>Figure </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
-        <xsl:text> </xsl:text>        
+        <xsl:text>&#xa0;</xsl:text>        
       </xsl:with-param>
       <xsl:with-param name="content-after">
         <xsl:variable name="task" select="ancestor-or-self::task[1]"/>
@@ -1750,14 +1750,14 @@
           <xsl:when test="../@display='expand'">
             <xsl:text>Table </xsl:text>
             <xsl:call-template name="t-styler-numbering"/>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
           <xsl:otherwise>
             <_ufe:hidden>
               <xsl:text>Table </xsl:text>
               <xsl:call-template name="t-styler-numbering"/>
             </_ufe:hidden>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -1800,7 +1800,7 @@
       <xsl:with-param name="content">
         <xsl:text>Figure </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -1810,7 +1810,7 @@
       <xsl:with-param name="content">
         <xsl:text>Figure </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
-        <xsl:text> </xsl:text>
+        <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -1852,7 +1852,7 @@
                           &pb-10; or &pb-11; or &pb-12; or &pb-13; or &pb-14; or &pb-15; or &pb-16; or &pb-17; or &pb-18;">
             <xsl:text>Figure </xsl:text>
             <xsl:call-template name="t-styler-numbering"/>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
         </xsl:choose>
       </xsl:with-param>
@@ -1870,8 +1870,8 @@
           <xsl:when test="(ancestor-or-self::table[1]/@role and string(ancestor-or-self::table[1]/@role)='torque-and-stretch') or (ancestor-or-self::table[1]/@role and string(ancestor-or-self::table[1]/@role)='spec-assem')"/>
           <xsl:otherwise>
             <xsl:call-template name="t-styler-numbering"/>
-            <xsl:text> </xsl:text>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -1961,15 +1961,15 @@
           <xsl:when test="&anc-doc-cir; or &anc-doc-em; or &anc-doc-tmm;">
             <xsl:text>Table </xsl:text>
             <xsl:call-template name="t-styler-numbering-ufe"/>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
           <xsl:when test="&pb-01;"/>
           <xsl:when test="&pb-02; or &pb-03; or &pb-04; or &pb-05; or &pb-06; or &pb-07; or &pb-08; or &pb-09; or 
             &pb-10; or &pb-11; or &pb-12; or &pb-13; or &pb-14; or &pb-15; or &pb-16; or &pb-17; or &pb-18;">
             <xsl:text>Table </xsl:text>
             <xsl:call-template name="t-styler-numbering-ufe"/>
-            <xsl:text> </xsl:text>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
         </xsl:choose>
       </xsl:with-param>
@@ -1985,7 +1985,7 @@
               <xsl:text>Table </xsl:text>
               <xsl:call-template name="t-styler-numbering"/>
             </_ufe:hidden>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
           <xsl:when test="&pb-01;"/>
           <xsl:when test="&pb-02; or &pb-03; or &pb-04; or &pb-05; or &pb-06; or &pb-07; or &pb-08; or &pb-09; or 
@@ -2096,13 +2096,13 @@
         <xsl:choose>
           <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='BULLET']">
             <xsl:text>•</xsl:text>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
           <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH']">
             <span style="font-family: 'Agency FB'; ">
               <xsl:text>–</xsl:text>
             </span>
-            <xsl:text> </xsl:text>
+            <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
         </xsl:choose>
       </xsl:with-param>
