@@ -35,7 +35,7 @@
     <xsl:variable name="toc" select="descendant::*[@ch:title][1]"/>
     <xsl:variable name="isFolder" select="descendant::*[@ch:chunk = 'yes']"/>
     <xsl:variable name="hasTitle" select="count(descendant::*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1]) > 0"/>
-    <xsl:variable name="hasFiles" select="count( descendant::*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 1"/>
+    <xsl:variable name="hasFiles" select="count(descendant::*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 1"/>
 
     <xsl:choose>
       <xsl:when test="contains(@class, 'frontmatter')">
