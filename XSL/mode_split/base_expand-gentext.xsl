@@ -1488,7 +1488,7 @@
   
   <xsl:template match="sqrt" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>√</xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:text>&#x221a;</xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
