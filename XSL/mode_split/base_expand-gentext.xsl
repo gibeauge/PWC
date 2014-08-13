@@ -50,7 +50,7 @@
     <xsl:param name="content" as="item()*"/>
     <xsl:copy>
       <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
-      <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
+      <xsl:apply-templates select="@* | * | text() | processing-instruction()" mode="expand-gentext"/>
       <xsl:if test="not(@_gte:Gentext-Expanded)">
         <_sfe:BeforeOrAfterText>
           <xsl:copy-of select="exslt:node-set($content)"/>
@@ -1297,88 +1297,111 @@
     </xsl:call-template>
   </xsl:template>
   
-  <xsl:template match="refint[ancestor::book[contains(@doctype, 'epc')]]" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
-        <_ufe:refint-link>
-          <xsl:if test="string(./@refloc)">
-            <xsl:attribute name="ref">
-              <xsl:value-of select="string(./@refloc)"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="string(.)">
-            <xsl:attribute name="content">
-              <xsl:value-of select="string(.)"/>
-            </xsl:attribute>
-          </xsl:if>
-        </_ufe:refint-link>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-  
-  <xsl:template match="refint[ancestor::book[contains(@doctype, 'cir') or contains(@doctype, 'em')]]" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
-        <_ufe:refint-link>
-          <xsl:if test="string(./@refid)">
-            <xsl:attribute name="ref">
-              <xsl:value-of select="string(./@refid)"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="concat(string(.), string(./@post-auto-text))">
-            <xsl:attribute name="content">
-              <xsl:value-of select="concat(string(.), string(./@post-auto-text))"/>
-            </xsl:attribute>
-          </xsl:if>
-        </_ufe:refint-link>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-  
-  <xsl:template match="refint" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
-        <xsl:choose>
-          <xsl:when test="@refid">
+  <xsl:template match="refint" mode="expand-gentext" priority="4">
+    <xsl:variable name="refid" select="@refid"/>
+    <xsl:variable name="target" select="//*[@id = $refid][1]"/>
+    <xsl:choose>
+      <xsl:when test="$target[self::table]">
+        <xsl:call-template name="expand-gentext2">
+          <xsl:with-param name="content">
+            <_sfe:CrossReference>
+              <_gte:Link linkRef="{@refid}">
+                <xsl:choose>
+                  <xsl:when test="$target/title">
+                    <xsl:apply-templates select="$target/title" mode="styler_xref-Number"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$target/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </_gte:Link>
+            </_sfe:CrossReference>
+            <xsl:value-of select="@post-auto-text"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="ancestor::book[contains(@doctype, 'epc')]">
+        <xsl:call-template name="expand-gentext">
+          <xsl:with-param name="content">
             <_ufe:refint-link>
-              <xsl:if test="string(./@refid)">
+              <xsl:if test="@refloc">
                 <xsl:attribute name="ref">
-                  <xsl:value-of select="string(./@refid)"/>
+                  <xsl:value-of select="@refloc"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:if test="string(.)">
+              <xsl:if test=".">
                 <xsl:attribute name="content">
-                  <xsl:value-of select="string(.)"/>
+                  <xsl:value-of select="."/>
                 </xsl:attribute>
               </xsl:if>
             </_ufe:refint-link>
-          </xsl:when>
-          <xsl:otherwise>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="ancestor::book[contains(@doctype, 'cir') or contains(@doctype, 'em')]">
+        <xsl:call-template name="expand-gentext">
+          <xsl:with-param name="content">
             <_ufe:refint-link>
-              <xsl:if test="string(./@ref)">
+              <xsl:if test="@refid">
                 <xsl:attribute name="ref">
-                  <xsl:value-of select="string(./@ref)"/>
+                  <xsl:value-of select="@refid"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:if test="string(.)">
+              <xsl:if test="concat(., @post-auto-text)">
                 <xsl:attribute name="content">
-                  <xsl:value-of select="string(.)"/>
+                  <xsl:value-of select="concat(., @post-auto-text)"/>
                 </xsl:attribute>
               </xsl:if>
-            </_ufe:refint-link>            
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:with-param>
-    </xsl:call-template>
+            </_ufe:refint-link>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="expand-gentext">
+          <xsl:with-param name="content">
+            <xsl:choose>
+              <xsl:when test="@refid">
+                <_ufe:refint-link>
+                  <xsl:if test="@refid">
+                    <xsl:attribute name="ref">
+                      <xsl:value-of select="@refid"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test=".">
+                    <xsl:attribute name="content">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                  </xsl:if>
+                </_ufe:refint-link>
+              </xsl:when>
+              <xsl:otherwise>
+                <_ufe:refint-link>
+                  <xsl:if test="@ref">
+                    <xsl:attribute name="ref">
+                      <xsl:value-of select="@ref"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test=".">
+                    <xsl:attribute name="content">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                  </xsl:if>
+                </_ufe:refint-link>            
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
-  
+    
   <xsl:template match="_ufe:refint-link" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <_sfe:InternalLink>
-          <xsl:if test="string(./@ref)">
+          <xsl:if test="@ref">
             <xsl:attribute name="targetId">
-              <xsl:value-of select="string(./@ref)"/>
+              <xsl:value-of select="@ref"/>
             </xsl:attribute>
           </xsl:if>
           <xsl:value-of select="@content"/>
@@ -2177,28 +2200,131 @@
   <xsl:template match="warning" mode="expand-gentext" priority="0">
     <xsl:call-template name="expand-gentext-warning"/>
   </xsl:template>
-    
-  <xsl:template match="highlights//xref" mode="expand-gentext" priority="4">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
-        <_ufe:highlights-link>
-          <xsl:if test="string(./@ref)">
-            <xsl:attribute name="ref">
-              <xsl:value-of select="string(./@ref)"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="string(.)">
-            <xsl:attribute name="content">
-              <xsl:value-of select="string(.)"/>
-            </xsl:attribute>
-          </xsl:if>
-        </_ufe:highlights-link>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-  
-  <xsl:template match="xref[id(@ref)/self::figure]" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-expanded"/>
+
+  <xsl:template match="xref" mode="expand-gentext">    
+    <xsl:variable name="division-name-token-list">
+      <xsl:choose>
+        <xsl:when test="ancestor::book[starts-with(@doctype, 'epc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter glossary graphic highlights intro list lof lof-item lot lot-item module n-para num-index num-list nutopt page-block procedure pwcchapsect-list sbdata sblist section spec-tool-table subject subpara table title-page unlist vendlist </xsl:when>
+        <xsl:when test="ancestor::book[starts-with(@doctype, 'ipc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter highlights intro list lof lof-item lot lot-item module n-para num-index num-list page-block procedure sblist section service-bull-list spb-list spec-tool-table subject subpara table title-page unlist </xsl:when>
+        <xsl:when test="ancestor::book[starts-with(@doctype, 'cir') or starts-with(@doctype, 'lmm') or starts-with(@doctype, 'tmm')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter graphic highlights howtouse intro list list1 list2 list3 list4 lof lof-item lot lot-item module n-para num-index num-list numlist page-block pbfmatr pgblk prcitem prclist1 prclist2 prclist3 prclist4 procedure pwcchapsect-list pwcni pwcspblist sblist section spec-tool-table subject subpara subtask table task taskproc title-page tprereq unlist </xsl:when>
+        <xsl:when test="ancestor::book[starts-with(@doctype, 'mm') or starts-with(@doctype, 'oh')]"> alpha-list ata-page-block book bullist chapsect-list chapter consumables enumlist figure fits-and-clears fixtures-and-equipment frontmatter general highlights intro list lof lof-item lot lot-item mm-fits module n-para num-index num-list page-block procedure sblist section spec-tool-table special-tools subject subpara table title-page torque-and-stretch unlist </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="l-ref" select="@ref"/>
+    <xsl:variable name="l-dest-node" select="//*[@id = $l-ref]"/>
+    <xsl:variable name="l-dest-name" select="$l-dest-node/name()"/>
+        
+    <xsl:choose>
+      <xsl:when test="ancestor::lof-item and $l-dest-name='figure'">
+        <xsl:call-template name="expand-gentext-expanded"/>
+      </xsl:when>
+      <xsl:when test="parent::title/parent::table and $l-dest-name='figure'">
+        <xsl:call-template name="expand-gentext">
+          <xsl:with-param name="content">
+            <_sfe:CrossReference>
+              <_gte:Link linkRef="{@ref}">
+                <xsl:choose>
+                  <xsl:when test="$l-dest-node/title">
+                    <xsl:apply-templates select="$l-dest-node/title" mode="styler_xref-Number"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </_gte:Link>
+            </_sfe:CrossReference>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="ancestor::lof-item and $l-dest-name='graphic'">
+        <xsl:call-template name="expand-gentext-expanded"/>
+      </xsl:when>
+      <xsl:when test="ancestor::highlights">
+        <xsl:call-template name="expand-gentext">
+          <xsl:with-param name="content">
+            <_ufe:highlights-link>
+              <xsl:if test="./@ref">
+                <xsl:attribute name="ref">
+                  <xsl:value-of select="./@ref"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:if test=".">
+                <xsl:attribute name="content">
+                  <xsl:value-of select="."/>
+                </xsl:attribute>
+              </xsl:if>
+            </_ufe:highlights-link>
+          </xsl:with-param>
+        </xsl:call-template>        
+      </xsl:when>
+      <xsl:when test="$l-dest-name='table' and $l-dest-node[ancestor::figure or ancestor::graphic]">
+        <xsl:call-template name="expand-gentext">
+          <xsl:with-param name="content">
+            <_sfe:CrossReference>
+              <_gte:Link linkRef="{@ref}">
+                <xsl:choose>
+                  <xsl:when test="$l-dest-node/title">
+                    <xsl:apply-templates select="$l-dest-node/title" mode="styler_xref-Number"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </_gte:Link>
+            </_sfe:CrossReference>
+            <xsl:text> </xsl:text>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="$l-dest-name='table'">
+        <xsl:call-template name="expand-gentext">
+          <xsl:with-param name="content">
+            <_sfe:CrossReference>
+              <_gte:Link linkRef="{@ref}">
+                <xsl:choose>
+                  <xsl:when test="$l-dest-node/title">
+                    <xsl:apply-templates select="$l-dest-node/title" mode="styler_xref-Number"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </_gte:Link>
+            </_sfe:CrossReference>
+            <xsl:text> </xsl:text>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="$l-dest-name='figure'">
+        <xsl:call-template name="expand-gentext-expanded"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="expand-gentext2">
+          <xsl:with-param name="content">
+            <_sfe:CrossReference>
+              <xsl:variable name="idrefed-element-name" select="concat(' ', $l-dest-name, ' ')"/>
+              <_gte:Link linkRef="{@ref}">
+                <xsl:choose>
+                  <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
+                    <xsl:choose>
+                      <xsl:when test="$l-dest-node/title">
+                        <xsl:apply-templates select="$l-dest-node/title" mode="styler_xref-Number"/>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$l-dest-node" mode="styler_xref-Number"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </_gte:Link>
+            </_sfe:CrossReference>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>    
   </xsl:template>
   
   <xsl:template match="zip" mode="expand-gentext" priority="0">

@@ -134,7 +134,7 @@
   </xsl:template>
 
   <xsl:template name="generate-toc-id">
-    <xsl:value-of select="concat('ID', format-number(random:random-sequence() * 100000000,'#'))"/>
+    <xsl:value-of select="concat('ID', format-number(random:random-sequence(1, count(preceding::div)) * 100000000,'#'))"/>
   </xsl:template>
 
 </xsl:stylesheet>

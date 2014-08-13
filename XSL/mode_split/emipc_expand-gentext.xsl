@@ -311,19 +311,6 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="refint[id(@refid)/self::table]" mode="expand-gentext" priority="3">
-    <xsl:call-template name="expand-gentext2">
-      <xsl:with-param name="content">
-        <_sfe:CrossReference>
-          <_gte:Link linkRef="{@refid}">
-            <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@refid}"/>
-          </_gte:Link>
-        </_sfe:CrossReference>
-        <xsl:value-of select="@post-auto-text"/>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-
   <xsl:template match="sbnbr" mode="expand-gentext" priority="1">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
@@ -509,101 +496,6 @@
             </xsl:apply-templates>
           </_gte:Gentexted-Content-Wrapper>
         </xsl:if>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-
-  <xsl:template match="table/title/xref[id(@ref)/self::figure]" mode="expand-gentext" priority="7">    
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
-        <_sfe:CrossReference>
-          <_gte:Link linkRef="{@ref}">
-<!--             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/> -->
-			<xsl:variable name="refed-id" select="@ref"/>
-            <xsl:choose>
-              <xsl:when test="//*[@_gte:id=$refed-id]/title">
-                <xsl:apply-templates select="//*[@_gte:id=$refed-id]/title" mode="styler_xref-Number"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:apply-templates select="//*[@_gte:id=$refed-id]/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </_gte:Link>
-        </_sfe:CrossReference>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-  
-  <xsl:template match="xref[name(id(@ref))='table' and (id(@ref)/ancestor::figure or id(@ref)/ancestor::graphic)]" mode="expand-gentext" priority="3">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
-        <_sfe:CrossReference>
-          <_gte:Link linkRef="{@ref}">
-<!--             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/> -->
-			<xsl:variable name="refed-id" select="@ref"/>
-            <xsl:choose>
-              <xsl:when test="//*[@_gte:id=$refed-id]/title">
-                <xsl:apply-templates select="//*[@_gte:id=$refed-id]/title" mode="styler_xref-Number"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:apply-templates select="//*[@_gte:id=$refed-id]/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </_gte:Link>
-        </_sfe:CrossReference>
-        <xsl:text> </xsl:text>
-      </xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
-  
-  <xsl:template match="xref[id(@ref)/self::table]" mode="expand-gentext" priority="2">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
-        <_sfe:CrossReference>
-          <_gte:Link linkRef="{@ref}">
-<!--             <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/> -->
-			<xsl:variable name="refed-id" select="@ref"/>
-            <xsl:choose>
-              <xsl:when test="//*[@_gte:id=$refed-id]/title">
-                <xsl:apply-templates select="//*[@_gte:id=$refed-id]/title" mode="styler_xref-Number"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:apply-templates select="//*[@_gte:id=$refed-id]/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </_gte:Link>
-        </_sfe:CrossReference>
-        <xsl:text> </xsl:text>
-      </xsl:with-param>
-    </xsl:call-template>  
-  </xsl:template>
-  
-  <xsl:template match="xref" mode="expand-gentext" priority="0">
-    <xsl:call-template name="expand-gentext2">
-      <xsl:with-param name="content">
-        <_sfe:CrossReference>
-          <xsl:variable name="division-name-token-list"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter glossary graphic highlights intro list lof lof-item lot lot-item module n-para num-index num-list nutopt page-block procedure pwcchapsect-list sbdata sblist section spec-tool-table subject subpara table title-page unlist vendlist </xsl:variable>
-          <xsl:variable name="refed-id" select="@ref"/>
-          <xsl:variable name="idrefed-element-name" select="concat(' ',name((//*[@_gte:id=$refed-id])[1]),' ')"/>
-          <_gte:Link linkRef="{@ref}">
-            <xsl:choose>
-              <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
-<!--                 <_gte:deferredCrossReference xrefStyle="Number" refed-id="{@ref}"/> -->
-	            <xsl:choose>
-	              <xsl:when test="//*[@_gte:id=$refed-id]/title">
-	                <xsl:apply-templates select="//*[@_gte:id=$refed-id]/title" mode="styler_xref-Number"/>
-	              </xsl:when>
-	              <xsl:otherwise>
-	                <xsl:apply-templates select="//*[@_gte:id=$refed-id]/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_xref-Number"/>
-	              </xsl:otherwise>
-	            </xsl:choose>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:apply-templates select="(//*[@_gte:id=$refed-id])[1]" mode="styler_xref-Number"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </_gte:Link>
-        </_sfe:CrossReference>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
