@@ -2686,8 +2686,13 @@
 
 <xsl:template match="sqrt" priority="0">
   <span class=" x-sqrt-1-0">
+    <!-- TODO : Reset it before delivery -->
+    <!--
     <xsl:call-template name="t-base-div-basic"/>
+    -->
+    <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
   </span>
+  <xsl:apply-templates select="node()[not(self::_sfe:BeforeOrAfterText)]"/>
 </xsl:template>
 
 <xsl:template match="state" priority="0">
@@ -3598,8 +3603,13 @@
 
 <xsl:template match="tool" priority="0">
   <span class=" x-tool-1-0">
+    <!-- TODO : Reset before delivery -->
+    <!--
     <xsl:call-template name="t-base-div-basic"/>
+    -->
+    <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
   </span>
+  <xsl:apply-templates select="node()[not(self::_sfe:BeforeOrAfterText)]"/>
 </xsl:template>
 
 <xsl:template match="toolname" priority="0">
