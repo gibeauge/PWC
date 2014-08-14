@@ -200,7 +200,7 @@
 </xsl:template>
 
 <xsl:template match="grphcref" priority="0">
-  <xsl:variable name="l-node" select="id(@refid)"/>
+  <xsl:variable name="l-node" select="//*[@id=current()/@refid]"/>
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="$l-node"/></xsl:variable>
   <span class=" x-grphcref-1-0">
      <xsl:call-template name="t-base-div-basic"/>

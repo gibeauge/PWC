@@ -1089,129 +1089,53 @@
 </xsl:template>
 
 <xsl:template match="pbfmatr/title" priority="40">
-      <xsl:param name="hidden" select="'yes'"/>
-      <!--Dynamically determine the fo-class-->
-      <xsl:variable name="foClass">
-         <xsl:choose>
-            <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">hidden</xsl:when>
-            <xsl:otherwise>hidden-block</xsl:otherwise>
-         </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="blockness">block</xsl:variable>
-      <xsl:variable name="hiddenness">yes</xsl:variable>
-      <xsl:variable name="startnew"/>
-      <xsl:variable name="newpageset">#noChange</xsl:variable>
-      <xsl:variable name="fo-class">
-         <xsl:choose>
-            <xsl:when test="$hiddenness='yes'">
-               <xsl:text>hidden-</xsl:text>
-               <xsl:value-of select="$blockness"/>
-            </xsl:when>
-            <xsl:when test="$hiddenness='no' and starts-with($foClass,'hidden-')">
-               <xsl:value-of select="substring($foClass,8)"/>
-            </xsl:when>
-            <xsl:when test="true()">
-               <!--This is the "otherwise" clause, but there may be no when's-->
-               <xsl:value-of select="$foClass"/>
-            </xsl:when>
-         </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="given-lre-override-name"/>
-      <xsl:variable name="lre-override-name">
-         <xsl:call-template name="determine-lre-override-name">
-            <xsl:with-param name="given-lre-override-name" select="$given-lre-override-name"/>
-            <xsl:with-param name="fo-class" select="$fo-class"/>
-         </xsl:call-template>
-      </xsl:variable>
-      <!--Execute the appropriate code for the dynamically determined fo-class-->
-      <xsl:choose>
-         <xsl:when test="$fo-class='hidden-block'">
-            <div>
-               <!--Emit class values to reflect conditions-->
-               <xsl:attribute name="class">
-                  <xsl:text> x-title-33-0</xsl:text>
-                  <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
-               </xsl:attribute>
-               <xsl:if test="@xml:lang">
-                  <xsl:attribute name="lang">
-                     <xsl:call-template name="return-lang-applying-language-map">
-                        <xsl:with-param name="doclang" select="@xml:lang"/>
-                     </xsl:call-template>
-                  </xsl:attribute>
-               </xsl:if>
-               <xsl:copy-of select="@ch:*"/>
-               <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-               <xsl:variable name="Breaks-chunkFilenameXPath"/>
-               <xsl:variable name="Breaks-persistentFilename"/>
-               <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-                  <xsl:variable name="chunkFilename"/>
-                  <xsl:if test="$chunkFilename!=''">
-                     <xsl:attribute name="ch:filename">
-                        <xsl:value-of select="$chunkFilename"/>
-                     </xsl:attribute>
-                     <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-                  </xsl:if>
-               </xsl:if>
-               <xsl:if test="@xml:lang">
-                  <xsl:attribute name="lang">
-                     <xsl:call-template name="return-lang-applying-language-map">
-                        <xsl:with-param name="doclang" select="@xml:lang"/>
-                     </xsl:call-template>
-                  </xsl:attribute>
-               </xsl:if>
-               <xsl:call-template name="maybe-set-id"/>
-               <!--Suppress element contents (but not gentext) unless unhidden-->
-               <xsl:choose>
-                  <xsl:when test="$hidden='no'">
-                     <xsl:apply-templates/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                     <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
-                  </xsl:otherwise>
-               </xsl:choose>
-            </div>
-         </xsl:when>
-         <xsl:when test="$fo-class='block'">
-            <div>
-               <!--Emit class values to reflect conditions-->
-               <xsl:attribute name="class">
-                  <xsl:text> x-title-33-0</xsl:text>
-                  <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
-               </xsl:attribute>
-               <xsl:if test="@xml:lang">
-                  <xsl:attribute name="lang">
-                     <xsl:call-template name="return-lang-applying-language-map">
-                        <xsl:with-param name="doclang" select="@xml:lang"/>
-                     </xsl:call-template>
-                  </xsl:attribute>
-               </xsl:if>
-               <xsl:copy-of select="@ch:*"/>
-               <xsl:copy-of xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap" select="@dmp:*"/>
-               <xsl:variable name="Breaks-chunkFilenameXPath"/>
-               <xsl:variable name="Breaks-persistentFilename"/>
-               <xsl:if test="($Breaks-persistentFilename='yes') and ($Breaks-chunkFilenameXPath!='')">
-                  <xsl:variable name="chunkFilename"/>
-                  <xsl:if test="$chunkFilename!=''">
-                     <xsl:attribute name="ch:filename">
-                        <xsl:value-of select="$chunkFilename"/>
-                     </xsl:attribute>
-                     <xsl:attribute name="ch:namepriority">0</xsl:attribute>
-                  </xsl:if>
-               </xsl:if>
-               <xsl:if test="@xml:lang">
-                  <xsl:attribute name="lang">
-                     <xsl:call-template name="return-lang-applying-language-map">
-                        <xsl:with-param name="doclang" select="@xml:lang"/>
-                     </xsl:call-template>
-                  </xsl:attribute>
-               </xsl:if>
-               <xsl:call-template name="maybe-set-id"/>
-               <!--Process this element's content-->
-               <xsl:apply-templates/>
-            </div>
-         </xsl:when>
-      </xsl:choose>
-   </xsl:template>
+  <xsl:param name="hidden" select="'yes'"/>
+
+  <xsl:variable name="foClass">
+     <xsl:choose>
+        <xsl:when test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))">hidden</xsl:when>
+        <xsl:otherwise>hidden-block</xsl:otherwise>
+     </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="blockness">block</xsl:variable>
+  <xsl:variable name="hiddenness">yes</xsl:variable>
+  <xsl:variable name="fo-class">
+     <xsl:choose>
+        <xsl:when test="$hiddenness='yes'">
+           <xsl:text>hidden-</xsl:text>
+           <xsl:value-of select="$blockness"/>
+        </xsl:when>
+        <xsl:when test="$hiddenness='no' and starts-with($foClass,'hidden-')">
+           <xsl:value-of select="substring($foClass,8)"/>
+        </xsl:when>
+        <xsl:otherwise>
+           <xsl:value-of select="$foClass"/>
+        </xsl:otherwise>
+     </xsl:choose>
+  </xsl:variable>
+  <xsl:choose>
+     <xsl:when test="$fo-class='hidden-block'">
+        <div>
+           <xsl:attribute name="class">
+              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
+           </xsl:attribute>
+           <xsl:call-template name="t-base-div-basic-h">
+              <xsl:with-param name="hidden" select="$hidden"/>
+           </xsl:call-template>
+        </div>
+     </xsl:when>
+     <xsl:when test="$fo-class='block'">
+        <div>
+           <xsl:attribute name="class">
+              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
+           </xsl:attribute>
+           <xsl:call-template name="t-base-div-basic"/>
+        </div>
+     </xsl:when>
+  </xsl:choose>
+</xsl:template>
 
 <xsl:template match="pwcpbfront/title" priority="39">
   <div ch:title="notoc" class=" x-title-34-0">
