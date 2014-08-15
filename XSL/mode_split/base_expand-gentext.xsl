@@ -2194,7 +2194,7 @@
   </xsl:template>
   
   <xsl:template match="subpara/warning" mode="expand-gentext" priority="1">
-    <xsl:call-template name="expand-gentext-default"/>
+    <xsl:call-template name="expand-gentext-warning"/>
   </xsl:template>
   
   <xsl:template match="warning" mode="expand-gentext" priority="0">
@@ -2213,14 +2213,23 @@
     <xsl:variable name="l-ref" select="@ref"/>
     <xsl:variable name="l-dest-node" select="//*[@id = $l-ref]"/>
     <xsl:variable name="l-dest-name" select="$l-dest-node/name()"/>
+    <xsl:variable name="l-dest-num">
+      <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+    </xsl:variable>
         
     <xsl:choose>
-      <xsl:when test="ancestor::lof-item and $l-dest-name='figure'">
-        <xsl:call-template name="expand-gentext-expanded"/>
+      <xsl:when test="ancestor::lof-item and ($l-dest-name='figure' or $l-dest-name='graphic')">
+        <xsl:copy>
+          <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
+ <!--          <xsl:apply-templates select="@*" mode="expand-gentext"/>
+         <tmp_dest name="{$l-dest-name}" numbering="{$l-dest-num}" />-->
+          <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
+        </xsl:copy>
       </xsl:when>
       <xsl:when test="parent::title/parent::table and $l-dest-name='figure'">
         <xsl:call-template name="expand-gentext">
           <xsl:with-param name="content">
+          <!--            <tmp_dest name="{$l-dest-name}" numbering="{$l-dest-num}" />-->
             <_sfe:CrossReference>
               <_gte:Link linkRef="{@ref}">
                 <xsl:choose>
@@ -2236,12 +2245,10 @@
           </xsl:with-param>
         </xsl:call-template>
       </xsl:when>
-      <xsl:when test="ancestor::lof-item and $l-dest-name='graphic'">
-        <xsl:call-template name="expand-gentext-expanded"/>
-      </xsl:when>
       <xsl:when test="ancestor::highlights">
         <xsl:call-template name="expand-gentext">
           <xsl:with-param name="content">
+          	<!--            <tmp_dest name="{$l-dest-name}" numbering="{$l-dest-num}" />-->
             <_ufe:highlights-link>
               <xsl:if test="./@ref">
                 <xsl:attribute name="ref">
@@ -2260,6 +2267,7 @@
       <xsl:when test="$l-dest-name='table' and $l-dest-node[ancestor::figure or ancestor::graphic]">
         <xsl:call-template name="expand-gentext">
           <xsl:with-param name="content">
+          	<!--            <tmp_dest name="{$l-dest-name}" numbering="{$l-dest-num}" />-->
             <_sfe:CrossReference>
               <_gte:Link linkRef="{@ref}">
                 <xsl:choose>
@@ -2279,6 +2287,7 @@
       <xsl:when test="$l-dest-name='table'">
         <xsl:call-template name="expand-gentext">
           <xsl:with-param name="content">
+          	<!--            <tmp_dest name="{$l-dest-name}" numbering="{$l-dest-num}" />-->
             <_sfe:CrossReference>
               <_gte:Link linkRef="{@ref}">
                 <xsl:choose>
@@ -2296,11 +2305,17 @@
         </xsl:call-template>
       </xsl:when>
       <xsl:when test="$l-dest-name='figure'">
-        <xsl:call-template name="expand-gentext-expanded"/>
+        <xsl:copy>
+          <xsl:attribute name="_gte:Gentext-Expanded">y</xsl:attribute>
+<!--          <xsl:apply-templates select="@*" mode="expand-gentext"/>
+          <tmp_dest name="{$l-dest-name}" numbering="{$l-dest-num}" />-->
+          <xsl:apply-templates select="@*|node()" mode="expand-gentext"/>
+        </xsl:copy>
       </xsl:when>
       <xsl:otherwise>
         <xsl:call-template name="expand-gentext2">
           <xsl:with-param name="content">
+          	<!--            <tmp_dest name="{$l-dest-name}" numbering="{$l-dest-num}" />-->
             <_sfe:CrossReference>
               <xsl:variable name="idrefed-element-name" select="concat(' ', $l-dest-name, ' ')"/>
               <_gte:Link linkRef="{@ref}">
