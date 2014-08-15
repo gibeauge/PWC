@@ -7,9 +7,7 @@
   
   <xsl:strip-space elements="*"/>
   
-  <xsl:param name="outputDir" select="'C:/temp/work'"/>
-  
-  <xsl:template match="/">
+  <xsl:template match="/" mode="output">
     <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and string-length(@ch:filename) > 0]" mode="output"/>
   </xsl:template>
   
@@ -20,11 +18,9 @@
     <xsl:variable name="hasFolders" select="count(.//*[@ch:chunk = 'yes' and .//*[@ch:chunk = 'yes'] and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 0"/>
     
     <xsl:if test="($hasFiles and not($hasFolders)) or not($isFolder)">
-      <xsl:variable name="outputFile" select="concat('file:///', $outputDir, '/', @ch:filename, '.html')"/>
-      <xsl:result-document href="{$outputFile}" 
-        method="xhtml" 
+      <xsl:result-document href="{concat($output-dir, '/', @ch:filename, '.html')}" method="xhtml" encoding="utf-8" 
         omit-xml-declaration="yes" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-        encoding="utf-8" indent="yes" exclude-result-prefixes="ch" >
+        exclude-result-prefixes="ch" >
         <xsl:element name="html">
           <xsl:call-template name="build-header">
             <xsl:with-param name="title">
@@ -43,11 +39,8 @@
     <xsl:param name="title"/>
     <xsl:element name="head">
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-      <link href="css/styler.css" rel="stylesheet" type="text/css"/>
-      <script language="JavaScript" src="_templates/frame/javascript/pwcdisplay.js" type="text/javascript"> 						
-        // leave some space, so that the serializer won't collapse element 					
-        // which could cause browser to mis-behave 			
-      </script>
+      <link href="css/content.css" rel="stylesheet" type="text/css"/>
+      <script src="javascript/pwcdisplay.js" type="text/javascript"><!-- --></script>
       <xsl:element name="title">
         <xsl:value-of select="$title"/>
       </xsl:element>
@@ -71,7 +64,7 @@
     <xsl:attribute name="href">
       <xsl:choose>
         <xsl:when test="$current-chunk-filename != $dest-chunk-filename">
-            <xsl:value-of select="concat($dest-chunk-filename, '.html', .)"/>
+          <xsl:value-of select="concat($dest-chunk-filename, '.html', .)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="."/>
