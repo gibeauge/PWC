@@ -11,7 +11,7 @@
   <xsl:variable name="sharp" select="'#'"/>
 
   <xsl:template match="/" mode="toc">
-    <xsl:result-document href="{concat($output-dir, '/toc/en.xml')}" method="xml" encoding="utf-8" indent="no" standalone="yes">
+    <xsl:result-document href="{concat($output-dir, '/toc/en.xml')}" method="xml" encoding="utf-8" indent="no">
       <xsl:element name="Structure">
         <xsl:apply-templates mode="toc"/>
       </xsl:element>
