@@ -1667,7 +1667,11 @@
 
 <xsl:template match="marker" priority="0">
   <span class=" x-marker-1-0">
+    <!--
     <xsl:call-template name="t-base-div-basic"/>
+    -->
+    <xsl:copy-of select="@ch:*|@id"/>
+    <xsl:apply-templates/>
   </span>
 </xsl:template>
 
@@ -2523,7 +2527,11 @@
 
 <xsl:template match="revst" priority="0">
   <div class=" x-revst-1-0" name="{@ref}">
+    <!--
     <xsl:call-template name="t-base-div-basic"/>
+    -->
+    <xsl:copy-of select="@ch:*"/>
+    <xsl:apply-templates/>
   </div>
 </xsl:template>
 
@@ -4132,6 +4140,12 @@
 <xsl:template name="htmltbl-caption"/>
 
 <!-- UTILITIES FUNCTIONS -->
+
+<xsl:template name="set-gte-id">
+  <xsl:attribute name="_gte:id">
+    <xsl:value-of select="concat('_g_',generate-id(.))"/>
+  </xsl:attribute>
+</xsl:template>
 
 <xsl:template name="maybe-set-gte-id">
   <xsl:attribute name="_gte:id">

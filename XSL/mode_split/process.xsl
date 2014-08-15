@@ -81,8 +81,10 @@
     <xsl:variable name="tree6">
         <xsl:apply-templates select="exslt:node-set($tree5)" mode="remove-xhtml-namespace"/>
     </xsl:variable>
+    <!--
     <xsl:apply-templates select="exslt:node-set($tree6)" mode="output"/>
     <xsl:apply-templates select="exslt:node-set($tree6)" mode="toc"/>
+    -->
     <xsl:copy-of select="$tree6"/>
  </xsl:template>
  

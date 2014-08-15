@@ -10,7 +10,7 @@
 <xsl:include href="emipc_styler_numbering.xsl"/>
 <xsl:include href="emipc_styler-LabelAndNumberMarker.xsl"/>
 
-<xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes" indent="yes"/>
+<xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes"/>
 
 <xsl:variable name="doctype" select="'emipc'"/>
 

@@ -20,7 +20,7 @@
 <xsl:include href="migrate_styler_numbering.xsl"/>
 <xsl:include href="migrate_styler-LabelAndNumberMarker.xsl"/>
 
-<xsl:output encoding="UTF-8" method="xml" indent="yes"/>
+<xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes"/>
 
 <xsl:variable name="doctype" select="'migrate'"/>
 

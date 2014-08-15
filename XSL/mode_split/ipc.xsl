@@ -4,14 +4,32 @@
     <!ENTITY % entities_commun SYSTEM "xsl_entities_commun.ent">
     %entities_commun;
 ]>
-<xsl:stylesheet xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ximg="xaln://com.nwalsh.xalan.ImageIntrinsics" xmlns="http://www.w3.org/1999/xhtml" xmlns:exslt="http://exslt.org/common" xmlns:_acl="java:com.arbortext.epic.Acl" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:_="http://www.pwc.ca/namespace/doctypes/emipc" xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements" xmlns:atidlm="http://www.arbortext.com/namespace/atidlm" xmlns:_2="http://www.pwc.ca/namespace/doctypes/jmtosmigrate" xmlns:ch="http://www.arbortext.com/namespace/chunker" xmlns:saxon="http://saxon.sf.net/" xmlns:_5="http://www.pwc.ca/namespace/doctypes/ipc" xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript" xmlns:_3="http://www.pwc.ca/namespace/doctypes/migrate" xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0" exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
+<xsl:stylesheet 
+  xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:ximg="xaln://com.nwalsh.xalan.ImageIntrinsics" 
+  xmlns="http://www.w3.org/1999/xhtml" 
+  xmlns:exslt="http://exslt.org/common" 
+  xmlns:_acl="java:com.arbortext.epic.Acl" 
+  xmlns:msxsl="urn:schemas-microsoft-com:xslt" 
+  xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements" 
+  xmlns:atidlm="http://www.arbortext.com/namespace/atidlm" 
+  xmlns:ch="http://www.arbortext.com/namespace/chunker" 
+  xmlns:saxon="http://saxon.sf.net/" 
+  xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" 
+  xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript" 
+  xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" 
+  version="1.0" 
+  exclude-result-prefixes="atidlm xml ch saxon xsi _js #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
 
 <xsl:include href="ipc_expand-gentext.xsl"/>
 <xsl:include href="ipc_set-countas.xsl"/>
 <xsl:include href="ipc_styler_numbering.xsl"/>
 <xsl:include href="ipc_styler-LabelAndNumberMarker.xsl"/>
 
-<xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes" indent="yes"/>
+<xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes"/>
 
 <xsl:variable name="doctype" select="'ipc'"/>
 
