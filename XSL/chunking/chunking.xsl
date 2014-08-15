@@ -24,7 +24,7 @@
       <xsl:result-document href="{$outputFile}" 
         method="xhtml" 
         omit-xml-declaration="yes" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-        encoding="UTF-8" indent="yes" exclude-result-prefixes="ch" >
+        encoding="utf-8" indent="yes" exclude-result-prefixes="ch" >
         <xsl:element name="html">
           <xsl:call-template name="build-header">
             <xsl:with-param name="title">
@@ -42,7 +42,7 @@
   <xsl:template name="build-header">
     <xsl:param name="title"/>
     <xsl:element name="head">
-      <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252"/>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       <link href="css/styler.css" rel="stylesheet" type="text/css"/>
       <script language="JavaScript" src="_templates/frame/javascript/pwcdisplay.js" type="text/javascript"> 						
         // leave some space, so that the serializer won't collapse element 					
@@ -62,6 +62,22 @@
   
   <xsl:template match="@*" mode="output-content">
     <xsl:copy/>
+  </xsl:template>
+  
+  <xsl:template match="a/@href" mode="output-content">
+    <xsl:variable name="refid" select="substring-after(., '#')"/>
+    <xsl:variable name="current-chunk-filename" select="ancestor::div[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
+    <xsl:variable name="dest-chunk-filename" select="//*[@id = $refid]/ancestor::div[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
+    <xsl:attribute name="href">
+      <xsl:choose>
+        <xsl:when test="$current-chunk-filename != $dest-chunk-filename">
+            <xsl:value-of select="concat($dest-chunk-filename, '.html', .)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="."/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
   </xsl:template>
   
 </xsl:stylesheet>
