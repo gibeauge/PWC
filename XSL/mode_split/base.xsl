@@ -70,17 +70,7 @@
         </title>
         <!--The following line pulls in required contents. Do not delete!-->
         <xsl:call-template name="include-required-head-contents"/>
-        <style type="text/css">
-           table[rules][rules = "none"] > tr > td,
-           table[rules][rules = "none"] > * > tr > td,
-           table[rules][rules = "none"] > tr > th,
-           table[rules][rules = "none"] > * > tr > th,
-           table[rules][rules = "none"] > td,
-           table[rules][rules = "none"] > th{
-               border-width:thin;
-               border-style:none;
-           }</style>
-        <script language="JavaScript" src="_templates/frame/javascript/pwcdisplay.js" type="text/javascript">
+        <script language="JavaScript" src="javascript/pwcdisplay.js" type="text/javascript">
            <![CDATA[
             // leave some space, so that the serializer won't collapse element          
             // which could cause browser to mis-behave
@@ -92,50 +82,13 @@
 </xsl:template>
 
 <xsl:template match="/*" priority="-0.1">
-  <body ch:chunk="yes">
+  <body ch:chunk="yes" class=" x-body-{$doctype}">
      <xsl:apply-templates/>
   </body>
 </xsl:template>
 
 <xsl:template name="include-required-head-contents">
-  <meta name="Generator" content="{$generator-product-name} {$generator-version-number}"/>
-  <xsl:value-of select="'&#xA;'"/>
-  <xsl:if test="//*/namespace::*[string(.)='http://www.arbortext.com/namespace/graphics']">
-     <xsl:variable name="result-doc-graphics-dir">
-        <xsl:variable name="fileref-value">
-           <xsl:choose>
-              <xsl:when test="$doctype='emipc'">
-                 <xsl:value-of select="(//sheet/@gnbr)[1]"/>
-              </xsl:when>
-              <xsl:when test="$doctype='ipc'">
-                 <xsl:value-of select="(//graphic/@negnumber)[1]"/>
-              </xsl:when>
-              <xsl:when test="$doctype='jmtosmigrate'">
-                 <xsl:value-of select="(//pwcsoa/@negnumber|//sheet/@gnbr)[1]"/>
-              </xsl:when>
-              <xsl:when test="$doctype='migrate'">
-                 <xsl:value-of select="(//graphic/@negnumber|//soa/@negnumber)[1]"/>
-              </xsl:when>
-           </xsl:choose>
-        </xsl:variable>
-        <xsl:call-template name="substring-before-last">
-           <xsl:with-param name="str" select="translate($fileref-value,'\','/')"/>
-           <xsl:with-param name="delim" select="'/'"/>
-        </xsl:call-template>
-     </xsl:variable>
-     <style type="text/css">
-        .viewpath{
-            display:none;
-        }
-        .viewlinks{
-            display:none;
-        }</style>
-  </xsl:if>
-  <ch:config>
-     <ch:param name="ixsee-addbefore" value=", See "/>
-     <ch:param name="ixseealso-addbefore" value="See also "/>
-  </ch:config>
-  <link href="{concat($relative-external-css-base-filename,'.css')}" rel="stylesheet" type="text/css"/>
+  <link href="css/content.css" rel="stylesheet" type="text/css"/>
 </xsl:template>
    
 <!-- PTC GTEs -->
@@ -681,8 +634,12 @@
            <xsl:value-of select="concat('#',@id)"/>
         </xsl:attribute>
      </xsl:if>
+     <!-- TODO : Reset before delivery -->
+     <!--
      <xsl:call-template name="t-base-div-basic"/>
+     -->
   </a>
+  <xsl:apply-templates/>
 </xsl:template>
 
 <xsl:template match="pgblk/_ufe:consumables-title" priority="5">
@@ -1726,9 +1683,9 @@
         <xsl:text> x-module-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='trlist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-1</xsl:when>
-          <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='sblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-1</xsl:when>
-          <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='spblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-1</xsl:when>
-          <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='pdlist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-1</xsl:when>
+          <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='sblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-2</xsl:when>
+          <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='spblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-3</xsl:when>
+          <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='pdlist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-4</xsl:when>
         </xsl:choose>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
@@ -1805,6 +1762,7 @@
      </xsl:call-template>
      <xsl:call-template name="t-base-pwcmetainfo"/>
      <xsl:call-template name="t-base-pwcbannerinfo"/>
+     <xsl:apply-templates/>
   </div>
 </xsl:template>
 
@@ -3163,6 +3121,7 @@
           <xsl:when test="&anc-task-c; and ../@display='expand'"> x-title-22-5</xsl:when>
           <xsl:when test="&anc-task-v; and ../@display='expand'"> x-title-22-6</xsl:when>
           <xsl:when test="../@display='expand'"> x-title-22-7</xsl:when>
+          <xsl:otherwise> x-title-22-8</xsl:otherwise>
         </xsl:choose>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic-h">
@@ -3313,7 +3272,7 @@
 </xsl:template>
 
 <xsl:template match="nutopt/title" priority="32">
-  <div ch:title="notoc" class=" x-title-39-0">
+  <div ch:title="notoc" class=" x-title-38-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -4421,8 +4380,8 @@
   <xsl:call-template name="t-base-pwcmetainfo"/>
   <div id="pwcbannerinfo" style="display:none">
     <div id="manualTitle"><xsl:value-of select="$manual-title"/></div>
-    <div id="engine"     ><xsl:text>Model(s) </xsl:text><xsl:value-of select="$engine"/></div>
-    <div id="manualPn"   ><xsl:text>Manual Part No. </xsl:text><xsl:value-of select="$manual-pn"/></div>
+    <div id="engine"     >Model(s) <xsl:value-of select="substring-after($engine, 'Model(s)')"/></div>
+    <div id="manualPn"   >Manual Part No. <xsl:value-of select="substring-after($manual-pn, 'Manual Part No.')"/></div>
     <div id="pointRev"   ><xsl:value-of select="ancestor::book/@point-revnbr"/></div>
     <div id="revision"   ><xsl:value-of select="ancestor::book/@revnbr"/></div>
     <div id="revDate"    ><xsl:value-of select="ancestor::book/@revdate"/></div>
