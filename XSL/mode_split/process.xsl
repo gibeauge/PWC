@@ -19,6 +19,9 @@
   xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0"
   exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
 
+  <xsl:include href="chunking.xsl"/>
+  <xsl:include href="toc.xsl"/>
+
 <xsl:variable name="generator-product-name">Arbortext Editor avec Styler</xsl:variable>
 <xsl:variable name="generator-version-number">6.0 M011</xsl:variable>
 <xsl:variable name="generator-version-date">June 01, 2012</xsl:variable>
@@ -26,15 +29,6 @@
 
 <!-- We try to set a default for graphics-path, but we expect this parameter to be set by the calling code -->
 <xsl:param name="graphics-path">
-  <xsl:call-template name="substring-before-last">
-    <xsl:with-param name="str">
-      <xsl:call-template name="substring-before-last">
-        <xsl:with-param name="str" select="$external-css-filename"/>
-        <xsl:with-param name="delim" select="'/'"/>
-      </xsl:call-template>
-    </xsl:with-param>
-    <xsl:with-param name="delim" select="'/'"/>
-  </xsl:call-template>
   <xsl:text>/graphics</xsl:text>
 </xsl:param>
 <xsl:param name="available-graphic-getwidth-extension">
@@ -61,8 +55,7 @@
  <xsl:param name="gte-namespace-uri"                    select="'http://www.arbortext.com/namespace/Styler/GeneratedTextElements'"/>
  <xsl:param name="skip-remove-xhtml-namespace-pass"     select="'no'"/>
  
- <xsl:param name="external-css-filename"                select="''"/>
- <xsl:param name="relative-external-css-base-filename"  select="'css/epc_pw600_pw617fe_3072164_PROC'"/>
+<xsl:param name="output-dir"                          select="concat(/book/@object-key, '_', /book/@revnbr, '.', /book/@point-revnbr)"/>
 
  <xsl:template match="/">
     <xsl:variable name="tree1">
@@ -88,6 +81,8 @@
       <xsl:variable name="tree6">
           <xsl:apply-templates select="exslt:node-set($tree5)" mode="remove-xhtml-namespace"/>
       </xsl:variable>
+      <xsl:apply-templates select="exslt:node-set($tree6)" mode="output"/>
+      <xsl:apply-templates select="exslt:node-set($tree6)" mode="toc"/>
       <xsl:copy-of select="$tree6"/>
  </xsl:template>
  
