@@ -11,7 +11,7 @@
 <xsl:include href="ipc_styler_numbering.xsl"/>
 <xsl:include href="ipc_styler-LabelAndNumberMarker.xsl"/>
 
-<xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes" indent="yes"/>
+<xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>
 
 <xsl:variable name="doctype" select="'ipc'"/>
 
