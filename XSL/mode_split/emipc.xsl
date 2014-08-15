@@ -10,7 +10,7 @@
 <xsl:include href="emipc_styler_numbering.xsl"/>
 <xsl:include href="emipc_styler-LabelAndNumberMarker.xsl"/>
 
-<xsl:output encoding="UTF-8" method="xml" omit-xml-declaration="yes" indent="yes"/>
+<xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" indent="yes"/>
 
 <xsl:variable name="doctype" select="'emipc'"/>
 
@@ -216,18 +216,13 @@
      <xsl:attribute name="class">
         <xsl:text> x-itemspec-1-0</xsl:text>
         <xsl:choose>
-          <xsl:when test="@indent='1'"> x-itemspec-1-1</xsl:when>
-          <xsl:when test="@indent='2'"> x-itemspec-1-2</xsl:when>
-          <xsl:when test="@indent='3'"> x-itemspec-1-3</xsl:when>
-          <xsl:when test="@indent='4'"> x-itemspec-1-4</xsl:when>
+          <xsl:when test="@indent=number('1')"> x-itemspec-1-1</xsl:when>
+          <xsl:when test="@indent=number('2')"> x-itemspec-1-2</xsl:when>
+          <xsl:when test="@indent=number('3')"> x-itemspec-1-3</xsl:when>
+          <xsl:when test="@indent=number('4')"> x-itemspec-1-4</xsl:when>
         </xsl:choose>
      </xsl:attribute>
-     <!--  Remove ID as in APE -->
-     <!--
      <xsl:call-template name="t-base-div-basic"/>
-     -->
-     <xsl:copy-of select="@ch:*"/>
-     <xsl:apply-templates/>
   </div>
 </xsl:template>
 
