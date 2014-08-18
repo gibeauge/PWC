@@ -7,10 +7,6 @@
        pi.xsl - transforms some Epic formatting PIs into HTML
      ********************************************************** -->
 
-<xsl:import href="common.xsl"/>
-
-<xsl:param name="Use-atievent-elements" select="''"/>
-
 <xsl:param name="extra-spans-for-strikethru-and-underline-color"
              select="'yes'"/>
 
@@ -109,17 +105,7 @@
        <!-- handled in template generating the td|th -->
     </xsl:when>
     <xsl:otherwise>
-      <xsl:choose>
-        <xsl:when test="$Use-atievent-elements='false'">
-          <xsl:message>
-            <xsl:text>Unrecognized Pub PI: </xsl:text>
-            <xsl:value-of select="$pi"/>
-          </xsl:message>
-        </xsl:when>
-        <xsl:otherwise>
-          <!-- We just quietly ignore the unrecognized PI here -->
-        </xsl:otherwise>
-      </xsl:choose>
+      <!-- We just quietly ignore the unrecognized PI here -->
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -572,5 +558,393 @@
 <!-- **********************************************************
        end pi.xsl
      ********************************************************** -->
+
+<xsl:template name="atievent-startelement">
+  <!-- this template only works with at most one attribute -->
+  <xsl:param name="atievent-element-name" select="'span'"/>
+  <xsl:param name="atievent-attrname" select="''"/>
+  <xsl:param name="atievent-attrvalue" select="''"/>
+
+  <xsl:text disable-output-escaping="yes">&lt;</xsl:text>
+  <xsl:value-of select="string($atievent-element-name)"/>
+  <xsl:if test="$atievent-attrname != ''">
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="string($atievent-attrname)"/>
+    <xsl:text>="</xsl:text>
+    <xsl:value-of select="string($atievent-attrvalue)"/>
+    <xsl:text>"</xsl:text>
+  </xsl:if>
+  <xsl:text disable-output-escaping="yes">&gt;</xsl:text>
+</xsl:template>
+
+<xsl:template name="atievent-endelement">
+  <xsl:param name="atievent-element-name" select="'span'"/>
+  
+  <xsl:text disable-output-escaping="yes">&lt;/</xsl:text>
+  <xsl:value-of select="string($atievent-element-name)"/>
+  <xsl:text disable-output-escaping="yes">&gt;</xsl:text>
+</xsl:template>
+
+<xsl:template name="texmacpi">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">Tex</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval!=''">
+    <xsl:value-of select="$attrval"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="add-property">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">xxx</xsl:param>
+    <xsl:param name="property">yyy</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval!=''">
+    <xsl:attribute name="{$property}">
+      <xsl:value-of select="$attrval"/>
+    </xsl:attribute>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="get-pi-attr-value">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr"/>
+    <xsl:param name="normalize-space" select="'yes'"/>
+  <xsl:variable name="npi">
+    <xsl:choose>
+      <xsl:when test="$normalize-space='yes'">
+        <xsl:value-of select="normalize-space($pi)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$pi"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:if test="contains($npi,concat($piattr, '='))">
+    <xsl:variable name="restq"
+                  select="substring-after($npi,concat($piattr,'='))"/>
+    <xsl:variable name="quote" select="substring($restq,1,1)"/>
+    <xsl:value-of select="substring-before(substring($restq,2),$quote)"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-backcolor">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">BackColor</xsl:param>
+    <xsl:param name="fontattr">background-color</xsl:param>
+  <xsl:variable name="given_bgcolor">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$given_bgcolor!=''">
+    <!-- Now convert given color to associated RGB number -->
+    <xsl:variable name="xbgcolor"
+                  select="substring-after($fg2bg_colorizer,concat($given_bgcolor,'='))"/>
+    <xsl:variable name="bgcolor"
+                  select="substring-before($xbgcolor,';')"/>
+    <xsl:variable name="final_bgcolor">
+      <xsl:choose>
+        <xsl:when test="$bgcolor=''"><xsl:value-of select="string($given_bgcolor)"/></xsl:when>
+        <xsl:otherwise><xsl:value-of select="string($bgcolor)"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="$final_bgcolor != ''">
+      <xsl:call-template name="PI_font_attr_emit">
+        <xsl:with-param name="attrname" select="$fontattr"/>
+        <xsl:with-param name="attrval" select="$final_bgcolor"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-color">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">FontColor</xsl:param>
+    <xsl:param name="fontattr">color</xsl:param>
+  <!-- Need to get fancier to avoid seeing XScoreColor as ScoreColor -->
+  <xsl:variable name="npi" select="concat(' ',normalize-space($pi))"/>
+  <xsl:variable name="given_color">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$npi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+      <xsl:with-param name="normalize-space" select="'no'"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$given_color!=''">
+    <!-- Now convert given color to associated RGB number -->
+    <xsl:variable name="xcolor"
+                  select="substring-after($fg_colorizer,concat($given_color,'='))"/>
+    <xsl:variable name="color"
+                  select="substring-before($xcolor,';')"/>
+    <xsl:variable name="final_color">
+      <xsl:choose>
+        <xsl:when test="$color=''"><xsl:value-of select="string($given_color)"/></xsl:when>
+        <xsl:otherwise><xsl:value-of select="string($color)"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="$given_color='transparent'">
+        <xsl:call-template name="PI_font_attr_emit">
+          <xsl:with-param name="attrname" select="'visibility'"/>
+          <xsl:with-param name="attrval" select="'hidden'"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="$final_color != ''">
+        <xsl:call-template name="PI_font_attr_emit">
+          <xsl:with-param name="attrname" select="$fontattr"/>
+          <xsl:with-param name="attrval" select="$final_color"/>
+        </xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-underline">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">Underline</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval!=''">
+    <xsl:if test="$attrval != 'no' and $attrval != 'inherit' and string-length($attrval) &gt; 2">
+      <!-- Rather than test for all values, if the value is at least 3 characters
+           long, we assume it is a valid value other than 'no' -->
+      <xsl:text>underline</xsl:text>
+    </xsl:if>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-text-decoration">
+    <xsl:param name="underline"></xsl:param>
+    <xsl:param name="strikethru"></xsl:param>
+    <xsl:param name="fontattr">text-decoration</xsl:param>
+  <xsl:if test="concat($underline,$strikethru) != ''">
+    <xsl:variable name="text-decoration-value">
+     <xsl:choose>
+      <xsl:when test="$underline = ''">
+        <xsl:text>line-through</xsl:text>
+      </xsl:when>
+      <xsl:when test="$strikethru = ''">
+        <xsl:text>underline</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>underline line-through</xsl:text>
+      </xsl:otherwise>
+     </xsl:choose>
+    </xsl:variable>
+    <xsl:call-template name="PI_font_attr_emit">
+      <xsl:with-param name="attrname" select="$fontattr"/>
+      <xsl:with-param name="attrval" select="$text-decoration-value"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-strikethru">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">ScoreCharOn</xsl:param>
+    <xsl:param name="piattr2">Strikethru</xsl:param>
+  <xsl:variable name="attrval1">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:variable name="attrval2">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr2"/>
+    </xsl:call-template>
+  </xsl:variable>
+  
+  <xsl:if test="$attrval1!='' or $attrval2!=''">
+    <xsl:if test="$attrval1 = 'yes' or $attrval2 = 'yes' or $attrval2 = 'single' or $attrval2 = 'wordsonly'">
+      <xsl:text>line-through</xsl:text>
+    </xsl:if>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-allcaps">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">AllCap</xsl:param>
+    <xsl:param name="fontattr">text-transform</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval = 'yes'">
+    <xsl:call-template name="PI_font_attr_emit">
+      <xsl:with-param name="attrname" select="$fontattr"/>
+      <xsl:with-param name="attrval" select="'uppercase'"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-smallcaps">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">SmallCap</xsl:param>
+    <xsl:param name="fontattr">font-variant</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval = 'yes'">
+    <xsl:call-template name="PI_font_attr_emit">
+      <xsl:with-param name="attrname" select="$fontattr"/>
+      <xsl:with-param name="attrval" select="'small-caps'"/>
+    </xsl:call-template>
+  </xsl:if>
+  <xsl:if test="$attrval = 'no'">
+    <xsl:call-template name="PI_font_attr_emit">
+      <xsl:with-param name="attrname" select="$fontattr"/>
+      <xsl:with-param name="attrval" select="'normal'"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-scorespaces">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">ScoreSpace</xsl:param>
+    <xsl:param name="fontattr">score-spaces</xsl:param>
+  <!-- Need to get fancier to avoid seeing XScoreSpace as ScoreSpace -->
+  <xsl:variable name="npi" select="concat(' ',normalize-space($pi))"/>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$npi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+      <xsl:with-param name="normalize-space" select="'no'"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval!=''">
+    <xsl:variable name="attrvalue">
+      <xsl:choose>
+        <xsl:when test="$attrval = 'yes'">true</xsl:when>
+        <xsl:when test="$attrval = 'no'">false</xsl:when>
+        <xsl:otherwise>true</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:call-template name="PI_font_attr_emit">
+      <xsl:with-param name="attrname" select="$fontattr"/>
+      <xsl:with-param name="attrval" select="$attrvalue"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-style">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">FontStyle</xsl:param>
+    <xsl:param name="fontattr">font-family</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval!=''">
+    <xsl:variable name="genfontfam">
+      <xsl:choose>
+        <xsl:when test="$attrval='serifed'">serif</xsl:when>
+        <xsl:when test="$attrval='sans-serif'">sans-serif</xsl:when>
+        <xsl:when test="$attrval='monospaced-serifed'">monospace</xsl:when>
+        <xsl:when test="$attrval='monospaced-sans-serif'">monospace</xsl:when>
+        <xsl:otherwise>none</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="$genfontfam!='none'">
+      <xsl:call-template name="PI_font_attr_emit">
+        <xsl:with-param name="attrname" select="$fontattr"/>
+        <xsl:with-param name="attrval" select="$genfontfam"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-posture">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">Posture</xsl:param>
+    <xsl:param name="fontattr">font-style</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval!=''">
+    <xsl:variable name="posture">
+      <xsl:choose>
+        <xsl:when test="$attrval='upright'">normal</xsl:when>
+        <xsl:otherwise><xsl:value-of select="string($attrval)"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="$posture!=''">
+      <xsl:call-template name="PI_font_attr_emit">
+        <xsl:with-param name="attrname" select="$fontattr"/>
+        <xsl:with-param name="attrval" select="$posture"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-weight">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">Weight</xsl:param>
+    <xsl:param name="fontattr">font-weight</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval!=''">
+    <xsl:variable name="weight">
+      <xsl:choose>
+        <xsl:when test="$attrval='medium'">normal</xsl:when>
+        <xsl:otherwise><xsl:value-of select="string($attrval)"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="$weight!=''">
+      <xsl:call-template name="PI_font_attr_emit">
+        <xsl:with-param name="attrname" select="$fontattr"/>
+        <xsl:with-param name="attrval" select="$weight"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="font-attribute">
+    <xsl:param name="pi" select="."/>
+    <xsl:param name="piattr">xxx</xsl:param>
+    <xsl:param name="fontattr">yyy</xsl:param>
+  <xsl:variable name="attrval">
+    <xsl:call-template name="get-pi-attr-value">
+      <xsl:with-param name="pi" select="$pi"/>
+      <xsl:with-param name="piattr" select="$piattr"/>
+    </xsl:call-template>
+  </xsl:variable>
+  <xsl:if test="$attrval!=''">
+    <xsl:call-template name="PI_font_attr_emit">
+      <xsl:with-param name="attrname" select="$fontattr"/>
+      <xsl:with-param name="attrval" select="$attrval"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
 
 </xsl:stylesheet>

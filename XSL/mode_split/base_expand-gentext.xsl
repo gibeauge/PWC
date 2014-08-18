@@ -546,8 +546,10 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <table frame="none" id="frac01" tabstyle="frac">
-          <tgroup cols="2">
+          <tgroup cols="2" cellpadding="0">
+            <!--
             <xsl:processing-instruction name="PubTbl">tgroup clmarg="0.00pt" crmarg="0.00pt" rth="0.00pt"</xsl:processing-instruction>
+            -->
             <colspec colname="col1" colwidth="10px"/>
             <colspec colname="col2" colwidth="10px"/>
             <tbody>
@@ -1306,6 +1308,11 @@
           <xsl:with-param name="content">
             <_sfe:CrossReference>
               <_gte:Link linkRef="{@refid}">
+                <xsl:attribute name="type"><xsl:text>table</xsl:text>
+                  <xsl:if test="$target[ancestor::figure or ancestor::graphic]">
+                    <xsl:text>-figure</xsl:text>
+                  </xsl:if>
+                </xsl:attribute>
                 <xsl:choose>
                   <xsl:when test="$target/title">
                     <xsl:apply-templates select="$target/title" mode="styler_xref-Number"/>
@@ -2201,7 +2208,11 @@
     <xsl:call-template name="expand-gentext-warning"/>
   </xsl:template>
 
-  <xsl:template match="xref" mode="expand-gentext">    
+  <xsl:template match="xref" mode="expand-gentext">
+     <xsl:call-template name="expand-gentext"/>
+  </xsl:template>
+  
+  <xsl:template match="xrefz" mode="expand-gentext">    
     <xsl:variable name="division-name-token-list">
       <xsl:choose>
         <xsl:when test="ancestor::book[starts-with(@doctype, 'epc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter glossary graphic highlights intro list lof lof-item lot lot-item module n-para num-index num-list nutopt page-block procedure pwcchapsect-list sbdata sblist section spec-tool-table subject subpara table title-page unlist vendlist </xsl:when>

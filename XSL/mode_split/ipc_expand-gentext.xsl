@@ -420,30 +420,16 @@
         <_ufe:block-nospace/>
         <xsl:choose>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='4'">
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3'">
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2'">
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1'">
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
           </xsl:when>
         </xsl:choose>
         <xsl:value-of select="@cond"/>
@@ -463,42 +449,28 @@
         <xsl:choose>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='4'">
             <_ufe:block-nospace/>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3'">
             <_ufe:block-nospace/>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2'">
             <_ufe:block-nospace/>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1'">
             <_ufe:block-nospace/>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
-            <xsl:processing-instruction name="Pub">_hardspace</xsl:processing-instruction>
+            <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>

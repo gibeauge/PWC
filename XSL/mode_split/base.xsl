@@ -5,28 +5,16 @@
     %entities_commun;
 ]>
 <xsl:stylesheet 
-  xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-  xmlns:ximg="xaln://com.nwalsh.xalan.ImageIntrinsics" 
   xmlns="http://www.w3.org/1999/xhtml" 
   xmlns:exslt="http://exslt.org/common" 
-  xmlns:_acl="java:com.arbortext.epic.Acl" 
-  xmlns:msxsl="urn:schemas-microsoft-com:xslt" 
-  xmlns:_="http://www.pwc.ca/namespace/doctypes/emipc" 
-  xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements" 
-  xmlns:atidlm="http://www.arbortext.com/namespace/atidlm" 
-  xmlns:_2="http://www.pwc.ca/namespace/doctypes/jmtosmigrate" 
   xmlns:ch="http://www.arbortext.com/namespace/chunker" 
   xmlns:saxon="http://saxon.sf.net/" 
-  xmlns:_5="http://www.pwc.ca/namespace/doctypes/ipc" 
   xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" 
-  xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript" 
-  xmlns:_3="http://www.pwc.ca/namespace/doctypes/migrate" 
   xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" 
   version="1.0" 
-  exclude-result-prefixes="_ atidlm xml _2 ch saxon _5 xsi _js _3 #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
+  exclude-result-prefixes="ch saxon #default exslt _ufe _sfe _gte">
 
 <xsl:include href="base_initial-pass-mode.xsl"/>
 <xsl:include href="base_expand-gentext.xsl"/>
@@ -35,6 +23,7 @@
 <xsl:include href="base_styler-LabelAndNumberMarker.xsl"/>
 <xsl:include href="base_expand-numbering.xsl"/>
 
+<xsl:include href="ext/pi.xsl"/>
 <xsl:include href="ext/tbls.xsl"/>
 <xsl:include href="ext/html-tbls.xsl"/>
 
@@ -44,31 +33,11 @@
 
 <!-- ENTRY POINT -->
 
-<xsl:variable name="title">
-  <xsl:choose>
-     <xsl:when test="$doctype='emipc'">
-        <xsl:value-of select="//_ufe:chapsect-title[1]|//_ufe:cir-title[1]|//_ufe:consumables-title[1]|//_ufe:eipc-title[1]|//_ufe:em-title[1]|//_ufe:fixequ-title[1]|//_ufe:general-title[1]|//_ufe:glossary-title[1]|//_ufe:howtouse-title[1]|//_ufe:intro-title[1]|//manual-title[1]|//_ufe:num-index-title[1]|//_ufe:nut-option-title[1]|//_ufe:pdlist-title[1]|//pwc-title[1]|//_ufe:sblist-title[1]|//_ufe:spblist-title[1]|//_ufe:spectools-title[1]|//_ufe:supplier-list-title[1]|//_ufe:task-title[1]|//_ufe:temp-rev-title[1]|//title[1]|//_ufe:tmm-title[1]"/>
-     </xsl:when>
-     <xsl:when test="$doctype='ipc'">
-        <xsl:value-of select="//_ufe:chapsect-title[1]|//_ufe:cir-title[1]|//_ufe:consumables-title[1]|//_ufe:eipc-title[1]|//_ufe:em-title[1]|//_ufe:fixequ-title[1]|//_ufe:general-title[1]|//_ufe:glossary-title[1]|//_ufe:howtouse-title[1]|//_ufe:intro-title[1]|//manual-title[1]|//_ufe:num-index-title[1]|//_ufe:nut-option-title[1]|//_ufe:pdlist-title[1]|//_ufe:sblist-title[1]|//_ufe:spblist-title[1]|//_ufe:spectools-title[1]|//_ufe:supplier-list-title[1]|//_ufe:task-title[1]|//_ufe:temp-rev-title[1]|//title[1]|//_ufe:tmm-title[1]"/>
-     </xsl:when>
-     <xsl:when test="$doctype='jmtosmigrate'">
-        <xsl:value-of select="//_ufe:chapsect-title[1]|//_ufe:cir-title[1]|//_ufe:consumables-title[1]|//_ufe:eipc-title[1]|//_ufe:em-title[1]|//_ufe:fixequ-title[1]|//_ufe:general-title[1]|//_ufe:glossary-title[1]|//_ufe:howtouse-title[1]|//_ufe:intro-title[1]|//manual-title[1]|//_ufe:num-index-title[1]|//_ufe:nut-option-title[1]|//pageblock-title[1]|//_ufe:pdlist-title[1]|//_ufe:sblist-title[1]|//_ufe:spblist-title[1]|//_ufe:spectools-title[1]|//_ufe:supplier-list-title[1]|//_ufe:task-title[1]|//_ufe:temp-rev-title[1]|//title[1]|//_ufe:tmm-title[1]"/>
-     </xsl:when>
-     <xsl:when test="$doctype='migrate'">
-        <xsl:value-of select="//_ufe:chapsect-title[1]|//_ufe:cir-title[1]|//_ufe:consumables-title[1]|//_ufe:eipc-title[1]|//_ufe:em-title[1]|//_ufe:fixequ-title[1]|//_ufe:general-title[1]|//_ufe:glossary-title[1]|//_ufe:howtouse-title[1]|//_ufe:intro-title[1]|//manual-title[1]|//_ufe:num-index-title[1]|//_ufe:nut-option-title[1]|//pageblock-title[1]|//_ufe:pdlist-title[1]|//_ufe:sblist-title[1]|//_ufe:spblist-title[1]|//_ufe:spectools-title[1]|//_ufe:supplier-list-title[1]|//_ufe:task-title[1]|//_ufe:temp-rev-title[1]|//title[1]|//_ufe:tmm-title[1]"/>
-     </xsl:when>
-  </xsl:choose>
-</xsl:variable>
-
 <xsl:template name="user-visible-root-template">
   <!--Do not change the above line, and edit this template with caution!-->
   <html>
      <head>
-        <title>
-           <xsl:value-of select="$title"/>
-        </title>
-        <!--The following line pulls in required contents. Do not delete!-->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <xsl:call-template name="include-required-head-contents"/>
         <script language="JavaScript" src="javascript/pwcdisplay.js" type="text/javascript">
            <![CDATA[
@@ -76,6 +45,7 @@
             // which could cause browser to mis-behave
            ]]>
         </script>
+        <title>PWC publication</title>
      </head>
      <xsl:apply-templates/>
   </html>
@@ -95,12 +65,6 @@
 
 <xsl:template match="_gte:*">
   <xsl:apply-templates/>
-</xsl:template>
-
-<xsl:template match="_gte:Gentexted-Content-Wrapper//processing-instruction('Pub')[starts-with(., '_font') or starts-with(., '/_font')]" priority="2">
-  <xsl:call-template name="handle-pub-processing-instruction">
-     <xsl:with-param name="within-gentext" select="true()"/>
-  </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="_gte:Gentexted-Content-Wrapper//processing-instruction('Pub')[starts-with(., '_newline') or starts-with(., '_newcolumn') or starts-with(., '_newpage')]" priority="2"/>
@@ -1553,7 +1517,7 @@
 <xsl:template match="figure/key" priority="20">
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
   <div>
-    <span onClick="toggle('{$l-id}','{$l-id}');">
+    <span onclick="toggle('{$l-id}','{$l-id}');">
       <img alt="key" src="_templates/frame/images/keytofigure.jpg" style="border-style:none;"/> <!-- TODO : Change image path -->
     </span>
   </div>
@@ -2332,7 +2296,7 @@
   <span class=" x-postsb-1-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </span>
@@ -2346,7 +2310,7 @@
   <span class=" x-presb-1-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </span>
@@ -2453,12 +2417,18 @@
         </xsl:call-template>
       </div>
     </xsl:when>
+    <!--
     <xsl:when test="@refid and //*[@id=current()/@refid][self::table and (ancestor::figure or ancestor::graphic)]">
+    -->
+    <xsl:when test="@refid and .//_gte:Link[@type='table-figure']">
       <span class=" x-refint-2-0">
         <xsl:call-template name="t-base-div-basic"/>
       </span>
     </xsl:when>
+    <!--
     <xsl:when test="@refid and //*[@id=current()/@refid][self::table]">
+    -->
+    <xsl:when test="@refid and .//_gte:Link[@type='table']">
       <span class=" x-refint-3-0">
         <xsl:call-template name="t-base-div-basic"/>
       </span>
@@ -2539,7 +2509,7 @@
   <span class=" x-sb-1-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"> </xsl:call-template>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </span>
@@ -2822,7 +2792,7 @@
 
 <xsl:template match="sheet/gdesc/table" priority="9">
   <div>
-    <a href="#none" onClick="toggle('{@id}','{@id}');">
+    <a href="#none" onclick="toggle('{@id}','{@id}');">
       <img alt="table" src="_templates/frame/images/table.gif" style="border-style:none;"/> <!-- TODO : Change image path -->
       <xsl:text>                   </xsl:text>
       <xsl:apply-templates mode="numbering" select="title"/>
@@ -2850,7 +2820,7 @@
 
 <xsl:template match="figure/table" priority="7">
   <div>
-    <a href="#none" onClick="toggle('{@id}','{@id}');">
+    <a href="#none" onclick="toggle('{@id}','{@id}');">
       <img alt="table" src="_templates/frame/images/table.gif" style="border-style:none;"/> <!-- TODO : Change image path -->
       <xsl:text>                   </xsl:text>
       <xsl:apply-templates mode="numbering" select="title"/>
@@ -2872,7 +2842,7 @@
 
 <xsl:template match="mfmatr//table[title]" priority="8">
   <div>
-    <a href="#none" onClick="toggle('{@id}','{@id}');">
+    <a href="#none" onclick="toggle('{@id}','{@id}');">
       <img alt="table" src="_templates/frame/images/table.gif" style="border-style:none;"/> <!-- TODO : Change image path -->
       <xsl:text>                   </xsl:text>
       <xsl:apply-templates mode="numbering" select="title"/>
@@ -2928,7 +2898,7 @@
 
 <xsl:template match="table" priority="0">
   <div>
-    <a href="#none" onClick="toggle('{@id}','{@id}');">
+    <a href="#none" onclick="toggle('{@id}','{@id}');">
       <img alt="table" src="_templates/frame/images/table.gif" style="border-style:none;"/> <!-- TODO : Change image path -->
       <xsl:text>                   </xsl:text>
       <xsl:apply-templates mode="numbering" select="title"/>
@@ -3990,7 +3960,7 @@
           <span style="display:none" class=" x-xref-1-0">
             <xsl:copy-of select="@ch:*"/>
             <xsl:call-template name="maybe-set-id"/>
-            <a href="#{$l-id}" onClick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
+            <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
               <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
               <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
             </a>
@@ -4000,7 +3970,7 @@
           <span class=" x-xref-2-0">
             <xsl:copy-of select="@ch:*"/>
             <xsl:call-template name="maybe-set-id"/>
-            <a href="#{$l-id}" onClick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
+            <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
               <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
               <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
             </a>
@@ -4010,31 +3980,87 @@
     </xsl:when>
     <xsl:when test="parent::title/parent::table and $l-dest-name='figure'">
       <span class=" x-xref-1-0">
+        <!--
         <xsl:call-template name="t-base-div-basic"/>
+        -->
+        <span class=" x--sfe-CrossReference-1-0">
+          <a href="#{@ref}">
+            <xsl:choose>
+              <xsl:when test="$l-dest-node/title">
+                <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </a>
+        </span>
       </span>
     </xsl:when>
     <xsl:when test="ancestor::highlights">
       <span class=" x-xref-4-0">
+        <!--
         <xsl:call-template name="t-base-div-basic-h">
           <xsl:with-param name="hidden" select="$hidden"/>
         </xsl:call-template>
+        -->
+        <span class=" x--ufe-highlights-link-1-0">
+          <a class=" x--sfe-InternalLink-1-0">
+            <xsl:if test="@ref">
+              <xsl:attribute name="href"><xsl:value-of select="concat('#',@ref)"/></xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
+          </a>
+        </span>
       </span>
     </xsl:when>
     <xsl:when test="$l-dest-name='table' and $l-dest-node[ancestor::figure or ancestor::graphic]">
       <span class=" x-xref-5-0">
+        <!--
         <xsl:call-template name="t-base-div-basic"/>
+        -->
+        <span class=" x--sfe-CrossReference-1-0">
+          <a href="#{@ref}">
+            <xsl:choose>
+              <xsl:when test="$l-dest-node/title">
+                <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </a>
+        </span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
       </span>
     </xsl:when>
     <xsl:when test="$l-dest-name='table'">
       <span class=" x-xref-6-0">
+        <!--
         <xsl:call-template name="t-base-div-basic"/>
+        -->
+        <span class=" x--sfe-CrossReference-1-0">
+          <a href="#{@ref}">
+            <xsl:choose>
+              <xsl:when test="$l-dest-node/title">
+                <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </a>
+        </span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
       </span>
     </xsl:when>
     <xsl:when test="$l-dest-name='figure'">
       <span class=" x-xref-6-0">
         <xsl:copy-of select="@ch:*"/>
         <xsl:call-template name="maybe-set-id"/>
-        <a href="#none" onClick="displayGraphics('{$l-dest-id}');">
+        <a href="#none" onclick="displayGraphics('{$l-dest-id}');">
           <xsl:text> </xsl:text>
           <xsl:apply-templates mode="styler_numbering" select="$l-dest-node//title"/>
         </a>
@@ -4042,7 +4068,37 @@
     </xsl:when>
     <xsl:otherwise>
       <span class=" x-xref-8-0">
+        <!--
         <xsl:call-template name="t-base-div-basic"/>
+        -->
+        <span class=" x--sfe-CrossReference-1-0">
+          <a href="#{@ref}">
+            <xsl:variable name="division-name-token-list">
+              <xsl:choose>
+                <xsl:when test="ancestor::book[starts-with(@doctype, 'epc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter glossary graphic highlights intro list lof lof-item lot lot-item module n-para num-index num-list nutopt page-block procedure pwcchapsect-list sbdata sblist section spec-tool-table subject subpara table title-page unlist vendlist </xsl:when>
+                <xsl:when test="ancestor::book[starts-with(@doctype, 'ipc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter highlights intro list lof lof-item lot lot-item module n-para num-index num-list page-block procedure sblist section service-bull-list spb-list spec-tool-table subject subpara table title-page unlist </xsl:when>
+                <xsl:when test="ancestor::book[starts-with(@doctype, 'cir') or starts-with(@doctype, 'lmm') or starts-with(@doctype, 'tmm')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter graphic highlights howtouse intro list list1 list2 list3 list4 lof lof-item lot lot-item module n-para num-index num-list numlist page-block pbfmatr pgblk prcitem prclist1 prclist2 prclist3 prclist4 procedure pwcchapsect-list pwcni pwcspblist sblist section spec-tool-table subject subpara subtask table task taskproc title-page tprereq unlist </xsl:when>
+                <xsl:when test="ancestor::book[starts-with(@doctype, 'mm') or starts-with(@doctype, 'oh')]"> alpha-list ata-page-block book bullist chapsect-list chapter consumables enumlist figure fits-and-clears fixtures-and-equipment frontmatter general highlights intro list lof lof-item lot lot-item mm-fits module n-para num-index num-list page-block procedure sblist section spec-tool-table special-tools subject subpara table title-page torque-and-stretch unlist </xsl:when>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="idrefed-element-name" select="concat(' ', $l-dest-name, ' ')"/>
+            <xsl:choose>
+              <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
+                <xsl:choose>
+                  <xsl:when test="$l-dest-node/title">
+                    <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="$l-dest-node" mode="styler_numbering"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </a>
+        </span>
       </span>
     </xsl:otherwise>
   </xsl:choose>
@@ -4074,29 +4130,15 @@
   </xsl:element>
 </xsl:template>
 
-<xsl:template xmlns:atievent="http://www.arbortext.com/namespace/AtiSaxEvents" match="atievent:*">
-  <xsl:element name="{name(.)}">
-     <xsl:copy-of select="@*"/>
-     <xsl:apply-templates/>
-  </xsl:element>
-</xsl:template>
-
-<xsl:template xmlns:h="http://www.w3.org/1999/xhtml" match="h:*">
-  <xsl:element name="{name(.)}">
-     <xsl:copy-of select="@*"/>
-     <xsl:apply-templates/>
-  </xsl:element>
-</xsl:template>
-
 <xsl:template match="*" priority="-1">
   <xsl:apply-templates/>
 </xsl:template>
 
-<!-- TABLES CONFIGURATION -->
+<xsl:template match="_ufe:hardspace" priority="2">
+  <xsl:text>&#xa0;</xsl:text>
+</xsl:template>
 
-<xsl:param name="table.border.thickness"    select="'1.0pt'"/>
-<xsl:param name="table.cell.padding.amount" select="'5pt'"/>
-<xsl:param name="thead.tfoot.style"         select="'font-weight: bold; '"/>
+<!-- TABLES CONFIGURATION -->
 
 <xsl:template name="tgroup.first">
   <xsl:attribute name="class"><xsl:text> x-tgroup-1-0</xsl:text></xsl:attribute>

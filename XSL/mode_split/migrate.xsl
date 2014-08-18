@@ -96,7 +96,7 @@
     </xsl:attribute>
     <xsl:apply-templates/>
   </div>
-  <a href="#{$l-id}" onClick="displayGraphics('{$l-id}');">
+  <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');">
   </a>
 </xsl:template>
 

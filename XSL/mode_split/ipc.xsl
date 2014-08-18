@@ -5,24 +5,16 @@
     %entities_commun;
 ]>
 <xsl:stylesheet 
-  xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics" 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-  xmlns:ximg="xaln://com.nwalsh.xalan.ImageIntrinsics" 
   xmlns="http://www.w3.org/1999/xhtml" 
   xmlns:exslt="http://exslt.org/common" 
-  xmlns:_acl="java:com.arbortext.epic.Acl" 
-  xmlns:msxsl="urn:schemas-microsoft-com:xslt" 
-  xmlns:_dtd="http://www.arbortext.com/namespace/Styler/UserElements" 
-  xmlns:atidlm="http://www.arbortext.com/namespace/atidlm" 
   xmlns:ch="http://www.arbortext.com/namespace/chunker" 
   xmlns:saxon="http://saxon.sf.net/" 
   xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" 
-  xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript" 
   xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" 
   version="1.0" 
-  exclude-result-prefixes="atidlm xml ch saxon xsi _js #default exslt msxsl _dtd _ufe _sfe _gte simg ximg _acl">
+  exclude-result-prefixes="ch saxon #default exslt _ufe _sfe _gte">
 
 <xsl:include href="ipc_expand-gentext.xsl"/>
 <xsl:include href="ipc_set-countas.xsl"/>
@@ -126,7 +118,7 @@
      </xsl:attribute>
      <xsl:apply-templates/>
   </div>
-  <a href="#{$l-id}" onClick="displayGraphics('{$l-id}');">
+  <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');">
      <img alt="Graphic" src="{descendant::graphic[@size='thm']/@negnumber}">
      </img>
   </a>
@@ -653,7 +645,7 @@
            <xsl:apply-templates/>
         </xsl:when>
         <xsl:otherwise>
-           <a href="#" onClick="spbLink('{.}');">
+           <a href="#" onclick="spbLink('{.}');">
               <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
            </a>
         </xsl:otherwise>
@@ -676,7 +668,7 @@
      </xsl:attribute>
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </div>
@@ -693,7 +685,7 @@
            <xsl:apply-templates/>
         </xsl:when>
         <xsl:otherwise>
-           <a href="#" onClick="spbLink('{.}');">
+           <a href="#" onclick="spbLink('{.}');">
               <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
            </a>
         </xsl:otherwise>
@@ -705,7 +697,7 @@
   <span class=" x-sb-stat-2-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </span>

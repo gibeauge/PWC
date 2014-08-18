@@ -160,7 +160,7 @@
      </xsl:attribute>
      <xsl:apply-templates/>
   </div>
-  <a href="#{$l-id}" onClick="displayGraphics('{$l-id}');">
+  <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');">
      <img alt="Graphic" src="{descendant::sheet[@size='thm']/@gnbr}">
      </img>
   </a>
@@ -180,7 +180,7 @@
      </xsl:attribute>
      <xsl:apply-templates/>
   </div>
-  <a href="#{$l-id}" onClick="displayGraphics('{$l-id}');">
+  <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');">
      <img alt="Graphic" src="{descendant::sheet[@size='thm']/@gnbr}">
      </img>
   </a>
@@ -466,7 +466,7 @@
   <div class=" x-pwcspbnbr-1-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="spbLink('{.}');">
+     <a href="#" onclick="spbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </div>
@@ -498,7 +498,7 @@
   <div class=" x-sbnbr-1-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </div>
@@ -508,7 +508,7 @@
   <span class=" x-sbnbr-1-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </span>

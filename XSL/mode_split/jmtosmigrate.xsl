@@ -150,7 +150,7 @@
     </xsl:attribute>
     <xsl:apply-templates/>
   </div>
-  <a href="#{$l-id}" onClick="displayGraphics('{$l-id}');">
+  <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');">
   </a>
 </xsl:template>
 
@@ -189,7 +189,7 @@
     </xsl:attribute>
     <xsl:apply-templates/>
   </div>
-  <a href="#{$l-id}" onClick="displayGraphics('{$l-id}');">
+  <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');">
   </a>
 </xsl:template>
 
@@ -204,7 +204,7 @@
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="$l-node"/></xsl:variable>
   <span class=" x-grphcref-1-0">
      <xsl:call-template name="t-base-div-basic"/>
-     <a href="#none" onClick="displayGraphics('{$l-id}');">
+     <a href="#none" onclick="displayGraphics('{$l-id}');">
         <xsl:text> </xsl:text>
         <xsl:apply-templates mode="styler_numbering" select="$l-node/title"/>
      </a>
@@ -1031,7 +1031,7 @@
   <span class=" x-pwcsbnbr-1-0">
     <xsl:copy-of select="@ch:*"/>
 	<xsl:call-template name="maybe-set-id"/>
-	<a onClick="sbLink('{.}');">
+	<a onclick="sbLink('{.}');">
       <xsl:apply-templates/>
     </a>
   </span>
@@ -1114,7 +1114,7 @@
   <span class=" x-pwcspbnbr-1-0">
     <xsl:copy-of select="@ch:*"/>
     <xsl:call-template name="maybe-set-id"/>
-    <a onClick="spbLink('{.}');">
+    <a onclick="spbLink('{.}');">
       <xsl:apply-templates/>
     </a>
   </span>
@@ -1132,7 +1132,7 @@
      </xsl:attribute>
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </span>
@@ -1148,7 +1148,7 @@
   <div class=" x-sbnbr-1-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
-     <a href="#" onClick="sbLink('{.}');">
+     <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
   </div>
@@ -1271,7 +1271,7 @@
 </xsl:template>
 
 <xsl:template match="spbnbr" priority="0">
-  <a onClick="spbLink('{.}');">
+  <a onclick="spbLink('{.}');">
     <xsl:apply-templates/>
   </a>
 </xsl:template>
