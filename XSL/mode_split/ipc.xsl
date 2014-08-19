@@ -108,13 +108,14 @@
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
   <div style="display:none;" class=" x-figure-1-0">
      <xsl:copy-of select="@ch:*"/>
+     <!--
      <xsl:call-template name="maybe-set-id">
         <xsl:with-param name="only-if-id-attr" select="'no'"/>
         <xsl:with-param name="generated-id-prefix" select="$pf-id"/>
      </xsl:call-template>
+     -->
      <xsl:attribute name="id">
-        <xsl:text>styler-id</xsl:text>
-        <xsl:apply-templates mode="set-id" select="."/>
+       <xsl:value-of select="$l-id"/>
      </xsl:attribute>
      <xsl:apply-templates/>
   </div>

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet 
-  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns:ch="http://www.arbortext.com/namespace/chunker" 
   xmlns:random="http://exslt.org/random"
   extension-element-prefixes="random"
-  exclude-result-prefixes="xs ch random" version="1.0">
+  exclude-result-prefixes="ch random" version="1.0">
   
   <xsl:variable name="html-ext" select="'.html'"/>
   <xsl:variable name="sharp" select="'#'"/>
 
-  <xsl:template match="/" mode="toc">
+  <xsl:template match="/*" mode="toc">
     <xsl:result-document href="{concat($output-dir, '/toc/en.xml')}" method="xml" encoding="utf-8" indent="no">
       <xsl:element name="Structure">
         <xsl:apply-templates mode="toc"/>

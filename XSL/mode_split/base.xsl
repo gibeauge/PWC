@@ -29,38 +29,26 @@
 
 <xsl:param name="bg_colorizer" select="'&#34;bgreen=#C0FFC0; gray3=#D0D0D0; green=#C0FFC0; lime=#E0FFE0; bviolet=#FFC0FF; gray4=#C0C0C0; maroon=#C08080; navy=#A0A0C0; bred=#FFC0CB; borange=#FFC097; gray5=#B0B0B0; olive=#D0D000; red=#FFC0CB; byellow=#FFFFC0; bwhite=#FFFFFF; bbrown=#DEB887; bblack=#808080; black=#808080; brown=#DEB887; teal=#00E0E0; violet=#FFC0FF; white=#FFFFFF; bblue=#C0C0FF; blue=#C0C0FF; orange=#FFC097; transparent=transparent; aqua=#D0FFFF; gray1=#F0F0F0; bgray=#D0D0D0; gray2=#E0E0E0; gray=#D0D0D0; yellow=#FFFFC0;&#34;'"/>
 
-<xsl:variable name="pf-id" select="'styler-id'"/>
+<xsl:variable name="pf-id" select="'sid'"/>
 
 <!-- ENTRY POINT -->
 
-<xsl:template name="user-visible-root-template">
-  <!--Do not change the above line, and edit this template with caution!-->
+<xsl:template match="/*" priority="1">
   <html>
-     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <xsl:call-template name="include-required-head-contents"/>
-        <script language="JavaScript" src="javascript/pwcdisplay.js" type="text/javascript">
-           <![CDATA[
-            // leave some space, so that the serializer won't collapse element          
-            // which could cause browser to mis-behave
-           ]]>
-        </script>
-        <title>PWC publication</title>
-     </head>
-     <xsl:apply-templates/>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <link href="{$css-path}/content.css" rel="stylesheet" type="text/css"/>
+      <script language="JavaScript" src="{$js-path}/pwcdisplay.js" type="text/javascript">
+        <!--  -->
+      </script>
+      <title>PWC publication</title>
+    </head>
+    <body ch:chunk="yes" class=" x-body-{$doctype}">
+       <xsl:apply-templates/>
+    </body>
   </html>
 </xsl:template>
 
-<xsl:template match="/*" priority="-0.1">
-  <body ch:chunk="yes" class=" x-body-{$doctype}">
-     <xsl:apply-templates/>
-  </body>
-</xsl:template>
-
-<xsl:template name="include-required-head-contents">
-  <link href="css/content.css" rel="stylesheet" type="text/css"/>
-</xsl:template>
-   
 <!-- PTC GTEs -->
 
 <xsl:template match="_gte:*">
@@ -88,7 +76,10 @@
 
 <xsl:template match="_gte:Link">
   <a href="#{@linkRef}">
-     <xsl:apply-templates/>
+    <xsl:if test="@onclick">
+      <xsl:copy-of select="@onclick"/>
+    </xsl:if>  
+    <xsl:apply-templates/>
   </a>
 </xsl:template>
 
@@ -598,12 +589,8 @@
            <xsl:value-of select="concat('#',@id)"/>
         </xsl:attribute>
      </xsl:if>
-     <!-- TODO : Reset before delivery -->
-     <!--
      <xsl:call-template name="t-base-div-basic"/>
-     -->
   </a>
-  <xsl:apply-templates/>
 </xsl:template>
 
 <xsl:template match="pgblk/_ufe:consumables-title" priority="5">
@@ -1517,8 +1504,8 @@
 <xsl:template match="figure/key" priority="20">
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
   <div>
-    <span onclick="toggle('{$l-id}','{$l-id}');">
-      <img alt="key" src="_templates/frame/images/keytofigure.jpg" style="border-style:none;"/> <!-- TODO : Change image path -->
+    <span onclick="toggle('{$l-id}','{$l-id}');" onmouseover="this.style.cursor='pointer'">
+      <img alt="key" src="{$images-path}/keytofigure.jpg" style="border-style:none;"/>
     </span>
   </div>
   <div style="display:none" class=" x-key-1-0">
@@ -2544,7 +2531,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="sin" priority="0">
+<xsl:template match="sin_old" priority="0">
   <xsl:param name="hidden" select="'yes'"/>
 
   <xsl:if test="$hidden='no'">
@@ -2552,6 +2539,14 @@
       <xsl:call-template name="t-base-div-basic"/>
     </span>
   </xsl:if>
+</xsl:template>
+
+<xsl:template match="sin" priority="0">
+  <span class=" x-sin-2-0">
+    <a href="#" onclick="openIPC('{.}')">
+      <xsl:apply-templates/>
+    </a>
+  </span>
 </xsl:template>
 
 <xsl:template match="source-item" priority="0">
@@ -2622,13 +2617,8 @@
 
 <xsl:template match="sqrt" priority="0">
   <span class=" x-sqrt-1-0">
-    <!-- TODO : Reset it before delivery -->
-    <!--
     <xsl:call-template name="t-base-div-basic"/>
-    -->
-    <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
   </span>
-  <xsl:apply-templates select="node()[not(self::_sfe:BeforeOrAfterText)]"/>
 </xsl:template>
 
 <xsl:template match="state" priority="0">
@@ -2793,7 +2783,7 @@
 <xsl:template match="sheet/gdesc/table" priority="9">
   <div>
     <a href="#none" onclick="toggle('{@id}','{@id}');">
-      <img alt="table" src="_templates/frame/images/table.gif" style="border-style:none;"/> <!-- TODO : Change image path -->
+      <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
       <xsl:text>                   </xsl:text>
       <xsl:apply-templates mode="numbering" select="title"/>
     </a>
@@ -2801,7 +2791,7 @@
   <div style="display:none" class=" x-table-3-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:attribute name="id">
-        <xsl:text>styler-id</xsl:text>
+        <xsl:value-of select="$pf-id"/>
         <xsl:apply-templates mode="set-id" select="."/>
      </xsl:attribute>
      <xsl:call-template name="maybe-set-id">
@@ -2821,7 +2811,7 @@
 <xsl:template match="figure/table" priority="7">
   <div>
     <a href="#none" onclick="toggle('{@id}','{@id}');">
-      <img alt="table" src="_templates/frame/images/table.gif" style="border-style:none;"/> <!-- TODO : Change image path -->
+      <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
       <xsl:text>                   </xsl:text>
       <xsl:apply-templates mode="numbering" select="title"/>
     </a>
@@ -2829,12 +2819,14 @@
   <div style="display:none" class=" x-table-5-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:attribute name="id">
-        <xsl:text>styler-id</xsl:text>
+        <xsl:value-of select="$pf-id"/>
         <xsl:apply-templates mode="set-id" select="."/>
      </xsl:attribute>
+     <!--
      <xsl:call-template name="maybe-set-id">
         <xsl:with-param name="only-if-id-attr" select="'no'"/>
      </xsl:call-template>
+     -->
      <xsl:apply-templates/>
   </div>
   <xsl:call-template name="t-base-js-toggle"/>
@@ -2843,7 +2835,7 @@
 <xsl:template match="mfmatr//table[title]" priority="8">
   <div>
     <a href="#none" onclick="toggle('{@id}','{@id}');">
-      <img alt="table" src="_templates/frame/images/table.gif" style="border-style:none;"/> <!-- TODO : Change image path -->
+      <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
       <xsl:text>                   </xsl:text>
       <xsl:apply-templates mode="numbering" select="title"/>
     </a>
@@ -2851,7 +2843,6 @@
   <div style="display:none" class=" x-table-6-0">
      <xsl:call-template name="t-base-div-basic2"/>
   </div>
-  <xsl:call-template name="t-base-js-toggle"/>
 </xsl:template>
 
 <xsl:template match="mfmatr//table" priority="7">
@@ -2899,7 +2890,7 @@
 <xsl:template match="table" priority="0">
   <div>
     <a href="#none" onclick="toggle('{@id}','{@id}');">
-      <img alt="table" src="_templates/frame/images/table.gif" style="border-style:none;"/> <!-- TODO : Change image path -->
+      <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
       <xsl:text>                   </xsl:text>
       <xsl:apply-templates mode="numbering" select="title"/>
     </a>
@@ -3088,24 +3079,29 @@
 <xsl:template match="task//table/title" priority="51">
   <xsl:param name="hidden" select="'yes'"/>
 
-  <div>
-     <xsl:attribute name="class">
-        <xsl:text> x-title-22-0</xsl:text>
-        <xsl:choose>
-          <xsl:when test="&anc-pgblk-0-13; and &anc-task-c; and ../@display='expand'"> x-title-22-1</xsl:when>
-          <xsl:when test="&anc-pgblk-0-13; and &anc-task-v; and ../@display='expand'"> x-title-22-2</xsl:when>
-          <xsl:when test="&anc-pgblk-0-13; and ../@display='expand'"> x-title-22-3</xsl:when>
-          <xsl:when test="&anc-pgblk-0-13;"> x-title-22-4</xsl:when>
-          <xsl:when test="&anc-task-c; and ../@display='expand'"> x-title-22-5</xsl:when>
-          <xsl:when test="&anc-task-v; and ../@display='expand'"> x-title-22-6</xsl:when>
-          <xsl:when test="../@display='expand'"> x-title-22-7</xsl:when>
-          <xsl:otherwise> x-title-22-8</xsl:otherwise>
-        </xsl:choose>
-     </xsl:attribute>
-     <xsl:call-template name="t-base-div-basic-h">
-        <xsl:with-param name="hidden" select="$hidden"/>
-     </xsl:call-template>
-  </div>
+  <xsl:variable name="l-content">
+    <div>
+       <xsl:attribute name="class">
+          <xsl:text> x-title-22-0</xsl:text>
+          <xsl:choose>
+            <xsl:when test="&anc-pgblk-0-13; and &anc-task-c; and ../@display='expand'"> x-title-22-1</xsl:when>
+            <xsl:when test="&anc-pgblk-0-13; and &anc-task-v; and ../@display='expand'"> x-title-22-2</xsl:when>
+            <xsl:when test="&anc-pgblk-0-13; and ../@display='expand'"> x-title-22-3</xsl:when>
+            <xsl:when test="&anc-pgblk-0-13;"> x-title-22-4</xsl:when>
+            <xsl:when test="&anc-task-c; and ../@display='expand'"> x-title-22-5</xsl:when>
+            <xsl:when test="&anc-task-v; and ../@display='expand'"> x-title-22-6</xsl:when>
+            <xsl:when test="../@display='expand'"> x-title-22-7</xsl:when>
+            <xsl:otherwise> x-title-22-8</xsl:otherwise>
+          </xsl:choose>
+       </xsl:attribute>
+       <xsl:call-template name="t-base-div-basic-h">
+          <xsl:with-param name="hidden" select="$hidden"/>
+       </xsl:call-template>
+    </div>
+  </xsl:variable>
+  <xsl:if test="normalize-space(replace($l-content//text(),'&#xa0;',''))!=''">
+    <xsl:copy-of select="$l-content"/>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="page-block//graphic/title" priority="50">
@@ -3540,13 +3536,8 @@
 
 <xsl:template match="tool" priority="0">
   <span class=" x-tool-1-0">
-    <!-- TODO : Reset before delivery -->
-    <!--
     <xsl:call-template name="t-base-div-basic"/>
-    -->
-    <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
   </span>
-  <xsl:apply-templates select="node()[not(self::_sfe:BeforeOrAfterText)]"/>
 </xsl:template>
 
 <xsl:template match="toolname" priority="0">
@@ -4009,6 +4000,9 @@
             <xsl:if test="@ref">
               <xsl:attribute name="href"><xsl:value-of select="concat('#',@ref)"/></xsl:attribute>
             </xsl:if>
+            <xsl:if test="$l-dest-name='table'">
+              <xsl:attribute name="onclick">showTable('<xsl:value-of select="@ref"/>')</xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
           </a>
         </span>
@@ -4020,7 +4014,7 @@
         <xsl:call-template name="t-base-div-basic"/>
         -->
         <span class=" x--sfe-CrossReference-1-0">
-          <a href="#{@ref}">
+          <a href="#{@ref}" onclick="showTable('{@ref}')">
             <xsl:choose>
               <xsl:when test="$l-dest-node/title">
                 <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
@@ -4041,7 +4035,7 @@
         <xsl:call-template name="t-base-div-basic"/>
         -->
         <span class=" x--sfe-CrossReference-1-0">
-          <a href="#{@ref}">
+          <a href="#{@ref}" onclick="showTable('{@ref}')">
             <xsl:choose>
               <xsl:when test="$l-dest-node/title">
                 <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
@@ -4134,6 +4128,13 @@
   <xsl:apply-templates/>
 </xsl:template>
 
+<xsl:template match="*[local-name(.)='span']" priority="1">
+  <xsl:element name="{name(.)}">
+     <xsl:copy-of select="@*"/>
+     <xsl:apply-templates/>
+  </xsl:element>
+</xsl:template>
+
 <xsl:template match="_ufe:hardspace" priority="2">
   <xsl:text>&#xa0;</xsl:text>
 </xsl:template>
@@ -4200,7 +4201,7 @@
 
 <xsl:template name="maybe-set-id">
   <xsl:param name="only-if-id-attr" select="'yes'"/>
-  <xsl:param name="generated-id-prefix" select="$pf-id"/>  
+  <xsl:param name="generated-id-prefix" select="$pf-id"/>
   
   <xsl:choose>
     <xsl:when test="@id"><xsl:copy-of select="@id"/></xsl:when>
@@ -4210,6 +4211,20 @@
         <xsl:if test="namespace-uri(.)='http://www.arbortext.com/namespace/Styler/UserFormattingElements'">u</xsl:if>
         <xsl:apply-templates select="." mode="set-id"/>
       </xsl:attribute>
+    </xsl:when>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="maybe-get-id">
+  <xsl:param name="only-if-id-attr" select="'yes'"/>
+  <xsl:param name="generated-id-prefix" select="$pf-id"/>
+  
+  <xsl:choose>
+    <xsl:when test="@id"><xsl:value-of select="@id"/></xsl:when>
+    <xsl:when test="$only-if-id-attr!='yes'">
+      <xsl:value-of select="$generated-id-prefix"/>
+      <xsl:if test="namespace-uri(.)='http://www.arbortext.com/namespace/Styler/UserFormattingElements'">u</xsl:if>
+      <xsl:apply-templates select="." mode="set-id"/>
     </xsl:when>
   </xsl:choose>
 </xsl:template>
@@ -4611,7 +4626,6 @@
 </xsl:template>
 
 <xsl:template name="t-base-js-toggle">
-  <!-- TODO : Move to chunking or external JS file -->
   <script language="javascript" type="text/javascript">
     function toggle (heading, tableId) { 
       var headingObj = document.getElementById(heading);

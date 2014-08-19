@@ -153,10 +153,7 @@
   <xsl:template name="expand-gentext-caution">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span style="font-weight: bold; background-color: #FFFF00; text-decoration: underline; ">
-          <xsl:text>CAUTION</xsl:text>
-        </span>
-        <xsl:text>: </xsl:text>
+        <span class=" x-caution-label-1-0">CAUTION</span><xsl:text>: </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -164,10 +161,7 @@
   <xsl:template name="expand-gentext-warning">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span style="font-weight: bold; color: #FFFF00; background-color: #FF0000; text-decoration: underline; ">
-          <xsl:text>WARNING</xsl:text>
-        </span>
-        <xsl:text>: </xsl:text>  
+        <span class=" x-warning-label-1-0">WARNING</span><xsl:text>: </xsl:text>  
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -1307,7 +1301,7 @@
         <xsl:call-template name="expand-gentext2">
           <xsl:with-param name="content">
             <_sfe:CrossReference>
-              <_gte:Link linkRef="{@refid}">
+              <_gte:Link linkRef="{@refid}" onclick="showTable('{@refid}')">
                 <xsl:attribute name="type"><xsl:text>table</xsl:text>
                   <xsl:if test="$target[ancestor::figure or ancestor::graphic]">
                     <xsl:text>-figure</xsl:text>
@@ -2212,7 +2206,7 @@
      <xsl:call-template name="expand-gentext"/>
   </xsl:template>
   
-  <xsl:template match="xrefz" mode="expand-gentext">    
+  <xsl:template match="xref_old" mode="expand-gentext">    
     <xsl:variable name="division-name-token-list">
       <xsl:choose>
         <xsl:when test="ancestor::book[starts-with(@doctype, 'epc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter glossary graphic highlights intro list lof lof-item lot lot-item module n-para num-index num-list nutopt page-block procedure pwcchapsect-list sbdata sblist section spec-tool-table subject subpara table title-page unlist vendlist </xsl:when>

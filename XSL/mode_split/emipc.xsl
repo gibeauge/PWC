@@ -147,16 +147,15 @@
 </xsl:template>
 
 <xsl:template match="intro//graphic" priority="1">
-  <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
+  <xsl:variable name="l-id">
+    <xsl:call-template name="maybe-get-id">
+      <xsl:with-param name="only-if-id-attr" select="'no'"/>
+    </xsl:call-template>
+  </xsl:variable>
   <div style="display:none" class=" x-graphic-1-0">
      <xsl:copy-of select="@ch:*"/>
-     <xsl:call-template name="maybe-set-id">
-        <xsl:with-param name="only-if-id-attr" select="'no'"/>
-        <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-     </xsl:call-template>
      <xsl:attribute name="id">
-        <xsl:text>styler-id</xsl:text>
-        <xsl:apply-templates mode="set-id" select="."/>
+        <xsl:value-of select="$l-id"/>
      </xsl:attribute>
      <xsl:apply-templates/>
   </div>
@@ -167,16 +166,15 @@
 </xsl:template>
 
 <xsl:template match="graphic" priority="0">
-  <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
+  <xsl:variable name="l-id">
+    <xsl:call-template name="maybe-get-id">
+      <xsl:with-param name="only-if-id-attr" select="'no'"/>
+    </xsl:call-template>
+  </xsl:variable>
   <div style="display:none" class=" x-graphic-2-0">
      <xsl:copy-of select="@ch:*"/>
-     <xsl:call-template name="maybe-set-id">
-        <xsl:with-param name="only-if-id-attr" select="'no'"/>
-        <xsl:with-param name="generated-id-prefix" select="'styler-id'"/>
-     </xsl:call-template>
      <xsl:attribute name="id">
-        <xsl:text>styler-id</xsl:text>
-        <xsl:apply-templates mode="set-id" select="."/>
+        <xsl:value-of select="$l-id"/>
      </xsl:attribute>
      <xsl:apply-templates/>
   </div>

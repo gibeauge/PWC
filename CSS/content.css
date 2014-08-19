@@ -1,4 +1,6 @@
 
+a:hover { text-decoration:none; background-color:#ddddff;}
+
 .x-acc-man-ref-1-0 {margin-left: 0pt; margin-right: 0pt; }
 
 .x-address-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
@@ -76,6 +78,8 @@
 .x-caution-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-caution-11-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 80pt; text-indent: -62pt; }
 .x-caution-12-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 64pt; text-indent: -63pt; margin-top: 10pt; }
+
+.x-caution-label-1-0 {font-weight: bold; background-color: #FFFF00; text-decoration: underline;}
 
 .x-change-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-changebar-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
@@ -746,6 +750,7 @@
 .x-sftq-1-0 {margin-left: 0pt; margin-right: 0pt; }
 
 .x-sin-1-0 {margin-left: 0pt; margin-right: 0pt; }
+.x-sin-2-0 {margin-left: 0pt; margin-right: 0pt; }
 
 .x-slavename-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-slavenbr-1-0 {margin-left: 0pt; margin-right: 0pt; }
@@ -1289,6 +1294,8 @@
 .x-warning-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-warning-11-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 8.5em; text-indent: -6.5em; }
 .x-warning-12-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; }
+
+.x-warning-label-1-0 {font-weight: bold; color: #FFFF00; background-color: #FF0000; text-decoration: underline;} 
 
 .x-xref-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-xref-2-0 {margin-left: 0pt; margin-right: 0pt; }

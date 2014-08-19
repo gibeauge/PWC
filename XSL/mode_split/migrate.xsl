@@ -87,17 +87,21 @@
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
   <div style="display:none;" class=" x-figure-1-0">
     <xsl:copy-of select="@ch:*"/>
+    <!--
     <xsl:call-template name="maybe-set-id">
       <xsl:with-param name="only-if-id-attr" select="'no'"/>
       <xsl:with-param name="generated-id-prefix" select="$pf-id"/>
     </xsl:call-template>
+    -->
     <xsl:attribute name="id">
       <xsl:value-of select="$l-id"/>
     </xsl:attribute>
     <xsl:apply-templates/>
   </div>
+  <!--
   <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');">
   </a>
+  -->
 </xsl:template>
 
 <xsl:template match="figure" priority="0">
@@ -859,7 +863,7 @@
 </xsl:template>
 
 <xsl:template match="pgblk/title" priority="29">
-  <div ch:title="notoc" class=" x--title-44-0">
+  <div ch:title="notoc" class=" x-title-44-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
