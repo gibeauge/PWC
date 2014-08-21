@@ -153,7 +153,7 @@
   <xsl:template name="expand-gentext-caution">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span class=" x-caution-label-1-0">CAUTION</span><xsl:text>: </xsl:text>
+        <span class=" x-caution-label-1-0">CAUTION: </span>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -161,7 +161,7 @@
   <xsl:template name="expand-gentext-warning">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span class=" x-warning-label-1-0">WARNING</span><xsl:text>: </xsl:text>  
+        <span class=" x-warning-label-1-0">WARNING: </span>  
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -1295,7 +1295,10 @@
   
   <xsl:template match="refint" mode="expand-gentext" priority="4">
     <xsl:variable name="refid" select="@refid"/>
+    <!--
     <xsl:variable name="target" select="//*[@id = $refid][1]"/>
+    -->
+    <xsl:variable name="target" select="id($refid)"/>
     <xsl:choose>
       <xsl:when test="$target[self::table]">
         <xsl:call-template name="expand-gentext2">

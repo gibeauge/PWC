@@ -59,7 +59,10 @@
   <xsl:template match="*[local-name()='a']/@href" mode="output-content">
     <xsl:variable name="refid" select="substring-after(., '#')"/>
     <xsl:variable name="current-chunk-filename" select="ancestor::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
+    <!--
     <xsl:variable name="dest-chunk-filename" select="//*[@id = $refid]/ancestor-or-self::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
+    -->
+    <xsl:variable name="dest-chunk-filename" select="id($refid)/ancestor-or-self::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
     <xsl:attribute name="href">
       <xsl:choose>
         <xsl:when test="$current-chunk-filename != $dest-chunk-filename">

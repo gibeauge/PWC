@@ -30,13 +30,13 @@
 <xsl:include href="process.xsl"/>
 
 <xsl:template match="limits/annot" priority="1">
-  <div class=" x-annot-1-0">
+  <div class="x-annot-1-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="annot" priority="0">
-  <div class=" x-annot-2-0">
+  <div class="x-annot-2-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
@@ -46,13 +46,13 @@
 </xsl:template>
 
 <xsl:template match="build-spec" priority="0">
-  <div class=" x-build-spec-1-0">
+  <div class="x-build-spec-1-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="_ufe:cir-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-cir-title-3-0">
+  <div ch:title="notoc" class="x--ufe-cir-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -68,13 +68,13 @@
 </xsl:template>
 
 <xsl:template match="_ufe:eipc-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-eipc-title-3-0">
+  <div ch:title="notoc" class="x--ufe-eipc-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="_ufe:em-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-em-title-3-0">
+  <div ch:title="notoc" class="x--ufe-em-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -85,7 +85,7 @@
 
 <xsl:template match="figure[descendant::graphic]" priority="1">
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
-  <div style="display:none;" class=" x-figure-1-0">
+  <div style="display:none;" class="x-figure-1-0">
     <xsl:copy-of select="@ch:*"/>
     <!--
     <xsl:call-template name="maybe-set-id">
@@ -105,19 +105,19 @@
 </xsl:template>
 
 <xsl:template match="figure" priority="0">
-  <div class=" x-figure-2-0">
+  <div class="x-figure-2-0">
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="fits" priority="0">
-  <div class=" x-fits-1-0">
+  <div class="x-fits-1-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="fits-and-clears" priority="0">
-  <div class=" x-fits-and-clears-1-0">
+  <div class="x-fits-and-clears-1-0">
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
@@ -137,13 +137,13 @@
 </xsl:template>
 
 <xsl:template match="general" priority="0">
-  <div class=" x-general-1-0">
+  <div class="x-general-1-0">
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="_ufe:glossary-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-glossary-title-4-0">
+  <div ch:title="notoc" class="x--ufe-glossary-title-4-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -229,7 +229,7 @@
 </xsl:template>
 
 <xsl:template match="_ufe:howtouse-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-howtouse-title-3-0">
+  <div ch:title="notoc" class="x--ufe-howtouse-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -243,7 +243,7 @@
 </xsl:template>
 
 <xsl:template match="_ufe:intro-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-intro-title-3-0">
+  <div ch:title="notoc" class="x--ufe-intro-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -269,13 +269,13 @@
 </xsl:template>
 
 <xsl:template match="mm-fits" priority="0">
-  <div class=" x-mm-fits-1-0">
+  <div class="x-mm-fits-1-0">
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="name" priority="0">
-  <div class=" x-name-1-0">
+  <div class="x-name-1-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
@@ -285,19 +285,19 @@
 </xsl:template>
 
 <xsl:template match="module/note" priority="11">
-  <div class=" x-note-1-0">
+  <div class="x-note-1-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="subtask/note" priority="10">
-  <div class=" x-note-2-0">
+  <div class="x-note-2-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="task/note" priority="9">
-  <div class=" x-note-3-0">
+  <div class="x-note-3-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
@@ -323,31 +323,31 @@
 </xsl:template>
 
 <xsl:template match="fandc/note" priority="6">
-  <div class=" x-note-6-0">
+  <div class="x-note-6-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="spec-assem/note" priority="5">
-  <div class=" x-note-7-0">
+  <div class="x-note-7-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="spring-pressure/note" priority="4">
-  <div class=" x-note-8-0">
+  <div class="x-note-8-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="torque-and-stretch/note" priority="3">
-  <div class=" x-note-9-0">
+  <div class="x-note-9-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="fits-and-clears/note" priority="2">
-  <div class=" x-note-10-0">
+  <div class="x-note-10-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
@@ -373,37 +373,37 @@
 </xsl:template>
 
 <xsl:template match="_ufe:num-index-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-num-index-title-4-0">
+  <div ch:title="notoc" class="x--ufe-num-index-title-4-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="_ufe:nut-option-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-nut-option-title-4-0">
+  <div ch:title="notoc" class="x--ufe-nut-option-title-4-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="pageblock-front" priority="0">
-  <div class=" x-pageblock-front-1-0">
+  <div class="x-pageblock-front-1-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="frontmatter//module/pageblock-title" priority="2">
-  <div ch:title="toc" class=" x-pageblock-title-1-0">
+  <div ch:title="toc" class="x-pageblock-title-1-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="pgblk/pageblock-title" priority="1">
-  <div ch:title="notoc" class=" x-pageblock-title-2-0">
+  <div ch:title="notoc" class="x-pageblock-title-2-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="pageblock-title" priority="0">
-  <div ch:title="toc" class=" x-pageblock-title-3-0">
+  <div ch:title="toc" class="x-pageblock-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -413,7 +413,7 @@
 </xsl:template>
 
 <xsl:template match="_ufe:pdlist-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-pdlist-title-2-0">
+  <div ch:title="notoc" class="x--ufe-pdlist-title-2-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -435,19 +435,19 @@
 </xsl:template>
 
 <xsl:template match="_ufe:sblist-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-sblist-title-3-0">
+  <div ch:title="notoc" class="x--ufe-sblist-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="title-page/soa[@size='med']" priority="2">
-  <div class=" x-soa-1-0">
+  <div class="x-soa-1-0">
      <xsl:call-template name="t-base-img-graphic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="soa[@size='med']" priority="1">
-  <div class=" x-soa-2-0">
+  <div class="x-soa-2-0">
      <xsl:call-template name="t-base-img-graphic"/>
   </div>
 </xsl:template>
@@ -456,14 +456,14 @@
   <xsl:param name="hidden" select="'yes'"/>
 
   <xsl:if test="$hidden='no'">
-  	<div class=" x-soa-3-0">
+  	<div class="x-soa-3-0">
         <xsl:call-template name="t-base-div-basic"/>
      </div>
   </xsl:if>
 </xsl:template>
 
 <xsl:template match="_ufe:spblist-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-spblist-title-3-0">
+  <div ch:title="notoc" class="x--ufe-spblist-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -495,7 +495,7 @@
 </xsl:template>
 
 <xsl:template match="numlist/step" priority="3">
-  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-step-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step-1-0 x--zero-left-margins x-tab-fixed">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="'12pt'"/>
@@ -510,7 +510,7 @@
 
 <xsl:template match="procedure//step" priority="2">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"/>
-  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-step-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step-2-0 x--zero-left-margins x-tab-fixed">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'18pt'"/>
       <xsl:with-param name="col2-width" select="'20pt'"/>
@@ -524,7 +524,7 @@
 
 <xsl:template match="step[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -537,7 +537,7 @@
 </xsl:template>
 
 <xsl:template match="step" priority="0">
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step-4-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step-4-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -550,7 +550,7 @@
 </xsl:template>
 
 <xsl:template match="numlist/step2" priority="2">
-  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-step2-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step2-1-0 x--zero-left-margins x-tab-fixed">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="'12pt'"/>
@@ -564,7 +564,7 @@
 
 <xsl:template match="step2[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step2-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step2-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -578,7 +578,7 @@
 
 <xsl:template match="step2" priority="0">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step2-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step2-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -591,7 +591,7 @@
 </xsl:template>
 
 <xsl:template match="numlist/step3" priority="2">
-  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-step3-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step3-1-0 x--zero-left-margins x-tab-fixed">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="'12pt'"/>
@@ -605,7 +605,7 @@
 
 <xsl:template match="step3[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step3-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step3-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -619,7 +619,7 @@
 
 <xsl:template match="step3" priority="0">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step3-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step3-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -632,7 +632,7 @@
 </xsl:template>
 
 <xsl:template match="numlist/step4" priority="2">
-  <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed; " class=" x-step4-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step4-1-0 x--zero-left-margins x-tab-fixed">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'1.5em'"/>
       <xsl:with-param name="col2-width" select="'12pt'"/>
@@ -646,7 +646,7 @@
 
 <xsl:template match="step4[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step4-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step4-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -660,7 +660,7 @@
 
 <xsl:template match="step4" priority="0">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step4-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step4-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="''"/>
@@ -673,7 +673,7 @@
 </xsl:template>
 
 <xsl:template match="numlist/step5" priority="2">
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step5-1-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step5-1-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -687,7 +687,7 @@
 
 <xsl:template match="step5[table/@tabstyle='frac']" priority="1">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step5-2-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step5-2-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -701,7 +701,7 @@
 
 <xsl:template match="step5" priority="0">
   <xsl:apply-templates select="node()[self::warning or (self::revst and following-sibling::*[1][self::warning]) or self::caution or (self::revst and following-sibling::*[1][self::caution]) or name() = 'revend']"> </xsl:apply-templates>
-  <table border="0" cellpadding="0" cellspacing="0" class=" x-step5-3-0 x--zero-left-margins">
+  <table border="0" cellpadding="0" cellspacing="0" class="x-step5-3-0 x--zero-left-margins">
     <xsl:call-template name="t-base-step-table">
       <xsl:with-param name="col1-width" select="'0pt'"/>
       <xsl:with-param name="col2-width" select="'0pt'"/>
@@ -714,61 +714,61 @@
 </xsl:template>
 
 <xsl:template match="_ufe:supplier-list-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-supplier-list-title-4-0">
+  <div ch:title="notoc" class="x--ufe-supplier-list-title-4-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="pbfmatr//_ufe:task-title" priority="1">
-  <div ch:title="notoc" class=" x--ufe-task-title-3-0">
+  <div ch:title="notoc" class="x--ufe-task-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="_ufe:temp-rev-title" priority="0">
-  <div ch:title="notoc" class=" x--ufe-temp-rev-title-3-0">
+  <div ch:title="notoc" class="x--ufe-temp-rev-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" priority="68">
-  <div ch:title="notoc" class=" x-title-5-0">
+  <div ch:title="notoc" class="x-title-5-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="module[@module-name='Airworthiness_Limits']/pgblk/title" priority="65">
-  <div ch:title="notoc" class=" x-title-8-0">
+  <div ch:title="notoc" class="x-title-8-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="page-block[@pb-name='ni']//mfmatr/title" priority="56">
-  <div ch:title="notoc" class=" x-title-17-0">
+  <div ch:title="notoc" class="x-title-17-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="page-block[@pb-name='record-of-revisions']//n-para/title" priority="55">
-  <div ch:title="toc" class=" x-title-18-0">
+  <div ch:title="toc" class="x-title-18-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="book[contains(@doctype, 'epc')]//figure/title" priority="54">
-  <div ch:title="notoc" class=" x-title-19-0">
+  <div ch:title="notoc" class="x-title-19-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="book[contains(@doctype, 'epc')]//graphic/title" priority="53">
-  <div ch:title="notoc" class=" x-title-20-0">
+  <div ch:title="notoc" class="x-title-20-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="book[contains(@doctype, 'ipc')]//figure/title" priority="52">
-  <div ch:title="notoc" class=" x-title-21-0">
+  <div ch:title="notoc" class="x-title-21-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -823,7 +823,7 @@
 </xsl:template>
 
 <xsl:template match="pwcpbfront/title" priority="39">
-  <div ch:title="notoc" class=" x-title-34-0">
+  <div ch:title="notoc" class="x-title-34-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -832,74 +832,74 @@
   <xsl:param name="hidden" select="'yes'"/>
 
   <xsl:if test="$hidden='no'">
-    <div class=" x-title-37-0">
+    <div class="x-title-37-0">
         <xsl:call-template name="t-base-div-basic"/>
      </div>
   </xsl:if>
 </xsl:template>
 
 <xsl:template match="pwcspblist/title" priority="35">
-  <div ch:title="notoc" class=" x-title-38-0">
+  <div ch:title="notoc" class="x-title-38-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="sblist/title" priority="32">
-  <div ch:title="notoc" class=" x-title-41-0">
+  <div ch:title="notoc" class="x-title-41-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="pwcni/title" priority="31">
-  <div ch:title="notoc" class=" x-title-42-0">
+  <div ch:title="notoc" class="x-title-42-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="vendlist/title" priority="30">
-  <div ch:title="notoc" class=" x-title-43-0">
+  <div ch:title="notoc" class="x-title-43-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="pgblk/title" priority="29">
-  <div ch:title="notoc" class=" x-title-44-0">
+  <div ch:title="notoc" class="x-title-44-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="lof-item/title" priority="21">
-  <div ch:title="toc" class=" x-title-52-0">
+  <div ch:title="toc" class="x-title-52-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="lof/title" priority="18">
-  <div ch:title="toc" class=" x-title-55-0">
+  <div ch:title="toc" class="x-title-55-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="spb-list/title" priority="14">
-  <div ch:title="notoc" class=" x-title-59-0">
+  <div ch:title="notoc" class="x-title-59-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="service-bull-list/title" priority="10">
-  <div ch:title="notoc" class=" x-title-63-0">
+  <div ch:title="notoc" class="x-title-63-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="module/title" priority="9">
-  <div ch:title="notoc" class=" x-title-64-0">
+  <div ch:title="notoc" class="x-title-64-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="num-index/title" priority="7">
-  <div ch:title="notoc" class=" x-title-66-0">
+  <div ch:title="notoc" class="x-title-66-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -919,7 +919,7 @@
 </xsl:template>
 
 <xsl:template match="torque-and-stretch" priority="0">
-  <div class=" x-torque-and-stretch-1-0">
+  <div class="x-torque-and-stretch-1-0">
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>

@@ -726,10 +726,17 @@ window.onload = function() {
             }
         }
     }
+
+    var hash = window.location.hash;
+    if(hash != "") {
+        var id = hash.substr(1);
+        document.getElementById(id).style.display = 'block';
+    }
 }
 
 // Functions added
 
+/*
 function toggle (headingId, tableId) { 
   var headingObj = document.getElementById(headingId);
   var tableObj = document.getElementById(tableId);
@@ -741,6 +748,7 @@ function toggle (headingId, tableId) {
     }
   }
 }
+*/
 
 function go(targetId) {
     var targetObj = document.getElementById(targetId);

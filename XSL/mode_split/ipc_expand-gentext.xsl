@@ -282,7 +282,7 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="(following-sibling::note) or (preceding-sibling::note)">
-            <span style="text-decoration: underline; ">
+            <span class="x-note-label-2-0">
               <xsl:text>NOTE</xsl:text>
             </span>
             <xsl:text>: </xsl:text>
@@ -290,7 +290,7 @@
             <xsl:text> </xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <span style="text-decoration: underline; ">
+            <span class="x-note-label-2-0">
               <xsl:text>NOTE</xsl:text>
             </span>
             <xsl:text>: </xsl:text>

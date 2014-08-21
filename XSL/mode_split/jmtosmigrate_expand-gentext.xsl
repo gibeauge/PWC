@@ -155,7 +155,7 @@
   <xsl:template match="module/note" mode="expand-gentext" priority="11">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span style="font-weight: bold; text-decoration: underline; ">
+        <span class="x-note-label-1-0">
           <xsl:text>NOTE</xsl:text>
         </span>
         <xsl:text>: </xsl:text>
@@ -166,7 +166,7 @@
   <xsl:template match="subtask/note" mode="expand-gentext" priority="10">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span style="font-weight: bold; text-decoration: underline; ">
+        <span class="x-note-label-1-0">
           <xsl:text>NOTE</xsl:text>
         </span>
         <xsl:text>: </xsl:text>
@@ -177,7 +177,7 @@
   <xsl:template match="task/note" mode="expand-gentext" priority="9">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span style="font-weight: bold; text-decoration: underline; ">
+        <span class="x-note-label-1-0">
           <xsl:text>NOTE</xsl:text>
         </span>
         <xsl:text>: </xsl:text>
@@ -190,7 +190,7 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="@nbr">
-                <span style="font-weight: bold; text-decoration: underline; ">
+                <span class="x-note-label-1-0">
                   <xsl:text>NOTE</xsl:text>
                 </span>
                 <xsl:text>: </xsl:text>
@@ -198,7 +198,7 @@
                 <xsl:text>. </xsl:text>
           </xsl:when>
           <xsl:otherwise>
-                <span style="font-weight: bold; text-decoration: underline; ">
+                <span class="x-note-label-1-0">
                   <xsl:text>NOTE</xsl:text>
                 </span>
                 <xsl:text>: </xsl:text>
@@ -213,7 +213,7 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="@nbr">
-            <span style="font-weight: bold; text-decoration: underline; ">
+            <span class="x-note-label-1-0">
               <xsl:text>NOTE</xsl:text>
             </span>
             <xsl:text>: </xsl:text>
@@ -221,7 +221,7 @@
             <xsl:text>. </xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <span style="font-weight: bold; text-decoration: underline; ">
+            <span class="x-note-label-1-0">
               <xsl:text>NOTE</xsl:text>
             </span>
             <xsl:text>: </xsl:text>
@@ -256,7 +256,7 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="@nbr">
-            <span style="font-weight: bold; text-decoration: underline; ">
+            <span class="x-note-label-1-0">
               <xsl:text>NOTE</xsl:text>
             </span>
             <xsl:text>: </xsl:text>
@@ -264,7 +264,7 @@
             <xsl:text>. </xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <span style="font-weight: bold; text-decoration: underline; ">
+            <span class="x-note-label-1-0">
               <xsl:text>NOTE</xsl:text>
             </span>
             <xsl:text>: </xsl:text>
