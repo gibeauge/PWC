@@ -26,9 +26,9 @@
   <xsl:template match="*[@ch:chunk = 'yes']" mode="toc">
     <xsl:variable name="id" select="generate-id(.)"/>
     <xsl:variable name="toc" select="descendant::*[@ch:title][1]"/>
-    <xsl:variable name="isFolder" select="descendant::*[@ch:chunk = 'yes']"/>
-    <xsl:variable name="hasTitle" select="count(descendant::*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1]) > 0"/>
-    <xsl:variable name="hasFiles" select="count(descendant::*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 1"/>
+    <xsl:variable name="isFolder" select="descendant::*[@ch:chunk = 'yes' and descendant::*[@ch:title = 'toc']]"/>
+    <xsl:variable name="hasTitle" select="count(descendant::*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1]) > 0"/>
+    <xsl:variable name="hasFiles" select="count(descendant::*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 1"/>
 
     <xsl:choose>
       <xsl:when test="contains(@class, 'frontmatter')">
@@ -45,7 +45,8 @@
           <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]" mode="toc"/>
         </xsl:element>
       </xsl:when>
-      <xsl:when test="not($hasTitle)">
+
+      <xsl:when test="not($hasTitle) or parent::*[local-name(.)='body']">
         <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]" mode="toc"/>
       </xsl:when>
       <xsl:otherwise>
@@ -104,7 +105,7 @@
       </xsl:attribute>
 
       <xsl:attribute name="Title">
-        <xsl:apply-templates/>
+        <xsl:value-of select="normalize-space(translate(., '&#xa0;&#xA0;', '  '))"/>
       </xsl:attribute>
 
       <xsl:attribute name="URL">
@@ -127,7 +128,7 @@
   </xsl:template>
 
   <xsl:template name="generate-toc-id">
-    <xsl:value-of select="concat('ID', format-number(random:random-sequence(1, count(preceding::div)) * 100000000,'#'))"/>
+    <xsl:value-of select="concat('ID', substring(translate(random:random-sequence(1, count(preceding::*)) * 100000000, '.', ''), 1, 10))"/>
   </xsl:template>
 
 </xsl:stylesheet>
