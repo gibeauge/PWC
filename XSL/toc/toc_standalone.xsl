@@ -111,11 +111,7 @@
       </xsl:attribute>
 
       <xsl:attribute name="Title">
-        <xsl:call-template name="normalize-space">
-          <xsl:with-param name="str">
-            <xsl:value-of select="."/>
-          </xsl:with-param>
-        </xsl:call-template>
+        <xsl:value-of select="normalize-space(translate(., '&#xa0;&#xA0;', '  '))"/>
       </xsl:attribute>
 
       <xsl:attribute name="URL">
@@ -134,20 +130,11 @@
   </xsl:template>
   
   <xsl:template match="*[@ch:title]" mode="toc-title">
-    <xsl:call-template name="normalize-space">
-      <xsl:with-param name="str">
-        <xsl:value-of select="."/>
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:apply-templates mode="toc"/>
   </xsl:template>
 
   <xsl:template name="generate-toc-id">
-    <xsl:variable name="ps" select="count(preceding::*)"/>
-    <xsl:value-of select="concat('ID', substring(translate(random:random-sequence(1, count(preceding::*)) * 100000000, '.', ''), 1, 10 - string-length($ps)), $ps)"/>
+    <xsl:value-of select="concat('ID', substring(translate(random:random-sequence(1, count(preceding::*)) * 100000000, '.', ''), 1, 10))"/>
   </xsl:template>
 
-  <xsl:template name="normalize-space">
-    <xsl:param name="str" select="''"/>
-    <xsl:value-of select="normalize-space(translate($str, '&#xa0;&#xA0;&#x2003;&#x2002;', '    '))"/>
-  </xsl:template>
 </xsl:stylesheet>

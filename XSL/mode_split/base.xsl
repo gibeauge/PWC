@@ -4002,7 +4002,7 @@
             <xsl:copy-of select="@ch:*"/>
             <xsl:call-template name="maybe-set-id"/>
             <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-<!--              <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>-->
+              <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
               <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
             </a>
           </span>
@@ -4012,7 +4012,7 @@
             <xsl:copy-of select="@ch:*"/>
             <xsl:call-template name="maybe-set-id"/>
             <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-<!--              <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>-->
+              <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
               <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
             </a>
           </span>
