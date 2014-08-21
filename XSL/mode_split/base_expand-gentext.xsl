@@ -2203,7 +2203,8 @@
   </xsl:template>
 
   <xsl:template match="xref" mode="expand-gentext">
-     <xsl:call-template name="expand-gentext"/>
+<!--    <xsl:call-template name="expand-gentext"/>-->
+     <xsl:call-template name="expand-gentext-expanded"/>
   </xsl:template>
   
   <xsl:template match="xref_old" mode="expand-gentext">    

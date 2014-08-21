@@ -66,18 +66,31 @@ a:hover { text-decoration:none; background-color:#ddddff;}
 .x-callout-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-callout-2-0 {margin-left: 0pt; margin-right: 0pt; }
 
-.x-caution-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 81pt; text-indent: -63pt; }
-.x-caution-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 81pt; text-indent: -63pt; }
-.x-caution-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 87pt; text-indent: -63pt; }
-.x-caution-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 98pt; text-indent: -63pt; }
-.x-caution-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 98pt; text-indent: -63pt; }
+.x-caution-1-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; }
+.x-caution-2-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; }
+.x-caution-3-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; }
+.x-caution-4-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; }
+.x-caution-5-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; }
 .x-caution-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-caution-7-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-caution-8-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-caution-9-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-caution-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
-.x-caution-11-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 80pt; text-indent: -62pt; }
-.x-caution-12-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 64pt; text-indent: -63pt; margin-top: 10pt; }
+.x-caution-11-0 {margin-right: 0pt; font-weight: bold; margin-left: 62pt; text-indent: -62pt; }
+.x-caution-12-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt;}
+
+.x-caution-wrapper-1-0 {margin-left: 18pt; margin-top: 8pt; padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-2-0 {margin-left: 18pt; margin-top: 8pt; padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-3-0 {margin-left: 24pt; margin-top: 8pt; padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-4-0 {margin-left: 35pt; margin-top: 8pt; padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-5-0 {margin-left: 35pt; margin-top: 8pt; padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-6-0 {padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-7-0 {padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-8-0 {padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-9-0 {padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-10-0 {padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-11-0 {margin-left: 18pt; margin-top: 8pt; padding: 2pt; border: 1px solid yellow;}
+.x-caution-wrapper-12-0 {margin-left: 1pt; margin-top: 10pt; padding: 2pt; border: 1px solid yellow;}
 
 .x-caution-label-1-0 {font-weight: bold; background-color: #FFFF00; text-decoration: underline;}
 
@@ -1282,18 +1295,32 @@ a:hover { text-decoration:none; background-color:#ddddff;}
 .x-vendata-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 18pt; text-indent: 0pt; }
 .x-vendlist-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
 
-.x-warning-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; }
-.x-warning-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 83pt; text-indent: -66pt; }
-.x-warning-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 89pt; text-indent: -65pt; }
-.x-warning-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 86pt; text-indent: -67pt; }
-.x-warning-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 83pt; text-indent: -66pt; }
+.x-warning-1-0 {margin-right: 0pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; }
+.x-warning-2-0 {margin-right: 0pt; margin-left: 66pt; text-indent: -66pt; }
+.x-warning-3-0 {margin-right: 0pt; font-weight: bold; margin-left: 65pt; text-indent: -65pt; }
+.x-warning-4-0 {margin-right: 0pt; font-weight: bold; margin-left: 67pt; text-indent: -67pt; }
+.x-warning-5-0 {margin-right: 0pt; margin-left: 66pt; text-indent: -66pt; }
 .x-warning-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-warning-7-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-warning-8-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-warning-9-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-warning-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
-.x-warning-11-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 8.5em; text-indent: -6.5em; }
-.x-warning-12-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; }
+.x-warning-11-0 {margin-right: 0pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; }
+.x-warning-12-0 {margin-right: 0pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; }
+
+.x-warning-wrapper-1-0 {margin-top: 8pt; padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-2-0 {margin-left: 17pt;margin-top: 8pt; padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-3-0 {margin-left: 24pt; margin-top: 8pt; padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-4-0 {margin-left: 19pt; margin-top: 8pt; padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-5-0 {margin-left: 17pt; margin-top: 8pt; padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-6-0 {padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-7-0 {padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-8-0 {padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-9-0 {padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-10-0 {margin-top: 8pt; padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-11-0 {margin-left: 2em; margin-top: 8pt; padding: 2pt; border: 1px solid red;}
+.x-warning-wrapper-12-0 {margin-top: 8pt; padding: 2pt; border: 1px solid red;}
+
 
 .x-warning-label-1-0 {font-weight: bold; color: #FFFF00; background-color: #FF0000; text-decoration: underline;} 
 

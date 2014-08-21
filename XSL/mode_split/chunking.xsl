@@ -17,7 +17,7 @@
     
     <xsl:if test="($hasFiles and not($hasFolders)) or not($isFolder)">
       <xsl:result-document href="{concat($output-dir, '/', @ch:filename, '.html')}" 
-        method="xhtml" encoding="utf-8"
+        method="xhtml" encoding="utf-8" indent="no"
         omit-xml-declaration="yes" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
         exclude-result-prefixes="ch" >
         <xsl:element name="html">

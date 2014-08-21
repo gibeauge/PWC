@@ -16,6 +16,8 @@
   version="1.0" 
   exclude-result-prefixes="ch saxon #default exslt _ufe _sfe _gte">
 
+  <xsl:strip-space elements="aispart"/>
+
 <xsl:include href="base_initial-pass-mode.xsl"/>
 <xsl:include href="base_expand-gentext.xsl"/>
 <xsl:include href="base_styler_numbering.xsl"/>
@@ -368,74 +370,98 @@
 </xsl:template>
 
 <xsl:template match="subtask/caution" priority="11">
-  <div class=" x-caution-1-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-1-0">
+    <div class=" x-caution-1-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="task/caution" priority="10">
-  <div class=" x-caution-2-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-2-0">
+    <div class=" x-caution-2-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="n-para/caution" priority="9">
-  <div class=" x-caution-3-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-3-0">
+    <div class=" x-caution-3-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="step/caution" priority="8">
-  <div class=" x-caution-4-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-4-0">
+    <div class=" x-caution-4-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="procedure/caution" priority="7">
-  <div class=" x-caution-5-0">
-    <xsl:call-template name="t-base-div-basic"/>
-  </div>
+  <div class="x-caution-wrapper-5-0">
+    <div class=" x-caution-5-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
+  </div> 
 </xsl:template>
 
 <xsl:template match="fandc/caution" priority="6">
-  <div class=" x-caution-6-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-6-0">
+    <div class=" x-caution-6-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="spec-assem/caution" priority="5">
-  <div class=" x-caution-7-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-7-0">
+    <div class=" x-caution-7-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="spring-pressure/caution" priority="4">
-  <div class=" x-caution-8-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-8-0">
+    <div class=" x-caution-8-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="torque-and-stretch/caution" priority="3">
-  <div class=" x-caution-9-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-9-0">
+    <div class=" x-caution-9-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="fits-and-clears/caution" priority="2">
-  <div class=" x-caution-10-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-10-0">
+    <div class=" x-caution-10-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="caution[parent::subpara]" priority="1">
-  <div class=" x-caution-11-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-11-0">
+    <div class=" x-caution-11-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="caution" priority="0">
-  <div class=" x-caution-12-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-caution-wrapper-12-0">
+    <div class=" x-caution-12-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
@@ -2351,11 +2377,10 @@
 
 <xsl:template match="qty" priority="0">
   <xsl:param name="hidden" select="'yes'"/>
-
   <xsl:if test="$hidden='no'">
-    <span class=" x-qty-2-0">
-      <xsl:call-template name="t-base-div-basic"/>
-    </span>
+  <span class=" x-qty-2-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </span>
   </xsl:if>
 </xsl:template>
 
@@ -2477,13 +2502,13 @@
 </xsl:template>
 
 <xsl:template match="revend" priority="0">
-  <div class=" x-revend-1-0" name="{@ref}">
+  <div class=" x-revend-1-0">
     <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
 <xsl:template match="revst" priority="0">
-  <div class=" x-revst-1-0" name="{@ref}">
+  <div class=" x-revst-1-0" id="{@ref}">
     <!--
     <xsl:call-template name="t-base-div-basic"/>
     -->
@@ -2543,6 +2568,7 @@
 
 <xsl:template match="sin" priority="0">
   <span class=" x-sin-2-0">
+    <xsl:text> </xsl:text>
     <a href="#" onclick="openIPC('{.}')">
       <xsl:apply-templates/>
     </a>
@@ -3854,74 +3880,98 @@
 </xsl:template>
 
 <xsl:template match="step//step/warning" priority="11">
-  <div class=" x-warning-1-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-1-0">
+    <div class=" x-warning-1-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="subtask/warning" priority="10">
-  <div class=" x-warning-2-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-2-0">
+    <div class=" x-warning-2-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="n-para/warning" priority="9">
-  <div class=" x-warning-3-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-3-0">
+    <div class=" x-warning-3-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="step/warning" priority="8">
-  <div class=" x-warning-4-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-4-0">
+    <div class=" x-warning-4-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="task/warning" priority="7">
-  <div class=" x-warning-5-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-5-0">
+    <div class=" x-warning-5-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="fandc/warning" priority="6">
-  <div class=" x-warning-6-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-6-0">
+    <div class=" x-warning-6-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="spec-assem/warning" priority="5">
-  <div class=" x-warning-7-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-7-0">
+    <div class=" x-warning-7-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="spring-pressure/warning" priority="4">
-  <div class=" x-warning-8-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-8-0">
+    <div class=" x-warning-8-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="torque-and-stretch/warning" priority="3">
-  <div class=" x-warning-9-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-9-0">
+    <div class=" x-warning-9-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="fits-and-clears/warning" priority="2">
-  <div class=" x-warning-10-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-1-0">
+    <div class=" x-warning-10-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="warning[parent::subpara]" priority="1">
-  <div class=" x-warning-11-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-1-0">
+    <div class=" x-warning-11-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="warning" priority="0">
-  <div class=" x-warning-12-0">
-    <xsl:call-template name="t-base-div-basic"/>
+  <div class="x-warning-wrapper-1-0">
+    <div class=" x-warning-12-0">
+      <xsl:call-template name="t-base-div-basic"/>
+    </div>
   </div>
 </xsl:template>
 
@@ -3971,9 +4021,6 @@
     </xsl:when>
     <xsl:when test="parent::title/parent::table and $l-dest-name='figure'">
       <span class=" x-xref-1-0">
-        <!--
-        <xsl:call-template name="t-base-div-basic"/>
-        -->
         <span class=" x--sfe-CrossReference-1-0">
           <a href="#{@ref}">
             <xsl:choose>
@@ -3990,11 +4037,6 @@
     </xsl:when>
     <xsl:when test="ancestor::highlights">
       <span class=" x-xref-4-0">
-        <!--
-        <xsl:call-template name="t-base-div-basic-h">
-          <xsl:with-param name="hidden" select="$hidden"/>
-        </xsl:call-template>
-        -->
         <span class=" x--ufe-highlights-link-1-0">
           <a class=" x--sfe-InternalLink-1-0">
             <xsl:if test="@ref">
@@ -4010,9 +4052,6 @@
     </xsl:when>
     <xsl:when test="$l-dest-name='table' and $l-dest-node[ancestor::figure or ancestor::graphic]">
       <span class=" x-xref-5-0">
-        <!--
-        <xsl:call-template name="t-base-div-basic"/>
-        -->
         <span class=" x--sfe-CrossReference-1-0">
           <a href="#{@ref}" onclick="showTable('{@ref}')">
             <xsl:choose>
@@ -4031,9 +4070,6 @@
     </xsl:when>
     <xsl:when test="$l-dest-name='table'">
       <span class=" x-xref-6-0">
-        <!--
-        <xsl:call-template name="t-base-div-basic"/>
-        -->
         <span class=" x--sfe-CrossReference-1-0">
           <a href="#{@ref}" onclick="showTable('{@ref}')">
             <xsl:choose>
@@ -4046,7 +4082,9 @@
             </xsl:choose>
           </a>
         </span>
-        <xsl:text> </xsl:text>
+        <xsl:if test="ancestor::lot-item">
+          <xsl:text> </xsl:text>
+        </xsl:if>
         <xsl:apply-templates/>
       </span>
     </xsl:when>
@@ -4062,9 +4100,6 @@
     </xsl:when>
     <xsl:otherwise>
       <span class=" x-xref-8-0">
-        <!--
-        <xsl:call-template name="t-base-div-basic"/>
-        -->
         <span class=" x--sfe-CrossReference-1-0">
           <a href="#{@ref}">
             <xsl:variable name="division-name-token-list">
