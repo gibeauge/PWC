@@ -1294,12 +1294,25 @@
   </xsl:template>
   
   <xsl:template match="refint" mode="expand-gentext" priority="4">
-    <xsl:variable name="refid" select="@refid"/>
     <!--
-    <xsl:variable name="target" select="//*[@id = $refid][1]"/>
+	<xsl:variable name="target" select="//*[@id = @refid][1]"/>
     -->
-    <xsl:variable name="target" select="id($refid)"/>
+    
+    <xsl:variable name="l-ref">
+      <xsl:choose>
+        <xsl:when test="@refid"><xsl:value-of select="@refid"/></xsl:when>
+        <xsl:when test="@ref"><xsl:value-of select="@ref"/></xsl:when>
+        <xsl:when test="@refloc"><xsl:value-of select="@refloc"/></xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="target" select="id($l-ref)"/>
+    
     <xsl:choose>
+      <xsl:when test="not($target)">
+        <span class="x-ref-broken">
+          <xsl:apply-templates/>
+        </span>
+      </xsl:when>
       <xsl:when test="$target[self::table]">
         <xsl:call-template name="expand-gentext2">
           <xsl:with-param name="content">

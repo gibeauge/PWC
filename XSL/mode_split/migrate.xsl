@@ -60,7 +60,7 @@
 <xsl:template match="consumables" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-consumables-1-0</xsl:text>
+        <xsl:text>x-consumables-1-0</xsl:text>
         <xsl:if test="@empty and string(@empty)='YES'"> x-consumables-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
@@ -129,7 +129,7 @@
 <xsl:template match="fixtures-and-equipment" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-fixtures-and-equipment-1-0</xsl:text>
+        <xsl:text>x-fixtures-and-equipment-1-0</xsl:text>
         <xsl:if test="@empty and string(@empty)='YES'"> x-fixtures-and-equipment-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
@@ -185,7 +185,7 @@
         <xsl:if test="$hidden='no'">
            <div>
               <xsl:attribute name="class">
-                 <xsl:text> x-graphic-1-0</xsl:text>
+                 <xsl:text>x-graphic-1-0</xsl:text>
                  <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
                  <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
               </xsl:attribute>
@@ -196,7 +196,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-graphic-1-0</xsl:text>
+              <xsl:text>x-graphic-1-0</xsl:text>
               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
               <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
            </xsl:attribute>
@@ -209,7 +209,7 @@
      <xsl:when test="$fo-class='graphic-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-graphic-1-0</xsl:text>
+              <xsl:text>x-graphic-1-0</xsl:text>
               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
               <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
            </xsl:attribute>
@@ -305,7 +305,7 @@
 <xsl:template match="n-para/note" priority="8">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-4-0</xsl:text>
+        <xsl:text>x-note-4-0</xsl:text>
         <xsl:if test="@nbr"> x-note-4-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -315,7 +315,7 @@
 <xsl:template match="procedure/note" priority="7">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-5-0</xsl:text>
+        <xsl:text>x-note-5-0</xsl:text>
         <xsl:if test="@nbr"> x-note-5-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -355,7 +355,7 @@
 <xsl:template match="note[ancestor::subpara]" priority="1">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-11-0</xsl:text>
+        <xsl:text>x-note-11-0</xsl:text>
         <xsl:if test="@nbr"> x-note-11-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -365,7 +365,7 @@
 <xsl:template match="note" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-12-0</xsl:text>
+        <xsl:text>x-note-12-0</xsl:text>
         <xsl:if test="@nbr"> x-note-12-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -479,7 +479,7 @@
 <xsl:template match="special-tools" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-special-tools-1-0</xsl:text>
+        <xsl:text>x-special-tools-1-0</xsl:text>
         <xsl:if test="@empty and string(@empty)='YES'"> x-special-tools-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
@@ -802,7 +802,7 @@
      <xsl:when test="$fo-class='hidden-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:text>x-title-33-0</xsl:text>
               <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic-h">
@@ -813,7 +813,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:text>x-title-33-0</xsl:text>
               <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic"/>
@@ -907,7 +907,7 @@
 <xsl:template match="_ufe:tmm-title" priority="0">
   <div ch:title="notoc">
      <xsl:attribute name="class">
-        <xsl:text> x--ufe-tmm-title-3-0</xsl:text>
+        <xsl:text>x--ufe-tmm-title-3-0</xsl:text>
         <xsl:if test="contains(//book/@doctype, 'lmm')"> x--ufe-tmm-title-3-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-title"/>

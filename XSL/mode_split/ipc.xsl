@@ -174,7 +174,7 @@
         <xsl:if test="$hidden=no">
            <div>
               <xsl:attribute name="class">
-                 <xsl:text> x-graphic-1-0</xsl:text>
+                 <xsl:text>x-graphic-1-0</xsl:text>
                  <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
                  <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
               </xsl:attribute>
@@ -185,7 +185,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-graphic-1-0</xsl:text>
+              <xsl:text>x-graphic-1-0</xsl:text>
               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
               <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
            </xsl:attribute>
@@ -198,7 +198,7 @@
      <xsl:when test="$fo-class='graphic-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-graphic-1-0</xsl:text>
+              <xsl:text>x-graphic-1-0</xsl:text>
               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
               <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
            </xsl:attribute>
@@ -232,7 +232,7 @@
 <xsl:template match="inter" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-inter-1-0</xsl:text>
+        <xsl:text>x-inter-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="@prc=number('1')"> x-inter-1-1</xsl:when>
           <xsl:when test="@prc=number('2')"> x-inter-1-2</xsl:when>
@@ -294,7 +294,7 @@
 <xsl:template match="name" priority="0">
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-name-1-0</xsl:text>
+        <xsl:text>x-name-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]">
             <xsl:text> x-name-1-1</xsl:text>
@@ -326,7 +326,7 @@
 <xsl:template match="nomen-col" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-nomen-col-1-0</xsl:text>
+        <xsl:text>x-nomen-col-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="parent::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]"> x-nomen-col-1-1</xsl:when>
           <xsl:when test="parent::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]"> x-nomen-col-1-2</xsl:when>
@@ -401,7 +401,7 @@
 <xsl:template match="note" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-9-0</xsl:text>
+        <xsl:text>x-note-9-0</xsl:text>
         <xsl:if test="(following-sibling::note) or (preceding-sibling::note)"> x-note-9-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -466,7 +466,7 @@
      <xsl:when test="$fo-class='hidden-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-part-nbr-1-0</xsl:text>
+              <xsl:text>x-part-nbr-1-0</xsl:text>
               <xsl:if test="@ref and string(@ref)!=''"> x-part-nbr-1-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic-h">
@@ -477,7 +477,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-part-nbr-1-0</xsl:text>
+              <xsl:text>x-part-nbr-1-0</xsl:text>
               <xsl:if test="@ref and string(@ref)!=''">x-part-nbr-1-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic"/>
@@ -489,7 +489,7 @@
 <xsl:template match="_ufe:partial-breakdown" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x--ufe-partial-breakdown-1-0</xsl:text>
+        <xsl:text>x--ufe-partial-breakdown-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="@indent=number('1')"> x--ufe-partial-breakdown-1-1</xsl:when>
           <xsl:when test="@indent=number('2')"> x--ufe-partial-breakdown-1-2</xsl:when>
@@ -548,7 +548,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-pntype-1-0</xsl:text>
+              <xsl:text>x-pntype-1-0</xsl:text>
               <xsl:choose>
                 <xsl:when test="$l-cat='comp-of' and $l-cat=$l-cat-s"> x-pntype-1-1</xsl:when>
                 <xsl:when test="$l-cat='NewMay' and $l-cat=$l-cat-s"> x-pntype-1-2</xsl:when>
@@ -568,7 +568,7 @@
      <xsl:when test="$fo-class='inline'">
         <span>
            <xsl:attribute name="class">
-              <xsl:text> x-pntype-1-0</xsl:text>
+              <xsl:text>x-pntype-1-0</xsl:text>
               <xsl:choose>
                 <xsl:when test="$l-cat='comp-of' and $l-cat=$l-cat-s"> x-pntype-1-1</xsl:when>
                 <xsl:when test="$l-cat='NewMay' and $l-cat=$l-cat-s"> x-pntype-1-2</xsl:when>
@@ -591,7 +591,7 @@
 <xsl:template match="pntype" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-pntype-2-0</xsl:text>
+        <xsl:text>x-pntype-2-0</xsl:text>
         <xsl:choose>
           <xsl:when test="@cat='comp-of'"> x-pntype-2-1</xsl:when>
           <xsl:when test="@cat='NewMay'"> x-pntype-2-2</xsl:when>
@@ -615,7 +615,7 @@
 
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-range-1-0</xsl:text>
+        <xsl:text>x-range-1-0</xsl:text>
         <xsl:if test="substring-before(.,',') != '0'"> x-range-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic-h">
@@ -630,7 +630,7 @@
   <xsl:variable name="l-ind" select="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent"/>
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-sb-stat-1-0</xsl:text>
+        <xsl:text>x-sb-stat-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="$l-ind='0'"> x-sb-stat-1-1</xsl:when>
           <xsl:when test="$l-ind='1'"> x-sb-stat-1-2</xsl:when>
@@ -658,7 +658,7 @@
   <xsl:variable name="l-ind" select="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent"/>
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-sb-stat-2-0</xsl:text>
+        <xsl:text>x-sb-stat-2-0</xsl:text>
         <xsl:choose>
           <xsl:when test="$l-ind='0'"> x-sb-stat-2-1</xsl:when>
           <xsl:when test="$l-ind='1'"> x-sb-stat-2-2</xsl:when>
@@ -745,7 +745,7 @@
      <xsl:when test="$fo-class='hidden-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-see-1-0</xsl:text>
+              <xsl:text>x-see-1-0</xsl:text>
               <xsl:choose>
                 <xsl:when test="$l-type='FIGNOTE' and not(@fignote-nbr)"> x-see-1-1</xsl:when>
                 <xsl:when test="$l-type='FIGNOTE' and @fignote-nbr"> x-see-1-2</xsl:when>
@@ -764,7 +764,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-see-1-0</xsl:text>
+              <xsl:text>x-see-1-0</xsl:text>
               <xsl:choose>
                 <xsl:when test="$l-type='FIGNOTE' and not(@fignote-nbr)"> x-see-1-1</xsl:when>
                 <xsl:when test="$l-type='FIGNOTE' and @fignote-nbr"> x-see-1-2</xsl:when>
@@ -1128,7 +1128,7 @@
      <xsl:when test="$fo-class='hidden-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:text>x-title-33-0</xsl:text>
               <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic-h">
@@ -1139,7 +1139,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:text>x-title-33-0</xsl:text>
               <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic"/>
@@ -1233,7 +1233,7 @@
 <xsl:template match="_ufe:tmm-title" priority="0">
   <div ch:title="notoc">
      <xsl:attribute name="class">
-        <xsl:text> x--ufe-tmm-title-3-0</xsl:text>
+        <xsl:text>x--ufe-tmm-title-3-0</xsl:text>
         <xsl:if test="contains(//book/@doctype, 'lmm')"> x--ufe-tmm-title-3-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-title"/>

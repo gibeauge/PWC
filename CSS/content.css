@@ -715,7 +715,11 @@ a:hover { text-decoration:none; background-color:#ddddff; border-bottom: none;}
 .x-refint-6-1 {}
 
 .x-ref-nbr-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
+.x-ref-broken { color: blue;}
+
 .x-remarks-1-0 {margin-left: 0pt; margin-right: 0pt; }
+
 .x-repl-1-0 {margin-left: 0pt; margin-right: 0pt; }
 
 .x-rev-date-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-size: 18pt; text-align: center; }

@@ -62,7 +62,7 @@
   
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-con-1-0</xsl:text>
+        <xsl:text>x-con-1-0</xsl:text>
         <xsl:if test="((./refint|./*[not(self::_sfe:BeforeOrAfterText)]//refint)) and (not(./connbr|./*[not(self::_sfe:BeforeOrAfterText)]//connbr))"> x-con-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic-h">
@@ -213,18 +213,28 @@
 
 <xsl:template match="grphcref" priority="0">
   <xsl:variable name="l-node" select="//graphic[@id=current()/@refid]"/>
-  <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="$l-node"/></xsl:variable>
-  <span class="x-grphcref-1-0">
-     <xsl:call-template name="t-base-div-basic"/>
-     <a href="#none" onclick="displayGraphics('{$l-id}');">
-        <xsl:text> </xsl:text>
-        <xsl:apply-templates mode="styler_numbering" select="$l-node/title"/>
-     </a>
-     <xsl:if test="@sheetnbr and string(@sheetnbr)!=''">
-        <xsl:value-of select="concat(' Sheet ',@sheetnbr)"/>
-     </xsl:if>
-     <xsl:value-of select="@post-auto-text"/>
-  </span>
+  <xsl:choose>
+    <xsl:when test="not($l-node)">
+      <span class="x-ref-broken">
+        <xsl:apply-templates/>
+        <xsl:value-of select="@post-auto-text"/>
+      </span>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="$l-node"/></xsl:variable>
+      <span class="x-grphcref-1-0">
+         <xsl:call-template name="t-base-div-basic"/>
+         <a href="#none" onclick="displayGraphics('{$l-id}');">
+            <xsl:text> </xsl:text>
+            <xsl:apply-templates mode="styler_numbering" select="$l-node/title"/>
+         </a>
+         <xsl:if test="@sheetnbr and string(@sheetnbr)!=''">
+            <xsl:value-of select="concat(' Sheet ',@sheetnbr)"/>
+         </xsl:if>
+         <xsl:value-of select="@post-auto-text"/>
+      </span>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="hotlink" priority="0">
@@ -618,7 +628,7 @@
 <xsl:template match="n-para/note" priority="8">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-4-0</xsl:text>
+        <xsl:text>x-note-4-0</xsl:text>
         <xsl:if test="@nbr"> x-note-4-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -628,7 +638,7 @@
 <xsl:template match="procedure/note" priority="7">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-5-0</xsl:text>
+        <xsl:text>x-note-5-0</xsl:text>
         <xsl:if test="@nbr"> x-note-5-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -668,7 +678,7 @@
 <xsl:template match="note[ancestor::subpara]" priority="1">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-11-0</xsl:text>
+        <xsl:text>x-note-11-0</xsl:text>
         <xsl:if test="@nbr"> x-note-11-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -678,7 +688,7 @@
 <xsl:template match="note" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-note-12-0</xsl:text>
+        <xsl:text>x-note-12-0</xsl:text>
         <xsl:if test="@nbr"> x-note-12-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -971,9 +981,9 @@
   <dt>
      <xsl:attribute name="class">
         <xsl:if test="$l-par='chapsect-item' or $l-par='chapsect-title' or $l-par='ics' or $l-par='pwcchapsect-item' or $l-par='pwcspbdata' or $l-par='sbdata' or $l-par='spbnbr'">
-           <xsl:value-of select="concat(' x-',$l-par,'-1-0')"/>
+           <xsl:value-of select="concat('x-',$l-par,'-1-0 ')"/>
         </xsl:if>
-        <xsl:text> x-pwcchapsect-1-0</xsl:text>
+        <xsl:text>x-pwcchapsect-1-0</xsl:text>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
   </dt>
@@ -1084,7 +1094,7 @@
         <xsl:if test="$hidden='no'">
            <div>
               <xsl:attribute name="class">
-                 <xsl:text> x-pwcsoa-1-0</xsl:text>
+                 <xsl:text>x-pwcsoa-1-0</xsl:text>
                  <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
               </xsl:attribute>
               <xsl:call-template name="t-base-div-basic"/>
@@ -1094,7 +1104,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-pwcsoa-1-0</xsl:text>
+              <xsl:text>x-pwcsoa-1-0</xsl:text>
               <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic"/>
@@ -1103,7 +1113,7 @@
      <xsl:when test="$fo-class='graphic-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-pwcsoa-1-0</xsl:text>
+              <xsl:text>x-pwcsoa-1-0</xsl:text>
               <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-img-graphic"/>
@@ -1139,7 +1149,7 @@
 <xsl:template match="sbeff" priority="0">
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-sbeff-1-0</xsl:text>
+        <xsl:text>x-sbeff-1-0</xsl:text>
         <xsl:if test="@sbcond='NA' or @sbcond='na' or not(@sbcond) or @sbcond='RWK' or @sbcond='rwk'"> x-sbeff-1-1</xsl:if>
      </xsl:attribute>
      <xsl:copy-of select="@ch:*"/>
@@ -1171,9 +1181,9 @@
   <dt>
      <xsl:attribute name="class">
         <xsl:if test="$l-par='ics' or $l-par='pwcchapsect-item' or $l-par='sbdata' or $l-par='spbnbr'">
-           <xsl:value-of select="concat(' x-',$l-par,'-1-0')"/>
+           <xsl:value-of select="concat('x-',$l-par,'-1-0 ')"/>
         </xsl:if>
-        <xsl:text> x-sbnbr-1-0</xsl:text>
+        <xsl:text>x-sbnbr-1-0</xsl:text>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
   </dt>
@@ -1215,7 +1225,7 @@
      <xsl:when test="$fo-class='hidden-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-sheet-1-0</xsl:text>
+              <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
               <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
@@ -1227,7 +1237,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-sheet-1-0</xsl:text>
+              <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
               <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
@@ -1240,7 +1250,7 @@
      <xsl:when test="$fo-class='graphic-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-sheet-1-0</xsl:text>
+              <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
               <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
@@ -1293,9 +1303,9 @@
   <dt>
      <xsl:attribute name="class">
         <xsl:if test="$l-par='chapsect-item' or $l-par='ics' or $l-par='pwcchapsect-item' or $l-par='pwcspbdata' or $l-par='sbdata' or $l-par='spbnbr'">
-           <xsl:value-of select="concat(' x-',$l-par,'-1-0')"/>
+           <xsl:value-of select="concat('x-',$l-par,'-1-0 ')"/>
         </xsl:if>
-        <xsl:text> x-spbnbr-1-0</xsl:text>
+        <xsl:text>x-spbnbr-1-0</xsl:text>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
   </dt>
@@ -1316,7 +1326,7 @@
   
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-std-1-0</xsl:text>
+        <xsl:text>x-std-1-0</xsl:text>
         <xsl:if test="(self::std/stdnbr[contains(., 'NA')]) and (string-length(self::std/stdnbr) = 2)"> x-std-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic-h">
@@ -1558,7 +1568,7 @@
 <xsl:template match="subtask" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-subtask-1-0</xsl:text>
+        <xsl:text>x-subtask-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="(@confltr and string(@confltr)!='') and (@varnbr and string(@varnbr)!='') and (@varnbr and string(@varnbr)!='0')"> x-subtask-1-1</xsl:when>
           <xsl:when test="(@confltr and string(@confltr)!='')"> x-subtask-1-2</xsl:when>
@@ -1578,7 +1588,7 @@
 <xsl:template match="task" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-task-1-0</xsl:text>
+        <xsl:text>x-task-1-0</xsl:text>
         <xsl:if test="(@confltr and string(@confltr)!='')"> x-task-1-1</xsl:if>
         <xsl:if test="(@varnbr and string(@varnbr)!='') and (@varnbr and string(@varnbr)!='0')"> x-task-1-2</xsl:if>
      </xsl:attribute>
@@ -1701,7 +1711,7 @@
      <xsl:when test="$fo-class='hidden-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:text>x-title-33-0</xsl:text>
               <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic2-h">
@@ -1712,7 +1722,7 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text> x-title-33-0</xsl:text>
+              <xsl:text>x-title-33-0</xsl:text>
               <xsl:if test="((ancestor-or-self::pwcpbfront[1]/title)) and ((ancestor-or-self::pwcpbfront[1]/pbfmatr))"> x-title-33-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic2"/>
@@ -1808,9 +1818,9 @@
   <dd>
      <xsl:attribute name="class">
         <xsl:if test="$l-par='chapsect-item' or $l-par='chapsect-title' or $l-par='ics' or $l-par='pwcchapsect-item' or $l-par='pwcspbdata' or $l-par='sbdata' or $l-par='spbnbr'">
-           <xsl:value-of select="concat(' x-',$l-par,'-1-0')"/>
+           <xsl:value-of select="concat('x-',$l-par,'-1-0 ')"/>
         </xsl:if>
-        <xsl:text> x-title-45-0</xsl:text>
+        <xsl:text>x-title-45-0</xsl:text>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
   </dd>
@@ -1819,7 +1829,7 @@
 <xsl:template match="_ufe:tmm-title" priority="0">
   <div ch:title="toc">
      <xsl:attribute name="class">
-        <xsl:text> x--ufe-tmm-title-3-0</xsl:text>
+        <xsl:text>x--ufe-tmm-title-3-0</xsl:text>
         <xsl:if test="contains(//book/@doctype, 'lmm')"> x--ufe-tmm-title-3-1</xsl:if>
      </xsl:attribute>
     <xsl:call-template name="t-base-div-title"/>

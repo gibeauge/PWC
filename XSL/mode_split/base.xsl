@@ -9,12 +9,11 @@
   xmlns="http://www.w3.org/1999/xhtml" 
   xmlns:exslt="http://exslt.org/common" 
   xmlns:ch="http://www.arbortext.com/namespace/chunker" 
-  xmlns:saxon="http://saxon.sf.net/" 
   xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" 
   xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" 
   xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" 
   version="1.0" 
-  exclude-result-prefixes="ch saxon #default exslt _ufe _sfe _gte">
+  exclude-result-prefixes="xml ch #default exslt _ufe _sfe _gte">
 
   <xsl:strip-space elements="aispart"/>
 
@@ -494,9 +493,9 @@
   <dt>
      <xsl:attribute name="class">
         <xsl:if test="$l-par='chapsect-item' or $l-par='chapsect-title' or $l-par='glosdata'">
-           <xsl:value-of select="concat(' x-',$l-par,'-1-0')"/>
+           <xsl:value-of select="concat('x-',$l-par,'-1-0 ')"/>
         </xsl:if>
-        <xsl:text> x-chapsect-1-0</xsl:text>
+        <xsl:text>x-chapsect-1-0</xsl:text>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
   </dt>
@@ -529,9 +528,9 @@
   <dd>
      <xsl:attribute name="class">
         <xsl:if test="$l-par='chapsect-item' or $l-par='chapsect-title' or $l-par='glosdata'">
-           <xsl:value-of select="concat(' x-',$l-par,'-1-0')"/>
+           <xsl:value-of select="concat('x-',$l-par,'-1-0 ')"/>
         </xsl:if>
-        <xsl:text> x-chapsect-title-1-0</xsl:text>
+        <xsl:text>x-chapsect-title-1-0</xsl:text>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
   </dd>
@@ -591,7 +590,7 @@
 <xsl:template match="city" priority="0">
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-city-1-0</xsl:text>
+        <xsl:text>x-city-1-0</xsl:text>
         <xsl:if test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"> x-city-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -788,7 +787,7 @@
 <xsl:template match="table[@tabstyle='parts-list']//emphasis" priority="1">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-emphasis-1-0</xsl:text>
+        <xsl:text>x-emphasis-1-0</xsl:text>
         <xsl:if test="@role='bold'"> x-emphasis-1-1</xsl:if>
         <xsl:choose>
           <xsl:when test="parent::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]"> x-emphasis-1-2</xsl:when>
@@ -804,7 +803,7 @@
 <xsl:template match="emphasis" priority="0">
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-emphasis-2-0</xsl:text>
+        <xsl:text>x-emphasis-2-0</xsl:text>
         <xsl:if test="@role='bold'"> x-emphasis-2-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -830,7 +829,7 @@
 <xsl:template match="_ufe:engine-type" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x--ufe-engine-type-1-0</xsl:text>
+        <xsl:text>x--ufe-engine-type-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="@enginetype='FAN'"> x--ufe-engine-type-1-1</xsl:when>
           <xsl:when test="@enginetype='PROP'"> x--ufe-engine-type-1-2</xsl:when>
@@ -1661,7 +1660,7 @@
 <xsl:template match="module" priority="0">
   <div>
      <xsl:attribute name="class">
-        <xsl:text> x-module-1-0</xsl:text>
+        <xsl:text>x-module-1-0</xsl:text>
         <xsl:choose>
           <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='trlist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-1</xsl:when>
           <xsl:when test="ancestor-or-self::page-block[1]/@pb-name='sblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)"> x-module-1-2</xsl:when>
@@ -1876,7 +1875,7 @@
 <xsl:template match="page-block[@pb-name='intro']" priority="2">
   <div>
     <xsl:attribute name="class">
-      <xsl:text> x-page-block-7-0</xsl:text>
+      <xsl:text>x-page-block-7-0</xsl:text>
       <xsl:if test="(./pageblock-title)"> x-page-block-7-1</xsl:if>
     </xsl:attribute>
     <xsl:call-template name="t-base-page-block-gen"/>
@@ -2368,7 +2367,7 @@
 <xsl:template match="qty[ancestor::book[contains(@doctype,'ipc')]]" priority="1">
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-qty-1-0</xsl:text>
+        <xsl:text>x-qty-1-0</xsl:text>
         <xsl:if test="@per-assy='TEXT' or @per-assy='EMPTY'"> x-qty-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -2462,7 +2461,7 @@
     <xsl:otherwise>
       <span>
         <xsl:attribute name="class">
-          <xsl:text> x-refint-6-0</xsl:text>
+          <xsl:text>x-refint-6-0</xsl:text>
           <xsl:if test="@refid"> x-refint-6-1</xsl:if>
         </xsl:attribute>
         <xsl:call-template name="t-base-div-basic-h">
@@ -2650,7 +2649,7 @@
 <xsl:template match="state" priority="0">
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-state-1-0</xsl:text>
+        <xsl:text>x-state-1-0</xsl:text>
         <xsl:if test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"> x-state-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -2799,7 +2798,7 @@
 <xsl:template match="table[not(title) and not(@tabstyle='frac')]" priority="12">
   <div>
     <xsl:attribute name="class">
-      <xsl:text> x-table-2-0</xsl:text>
+      <xsl:text>x-table-2-0</xsl:text>
       <xsl:if test="ancestor-or-self::page-block[1]/@pb-name='title-page'"> x-table-2-1</xsl:if>
    </xsl:attribute>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -2923,7 +2922,7 @@
   </div>
   <div style="display:none">
     <xsl:attribute name="class">
-      <xsl:text> x-table-14-0</xsl:text>
+      <xsl:text>x-table-14-0</xsl:text>
       <xsl:if test="@tabstyle='general' or @tabstyle='consumables' or @tabstyle='special-tools' or @tabstyle='fixtures-and-equipment'"> x-table-13-1</xsl:if>
     </xsl:attribute>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -3023,7 +3022,7 @@
 <xsl:template match="ata-page-block//task/graphic/title" priority="67">
   <div ch:title="notoc">
    <xsl:attribute name="class">
-    <xsl:text> x-title-6-0</xsl:text>
+    <xsl:text>x-title-6-0</xsl:text>
         <xsl:choose>
           <xsl:when test="&anc-pgblk-0-13; and &anc-task-c;"> x-title-6-1</xsl:when>
           <xsl:when test="&anc-pgblk-0-13; and &anc-task-v;"> x-title-6-2</xsl:when>
@@ -3040,7 +3039,7 @@
 <xsl:template match="page-block//task/graphic/title" priority="66">
   <div ch:title="notoc">
    <xsl:attribute name="class">
-    <xsl:text> x-title-7-0</xsl:text>
+    <xsl:text>x-title-7-0</xsl:text>
         <xsl:choose>
           <xsl:when test="&anc-pgblk-0-13; and &anc-task-c;"> x-title-7-1</xsl:when>
           <xsl:when test="&anc-pgblk-0-13; and &anc-task-v;"> x-title-7-2</xsl:when>
@@ -3108,7 +3107,7 @@
   <xsl:variable name="l-content">
     <div>
        <xsl:attribute name="class">
-          <xsl:text> x-title-22-0</xsl:text>
+          <xsl:text>x-title-22-0</xsl:text>
           <xsl:choose>
             <xsl:when test="&anc-pgblk-0-13; and &anc-task-c; and ../@display='expand'"> x-title-22-1</xsl:when>
             <xsl:when test="&anc-pgblk-0-13; and &anc-task-v; and ../@display='expand'"> x-title-22-2</xsl:when>
@@ -3133,7 +3132,7 @@
 <xsl:template match="page-block//graphic/title" priority="50">
   <div ch:title="notoc">
    <xsl:attribute name="class">
-    <xsl:text> x-title-23-0</xsl:text>
+    <xsl:text>x-title-23-0</xsl:text>
         <xsl:choose>
           <xsl:when test="&anc-pgblk-0-13;"> x-title-23-1</xsl:when>
           <xsl:otherwise> x-title-23-2</xsl:otherwise>
@@ -3146,7 +3145,7 @@
 <xsl:template match="ata-page-block//graphic/title" priority="49">
   <div ch:title="notoc">
    <xsl:attribute name="class">
-    <xsl:text> x-title-24-0</xsl:text>
+    <xsl:text>x-title-24-0</xsl:text>
         <xsl:choose>
           <xsl:when test="&anc-pgblk-0-13;"> x-title-24-1</xsl:when>
           <xsl:otherwise> x-title-24-2</xsl:otherwise>
@@ -3205,7 +3204,7 @@
 <xsl:template match="figure/title" priority="41">
   <div ch:title="notoc">
    <xsl:attribute name="class">
-    <xsl:text> x-title-32-0</xsl:text>
+    <xsl:text>x-title-32-0</xsl:text>
         <xsl:choose>
           <xsl:when test="&pb-01-ata;"> x-title-32-1</xsl:when>
           <xsl:when test="&pb-01-p;"> x-title-32-2</xsl:when>
@@ -3258,7 +3257,7 @@
 <xsl:template match="procedure/title" priority="37">
   <div ch:title="notoc">
    <xsl:attribute name="class">
-    <xsl:text> x-title-36-0</xsl:text>
+    <xsl:text>x-title-36-0</xsl:text>
     <xsl:if test="ancestor-or-self::table[1]/@role='torque-and-stretch' or ancestor-or-self::table[1]/@role='spec-assem'"> x-title-36-1</xsl:if>
    </xsl:attribute>
     <xsl:call-template name="t-base-div-title"/>
@@ -3380,7 +3379,7 @@
 <xsl:template match="table[@display='expand']/title" priority="6">
   <div ch:title="notoc">
    <xsl:attribute name="class">
-    <xsl:text> x-title-67-0</xsl:text>
+    <xsl:text>x-title-67-0</xsl:text>
         <xsl:if test="(&anc-doc-cir-em-tmm;)"> x-title-67-1</xsl:if>
         <xsl:choose>
           <xsl:when test="(&anc-doc-cir-em-tmm;) and (&anc-pgblk-0-13;)"> x-title-67-2</xsl:when>
@@ -3434,7 +3433,7 @@
 
   <div>
     <xsl:attribute name="class">
-      <xsl:text> x-title-68-0</xsl:text>
+      <xsl:text>x-title-68-0</xsl:text>
       <xsl:if test="(&anc-doc-cir-em-tmm;)"> x-title-68-1</xsl:if>
       <xsl:choose>
         <xsl:when test="(&anc-doc-cir-em-tmm;) and (&anc-pgblk-0-13;)"> x-title-68-2</xsl:when>
@@ -3510,7 +3509,7 @@
 <xsl:template match="title" priority="0">
   <div ch:title="notoc">
    <xsl:attribute name="class">
-    <xsl:text> x-title-73-0</xsl:text>
+    <xsl:text>x-title-73-0</xsl:text>
     <xsl:if test="parent::list"> x-title-73-1</xsl:if>
    </xsl:attribute>
     <xsl:call-template name="t-base-div-title"/>
@@ -3786,8 +3785,8 @@
 <xsl:template match="unlist/unlitem" priority="3">
   <table border="0" cellpadding="0" cellspacing="0">
     <xsl:attribute name="class">
-      <xsl:if test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH']"><xsl:text>x-tab-fixed</xsl:text></xsl:if>
-      <xsl:text> x-unlitem-10-0</xsl:text>
+      <xsl:if test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH']"><xsl:text>x-tab-fixed </xsl:text></xsl:if>
+      <xsl:text>x-unlitem-10-0</xsl:text>
       <xsl:choose>
         <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='NDASH']"> x-unlitem-10-1</xsl:when>
         <xsl:when test="ancestor-or-self::unlist[1]/@bulltype[.='BULLET']"> x-unlitem-10-2</xsl:when>
@@ -3983,143 +3982,61 @@
   <xsl:variable name="l-dest-node" select="//*[@id=$l-ref]"/>
   -->
   <xsl:variable name="l-dest-node" select="id($l-ref)"/>
-  <xsl:variable name="l-dest-name" select="$l-dest-node/name()"/>
-  <xsl:variable name="l-dest-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="$l-dest-node"/></xsl:variable>
   
   <xsl:choose>
-    <xsl:when test="ancestor::lof-item and ($l-dest-name='figure' or $l-dest-name='graphic')">
-      <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
-      <xsl:variable name="l-file">
-        <xsl:choose>
-          <xsl:when test="ancestor::ata-page-block">
-             <xsl:value-of select="concat(ancestor::ata-page-block/@object-key, '.html')"/>
-          </xsl:when>
-          <xsl:otherwise>
-             <xsl:value-of select="concat(ancestor::page-block/@object-key, '.html')"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:choose>
-        <xsl:when test="$l-dest-name='figure'">
-          <span style="display:none" class="x-xref-1-0">
-            <xsl:copy-of select="@ch:*"/>
-            <xsl:call-template name="maybe-set-id"/>
-            <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-              <!--
-              <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
-              -->
-              <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
-            </a>
-          </span>
-        </xsl:when>
-        <xsl:otherwise>
-          <span class="x-xref-2-0">
-            <xsl:copy-of select="@ch:*"/>
-            <xsl:call-template name="maybe-set-id"/>
-            <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-              <!--
-              <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
-              -->
-              <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
-            </a>
-          </span>
-        </xsl:otherwise>
-      </xsl:choose>      
-    </xsl:when>
-    <xsl:when test="parent::title/parent::table and $l-dest-name='figure'">
-      <span class="x-xref-1-0">
-        <span class="x--sfe-CrossReference-1-0">
-          <a href="#{@ref}">
-            <xsl:choose>
-              <xsl:when test="$l-dest-node/title">
-                <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </a>
-        </span>
-      </span>
-    </xsl:when>
-    <xsl:when test="ancestor::highlights">
-      <span class="x-xref-4-0">
-        <span class="x--ufe-highlights-link-1-0">
-          <a class="x--sfe-InternalLink-1-0">
-            <xsl:if test="@ref">
-              <xsl:attribute name="href"><xsl:value-of select="concat('#',@ref)"/></xsl:attribute>
-            </xsl:if>
-            <xsl:if test="$l-dest-name='table'">
-              <xsl:attribute name="onclick">showTable('<xsl:value-of select="@ref"/>')</xsl:attribute>
-            </xsl:if>
-            <xsl:apply-templates/>
-          </a>
-        </span>
-      </span>
-    </xsl:when>
-    <xsl:when test="$l-dest-name='table' and $l-dest-node[ancestor::figure or ancestor::graphic]">
-      <span class="x-xref-5-0">
-        <span class="x--sfe-CrossReference-1-0">
-          <a href="#{@ref}" onclick="showTable('{@ref}')">
-            <xsl:choose>
-              <xsl:when test="$l-dest-node/title">
-                <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </a>
-        </span>
-        <xsl:text> </xsl:text>
+    <xsl:when test="not($l-dest-node)">
+      <span class="x-ref-broken">
         <xsl:apply-templates/>
-      </span>
-    </xsl:when>
-    <xsl:when test="$l-dest-name='table'">
-      <span class="x-xref-6-0">
-        <span class="x--sfe-CrossReference-1-0">
-          <a href="#{@ref}" onclick="showTable('{@ref}')">
-            <xsl:choose>
-              <xsl:when test="$l-dest-node/title">
-                <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </a>
-        </span>
-        <xsl:if test="ancestor::lot-item">
-          <xsl:text> </xsl:text>
-        </xsl:if>
-        <xsl:apply-templates/>
-      </span>
-    </xsl:when>
-    <xsl:when test="$l-dest-name='figure'">
-      <span class="x-xref-6-0">
-        <xsl:copy-of select="@ch:*"/>
-        <xsl:call-template name="maybe-set-id"/>
-        <a href="#none" onclick="displayGraphics('{$l-dest-id}');">
-          <xsl:text> </xsl:text>
-          <xsl:apply-templates mode="styler_numbering" select="$l-dest-node//title"/>
-        </a>
       </span>
     </xsl:when>
     <xsl:otherwise>
-      <span class="x-xref-8-0">
-        <span class="x--sfe-CrossReference-1-0">
-          <a href="#{@ref}">
-            <xsl:variable name="division-name-token-list">
-              <xsl:choose>
-                <xsl:when test="ancestor::book[starts-with(@doctype, 'epc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter glossary graphic highlights intro list lof lof-item lot lot-item module n-para num-index num-list nutopt page-block procedure pwcchapsect-list sbdata sblist section spec-tool-table subject subpara table title-page unlist vendlist </xsl:when>
-                <xsl:when test="ancestor::book[starts-with(@doctype, 'ipc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter highlights intro list lof lof-item lot lot-item module n-para num-index num-list page-block procedure sblist section service-bull-list spb-list spec-tool-table subject subpara table title-page unlist </xsl:when>
-                <xsl:when test="ancestor::book[starts-with(@doctype, 'cir') or starts-with(@doctype, 'lmm') or starts-with(@doctype, 'tmm')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter graphic highlights howtouse intro list list1 list2 list3 list4 lof lof-item lot lot-item module n-para num-index num-list numlist page-block pbfmatr pgblk prcitem prclist1 prclist2 prclist3 prclist4 procedure pwcchapsect-list pwcni pwcspblist sblist section spec-tool-table subject subpara subtask table task taskproc title-page tprereq unlist </xsl:when>
-                <xsl:when test="ancestor::book[starts-with(@doctype, 'mm') or starts-with(@doctype, 'oh')]"> alpha-list ata-page-block book bullist chapsect-list chapter consumables enumlist figure fits-and-clears fixtures-and-equipment frontmatter general highlights intro list lof lof-item lot lot-item mm-fits module n-para num-index num-list page-block procedure sblist section spec-tool-table special-tools subject subpara table title-page torque-and-stretch unlist </xsl:when>
-              </xsl:choose>
-            </xsl:variable>
-            <xsl:variable name="idrefed-element-name" select="concat(' ', $l-dest-name, ' ')"/>
+      <xsl:variable name="l-dest-name" select="$l-dest-node/name()"/>
+      <xsl:variable name="l-dest-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="$l-dest-node"/></xsl:variable>
+      
+      <xsl:choose>
+        <xsl:when test="ancestor::lof-item and ($l-dest-name='figure' or $l-dest-name='graphic')">
+          <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
+          <xsl:variable name="l-file">
             <xsl:choose>
-              <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
+              <xsl:when test="ancestor::ata-page-block">
+                 <xsl:value-of select="concat(ancestor::ata-page-block/@object-key, '.html')"/>
+              </xsl:when>
+              <xsl:otherwise>
+                 <xsl:value-of select="concat(ancestor::page-block/@object-key, '.html')"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="$l-dest-name='figure'">
+              <span style="display:none" class="x-xref-1-0">
+                <xsl:copy-of select="@ch:*"/>
+                <xsl:call-template name="maybe-set-id"/>
+                <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
+                  <!--
+                  <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
+                  -->
+                  <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                </a>
+              </span>
+            </xsl:when>
+            <xsl:otherwise>
+              <span class="x-xref-2-0">
+                <xsl:copy-of select="@ch:*"/>
+                <xsl:call-template name="maybe-set-id"/>
+                <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
+                  <!--
+                  <xsl:value-of select="concat('GRAPHICNAVLINK^',$l-file,'^',$l-dest-id,'^')"/>
+                  -->
+                  <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                </a>
+              </span>
+            </xsl:otherwise>
+          </xsl:choose>      
+        </xsl:when>
+        <xsl:when test="parent::title/parent::table and $l-dest-name='figure'">
+          <span class="x-xref-1-0">
+            <span class="x--sfe-CrossReference-1-0">
+              <a href="#{$l-ref}">
                 <xsl:choose>
                   <xsl:when test="$l-dest-node/title">
                     <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
@@ -4128,14 +4045,106 @@
                     <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
                   </xsl:otherwise>
                 </xsl:choose>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:apply-templates select="$l-dest-node" mode="styler_numbering"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </a>
-        </span>
-      </span>
+              </a>
+            </span>
+          </span>
+        </xsl:when>
+        <xsl:when test="ancestor::highlights">
+          <span class="x-xref-4-0">
+            <span class="x--ufe-highlights-link-1-0">
+              <a class="x--sfe-InternalLink-1-0">
+                <xsl:if test="$l-ref">
+                  <xsl:attribute name="href"><xsl:value-of select="concat('#',$l-ref)"/></xsl:attribute>
+                </xsl:if>
+                <xsl:if test="$l-dest-name='table'">
+                  <xsl:attribute name="onclick">showTable('<xsl:value-of select="$l-ref"/>')</xsl:attribute>
+                </xsl:if>
+                <xsl:apply-templates/>
+              </a>
+            </span>
+          </span>
+        </xsl:when>
+        <xsl:when test="$l-dest-name='table' and $l-dest-node[ancestor::figure or ancestor::graphic]">
+          <span class="x-xref-5-0">
+            <span class="x--sfe-CrossReference-1-0">
+              <a href="#{$l-ref}" onclick="showTable('{$l-ref}')">
+                <xsl:choose>
+                  <xsl:when test="$l-dest-node/title">
+                    <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </a>
+            </span>
+            <xsl:text> </xsl:text>
+            <xsl:apply-templates/>
+          </span>
+        </xsl:when>
+        <xsl:when test="$l-dest-name='table'">
+          <span class="x-xref-6-0">
+            <span class="x--sfe-CrossReference-1-0">
+              <a href="#{$l-ref}" onclick="showTable('{$l-ref}')">
+                <xsl:choose>
+                  <xsl:when test="$l-dest-node/title">
+                    <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </a>
+            </span>
+            <xsl:if test="ancestor::lot-item">
+              <xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:apply-templates/>
+          </span>
+        </xsl:when>
+        <xsl:when test="$l-dest-name='figure'">
+          <span class="x-xref-6-0">
+            <xsl:copy-of select="@ch:*"/>
+            <xsl:call-template name="maybe-set-id"/>
+            <a href="#none" onclick="displayGraphics('{$l-dest-id}');">
+              <xsl:text> </xsl:text>
+              <xsl:apply-templates mode="styler_numbering" select="$l-dest-node//title"/>
+            </a>
+          </span>
+        </xsl:when>
+        <xsl:otherwise>
+          <span class="x-xref-8-0">
+            <span class="x--sfe-CrossReference-1-0">
+              <a href="#{$l-ref}">
+                <xsl:variable name="division-name-token-list">
+                  <xsl:choose>
+                    <xsl:when test="ancestor::book[starts-with(@doctype, 'epc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter glossary graphic highlights intro list lof lof-item lot lot-item module n-para num-index num-list nutopt page-block procedure pwcchapsect-list sbdata sblist section spec-tool-table subject subpara table title-page unlist vendlist </xsl:when>
+                    <xsl:when test="ancestor::book[starts-with(@doctype, 'ipc')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter highlights intro list lof lof-item lot lot-item module n-para num-index num-list page-block procedure sblist section service-bull-list spb-list spec-tool-table subject subpara table title-page unlist </xsl:when>
+                    <xsl:when test="ancestor::book[starts-with(@doctype, 'cir') or starts-with(@doctype, 'lmm') or starts-with(@doctype, 'tmm')]"> alpha-list ata-page-block book bullist chapsect-list chapter enumlist figure frontmatter graphic highlights howtouse intro list list1 list2 list3 list4 lof lof-item lot lot-item module n-para num-index num-list numlist page-block pbfmatr pgblk prcitem prclist1 prclist2 prclist3 prclist4 procedure pwcchapsect-list pwcni pwcspblist sblist section spec-tool-table subject subpara subtask table task taskproc title-page tprereq unlist </xsl:when>
+                    <xsl:when test="ancestor::book[starts-with(@doctype, 'mm') or starts-with(@doctype, 'oh')]"> alpha-list ata-page-block book bullist chapsect-list chapter consumables enumlist figure fits-and-clears fixtures-and-equipment frontmatter general highlights intro list lof lof-item lot lot-item mm-fits module n-para num-index num-list page-block procedure sblist section spec-tool-table special-tools subject subpara table title-page torque-and-stretch unlist </xsl:when>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="idrefed-element-name" select="concat(' ', $l-dest-name, ' ')"/>
+                <xsl:choose>
+                  <xsl:when test="contains($division-name-token-list,$idrefed-element-name)">
+                    <xsl:choose>
+                      <xsl:when test="$l-dest-node/title">
+                        <xsl:apply-templates select="$l-dest-node/title" mode="styler_numbering"/>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:apply-templates select="$l-dest-node/_sfe:BeforeOrAfterText//*[contains(name(), 'title')]" mode="styler_numbering"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:apply-templates select="$l-dest-node" mode="styler_numbering"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </a>
+            </span>
+          </span>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -4143,7 +4152,7 @@
 <xsl:template match="zip" priority="0">
   <span>
      <xsl:attribute name="class">
-        <xsl:text> x-zip-1-0</xsl:text>
+        <xsl:text>x-zip-1-0</xsl:text>
         <xsl:if test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"> x-zip-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
@@ -4177,6 +4186,8 @@
   </xsl:element>
 </xsl:template>
 
+<xsl:template match="@xml:id"/>
+
 <xsl:template match="_ufe:hardspace" priority="2">
   <xsl:text>&#xa0;</xsl:text>
 </xsl:template>
@@ -4184,16 +4195,16 @@
 <!-- TABLES CONFIGURATION -->
 
 <xsl:template name="tgroup.first">
-  <xsl:attribute name="class"><xsl:text> x-tgroup-1-0</xsl:text></xsl:attribute>
+  <xsl:attribute name="class"><xsl:text>x-tgroup-1-0</xsl:text></xsl:attribute>
 </xsl:template>
 
 <xsl:template name="tgroup.notfirst">
-  <xsl:attribute name="class"><xsl:text> x-tgroup-1-0</xsl:text></xsl:attribute>
+  <xsl:attribute name="class"><xsl:text>x-tgroup-1-0</xsl:text></xsl:attribute>
 </xsl:template>
 
 <xsl:template name="row">
   <xsl:attribute name="class">
-     <xsl:text> x-row-1-0</xsl:text>
+     <xsl:text>x-row-1-0</xsl:text>
      <xsl:if test="(@role and string(@role)='changebar') or (entry[1]/marker)"> x-row-1-1</xsl:if>
   </xsl:attribute>
 </xsl:template>
@@ -4203,19 +4214,19 @@
 </xsl:template>
 
 <xsl:template name="thead">
-  <xsl:attribute name="class"><xsl:text> x-thead-1-0</xsl:text></xsl:attribute>
+  <xsl:attribute name="class"><xsl:text>x-thead-1-0</xsl:text></xsl:attribute>
 </xsl:template>
 
 <xsl:template name="tfoot">
-  <xsl:attribute name="class"><xsl:text> x-tfoot-1-0</xsl:text></xsl:attribute>
+  <xsl:attribute name="class"><xsl:text>x-tfoot-1-0</xsl:text></xsl:attribute>
 </xsl:template>
 
 <xsl:template name="tbody">
-  <xsl:attribute name="class"><xsl:text> x-tbody-1-0</xsl:text></xsl:attribute>
+  <xsl:attribute name="class"><xsl:text>x-tbody-1-0</xsl:text></xsl:attribute>
 </xsl:template>
 
 <xsl:template name="htmltbl-tr">
-  <xsl:attribute name="class"><xsl:text> x-tr-1-0</xsl:text></xsl:attribute>
+  <xsl:attribute name="class"><xsl:text>x-tr-1-0</xsl:text></xsl:attribute>
 </xsl:template>
 
 <xsl:template name="htmltbl-td"/>
@@ -4239,6 +4250,11 @@
       <xsl:otherwise><xsl:value-of select="concat('_g_',generate-id(.))"/></xsl:otherwise>
     </xsl:choose>
   </xsl:attribute>
+  <xsl:if test="@id">
+    <xsl:attribute name="xml:id">
+      <xsl:value-of select="@id"/>
+    </xsl:attribute>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template name="maybe-set-id">
@@ -4520,6 +4536,7 @@
   <img alt="Graphic">
     <xsl:copy-of select="@ch:*"/>
     <xsl:variable name="graphic-prop-filename">
+       <!--
        <xsl:if test="$graphics-path!=''">
           <xsl:call-template name="substring-before-last">
              <xsl:with-param name="str" select="$graphics-path"/>
@@ -4527,6 +4544,7 @@
           </xsl:call-template>
           <xsl:text>/</xsl:text>
        </xsl:if>
+       -->
        <xsl:value-of select="$filename"/>
     </xsl:variable>
     <xsl:attribute name="src">

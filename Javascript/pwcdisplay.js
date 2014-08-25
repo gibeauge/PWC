@@ -586,10 +586,8 @@ function toggle(heading, tableId) {
     if (tableObj) {
         if (tableObj.style.display == "block") {
             tableObj.style.display='none';
-            headingObj.style.cursor='s-resize';
         } else {
             tableObj.style.display='block';
-            headingObj.style.cursor='n-resize';
         }
     }
     //Change bars won't be displayed until the table is visible

@@ -3,24 +3,23 @@
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns="http://www.w3.org/1999/xhtml" 
-  xmlns:exslt="http://exslt.org/common" xmlns:_acl="java:com.arbortext.epic.Acl"
-  xmlns:ch="http://www.arbortext.com/namespace/chunker" xmlns:saxon="http://saxon.sf.net/"
+  xmlns:exslt="http://exslt.org/common"
+  xmlns:ch="http://www.arbortext.com/namespace/chunker" 
   xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements"
   xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements"
   xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0"
-  exclude-result-prefixes="ch saxon #default exslt _ufe _sfe _gte">
+  exclude-result-prefixes="ch #default exslt _ufe _sfe _gte">
 
 <xsl:include href="chunking.xsl"/>
 <xsl:include href="toc.xsl"/>
 
-<!-- We try to set a default for graphics-path, but we expect this parameter to be set by the calling code -->
 <xsl:param name="graphics-path" select="'/graphics'"/>
 <xsl:param name="images-path"   select="'images'"/>
-<xsl:param name="css-path"       select="'css'"/>
+<xsl:param name="css-path"      select="'css'"/>
 <xsl:param name="js-path"       select="'javascript'"/>
 
 <xsl:param name="max-expansion-pass-count"  select="number(3)"/>
-<xsl:param name="output-dir"                select="concat('_', $doctype, '_',/book/@object-key, '_', /book/@revnbr, '.', /book/@point-revnbr)"/>
+<xsl:param name="output-dir"                select="concat('file:///C:/Work/Projets/PWC/chunks/_', $doctype, '_',/book/@object-key, '_', /book/@revnbr, '.', /book/@point-revnbr)"/>
   
 <xsl:template match="/">
   <xsl:variable name="tree1">
@@ -48,23 +47,9 @@
   <xsl:apply-templates select="exslt:node-set($tree6)/*" mode="output"/>
   <xsl:apply-templates select="exslt:node-set($tree7)/*" mode="toc"/>
   <!--
-  <xsl:variable name="tree6">
-    <xsl:apply-templates select="exslt:node-set($tree5)" mode="temp-remove-ch"/>
-  </xsl:variable>
-  -->
   <xsl:copy-of select="$tree5"/>
+  -->
 </xsl:template>
- 
-<!--
-<xsl:template match="ch:*|@ch:*|*[local-name(.)='div'][@id='pwcmetainfo' or @id='pwcbannerinfo']" mode="temp-remove-ch">
-</xsl:template>
- 
-<xsl:template match="@*|node()" mode="temp-remove-ch">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()" mode="temp-remove-ch"/>
-  </xsl:copy>
-</xsl:template>
--->
  
 <!-- INITIAL PASS MODE : add id and chunk attributes -->
  
