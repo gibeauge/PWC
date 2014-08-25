@@ -14,9 +14,24 @@ namespace EuCA.Pdf
     {
         #region consts
 
+        /// <summary>
+        /// Margin-top
+        /// </summary>
         private static readonly float _regionBefore = 1F;
+
+        /// <summary>
+        /// Margin-bottom
+        /// </summary>
         private static readonly float _regionAfter = 1F;
+
+        /// <summary>
+        /// Margin-left
+        /// </summary>
         private static readonly float _regionStart = 0.75F;
+
+        /// <summary>
+        /// Margin-right
+        /// </summary>
         private static readonly float _regionEnd = 0.75F;
         
         #endregion
@@ -57,21 +72,21 @@ namespace EuCA.Pdf
         #region public static Methods
 
         /// <summary>
-        /// 
+        /// Converts an HTML page to PDF using the default options.
         /// </summary>
-        /// <param name="html"></param>
-        /// <param name="output"></param>
+        /// <param name="html">The HTML content to convert.</param>
+        /// <param name="output">The output stream.</param>
         public static void Convert(string html, Stream output)
         {
             Convert(html, output, null);
         }
 
         /// <summary>
-        /// 
+        /// Converts an HTML page to PDF using the given options
         /// </summary>
-        /// <param name="html"></param>
-        /// <param name="output"></param>
-        /// <param name="options"></param>
+        /// <param name="html">The HTML content to convert.</param>
+        /// <param name="output">The output stream.</param>
+        /// <param name="options">The options to use for the conversion.</param>
         public static void Convert(string html, Stream output, HtmlToPdfConverterOptions options)
         {
             // Initialize parameters
@@ -82,21 +97,21 @@ namespace EuCA.Pdf
         }   
 
         /// <summary>
-        /// 
+        /// Converts an HTML stream to PDF using the default options.
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="output"></param>
+        /// <param name="input">The input stream.</param>
+        /// <param name="output">The output stream.</param>
         public static void Convert(Stream input, Stream output) 
         {
             Convert(input, output, null);
         }
 
         /// <summary>
-        /// 
+        /// Converts an HTML stream to PDF using the given options
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="output"></param>
-        /// <param name="options"></param>
+        /// <param name="input">The input stream.</param>
+        /// <param name="output">The output stream.</param>
+        /// <param name="options">The options to use for the conversion.</param>
         public static void Convert(Stream input, Stream output, HtmlToPdfConverterOptions options)
         {
             using (var sr = new StreamReader(input))
@@ -111,10 +126,11 @@ namespace EuCA.Pdf
         #region private static Methods
 
         /// <summary>
-        /// 
+        /// Initialise the parameters of the conversion,
+        /// using the class parameters and the given parameters
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
+        /// <param name="options">custom user parameter values</param>
+        /// <returns>An HtmlToPdfOptions object</returns>
         private static HtmlToPdfOptions InitParameters(HtmlToPdfConverterOptions options)
         {
             var parameters = Options;
@@ -176,10 +192,22 @@ namespace EuCA.Pdf
         
         #region Inner Class
 
+        /// <summary>
+        /// Helper class used to handle watermarks
+        /// </summary>
         private class WatermarkHelper
         {
+            /// <summary>
+            /// Gets or Sets the watermark text value
+            /// </summary>
             public string Watermark { get; set; }
 
+            /// <summary>
+            /// PdfPageEvent handler, used to add watermark in the content 
+            /// of the PDF file during rendition.
+            /// </summary>
+            /// <param name="sender">payload</param>
+            /// <param name="e">payload</param>
             public void AddWatermark(object sender, PdfPageEventArgs e)
             {
                 // Create a new text layer.
