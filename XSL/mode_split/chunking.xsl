@@ -58,21 +58,38 @@
   
   <xsl:template match="*[local-name()='a']/@href" mode="output-content">
     <xsl:variable name="refid" select="substring-after(., '#')"/>
-    <xsl:variable name="current-chunk-filename" select="ancestor::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
-    <xsl:variable name="dest-chunk-filename" select="//*[@id = $refid]/ancestor-or-self::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
+    <xsl:variable name="current-chunk" select="ancestor::*[@ch:chunk = 'yes' and @ch:filename][1]"/>
+    
+    <xsl:attribute name="href">
+      <xsl:choose>
+        <xsl:when test=".='#none' or .='#'">
+          <xsl:value-of select="."/>
+        </xsl:when>
+        <xsl:when test="$current-chunk//*[@id = $refid]">
+          <xsl:value-of select="."/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="dest-chunk-filename" select="//*[@id = $refid]/ancestor-or-self::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
+          <xsl:value-of select="concat($dest-chunk-filename, '.html', .)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+    
     <!--
-    <xsl:variable name="dest-chunk-filename" select="id($refid)/ancestor-or-self::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
-    -->
+    <xsl:variable name="current-chunk-filename" select="$current-chunk/@ch:filename"/>
+    <xsl:variable name="dest-chunk-filename" select="//*[@id = $refid]/ancestor-or-self::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
+    
     <xsl:attribute name="href">
       <xsl:choose>
         <xsl:when test="$current-chunk-filename != $dest-chunk-filename">
-            <xsl:value-of select="concat($dest-chunk-filename, '.html', .)"/>
+          <xsl:value-of select="concat($dest-chunk-filename, '.html', .)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="."/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
+    -->
   </xsl:template>
   
 </xsl:stylesheet>

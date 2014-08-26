@@ -4,7 +4,7 @@
   xmlns:ch="http://www.arbortext.com/namespace/chunker" 
   xmlns:random="http://exslt.org/random"
   extension-element-prefixes="random"
-  exclude-result-prefixes="ch random" version="1.0">
+  exclude-result-prefixes="ch random" version="2.0">
   
   <xsl:variable name="html-ext" select="'.html'"/>
   <xsl:variable name="sharp" select="'#'"/>
@@ -111,7 +111,7 @@
     
     <xsl:variable name="hasFigure">
       <xsl:choose>
-        <xsl:when test="$lof = '1'">0</xsl:when>
+        <xsl:when test="string($lof) = '1'">0</xsl:when>
         <xsl:when test="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), 'Figure')]">1</xsl:when>
         <xsl:otherwise>0</xsl:otherwise>
       </xsl:choose>
@@ -126,7 +126,7 @@
       <xsl:attribute name="Title">
         <xsl:call-template name="normalize-space">
           <xsl:with-param name="str">
-            <xsl:value-of select="."/>
+            <xsl:value-of select="replace(.,'(\(SHEET )([0-9A-Z ]+)(\))','')"/>
           </xsl:with-param>
         </xsl:call-template>
       </xsl:attribute>
@@ -150,7 +150,7 @@
         <xsl:text>text/html</xsl:text>
       </xsl:attribute>
       
-      <xsl:if test="$lof = '0' and $hasFigure = '1'">
+      <xsl:if test="string($lof) = '0' and $hasFigure = '1'">
         <xsl:apply-templates select="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), 'Figure')]" mode="tic"/>
       </xsl:if>
       
@@ -203,7 +203,7 @@
   
   <xsl:template name="generate-toc-id">
     <xsl:variable name="ps" select="count(preceding::*)"/>
-    <xsl:value-of select="concat('ID', substring(translate(random:random-sequence(1, count(preceding::*)) * 100000000, '.', ''), 1, 10 - string-length($ps)), $ps)"/>
+    <xsl:value-of select="concat('ID', substring(translate(string(random:random-sequence(1, count(preceding::*)) * 100000000), '.', ''), 1, 10 - string-length(string($ps))), $ps)"/>
   </xsl:template>
   
   <xsl:template name="normalize-space">

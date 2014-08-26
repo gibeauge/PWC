@@ -9,12 +9,11 @@
   xmlns="http://www.w3.org/1999/xhtml" 
   xmlns:exslt="http://exslt.org/common" 
   xmlns:ch="http://www.arbortext.com/namespace/chunker" 
-  xmlns:saxon="http://saxon.sf.net/" 
   xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements" 
   xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements" 
   xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" 
-  version="1.0" 
-  exclude-result-prefixes="ch saxon #default exslt _ufe _sfe _gte">
+  version="2.0" 
+  exclude-result-prefixes="ch  #default exslt _ufe _sfe _gte">
 
 <xsl:include href="ipc_expand-gentext.xsl"/>
 <xsl:include href="ipc_set-countas.xsl"/>

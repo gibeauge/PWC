@@ -7,7 +7,7 @@
   xmlns:ch="http://www.arbortext.com/namespace/chunker" 
   xmlns:_gte="http://www.arbortext.com/namespace/Styler/GeneratedTextElements"
   xmlns:_sfe="http://www.arbortext.com/namespace/Styler/StylerFormattingElements"
-  xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="1.0"
+  xmlns:_ufe="http://www.arbortext.com/namespace/Styler/UserFormattingElements" version="2.0"
   exclude-result-prefixes="ch #default exslt _ufe _sfe _gte">
 
 <xsl:include href="chunking.xsl"/>

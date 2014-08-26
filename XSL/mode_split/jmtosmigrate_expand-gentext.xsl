@@ -442,7 +442,7 @@
         <xsl:if test="not(@_gte:Gentext-Expanded)">
           <_sfe:BeforeOrAfterText>
             <_ufe:block-prespace>
-              <xsl:text>SHEET (</xsl:text>
+              <xsl:text>(SHEET </xsl:text>
               <xsl:value-of select="@sheetnbr"/>
               <xsl:text> OF </xsl:text>
               <xsl:value-of select="(ancestor-or-self::graphic[1]//sheet)[position()=last()]/@sheetnbr"/>
