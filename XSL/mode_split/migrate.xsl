@@ -439,28 +439,6 @@
   </div>
 </xsl:template>
 
-<xsl:template match="title-page/soa[@size='med']" priority="2">
-  <div class="x-soa-1-0">
-     <xsl:call-template name="t-base-img-graphic"/>
-  </div>
-</xsl:template>
-
-<xsl:template match="soa[@size='med']" priority="1">
-  <div class="x-soa-2-0">
-     <xsl:call-template name="t-base-img-graphic"/>
-  </div>
-</xsl:template>
-
-<xsl:template match="soa" priority="0">
-  <xsl:param name="hidden" select="'yes'"/>
-
-  <xsl:if test="$hidden='no'">
-  	<div class="x-soa-3-0">
-        <xsl:call-template name="t-base-div-basic"/>
-     </div>
-  </xsl:if>
-</xsl:template>
-
 <xsl:template match="_ufe:spblist-title" priority="0">
   <div ch:title="notoc" class="x--ufe-spblist-title-3-0">
     <xsl:call-template name="t-base-div-title"/>

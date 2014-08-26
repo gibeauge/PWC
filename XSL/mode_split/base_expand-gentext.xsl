@@ -1313,7 +1313,7 @@
           <xsl:apply-templates/>
         </span>
       </xsl:when>
-      <xsl:when test="$target[self::table]">
+      <xsl:when test="@refid and $target[self::table]">
         <xsl:call-template name="expand-gentext2">
           <xsl:with-param name="content">
             <_sfe:CrossReference>

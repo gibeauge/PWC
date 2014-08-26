@@ -11,6 +11,27 @@
   version="1.0" 
   exclude-result-prefixes="xsl xml ch #default exslt _ufe _sfe _gte">
 
+<xsl:template match="page-block[@pb-name='awl']" mode="initial-pass-mode" priority="3">
+  <xsl:choose>
+    <xsl:when test="$doctype='jmtosmigrate' or $doctype='emipc'">
+      <xsl:copy>
+        <xsl:attribute name="ch:chunk">yes</xsl:attribute>
+        <xsl:attribute name="ch:bookmark">yes</xsl:attribute>
+        <xsl:call-template name="set-gte-id"/>
+        <xsl:apply-templates select="@*[not(name()='id')]|node()" mode="initial-pass-mode"/>
+      </xsl:copy>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:copy>
+        <xsl:attribute name="ch:chunk">yes</xsl:attribute>
+        <xsl:attribute name="ch:bookmark">yes</xsl:attribute>
+        <xsl:call-template name="maybe-set-gte-id"/>
+        <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
+      </xsl:copy>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template match="page-block|frontmatter|chapter" mode="initial-pass-mode" priority="2">
   <xsl:choose>
     <xsl:when test="$doctype='jmtosmigrate' or $doctype='emipc'">
@@ -23,6 +44,27 @@
     <xsl:otherwise>
       <xsl:copy>
         <xsl:attribute name="ch:chunk">yes</xsl:attribute>
+        <xsl:call-template name="maybe-set-gte-id"/>
+        <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
+      </xsl:copy>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="ata-page-block[@pb-name='schedchk']" mode="initial-pass-mode" priority="3">
+  <xsl:choose>
+    <xsl:when test="$doctype='jmtosmigrate'">
+      <xsl:copy>
+        <xsl:attribute name="ch:chunk">yes</xsl:attribute>
+        <xsl:attribute name="ch:bookmark">yes</xsl:attribute>
+        <xsl:call-template name="set-gte-id"/>
+        <xsl:apply-templates select="@*[not(name()='id')]|node()" mode="initial-pass-mode"/>
+      </xsl:copy>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:copy>
+        <xsl:attribute name="ch:chunk">yes</xsl:attribute>
+        <xsl:attribute name="ch:bookmark">yes</xsl:attribute>
         <xsl:call-template name="maybe-set-gte-id"/>
         <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
       </xsl:copy>

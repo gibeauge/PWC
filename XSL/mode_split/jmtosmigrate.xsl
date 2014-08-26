@@ -1058,69 +1058,6 @@
   </span>
 </xsl:template>
 
-<xsl:template match="pwcsoa" priority="0">
-  <xsl:param name="hidden" select="'yes'"/>
-  
-  <xsl:variable name="foClass">
-     <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='med')">hidden</xsl:when>
-        <xsl:otherwise>graphic-block</xsl:otherwise>
-     </xsl:choose>
-  </xsl:variable>
-  <xsl:variable name="blockness">block</xsl:variable>
-  <xsl:variable name="hiddenness">
-     <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='med')">yes</xsl:when>
-        <xsl:otherwise>no</xsl:otherwise>
-     </xsl:choose>
-  </xsl:variable>
-  <xsl:variable name="fo-class">
-     <xsl:choose>
-        <xsl:when test="$hiddenness='yes'">
-           <xsl:text>hidden-</xsl:text>
-           <xsl:value-of select="$blockness"/>
-        </xsl:when>
-        <xsl:when test="$hiddenness='no' and starts-with($foClass,'hidden-')">
-           <xsl:value-of select="substring($foClass,8)"/>
-        </xsl:when>
-        <xsl:otherwise>
-           <xsl:value-of select="$foClass"/>
-        </xsl:otherwise>
-     </xsl:choose>
-  </xsl:variable>
-  <xsl:choose>
-     <xsl:when test="$fo-class='hidden-block'">
-        <xsl:if test="$hidden='no'">
-           <div>
-              <xsl:attribute name="class">
-                 <xsl:text>x-pwcsoa-1-0</xsl:text>
-                 <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
-              </xsl:attribute>
-              <xsl:call-template name="t-base-div-basic"/>
-           </div>
-        </xsl:if>
-     </xsl:when>
-     <xsl:when test="$fo-class='block'">
-        <div>
-           <xsl:attribute name="class">
-              <xsl:text>x-pwcsoa-1-0</xsl:text>
-              <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
-           </xsl:attribute>
-           <xsl:call-template name="t-base-div-basic"/>
-        </div>
-     </xsl:when>
-     <xsl:when test="$fo-class='graphic-block'">
-        <div>
-           <xsl:attribute name="class">
-              <xsl:text>x-pwcsoa-1-0</xsl:text>
-              <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
-           </xsl:attribute>
-           <xsl:call-template name="t-base-img-graphic"/>
-        </div>
-     </xsl:when>
-  </xsl:choose>
-</xsl:template>
-
 <xsl:template match="pwcspbdata" priority="0">
   <xsl:apply-templates/>
 </xsl:template>

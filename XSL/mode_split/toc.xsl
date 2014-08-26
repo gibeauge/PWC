@@ -4,18 +4,55 @@
   xmlns:ch="http://www.arbortext.com/namespace/chunker" 
   xmlns:random="http://exslt.org/random"
   extension-element-prefixes="random"
-  exclude-result-prefixes="ch random" version="2.0">
+  xmlns:exslt="http://exslt.org/common"
+  exclude-result-prefixes="ch random exslt" version="2.0">
   
   <xsl:variable name="html-ext" select="'.html'"/>
   <xsl:variable name="sharp" select="'#'"/>
 
   <xsl:template match="/*" mode="toc">
+    <!--
     <xsl:result-document href="{concat($output-dir, '/toc/en.xml')}" method="xml" encoding="utf-8" indent="no">
       <xsl:element name="Structure">
         <xsl:apply-templates mode="toc"/>
       </xsl:element>
     </xsl:result-document>
+    -->
+    <xsl:variable name="toc-tmp">
+      <Structure>
+        <xsl:apply-templates mode="toc"/>
+      </Structure>
+    </xsl:variable>
+    <xsl:variable name="bookmarks">
+      <Bookmarks>
+        <Pages>
+          <xsl:for-each select="exslt:node-set($toc-tmp)//Page[@bookmark='yes']">
+            <Page>
+              <xsl:copy-of select="@*[not(name()='bookmark') and not(name()='FileType')]"/>
+              <xsl:attribute name="FileType">FILE</xsl:attribute>
+            </Page>
+          </xsl:for-each>
+        </Pages>
+      </Bookmarks>
+    </xsl:variable>
+    <xsl:variable name="toc">
+      <xsl:apply-templates select="exslt:node-set($toc-tmp)/*" mode="del-bookmark"/>
+    </xsl:variable>
+    <xsl:result-document href="{concat($output-dir, '/toc/en.xml')}" method="xml" encoding="utf-8" indent="no" exclude-result-prefixes="ch">
+      <xsl:copy-of select="$toc"/>
+    </xsl:result-document>
+    <xsl:result-document href="{concat($output-dir, '/toc/bookmarks.xml')}" method="xml" encoding="utf-8" indent="no" exclude-result-prefixes="ch">
+      <xsl:copy-of select="$bookmarks"/>
+    </xsl:result-document>
   </xsl:template>
+
+  <xsl:template match="@*|node()" mode="del-bookmark">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="del-bookmark"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="@bookmark" mode="del-bookmark"/>
 
   <xsl:template match="*" mode="toc">
     <xsl:if test="descendant::*[@ch:chunk = 'yes'] or ancestor::*[@ch:title = 'toc']">
@@ -32,29 +69,28 @@
     
     <xsl:choose>
       <xsl:when test="contains(@class, 'frontmatter')">
-        <xsl:element name="Page">
-          
+        <Page>
           <xsl:attribute name="ID">
             <xsl:call-template name="generate-toc-id"/>
           </xsl:attribute>
-          
           <xsl:attribute name="Title">
             <xsl:text>FRONTMATTER</xsl:text>
           </xsl:attribute>
           
           <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]" mode="toc"/>
-        </xsl:element>
+        </Page>
       </xsl:when>
       <xsl:when test="not($hasTitle) or parent::*[local-name(.)='body']">
         <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]" mode="toc"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:element name="Page">
-          
+        <Page>
+          <xsl:if test="@ch:bookmark">
+            <xsl:attribute name="bookmark">yes</xsl:attribute>
+          </xsl:if>
           <xsl:attribute name="ID">
             <xsl:call-template name="generate-toc-id"/>
           </xsl:attribute>
-          
           <xsl:attribute name="Title">
             <xsl:apply-templates select="$toc" mode="toc-title"/>
           </xsl:attribute>
@@ -67,25 +103,17 @@
           
           <xsl:attribute name="FileType">
             <xsl:choose>
-              <xsl:when test="$isFolder">
-                <xsl:text>FOLDER</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>FILE</xsl:text>
-              </xsl:otherwise>
+              <xsl:when test="$isFolder">FOLDER</xsl:when>
+              <xsl:otherwise>FILE</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
           
           <xsl:if test="not($isFolder)">
-            <xsl:attribute name="MIMEType">
-              <xsl:text>text/html</xsl:text>
-            </xsl:attribute>
+            <xsl:attribute name="MIMEType">text/html</xsl:attribute>
           </xsl:if>
           
           <xsl:if test="$toc/@ch:title = 'notoc'">
-            <xsl:attribute name="Display">
-              <xsl:text>false</xsl:text>
-            </xsl:attribute>
+            <xsl:attribute name="Display">false</xsl:attribute>
           </xsl:if>
           
           <xsl:choose>
@@ -99,7 +127,7 @@
             </xsl:otherwise>
           </xsl:choose>
           
-        </xsl:element>
+        </Page>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -117,12 +145,10 @@
       </xsl:choose>
     </xsl:variable>
     
-    <xsl:element name="Page">
-      
+    <Page>
       <xsl:attribute name="ID">
         <xsl:call-template name="generate-toc-id"/>
       </xsl:attribute>
-      
       <xsl:attribute name="Title">
         <xsl:call-template name="normalize-space">
           <xsl:with-param name="str">
@@ -137,24 +163,18 @@
       
       <xsl:attribute name="FileType">
         <xsl:choose>
-          <xsl:when test="$hasFigure = '1'">
-            <xsl:text>FOLDER</xsl:text>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:text>FILE</xsl:text>
-          </xsl:otherwise>
+          <xsl:when test="$hasFigure = '1'">FOLDER</xsl:when>
+          <xsl:otherwise>FILE</xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
       
-      <xsl:attribute name="MIMEType">
-        <xsl:text>text/html</xsl:text>
-      </xsl:attribute>
+      <xsl:attribute name="MIMEType">text/html</xsl:attribute>
       
       <xsl:if test="string($lof) = '0' and $hasFigure = '1'">
         <xsl:apply-templates select="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), 'Figure')]" mode="tic"/>
       </xsl:if>
       
-    </xsl:element>
+    </Page>
   </xsl:template>
   
   <!-- @ch:title of figures not in list of figures -->
@@ -162,12 +182,10 @@
     <xsl:variable name="chunk" select="ancestor::*[@ch:chunk = 'yes'][1]"/>
     <xsl:variable name="chunk-id" select="generate-id($chunk)"/>
     
-    <xsl:element name="Page">
-      
+    <Page>
       <xsl:attribute name="ID">
         <xsl:call-template name="generate-toc-id"/>
       </xsl:attribute>
-      
       <xsl:attribute name="Title">
         <xsl:call-template name="normalize-space">
           <xsl:with-param name="str">
@@ -180,14 +198,10 @@
         <xsl:value-of select="concat($chunk/@ch:filename, $html-ext, $sharp, @id)"/>
       </xsl:attribute>
       
-      <xsl:attribute name="FileType">
-        <xsl:text>FILE</xsl:text>
-      </xsl:attribute>
+      <xsl:attribute name="FileType">FILE</xsl:attribute>
       
-      <xsl:attribute name="MIMEType">
-        <xsl:text>text/html</xsl:text>
-      </xsl:attribute>
-    </xsl:element>
+      <xsl:attribute name="MIMEType">text/html</xsl:attribute>
+    </Page>
     
     <xsl:apply-templates select="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), 'Figure')]" mode="tic"/>
     
@@ -211,5 +225,4 @@
     <xsl:value-of select="normalize-space(translate($str, '&#xa0;&#xA0;&#x2003;&#x2002;', '    '))"/>
   </xsl:template>
   
-
 </xsl:stylesheet>
