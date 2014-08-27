@@ -1,0 +1,1078 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6AF78314-E3EC-4647-B402-2BE336D8DFEC}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EuCA.Pdf.Web</RootNamespace>
+    <AssemblyName>EuCA.Pdf.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\content.css" />
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.00.00.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.00.00.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.00.00.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_4.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_5.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_6.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_7.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_8.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.01.fig_9.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.02.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.02.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.03.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.03.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.03.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.03.fig_4.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.03.fig_5.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.03.fig_6.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.03.fig_7.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.04.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.04.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.04.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.04.fig_4.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.04.fig_5.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.04.fig_6.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.30.04.fig_7.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.40.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.40.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.01.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.02.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.02.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.02.fig_4.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.03.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.03.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.50.03.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.60.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.60.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.60.01.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.60.01.fig_4.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.60.01.fig_5.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.60.01.fig_6.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.60.01.fig_7.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.70.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.70.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.70.01.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.70.01.fig_4.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.70.01.fig_5.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.70.01.fig_6.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.70.01.fig_7.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.72.70.01.fig_8.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.01.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.03.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.03.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.04.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.05.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.05.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.05.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.10.05.fig_4.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.20.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.20.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.20.02.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.20.03.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.20.03.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.73.20.03.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.74.10.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.74.10.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.10.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.10.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.30.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.30.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.30.01.fig_3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.30.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.30.03.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.30.04.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.75.40.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.77.10.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.77.10.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.77.20.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.77.20.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.77.40.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.20.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.20.01.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.20.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.20.03.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.20.04.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.20.05.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.20.05.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.30.01.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.30.02.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.30.02.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.30.03.fig_1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.79.30.03.fig_2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.front.chapsect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.front.intro.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.front.intro.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.front.intro.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.front.record-of-revisions.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.front.sblist.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\30B1414.front.spblist.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\highlights.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\title-page.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_ipc_30B1414_41.0\toc\en.xml" />
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.00.00.timelim.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.10.00.oplimits.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.10.00.oplimits.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.10.00.oplimits.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.20.00.schedchk.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.20.00.schedchk.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.50.00.unschedchk.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.50.00.unschedchk.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.05.50.00.unschedchk.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.clean.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.inspect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.inspect.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.inspect.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.mainprac.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.rem-inst.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.rem-inst.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.rem-inst.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.repair.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.repair.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.70.00.00.repair.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.71.00.00.clean.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.71.00.00.clean.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.71.00.00.clean.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.71.00.00.test.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.71.00.00.test.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.71.00.00.test.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.d-and-o.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault1.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault1.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault1.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault2.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault2.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault2.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault3.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault3.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault3.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault4.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault4.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault4.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault5.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault5.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault5.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault6.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault6.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault6.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault7.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault7.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault7.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault8.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault8.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault8.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault9.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault9.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.fault9.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.inspect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.inspect.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.inspect.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.service.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.service.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.00.00.service.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.01.inspect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.01.inspect.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.01.inspect.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.01.rem-inst.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.01.rem-inst.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.01.rem-inst.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.01.repair.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.01.repair.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.02.inspect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.30.02.inspect.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.01.inspect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.01.inspect.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.01.rem-inst.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.01.rem-inst.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.01.repair.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.01.test.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.40.01.test.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.01.inspect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.01.inspect.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.01.inspect.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.01.rem-inst.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.01.rem-inst.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.02.inspect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.02.inspect.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.02.inspect.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.02.rem-inst.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.02.rem-inst.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.02.rem-inst.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.03.inspect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.03.inspect.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.03.inspect.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.03.rem-inst.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.50.03.rem-inst.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.60.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.60.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.60.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.60.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.60.01.mainprac.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.70.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.70.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.70.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.72.70.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.00.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.00.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.00.00.d-and-o.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.01.mainprac.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.02.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.02.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.03.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.03.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.04.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.04.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.04.mainprac.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.05.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.10.05.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.20.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.20.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.20.02.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.20.02.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.20.03.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.73.20.03.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.74.00.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.74.00.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.74.10.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.74.10.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.00.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.00.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.10.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.10.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.10.02.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.10.02.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.01.mainprac.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.02.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.02.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.03.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.03.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.04.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.75.30.04.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.00.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.00.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.10.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.10.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.20.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.20.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.20.02.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.20.02.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.40.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.77.40.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.00.00.d-and-o.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.00.00.d-and-o.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.01.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.01.mainprac.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.02.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.02.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.03.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.03.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.03.mainprac.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.04.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.04.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.05.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.20.05.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.30.01.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.30.02.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.30.02.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.30.03.mainprac.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.79.30.03.mainprac.lof.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.awl.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.awl.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.awlror.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.chapsect.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.consume.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.consume.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.intro.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.intro.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.record-of-revisions.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.sblist.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.spectool.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.spectool.lot.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\30B1412.front.trlist.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\highlights.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\title-page.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Manuals\_migrate_30B1412_36.1\toc\en.xml" />
+    <Content Include="Global.asax" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="images\appbar.printer.text.png" />
+    <Content Include="images\keytofigure.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\table.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\pwcdisplay.js" />
+    <Content Include="Web.config" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50447</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49273/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
