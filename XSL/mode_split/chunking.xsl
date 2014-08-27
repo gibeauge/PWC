@@ -20,30 +20,29 @@
         method="xhtml" encoding="utf-8" indent="no"
         omit-xml-declaration="yes" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
         exclude-result-prefixes="ch" >
-        <xsl:element name="html">
+        <html>
           <xsl:call-template name="build-header">
             <xsl:with-param name="title">
               <xsl:value-of select="descendant::*[@ch:title][1]"/>
             </xsl:with-param>
           </xsl:call-template>
-          <xsl:element name="body">
+          <body>
             <xsl:apply-templates select="." mode="output-content"/>
-          </xsl:element>
-        </xsl:element>
+          </body>
+        </html>
       </xsl:result-document>
     </xsl:if>
   </xsl:template>
   
   <xsl:template name="build-header">
     <xsl:param name="title"/>
-    <xsl:element name="head">
+    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
       <link href="{$css-path}/content.css" rel="stylesheet" type="text/css"/>
-      <script src="{$js-path}/pwcdisplay.js" type="text/javascript"><!--  --></script>
-      <xsl:element name="title">
-        <xsl:value-of select="$title"/>
-      </xsl:element>
-    </xsl:element>
+      <script src="{$js-path}/pwcdisplay.js" type="text/javascript"><![CDATA[ // JS ]]></script>
+      <script src="{$js-path}/pwcdisplay_common.js" type="text/javascript"><![CDATA[ // JS ]]></script>
+      <title><xsl:value-of select="$title"/></title>
+    </head>
   </xsl:template>
   
   <xsl:template match="*" mode="output-content">

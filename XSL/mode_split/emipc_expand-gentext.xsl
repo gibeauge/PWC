@@ -287,11 +287,14 @@
   </xsl:template>
 
   <xsl:template match="pwcbrk" mode="expand-gentext" priority="0">
+    <!--
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:processing-instruction name="Pub">_newline</xsl:processing-instruction>
       </xsl:with-param>
     </xsl:call-template>
+    -->
+    <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
 
   <xsl:template match="pwcchapsect-list" mode="expand-gentext" priority="0">

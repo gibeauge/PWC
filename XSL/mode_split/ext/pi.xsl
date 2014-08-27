@@ -25,7 +25,7 @@
       </xsl:call-template>
     </xsl:when>
     <xsl:when test="starts-with($pi, '_newline')">
-      <br class="empty"/>
+      <br />
     </xsl:when>
     <xsl:when test="starts-with($pi, '_hardspace')">
       <xsl:text>&#160;</xsl:text>

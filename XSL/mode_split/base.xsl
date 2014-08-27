@@ -4601,7 +4601,7 @@
     <div id="revDate"    ><xsl:value-of select="ancestor::book/@revdate"/></div>
   </div>
   <xsl:apply-templates/>
-  <script type="text/javascript">addTableChangebars();</script>
+  <script language="JavaScript" type="text/javascript">addTableChangebars();</script>
   <script language="JavaScript" type="text/javascript">addChangebars();</script>
 </xsl:template>
 
@@ -4610,7 +4610,7 @@
   <xsl:call-template name="t-base-pwcmetainfo"/>
   <xsl:call-template name="t-base-pwcbannerinfo"/>
   <xsl:apply-templates/>
-  <script type="text/javascript">addTableChangebars();</script>
+  <script language="JavaScript" type="text/javascript">addTableChangebars();</script>
   <script language="JavaScript" type="text/javascript">addChangebars();</script>
 </xsl:template>
 
@@ -4771,6 +4771,7 @@
 </xsl:template>
 
 <xsl:template name="t-base-js-toggle">
+  <!--
   <script language="javascript" type="text/javascript">
     function toggle (heading, tableId) { 
       var headingObj = document.getElementById(heading);
@@ -4786,6 +4787,7 @@
       }
     }
   </script>
+  -->
 </xsl:template>
 
 </xsl:stylesheet>
