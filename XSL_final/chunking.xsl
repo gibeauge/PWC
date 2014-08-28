@@ -72,7 +72,10 @@
           <xsl:value-of select="."/>
         </xsl:when>
         <xsl:otherwise>
+          <!--
           <xsl:variable name="dest-chunk-filename" select="//*[@id = $refid]/ancestor-or-self::*[@ch:chunk and @ch:filename][1]/@ch:filename"/>
+          -->
+          <xsl:variable name="dest-chunk-filename" select="id($refid)/ancestor-or-self::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
           <xsl:value-of select="concat($dest-chunk-filename, '.html', .)"/>
         </xsl:otherwise>
       </xsl:choose>

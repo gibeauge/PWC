@@ -143,9 +143,8 @@
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
   <div style="display:none;" class="x-figure-1-0">
     <xsl:copy-of select="@ch:*"/>
-    <xsl:attribute name="id">
-      <xsl:value-of select="$l-id"/>
-    </xsl:attribute>
+    <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
+    <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -176,9 +175,8 @@
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
   <div style="display:none" class="x-graphic-1-0">
     <xsl:copy-of select="@ch:*"/>
-    <xsl:attribute name="id">
-      <xsl:value-of select="$l-id"/>
-    </xsl:attribute>
+    <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
+    <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -190,7 +188,10 @@
 </xsl:template>
 
 <xsl:template match="grphcref" priority="0">
+  <!--
   <xsl:variable name="l-node" select="//graphic[@id=current()/@refid]"/>
+  -->
+  <xsl:variable name="l-node" select="id(@refid)"/>
   <xsl:choose>
     <xsl:when test="not($l-node)">
       <span class="x-ref-broken">

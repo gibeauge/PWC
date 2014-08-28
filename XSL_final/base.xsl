@@ -1531,9 +1531,8 @@
   </div>
   <div style="display:none" class="x-key-1-0">
      <xsl:copy-of select="@ch:*"/>
-     <xsl:attribute name="id">
-        <xsl:value-of select="$l-id"/>
-     </xsl:attribute>
+     <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
+     <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
      <xsl:apply-templates/>
   </div>
   <xsl:call-template name="t-base-js-toggle"/>
@@ -1639,7 +1638,7 @@
 
 <xsl:template match="marker" priority="0">
   <span class="x-marker-1-0">
-    <xsl:copy-of select="@ch:*|@id"/>
+    <xsl:copy-of select="@ch:*|@id|@xml:id"/>
     <xsl:apply-templates/>
   </span>
 </xsl:template>
@@ -2565,6 +2564,7 @@
 <xsl:template match="revst" priority="0">
   <div class="x-revst-1-0" id="{@ref}">
     <xsl:copy-of select="@ch:*"/>
+    <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -2890,13 +2890,11 @@
   </div>
   <div style="display:none" class="x-table-3-0">
      <xsl:copy-of select="@ch:*"/>
+     <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
      <xsl:attribute name="id">
         <xsl:value-of select="$pf-id"/>
         <xsl:apply-templates mode="set-id" select="."/>
      </xsl:attribute>
-     <xsl:call-template name="maybe-set-id">
-        <xsl:with-param name="only-if-id-attr" select="'no'"/>
-     </xsl:call-template>
      <xsl:apply-templates/>
   </div>
   <xsl:call-template name="t-base-js-toggle"/>
@@ -2918,6 +2916,7 @@
   </div>
   <div style="display:none" class="x-table-5-0">
      <xsl:copy-of select="@ch:*"/>
+     <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
      <xsl:attribute name="id">
         <xsl:value-of select="$pf-id"/>
         <xsl:apply-templates mode="set-id" select="."/>
@@ -4250,7 +4249,9 @@
   </xsl:element>
 </xsl:template>
 
+<!--
 <xsl:template match="@xml:id"/>
+-->
 
 <xsl:template match="_ufe:hardspace" priority="2">
   <xsl:text>&#xa0;</xsl:text>
@@ -4335,6 +4336,7 @@
       </xsl:attribute>
     </xsl:when>
   </xsl:choose>
+  <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
 </xsl:template>
 
 <xsl:template name="maybe-get-id">
@@ -4353,18 +4355,6 @@
 
 <xsl:template match="*" mode="set-id">
   <xsl:number level="multiple" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
-</xsl:template>
-
-<xsl:template name="object.id">
-  <xsl:param name="object" select="."/>
-  <xsl:choose>
-     <xsl:when test="$object/@id">
-        <xsl:value-of select="$object/@id"/>
-     </xsl:when>
-     <xsl:otherwise>
-        <xsl:value-of select="generate-id($object)"/>
-     </xsl:otherwise>
-  </xsl:choose>
 </xsl:template>
 
 <xsl:template name="length-to-pixels">
@@ -4542,7 +4532,6 @@
 
 <xsl:template name="t-base-div-title">
   <xsl:copy-of select="@ch:*"/>
-  <xsl:attribute name="id"><xsl:call-template name="object.id"/></xsl:attribute>
   <xsl:call-template name="maybe-set-id">
     <xsl:with-param name="only-if-id-attr" select="'no'"/>
   </xsl:call-template>
