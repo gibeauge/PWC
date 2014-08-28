@@ -2865,7 +2865,16 @@
 </xsl:template>
 
 <xsl:template match="table[@display='expand']" priority="13">
-  <div class="x-table-1-0">
+  <div>
+  <xsl:attribute name="class">
+  	<xsl:text>x-table-1-0</xsl:text>
+  	<xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+  </xsl:attribute>
+  <xsl:if test="title">
+  	<xsl:attribute name="id">
+  		<xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	</xsl:attribute>
+  </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
@@ -2875,126 +2884,244 @@
     <xsl:attribute name="class">
       <xsl:text>x-table-2-0</xsl:text>
       <xsl:if test="ancestor-or-self::page-block[1]/@pb-name='title-page'"> x-table-2-1</xsl:if>
+	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>      
    </xsl:attribute>
+   <xsl:if test="title">
+	  	<xsl:attribute name="id">
+	  		<xsl:value-of select="concat('pr_', generate-id(.))"/>
+	  	</xsl:attribute>
+  	</xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="sheet/gdesc/table" priority="9">
   <div>
-    <a href="#none" onclick="toggle('{@id}','{@id}');">
-      <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
-      <xsl:text>                   </xsl:text>
-      <xsl:apply-templates mode="numbering" select="title"/>
-    </a>
+  	<xsl:if test="title">
+   	  <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+  	  <xsl:attribute name="class">
+        <xsl:text>pr-tbl</xsl:text>
+  	  </xsl:attribute>
+  	</xsl:if>
+	<div>
+	  <a href="#none" onclick="toggle('{@id}','{@id}');">
+	    <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
+	    <xsl:text>                   </xsl:text>
+	    <xsl:apply-templates mode="numbering" select="title"/>
+	  </a>
+	</div>
+	<div style="display:none" class="x-table-3-0">
+	   <xsl:copy-of select="@ch:*"/>
+	   <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
+	   <xsl:attribute name="id">
+	      <xsl:value-of select="$pf-id"/>
+	      <xsl:apply-templates mode="set-id" select="."/>
+	   </xsl:attribute>
+	   <xsl:apply-templates/>
+	</div>
+	<xsl:call-template name="t-base-js-toggle"/>
   </div>
-  <div style="display:none" class="x-table-3-0">
-     <xsl:copy-of select="@ch:*"/>
-     <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
-     <xsl:attribute name="id">
-        <xsl:value-of select="$pf-id"/>
-        <xsl:apply-templates mode="set-id" select="."/>
-     </xsl:attribute>
-     <xsl:apply-templates/>
-  </div>
-  <xsl:call-template name="t-base-js-toggle"/>
 </xsl:template>
 
 <xsl:template match="highlights/table" priority="10">
-  <div class="x-table-4-0">
+  <div>
+    <xsl:attribute name="class">
+  	  <xsl:text>x-table-4-0</xsl:text>
+  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    </xsl:attribute>
+    <xsl:if test="title">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="figure/table" priority="7">
   <div>
-    <a href="#none" onclick="toggle('{@id}','{@id}');">
-      <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
-      <xsl:text>                   </xsl:text>
-      <xsl:apply-templates mode="numbering" select="title"/>
-    </a>
+  	<xsl:if test="title">
+   	  <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+  	  <xsl:attribute name="class">
+        <xsl:text>pr-tbl</xsl:text>
+  	  </xsl:attribute>
+  	</xsl:if>
+    <div>
+      <a href="#none" onclick="toggle('{@id}','{@id}');">
+        <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
+        <xsl:text>                   </xsl:text>
+        <xsl:apply-templates mode="numbering" select="title"/>
+      </a>
+    </div>
+    <div style="display:none" class="x-table-5-0">
+       <xsl:copy-of select="@ch:*"/>
+       <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
+       <xsl:attribute name="id">
+          <xsl:value-of select="$pf-id"/>
+          <xsl:apply-templates mode="set-id" select="."/>
+       </xsl:attribute>
+       <xsl:apply-templates/>
+    </div>
+    <xsl:call-template name="t-base-js-toggle"/>
   </div>
-  <div style="display:none" class="x-table-5-0">
-     <xsl:copy-of select="@ch:*"/>
-     <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
-     <xsl:attribute name="id">
-        <xsl:value-of select="$pf-id"/>
-        <xsl:apply-templates mode="set-id" select="."/>
-     </xsl:attribute>
-     <xsl:apply-templates/>
-  </div>
-  <xsl:call-template name="t-base-js-toggle"/>
 </xsl:template>
 
 <xsl:template match="mfmatr//table[title]" priority="8">
   <div>
-    <a href="#none" onclick="toggle('{@id}','{@id}');">
-      <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
-      <xsl:text>                   </xsl:text>
-      <xsl:apply-templates mode="numbering" select="title"/>
-    </a>
-  </div>
-  <div style="display:none" class="x-table-6-0">
-     <xsl:call-template name="t-base-div-basic2"/>
+  	<xsl:if test="title">
+   	  <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+  	  <xsl:attribute name="class">
+        <xsl:text>pr-tbl</xsl:text>
+  	  </xsl:attribute>
+  	</xsl:if>
+    <div>
+      <a href="#none" onclick="toggle('{@id}','{@id}');">
+        <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
+        <xsl:text>                   </xsl:text>
+        <xsl:apply-templates mode="numbering" select="title"/>
+      </a>
+    </div>
+    <div style="display:none" class="x-table-6-0">
+       <xsl:call-template name="t-base-div-basic2"/>
+    </div>
   </div>
 </xsl:template>
 
 <xsl:template match="mfmatr//table" priority="7">
-  <div class="x-table-7-0">
+  <div>
+    <xsl:attribute name="class">
+  	  <xsl:text>x-table-7-0</xsl:text>
+  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    </xsl:attribute>
+    <xsl:if test="title">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="table[@tabstyle='eqn' and @display='inline']" priority="6">
-  <span style="display:inline-block" class="x-table-8-0">
+  <span style="display:inline-block">
+    <xsl:attribute name="class">
+  	  <xsl:text>x-table-8-0</xsl:text>
+  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    </xsl:attribute>
+    <xsl:if test="title">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </span>
 </xsl:template>
 
 <xsl:template match="table[@tabstyle='IPCDET']" priority="5">
-  <div class="x-table-9-0">
+  <div>
+    <xsl:attribute name="class">
+  	  <xsl:text>x-table-9-0</xsl:text>
+  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    </xsl:attribute>
+    <xsl:if test="title">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="table[@tabstyle='frac' and parent::item]" priority="4">
-  <span style="display:inline-block" class="x-table-10-0">
+  <span style="display:inline-block">
+    <xsl:attribute name="class">
+  	  <xsl:text>x-table-10-0</xsl:text>
+  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    </xsl:attribute>
+    <xsl:if test="title">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </span>
 </xsl:template>
 
 <xsl:template match="table[@tabstyle='frac' and (parent::step1 or parent::step2 or parent::step3 or parent::step4 or parent::step5)]" priority="3">
-  <span style="display:inline-block" class="x-table-11-0">
+  <span style="display:inline-block">
+  		<xsl:attribute name="class">
+  	  <xsl:text>x-table-11-0</xsl:text>
+  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    </xsl:attribute>
+    <xsl:if test="title">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </span>
 </xsl:template>
 
 <xsl:template match="table[@tabstyle='frac']" priority="2">
-  <span style="display:inline-block" class="x-table-12-0">
+  <span style="display:inline-block">
+    <xsl:attribute name="class">
+  	  <xsl:text>x-table-12-0</xsl:text>
+  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    </xsl:attribute>
+    <xsl:if test="title">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </span>
 </xsl:template>
 
 <xsl:template match="table[@tabstyle='eqn']" priority="1">
-  <div class="x-table-13-0">
+  <div>
+    <xsl:attribute name="class">
+  	  <xsl:text>x-table-13-0</xsl:text>
+  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    </xsl:attribute>
+    <xsl:if test="title">
+      <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="table" priority="0">
   <div>
-    <a href="#none" onclick="toggle('{@id}','{@id}');">
-      <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
-      <xsl:text>                   </xsl:text>
-      <xsl:apply-templates mode="numbering" select="title"/>
-    </a>
-  </div>
-  <div style="display:none">
-    <xsl:attribute name="class">
-      <xsl:text>x-table-14-0</xsl:text>
-      <xsl:if test="@tabstyle='general' or @tabstyle='consumables' or @tabstyle='special-tools' or @tabstyle='fixtures-and-equipment'"> x-table-13-1</xsl:if>
-    </xsl:attribute>
-    <xsl:call-template name="t-base-div-basic2"/>
+  	<xsl:if test="title">
+   	  <xsl:attribute name="id">
+        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+  	  </xsl:attribute>
+  	  <xsl:attribute name="class">
+        <xsl:text>pr-tbl</xsl:text>
+  	  </xsl:attribute>
+  	</xsl:if>
+    <div>
+      <a href="#none" onclick="toggle('{@id}','{@id}');">
+        <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
+        <xsl:text>                   </xsl:text>
+        <xsl:apply-templates mode="numbering" select="title"/>
+      </a>
+    </div>
+    <div style="display:none">
+      <xsl:attribute name="class">
+        <xsl:text>x-table-14-0</xsl:text>
+        <xsl:if test="@tabstyle='general' or @tabstyle='consumables' or @tabstyle='special-tools' or @tabstyle='fixtures-and-equipment'"> x-table-13-1</xsl:if>
+      </xsl:attribute>
+      <xsl:call-template name="t-base-div-basic2"/>
+    </div>
   </div>
 </xsl:template>
 
