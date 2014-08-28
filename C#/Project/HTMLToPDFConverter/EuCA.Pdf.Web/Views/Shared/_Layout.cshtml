@@ -150,7 +150,7 @@
                                         '</a>'+
                                     '</div>'+
                                 '</div>'+
-                            '</div>'
+                            '</div>'+
                         '</form>'+
                     '</div>'+
                 '</body>';
@@ -169,12 +169,27 @@
             var tableIds = new Object();
             var figureIds = new Object();
 
-            $('div[class^="x-table"]').each(function() {
-                tableIds[$(this).attr('id')] = $(this).attr('id');
+            $('div[class^="pr-tbl"]').each(function() {
+                var txt = $.trim($(this).find("div[class^='x-title']").first().text());
+                if (txt.length == 0) { txt = $.trim($(this).children(':first').text()); }                
+                if (txt.length != 0) {
+                    tableIds[$(this).attr('id')] = txt;
+                }
+                
             });
             
-            $('div[class^="x-n-"], div[class^="x-procedure"]').each(function() {
-                paraIds[$(this).attr('id')] = $(this).children(':first').text();
+            $('div[class^="x-n-para"], div[class^="x-task"]').each(function() {
+                var txt = $.trim($(this).children(':first').text());
+                if (txt.length != 0) {
+                    paraIds[$(this).attr('id')] = txt;
+                }
+            });
+
+            $('div[class^="x-figure"]').each(function() {
+                var txt = $.trim($(this).children(':first').text());
+                if (txt.length != 0) {
+                    figureIds[$(this).attr('id')] = txt;
+                }
             });
 
             euCAPrintPopup(paraIds, tableIds, figureIds);
