@@ -6,14 +6,14 @@
   exclude-result-prefixes="ch" version="1.0">
   
   <xsl:template match="/*" mode="output">
-    <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and string-length(@ch:filename) > 0]" mode="output"/>
+    <xsl:apply-templates select="descendant::*[@ch:chunk and string-length(@ch:filename) > 0]" mode="output"/>
   </xsl:template>
   
-  <xsl:template match="*[local-name(.)='div' and @ch:chunk = 'yes' and @ch:filename]" mode="output">
+  <xsl:template match="*[local-name(.)='div' and @ch:chunk and @ch:filename]" mode="output">
     <xsl:variable name="id" select="generate-id(.)"/>
-    <xsl:variable name="isFolder" select="count(.//*[@ch:chunk = 'yes']) > 0"/>
+    <xsl:variable name="isFolder" select="count(.//*[@ch:chunk and .//*[@ch:title = 'toc']]) > 0"/>
     <xsl:variable name="hasFiles" select="count(.//*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 1"/>
-    <xsl:variable name="hasFolders" select="count(.//*[@ch:chunk = 'yes' and .//*[@ch:chunk = 'yes'] and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 0"/>
+    <xsl:variable name="hasFolders" select="count(.//*[@ch:chunk and .//*[@ch:chunk] and generate-id(ancestor::*[@ch:chunk][1]) = $id]) > 0"/>
     
     <xsl:if test="($hasFiles and not($hasFolders)) or not($isFolder)">
       <xsl:result-document href="{concat($output-dir, '/', @ch:filename, '.html')}" 
@@ -47,7 +47,7 @@
   
   <xsl:template match="*" mode="output-content">
     <xsl:element name="{local-name(.)}">
-      <xsl:apply-templates select="@*|node()[not(@ch:chunk = 'yes')]" mode="output-content"/>
+      <xsl:apply-templates select="@*|node()[not(@ch:chunk)]" mode="output-content"/>
     </xsl:element>
   </xsl:template>
   
@@ -61,7 +61,7 @@
   
   <xsl:template match="*[local-name()='a']/@href" mode="output-content">
     <xsl:variable name="refid" select="substring-after(., '#')"/>
-    <xsl:variable name="current-chunk" select="ancestor::*[@ch:chunk = 'yes' and @ch:filename][1]"/>
+    <xsl:variable name="current-chunk" select="ancestor::*[@ch:chunk and @ch:filename][1]"/>
     
     <xsl:attribute name="href">
       <xsl:choose>
@@ -72,7 +72,7 @@
           <xsl:value-of select="."/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="dest-chunk-filename" select="//*[@id = $refid]/ancestor-or-self::*[@ch:chunk = 'yes' and @ch:filename][1]/@ch:filename"/>
+          <xsl:variable name="dest-chunk-filename" select="//*[@id = $refid]/ancestor-or-self::*[@ch:chunk and @ch:filename][1]/@ch:filename"/>
           <xsl:value-of select="concat($dest-chunk-filename, '.html', .)"/>
         </xsl:otherwise>
       </xsl:choose>
