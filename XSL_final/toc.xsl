@@ -10,12 +10,14 @@
   <xsl:variable name="html-ext" select="'.html'"/>
   <xsl:variable name="sharp" select="'#'"/>
 
+  <!-- Create TOC and Bookmarks files -->
   <xsl:template match="/*" mode="toc">
     <xsl:variable name="toc-tmp">
       <Structure>
         <xsl:apply-templates mode="toc"/>
       </Structure>
     </xsl:variable>
+    <!-- Use TOC to create bookmarks -->
     <xsl:variable name="bookmarks">
       <Bookmarks>
         <Pages>
@@ -31,10 +33,16 @@
     <xsl:variable name="toc">
       <xsl:apply-templates select="exslt:node-set($toc-tmp)/*" mode="del-bookmark"/>
     </xsl:variable>
-    <xsl:result-document href="{concat($output-dir, '/toc/en.xml')}" method="xml" encoding="utf-8" indent="no" exclude-result-prefixes="ch">
+    
+    <!-- Output TOC -->
+    <xsl:result-document href="{concat($output-dir, '/XML/Structure.xml')}" method="xml" encoding="utf-8" 
+                         indent="yes" exclude-result-prefixes="ch" omit-xml-declaration="no">
       <xsl:copy-of select="$toc"/>
     </xsl:result-document>
-    <xsl:result-document href="{concat($output-dir, '/toc/bookmarks.xml')}" method="xml" encoding="utf-8" indent="no" exclude-result-prefixes="ch">
+    
+    <!-- Output Bookmarks -->
+    <xsl:result-document href="{concat($output-dir, '/XML/Bookmark.xml')}" method="xml" encoding="utf-8" 
+                         indent="yes" exclude-result-prefixes="ch" omit-xml-declaration="no">
       <xsl:copy-of select="$bookmarks"/>
     </xsl:result-document>
   </xsl:template>

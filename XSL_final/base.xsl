@@ -1728,9 +1728,14 @@
 
 <xsl:template match="num-index" priority="0">
   <div class="x-num-index-1-0">
+     <!--
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id">
         <xsl:with-param name="only-if-id-attr" select="'no'"/>
+     </xsl:call-template>
+     -->
+     <xsl:call-template name="t-base-div-chunk">
+       <xsl:with-param name="ch-name" select="'numerical-index'"/>
      </xsl:call-template>
      <xsl:call-template name="t-base-pwcmetainfo"/>
      <xsl:call-template name="t-base-pwcbannerinfo"/>
@@ -4821,16 +4826,7 @@
 <xsl:template name="t-base-pwcbannerinfo">
   <div id="pwcbannerinfo" style="display:none">
     <div id="manualTitle">
-       <xsl:choose>
-          <xsl:when test="ancestor::book[contains(@doctype,'epc')]//page-block[@pb-name='title-page']">ILLUSTRATED PARTS CATALOG</xsl:when>
-          <xsl:when test="ancestor::book[contains(@doctype,'tmm')]//page-block[@pb-name='title-page']">MAINTENANCE MANUAL</xsl:when>
-          <xsl:when test="ancestor::book[contains(@doctype,'lmm')]//page-block[@pb-name='title-page']">LINE MAINTENANCE MANUAL</xsl:when>
-          <xsl:when test="ancestor::book[contains(@doctype,'em')]//page-block[@pb-name='title-page']">OVERHAUL MANUAL</xsl:when>
-          <xsl:when test="ancestor::book[contains(@doctype,'cir')]//page-block[@pb-name='title-page']">CLEANING INSPECTION REPAIR (CIR) MANUAL</xsl:when>
-          <xsl:otherwise>
-             <xsl:value-of select="//page-block[@pb-name='title-page'][1]/module/title-page/manual-title"/>
-          </xsl:otherwise>
-       </xsl:choose>
+       <xsl:call-template name="t-base-pwcbannerinfo-title"/>
     </div>
     <div id="engine">
        <xsl:choose>
@@ -4863,6 +4859,19 @@
     <div id="revision"><xsl:value-of select="ancestor::book/@revnbr"/></div>
     <div id="revDate" ><xsl:value-of select="ancestor::book/@revdate"/></div>
   </div>
+</xsl:template>
+
+<xsl:template name="t-base-pwcbannerinfo-title">
+  <xsl:choose>
+    <xsl:when test="ancestor-or-self::book[contains(@doctype,'epc')]//page-block[@pb-name='title-page']">ILLUSTRATED PARTS CATALOG</xsl:when>
+    <xsl:when test="ancestor-or-self::book[contains(@doctype,'tmm')]//page-block[@pb-name='title-page']">MAINTENANCE MANUAL</xsl:when>
+    <xsl:when test="ancestor-or-self::book[contains(@doctype,'lmm')]//page-block[@pb-name='title-page']">LINE MAINTENANCE MANUAL</xsl:when>
+    <xsl:when test="ancestor-or-self::book[contains(@doctype,'em')]//page-block[@pb-name='title-page']">OVERHAUL MANUAL</xsl:when>
+    <xsl:when test="ancestor-or-self::book[contains(@doctype,'cir')]//page-block[@pb-name='title-page']">CLEANING INSPECTION REPAIR (CIR) MANUAL</xsl:when>
+    <xsl:otherwise>
+       <xsl:value-of select="//page-block[@pb-name='title-page'][1]/module/title-page/manual-title"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template name="t-base-js-toggle">

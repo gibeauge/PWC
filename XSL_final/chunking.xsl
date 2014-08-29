@@ -3,7 +3,8 @@
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:ch="http://www.arbortext.com/namespace/chunker"
-  exclude-result-prefixes="ch" version="1.0">
+  xmlns="http://www.w3.org/1999/xhtml"
+  exclude-result-prefixes="ch #default" version="1.0">
   
   <xsl:template match="/*" mode="output">
     <xsl:apply-templates select="descendant::*[@ch:chunk and string-length(@ch:filename) > 0]" mode="output"/>
@@ -16,10 +17,10 @@
     <xsl:variable name="hasFolders" select="count(.//*[@ch:chunk and .//*[@ch:chunk] and generate-id(ancestor::*[@ch:chunk][1]) = $id]) > 0"/>
     
     <xsl:if test="($hasFiles and not($hasFolders)) or not($isFolder)">
-      <xsl:result-document href="{concat($output-dir, '/', @ch:filename, '.html')}" 
+      <xsl:result-document href="{concat($output-dir, '/Pages/', @ch:filename, '.html')}" 
         method="xhtml" encoding="utf-8" indent="no"
         omit-xml-declaration="yes" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-        exclude-result-prefixes="ch" >
+        exclude-result-prefixes="ch #default" >
         <html>
           <xsl:call-template name="build-header">
             <xsl:with-param name="title">
@@ -57,6 +58,10 @@
   
   <xsl:template match="@*" mode="output-content">
     <xsl:copy/>
+  </xsl:template>
+  
+  <xsl:template match="processing-instruction('Pub')" mode="output-content">
+    <xsl:apply-templates select="." mode="output-content-pi"/>
   </xsl:template>
   
   <xsl:template match="*[local-name()='a']/@href" mode="output-content">

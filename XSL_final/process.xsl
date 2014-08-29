@@ -22,9 +22,28 @@
 <xsl:param name="output-dir"                select="concat('file:///C:/Work/Projets/PWC/chunks/_', $doctype, '_',/book/@object-key, '_', /book/@revnbr, '.', /book/@point-revnbr)"/>
   
 <xsl:template match="/">
+  <!-- Create and output Metadatas file -->
+  <xsl:result-document href="{concat($output-dir, '/XML/Metadata.xml')}" method="xml" encoding="utf-8" 
+                       indent="yes" exclude-result-prefixes="ch #default" omit-xml-declaration="no">
+    <Metadatas>
+      <PartNo><xsl:value-of select="/book/@manualpnr"/></PartNo>
+      <Title><xsl:call-template name="t-base-pwcbannerinfo-title"/></Title>
+      <OriginalIssueDate><xsl:value-of select="/book/@exportdate"/></OriginalIssueDate>
+      <Engine><xsl:value-of select="/book/@family"/></Engine>
+      <EngineModels><xsl:value-of select="/book/@model"/></EngineModels>
+      <RevisionDate><xsl:value-of select="/book/@revdate"/></RevisionDate>
+      <RevisionNo><xsl:value-of select="concat(/book/@revnbr,'.',/book/@point-revnbr)"/></RevisionNo>
+      <RevisionType><xsl:value-of select="/book/@status"/></RevisionType>
+      <DocType><xsl:value-of select="substring-before(/book/@doctype,'_')"/></DocType>
+    </Metadatas>
+  </xsl:result-document>
+
+  <!-- INITIAL PASS MODE : add id and chunk attributes -->
   <xsl:variable name="tree1">
     <xsl:apply-templates select="/" mode="initial-pass-mode"/>
   </xsl:variable>
+  
+  <!-- EXPAND GENTEXT MODE : add generated text (may contain HTML) -->
   <xsl:variable name="tree2">
     <xsl:call-template name="t-expand-gentext">
       <xsl:with-param name="document-tree">
@@ -33,18 +52,28 @@
       <xsl:with-param name="expansion-pass-count" select="number(1)"/>
     </xsl:call-template>
   </xsl:variable>
+  
+  <!-- COUNT AS MODE : set labels for numbering -->
   <xsl:variable name="tree3">
     <xsl:apply-templates select="exslt:node-set($tree2)" mode="set-countas"/>
   </xsl:variable>
+  
+  <!-- NUMBERING MODE : calculate numbering -->
   <xsl:variable name="tree4">
     <xsl:apply-templates select="exslt:node-set($tree3)" mode="expand-numbering"/>
   </xsl:variable>
+  
+  <!-- NO MODE : create HTML tree -->
   <xsl:variable name="tree5">
     <xsl:apply-templates select="exslt:node-set($tree4)/*"/>
   </xsl:variable>
+  
+  <!-- CHUNKING : split and output HTML -->
   <xsl:variable name="tree6" select="$tree5"/>
-  <xsl:variable name="tree7" select="$tree5"/>
   <xsl:apply-templates select="exslt:node-set($tree6)/*" mode="output"/>
+  
+  <!-- TOC : create TOC and Bookmarks -->
+  <xsl:variable name="tree7" select="$tree5"/>
   <xsl:apply-templates select="exslt:node-set($tree7)/*" mode="toc"/>
   <!--
   <xsl:copy-of select="$tree5"/>
@@ -95,7 +124,7 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="page-block|frontmatter|chapter" mode="initial-pass-mode" priority="2">
+<xsl:template match="page-block|frontmatter|chapter|num-index" mode="initial-pass-mode" priority="2">
   <xsl:choose>
     <xsl:when test="$doctype='jmtosmigrate' or $doctype='emipc'">
       <xsl:copy>

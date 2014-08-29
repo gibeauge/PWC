@@ -10,7 +10,11 @@
 <xsl:param name="extra-spans-for-strikethru-and-underline-color"
              select="'yes'"/>
 
-<xsl:template match="processing-instruction('Pub')" name="handle-pub-processing-instruction">
+<xsl:template match="processing-instruction()">
+  <xsl:copy-of select="."/>
+</xsl:template>
+
+<xsl:template match="processing-instruction('Pub')" mode="output-content-pi">
     <xsl:param name="within-gentext" select="false()"/>
   <xsl:variable name="pi" select="."/>
   <xsl:choose>
