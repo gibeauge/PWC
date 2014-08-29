@@ -79,9 +79,10 @@
           </xsl:attribute>
           
           <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]" mode="toc"/>
+          <xsl:apply-templates select="following-sibling::*[position() = 1 and contains(@class, 'num-index')]/*[@ch:title = 'toc']" mode="toc"/>
         </Page>
       </xsl:when>
-      <xsl:when test="not($hasTitle) or parent::*[local-name(.)='body']">
+      <xsl:when test="(not($hasTitle) or parent::*[local-name(.)='body'])">
         <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]" mode="toc"/>
       </xsl:when>
       <xsl:otherwise>
