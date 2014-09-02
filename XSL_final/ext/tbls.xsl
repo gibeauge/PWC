@@ -658,7 +658,17 @@
     </xsl:when>
     <xsl:when test="$units='*' and ($proportional-colwidth-supported='yes')">
       <!-- Here, we pass through the given proportional width -->
-      <xsl:value-of select="$size"/>
+      <!-- DBE -->
+      <xsl:choose><!-- context: tgroup -->
+        <xsl:when test="not(colspec/@colwidth[substring(., string-length(.)) != '*'])">
+          <xsl:variable name="total-width" select="sum(./colspec/@colwidth/number(substring(., 1, string-length(.)-1)))"/>
+          <xsl:value-of select="concat(format-number($val div $total-width * 100, '0'), '%')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$size"/>
+        </xsl:otherwise>
+      </xsl:choose>
+      <!-- DBE -->
     </xsl:when>
     <xsl:when test="$units='*'">
       <!-- For table column proportional width, pretend 1*=5in/numcols -->

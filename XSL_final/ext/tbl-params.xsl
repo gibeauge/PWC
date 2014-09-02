@@ -18,7 +18,8 @@
 
 <xsl:param name="emit-black-border-color" select="'yes'"/>
 
-<xsl:param name="proportional-colwidth-supported" select="'no'"/>
+<!-- <xsl:param name="proportional-colwidth-supported" select="'no'"/> -->
+<xsl:param name="proportional-colwidth-supported" select="'yes'"/>
 
 <xsl:param name="special-docbook-table-footnote-handling" select="'no'"/>
 
