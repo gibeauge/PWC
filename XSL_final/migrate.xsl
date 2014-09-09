@@ -82,11 +82,15 @@
 
 <xsl:template match="figure[descendant::graphic]" priority="1">
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
+  <div class="pr-brk"></div>
   <div style="display:none;" class="x-figure-1-0">
     <xsl:copy-of select="@ch:*"/>
     <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
-    <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
-    <xsl:apply-templates/>
+    <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>    
+    <div class="pr-figure">
+      <xsl:apply-templates select="*[not(local-name() = 'key')]"/>
+    </div>
+    <xsl:apply-templates select="key"/>
   </div>
 </xsl:template>
 
@@ -212,6 +216,7 @@
         </div>
      </xsl:when>
   </xsl:choose>
+  <div class="pr-brk-after"></div>
 </xsl:template>
 
 <xsl:template match="_ufe:howtouse-title" priority="0">

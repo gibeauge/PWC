@@ -159,16 +159,21 @@
       <xsl:with-param name="only-if-id-attr" select="'no'"/>
     </xsl:call-template>
   </xsl:variable>
+  <div class="pr-brk"></div>
   <div style="display:none" class="x-graphic-1-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
      <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
-     <xsl:apply-templates/>
+    <div class="pr-figure">
+       <xsl:apply-templates/>
+    </div>
   </div>
-  <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');" class="x-a-no-border">
-     <img alt="Graphic" src="{descendant::sheet[@size='thm']/@gnbr}">
-     </img>
-  </a>
+  <span class="pr-figure-min">
+    <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');" class="x-a-no-border">
+       <img alt="Graphic" src="{descendant::sheet[@size='thm']/@gnbr}">
+       </img>
+    </a>
+  </span>
 </xsl:template>
 
 <xsl:template match="graphic" priority="0">
@@ -177,16 +182,19 @@
       <xsl:with-param name="only-if-id-attr" select="'no'"/>
     </xsl:call-template>
   </xsl:variable>
+  <div class="pr-brk"></div>
   <div style="display:none" class="x-graphic-2-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
      <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
      <xsl:apply-templates/>
   </div>
-  <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');" class="x-a-no-border">
-     <img alt="Graphic" src="{descendant::sheet[@size='thm']/@gnbr}">
-     </img>
-  </a>
+  <span class="pr-figure-min">
+    <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');" class="x-a-no-border">
+       <img alt="Graphic" src="{descendant::sheet[@size='thm']/@gnbr}">
+       </img>
+    </a>
+  </span>
 </xsl:template>
 
 <xsl:template match="_ufe:howtouse-title" priority="0">
@@ -604,6 +612,7 @@
         </div>
      </xsl:when>
   </xsl:choose>
+  <div class="pr-brk-after"></div>
 </xsl:template>
 
 <xsl:template match="_ufe:spblist-title" priority="0">

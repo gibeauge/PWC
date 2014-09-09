@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 
 namespace EuCA.Pdf
 {
     // Contains various HTML to PDF conversion options.
-    public class HtmlToPdfConverterOptions
+    public class HtmlToPdfConverterOptions: ICloneable
     {
         /// <summary>
         /// Gets or sets the base Url when converting HTML text.
@@ -50,7 +51,7 @@ namespace EuCA.Pdf
         /// Gets or sets the watermark to add to the pages of the PDFs.
         /// </summary>
         public string Watermark { get; set; }
-
+        
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -63,6 +64,26 @@ namespace EuCA.Pdf
             Timeout = null;
             VisibleElementIds = new string[] {};
             Watermark = null;
+        }
+
+        public object Clone()
+        {
+            return CloneImpl();
+        }
+
+        /// <summary>
+        /// Performs a deep copy of the current object
+        /// </summary>
+        /// <returns>A deep copy of the current object</returns>
+        protected HtmlToPdfConverterOptions CloneImpl()
+        {
+            // Shallow copy
+            var copy = (HtmlToPdfConverterOptions)MemberwiseClone();
+
+            // Deep copy of the VisibleElementsIds array
+            copy.VisibleElementIds = VisibleElementIds.Select(id => id.Clone()).Cast<string>().ToArray();
+
+            return copy;
         }
     }
 }

@@ -83,15 +83,9 @@
                             '}'+
                             'function euCASubmit()'+
                             '{'+
-                                'var slct = document.getElementById("selectedIds");'+
+                                'document.getElementById("okBtn").setAttribute("disabled", "disabled");'+
+                                'var isOk = true;'+
                                 'var ids = [];'+
-                                'for (var i = 0; i < slct.length; i++)'+
-                                '{'+
-                                    'if(slct.options[i].selected == true)'+
-                                    '{'+
-                                        'ids.push(slct.options[i].value); '+
-                                    '}'+
-                                '}'+
                                 'var printType = "";'+
                                 'for (var i = 0; i < document.idform.print.length; i++)'+
                                 '{'+
@@ -101,21 +95,34 @@
                                         'break;'+
                                     '}'+
                                 '}'+
-                                'var isOk = true;'+
-                                'if (printType == "ids" && ids.length == 0)'+
-                                '{'+
-                                    'isOk = confirm("You didn\'t select a block: the whole document will be printed.\\n\\nContinue?");'+
+                                'if (printType == "ids") {'+
+                                    'var slct = document.getElementById("selectedIds");'+
+                                    'for (var i = 0; i < slct.length; i++)'+
+                                    '{'+
+                                        'if(slct.options[i].selected == true)'+
+                                        '{'+
+                                            'ids.push(slct.options[i].value); '+
+                                        '}'+
+                                    '}'+
+                                    'if (ids.length == 0)'+
+                                    '{'+
+                                        'isOk = confirm("You didn\'t select a block: the whole document will be printed.\\n\\nContinue?");'+
+                                    '}'+
                                 '}'+
                                 'if (isOk)'+
                                 '{'+
                                     'window.close();'+
                                     'try'+
-                                    '{'+
+                                    '{' +
                                         'window.opener.HandlePopupResult(ids);'+
                                     '}'+
                                     'catch (err) {}'+
                                 "}"+
-                            '}'+
+                            '}' +
+                            'function init() {' +
+                                'document.getElementById("okBtn").focus();' +
+                            '}' +
+                            'window.onload= init;'+
                         '</'+'script>'+
                         '<form name="idform">'+
                             '<div id="wrapper" style="display:table; height:100%; width:100%">'+
@@ -143,7 +150,7 @@
                                 '<div id="bottom" style="display:table-row; height:40px;">'+
                                     '<div style="text-align: right; padding-top:20px">'+
                                         '<a onclick="euCASubmit();">'+
-                                            '<input type="button" value="OK" style="width: 80px;"/>'+
+                                            '<input type="button" value="OK" id="okBtn" name="okBtn" style="width: 80px;"/>'+
                                         '</a>'+
                                         '<a onclick="window.close();" style="padding-left:10px;">'+
                                             '<input type="button" value="Cancel" style="width: 80px;"/>'+
@@ -178,6 +185,15 @@
                 
             });
             
+            $('div[class^="x-pageblock-front"]').each(function () {
+                var childs = $(this).children('div').each(function () {
+                    var txt = $.trim($(this).children(':first').text());
+                    if (txt.length != 0) {
+                        paraIds[$(this).attr('id')] = txt;
+                    }
+                })
+            });
+
             $('div[class^="x-n-para"], div[class^="x-task"]').each(function() {
                 var txt = $.trim($(this).children(':first').text());
                 if (txt.length != 0) {
@@ -185,10 +201,10 @@
                 }
             });
 
-            $('div[class^="x-figure"]').each(function() {
+            $('div[class^="pr-figure"]').each(function() {
                 var txt = $.trim($(this).children(':first').text());
                 if (txt.length != 0) {
-                    figureIds[$(this).attr('id')] = txt;
+                    figureIds[$(this).parent().attr('id')] = txt;
                 }
             });
 
@@ -199,15 +215,17 @@
             euCAGetIDs();
         }
 
-        function HandlePopupResult(ids)
+        function HandlePopupResult(ids, figureOnly)
         {
             var results = "";
             for (id in ids) {
-                results += ids[id] + ', ';
+                results += ids[id] + ',';
             }
-            results = results.substr(0, results.length - 2);
-            alert(results);
+            results = results.substr(0, results.length - 1);
+
+            window.open('@Html.Raw(ViewBag.PdfUri)' + results, '_blank');
         }
+
     </script>
 </head>
 <body>
@@ -221,7 +239,7 @@
             $('#pwc a[href]')
                 .each(function ()
                 {
-                    if (this.href.match('localhost') && !this.getAttribute("href").match('#none') && !this.href.match('/#') && !this.getAttribute("href").substr(0, 1) = '#')
+                    if (this.href.match('localhost') && !this.getAttribute("href").match('#none') && !this.href.match('/#') && this.getAttribute("href").substr(0, 1) != '#')
                     {
                         var splitIdx = this.href.lastIndexOf('/');
                         var uriRoot = this.href.substr(0, splitIdx + 1);
@@ -246,6 +264,19 @@
             @if (!string.IsNullOrEmpty(ViewBag.Anchor))
             {
                 @:$("html, body").animate({ scrollTop: $('@ViewBag.Anchor').offset().top }, 1000);
+            }
+
+            if (typeof (eopdf) == "object")
+            {
+                // Variable eopdf exists. So we are inside the converter
+                euCAShowHiddenBlocks();
+            }
+            else
+            {                
+                //Variable eopdf does not exist. So we are inside a
+                //regular Web browser
+                // Do nothing;
+                euCAShowHiddenBlocks();
             }
         }
         $(document).ready(myFunction);

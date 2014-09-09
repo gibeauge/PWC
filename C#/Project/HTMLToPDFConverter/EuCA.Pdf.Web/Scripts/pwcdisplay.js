@@ -288,6 +288,16 @@ function invokeGraphic(figRef) {
                          "scrollbars=yes, status=no, toolbar=no, location=no, resizable=1, menubar=1, width=1100, height=900");
     winRef.document.writeln('<HTML><STYLE = "text/css">body {font-family:Verdana;} </STYLE>');
     winRef.document.writeln('<SCRIPT type="text/javascript">');
+    winRef.document.writeln('function toggle(heading, tableId) {');
+    winRef.document.writeln('var headingObj = document.getElementById(heading);');
+    winRef.document.writeln('var tableObj = document.getElementById(tableId);');
+    winRef.document.writeln('if (tableObj) {');
+    winRef.document.writeln('if (tableObj.style.display == "block") {');
+    winRef.document.writeln('tableObj.style.display="none";');
+    winRef.document.writeln('headingObj.style.cursor="s-resize";');
+    winRef.document.writeln('} else {');
+    winRef.document.writeln('tableObj.style.display="block";');
+    winRef.document.writeln('headingObj.style.cursor="n-resize";} } }');
     winRef.document.writeln('function tableStyleDisplay(styleTo) {');
     winRef.document.writeln('var allDivs = document.getElementsByTagName("div");');
     winRef.document.writeln('for (var i = 0; i < allDivs.length; i++) {');
@@ -586,8 +596,10 @@ function toggle(heading, tableId) {
     if (tableObj) {
         if (tableObj.style.display == "block") {
             tableObj.style.display='none';
+            headingObj.style.cursor='s-resize';
         } else {
             tableObj.style.display='block';
+            headingObj.style.cursor='n-resize';
         }
     }
     //Change bars won't be displayed until the table is visible
@@ -724,17 +736,78 @@ window.onload = function() {
             }
         }
     }
-
-    var hash = window.location.hash;
-    if(hash != "") {
-        var id = hash.substr(1);
-        document.getElementById(id).style.display = 'block';
+	
+	if (typeof (eopdf) == "object") {
+        // Variable eopdf exists. So we are inside the converter
+        euCAShowBlocks();
     }
 }
 
-// Functions added
+/**
+ *  Show blocks that are not
+ *  displayed (display = "none").         
+ */
+function euCAShowBlocks() {
+    var node;
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, null, false);
+    while (walker.nextNode()) {
+        node = walker.currentNode;
 
-/*
+        var nName = node.nodeName;
+        var nClass = node.className;
+        
+        /* Display tables, figures and figure legends that are hidden by default by the CSS. */
+        if (node.style.display == "none" &&
+            ((nClass.indexOf('x-table') >= 0) || (nClass.indexOf('x-figure') >= 0) ||
+             (nClass.indexOf('x-key') >= 0) || (nClass.indexOf('x-graphic') >= 0))) {
+            node.style.display = "block";
+        }
+
+        /* Handles page-breaks for the figures. */
+        /* Only had a page-break in front of figure if there the precedent element is NOT a figure. */
+        if (nClass.indexOf('pr-brk') >= 0) {
+            var p = node.parentNode;
+            var ps = node;
+            do ps = ps.previousSibling;
+            while (ps && ps.nodeType != 1);            
+            var ns = node;
+            do ns = ns.nextSibling;
+            while (ns && ns.nodeType != 1);
+            if (ps != null && ps.nodeType == 1 && ps.hasAttributes() && ps.attributes['class'] != null &&
+                (ps.attributes['class'].value.indexOf('x-figure') >= 0 || (ps.attributes['class'].value.indexOf('x-graphic') >= 0 || ps.attributes['class'].value.indexOf('pr-figure-min') >= 0))) {
+                /* Do nothing */
+            } else if (ns != null && ns.className.indexOf('x-graphic-2') >= 0) {
+                node.style.MarginBottom = '1px';
+            } else if (p == null || p.className.indexOf('x-ipc-fig') < 0) {
+                node.style.pageBreakBefore = 'always';
+                node.style.marginTop = '1px'; /* Otherwise, text preceding the figure might be on the new page. */
+            }
+        } else if (nClass == 'pr-brk-after') { /* Forces a page break after the block */
+            node.style.pageBreakAfter = 'always';
+        } else if (nClass == 'pr-figure') { /* Adds a margin at the top of the figures. */
+            node.style.marginTop = '5px';
+        } else if (nClass == 'pr-key-brk') { /* Forces a page-break after the legends of figures. */
+            node.style.paddingBottom = '2px';
+            node.style.pageBreakAfter = 'always';
+        } else if (nClass == 'pr-figure-min') { /* Hides the miniatures of figures in IPCs documents */
+            node.style.display = "none";
+        }
+        /*else if (nClass.indexOf('x-graph') >= 0) { /\* Forces a page-break after the graphics. *\/
+            node.style.pageBreakAfter = "always";
+        }*/
+        else if (nClass.indexOf('x--ufe-fig-title') >= 0) { /* Hides the repeated title of figures in IPCs documents */
+            var p = node.parentNode;
+            if (p != null && p.className.indexOf('x-ipc-fig') >= 0) {
+                node.style.display = 'none';
+            }
+        } else if (nName == 'IMG' || nClass.indexOf('x-caution') >= 0 || nClass.indexOf('x-warning') >= 0) { /* Avoid page breaks inside of an image. */
+            node.style.pageBreakInside = 'avoid';
+        } else if (nClass.indexOf('x-title') >= 0 && node.parentNode.className.indexOf('x-graphic') >= 0) { /* Avoid page breaks inside of an image. */
+            node.style.display = "none";
+        }
+    }
+}
+
 function toggle (headingId, tableId) { 
   var headingObj = document.getElementById(headingId);
   var tableObj = document.getElementById(tableId);
@@ -746,7 +819,6 @@ function toggle (headingId, tableId) {
     }
   }
 }
-*/
 
 function go(targetId) {
     var targetObj = document.getElementById(targetId);

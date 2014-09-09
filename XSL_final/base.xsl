@@ -1534,6 +1534,7 @@
      <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
      <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
      <xsl:apply-templates/>
+    <div class="pr-key-brk"></div>
   </div>
   <xsl:call-template name="t-base-js-toggle"/>
 </xsl:template>
@@ -3406,7 +3407,7 @@
   <div ch:title="notoc">
    <xsl:attribute name="class">
     <xsl:text>x-title-32-0</xsl:text>
-        <xsl:choose>
+        <!--<xsl:choose>
           <xsl:when test="&pb-01-ata;"> x-title-32-1</xsl:when>
           <xsl:when test="&pb-01-p;"> x-title-32-2</xsl:when>
           <xsl:when test="&pb-02-ata;"> x-title-32-3</xsl:when>
@@ -3443,7 +3444,7 @@
           <xsl:when test="&pb-17-p;"> x-title-32-34</xsl:when>
           <xsl:when test="&pb-18-ata;"> x-title-32-35</xsl:when>
           <xsl:when test="&pb-18-p;"> x-title-32-36</xsl:when>
-        </xsl:choose>
+        </xsl:choose>-->
    </xsl:attribute>
     <xsl:call-template name="t-base-div-title"/>
   </div>

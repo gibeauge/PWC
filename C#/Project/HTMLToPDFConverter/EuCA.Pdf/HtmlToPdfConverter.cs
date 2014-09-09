@@ -1,6 +1,7 @@
 ﻿using EO.Pdf;
 using EO.Pdf.Contents;
 using EO.Pdf.Drawing;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace EuCA.Pdf
             {
                 PageSize = PdfPageSizes.Letter,
                 OutputArea = new RectangleF(_regionStart, _regionBefore, PdfPageSizes.Letter.Width - _regionStart - _regionEnd, PdfPageSizes.Letter.Height - _regionBefore - _regionAfter),
-                RepeatTableHeaderFooter = false,
+                RepeatTableHeaderFooter = false
             };
 
         /// <summary>
@@ -91,9 +92,16 @@ namespace EuCA.Pdf
         {
             // Initialize parameters
             var opts = InitParameters(options);
-           
+#if DEBUG
+            using (var fw = File.CreateText(@"C:\temp\js_out.txt")) 
+            {
+                HtmlToPdf.DebugConsole = fw;
+                HtmlToPdf.ConvertHtml(html, output, opts);
+            }
+#else
             // Convert HTMl to PDF
             HtmlToPdf.ConvertHtml(html, output, opts);
+#endif
         }   
 
         /// <summary>
@@ -133,7 +141,7 @@ namespace EuCA.Pdf
         /// <returns>An HtmlToPdfOptions object</returns>
         private static HtmlToPdfOptions InitParameters(HtmlToPdfConverterOptions options)
         {
-            var parameters = Options;
+            var parameters = (HtmlToPdfConverterOptions)Options.Clone();
             if (options != null) 
             {
                 parameters.BaseUrl = options.BaseUrl ?? parameters.BaseUrl;
@@ -155,7 +163,8 @@ namespace EuCA.Pdf
                 NoLink = true,
                 RepeatTableHeaderAndFooter = parameters.RepeatTableHeaderFooter ?? false,
                 HeaderHtmlPosition = 0F,
-                FooterHtmlPosition = parameters.PageSize.Height - _regionAfter
+                FooterHtmlPosition = parameters.PageSize.Height - _regionAfter,
+                //AutoFitX = HtmlToPdfAutoFitMode.None
             };
 
             // BaseUrl
