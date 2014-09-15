@@ -152,6 +152,7 @@ namespace EuCA.Pdf
                 parameters.RepeatTableHeaderFooter = options.RepeatTableHeaderFooter ?? parameters.RepeatTableHeaderFooter;
                 parameters.Timeout = options.Timeout ?? parameters.Timeout;
                 parameters.VisibleElementIds = options.VisibleElementIds.Length == 0 ? parameters.VisibleElementIds : options.VisibleElementIds;
+                parameters.InvisibleElementIds = options.InvisibleElementIds.Length == 0 ? parameters.InvisibleElementIds : options.InvisibleElementIds;
                 parameters.Watermark = string.IsNullOrEmpty(options.Watermark) ? parameters.Watermark : options.Watermark;
             }
 
@@ -163,7 +164,7 @@ namespace EuCA.Pdf
                 NoLink = true,
                 RepeatTableHeaderAndFooter = parameters.RepeatTableHeaderFooter ?? false,
                 HeaderHtmlPosition = 0F,
-                FooterHtmlPosition = parameters.PageSize.Height - _regionAfter,
+                FooterHtmlPosition = parameters.PageSize.Height - _regionAfter,                
                 //AutoFitX = HtmlToPdfAutoFitMode.None
             };
 
@@ -186,6 +187,9 @@ namespace EuCA.Pdf
 
             // Handling of the visible ids list
             if (parameters.VisibleElementIds != null && parameters.VisibleElementIds.Length > 0) { opts.VisibleElementIds = string.Join(";", parameters.VisibleElementIds); }
+
+            // Handling of the invisible ids list
+            if (parameters.InvisibleElementIds != null && parameters.InvisibleElementIds.Length > 0) { opts.InvisibleElementIds = string.Join(";", parameters.InvisibleElementIds); }
 
             // Handling of the watermark
             if (!string.IsNullOrEmpty(parameters.Watermark))

@@ -726,87 +726,6 @@ function reduceSize(colgroup) {
         col[j].setAttribute('width', parseInt(col[j].getAttribute('width'))/2);
     }
 }
-//Fix tables layout for Google's Chrome browser
-window.onload = function() {
-    if(window.chrome) {
-        var colgroup = document.getElementsByTagName('colgroup');
-        for(i = 0; i < colgroup.length; i++) {
-            while(isWidthTooBig(colgroup[i])) {
-                reduceSize(colgroup[i]);
-            }
-        }
-    }
-	
-	if (typeof (eopdf) == "object") {
-        // Variable eopdf exists. So we are inside the converter
-        euCAShowBlocks();
-    }
-}
-
-/**
- *  Show blocks that are not
- *  displayed (display = "none").         
- */
-function euCAShowBlocks() {
-    var node;
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, null, false);
-    while (walker.nextNode()) {
-        node = walker.currentNode;
-
-        var nName = node.nodeName;
-        var nClass = node.className;
-        
-        /* Display tables, figures and figure legends that are hidden by default by the CSS. */
-        if (node.style.display == "none" &&
-            ((nClass.indexOf('x-table') >= 0) || (nClass.indexOf('x-figure') >= 0) ||
-             (nClass.indexOf('x-key') >= 0) || (nClass.indexOf('x-graphic') >= 0))) {
-            node.style.display = "block";
-        }
-
-        /* Handles page-breaks for the figures. */
-        /* Only had a page-break in front of figure if there the precedent element is NOT a figure. */
-        if (nClass.indexOf('pr-brk') >= 0) {
-            var p = node.parentNode;
-            var ps = node;
-            do ps = ps.previousSibling;
-            while (ps && ps.nodeType != 1);            
-            var ns = node;
-            do ns = ns.nextSibling;
-            while (ns && ns.nodeType != 1);
-            if (ps != null && ps.nodeType == 1 && ps.hasAttributes() && ps.attributes['class'] != null &&
-                (ps.attributes['class'].value.indexOf('x-figure') >= 0 || (ps.attributes['class'].value.indexOf('x-graphic') >= 0 || ps.attributes['class'].value.indexOf('pr-figure-min') >= 0))) {
-                /* Do nothing */
-            } else if (ns != null && ns.className.indexOf('x-graphic-2') >= 0) {
-                node.style.MarginBottom = '1px';
-            } else if (p == null || p.className.indexOf('x-ipc-fig') < 0) {
-                node.style.pageBreakBefore = 'always';
-                node.style.marginTop = '1px'; /* Otherwise, text preceding the figure might be on the new page. */
-            }
-        } else if (nClass == 'pr-brk-after') { /* Forces a page break after the block */
-            node.style.pageBreakAfter = 'always';
-        } else if (nClass == 'pr-figure') { /* Adds a margin at the top of the figures. */
-            node.style.marginTop = '5px';
-        } else if (nClass == 'pr-key-brk') { /* Forces a page-break after the legends of figures. */
-            node.style.paddingBottom = '2px';
-            node.style.pageBreakAfter = 'always';
-        } else if (nClass == 'pr-figure-min') { /* Hides the miniatures of figures in IPCs documents */
-            node.style.display = "none";
-        }
-        /*else if (nClass.indexOf('x-graph') >= 0) { /\* Forces a page-break after the graphics. *\/
-            node.style.pageBreakAfter = "always";
-        }*/
-        else if (nClass.indexOf('x--ufe-fig-title') >= 0) { /* Hides the repeated title of figures in IPCs documents */
-            var p = node.parentNode;
-            if (p != null && p.className.indexOf('x-ipc-fig') >= 0) {
-                node.style.display = 'none';
-            }
-        } else if (nName == 'IMG' || nClass.indexOf('x-caution') >= 0 || nClass.indexOf('x-warning') >= 0) { /* Avoid page breaks inside of an image. */
-            node.style.pageBreakInside = 'avoid';
-        } else if (nClass.indexOf('x-title') >= 0 && node.parentNode.className.indexOf('x-graphic') >= 0) { /* Avoid page breaks inside of an image. */
-            node.style.display = "none";
-        }
-    }
-}
 
 function toggle (headingId, tableId) { 
   var headingObj = document.getElementById(headingId);
@@ -833,4 +752,276 @@ function showTable(tableId) {
   if (tableObj) {
     tableObj.style.display='block';
   }
+}
+
+/* EUROSCRIPT MODIFICATIONS */
+
+/*Fix tables layout for Google's Chrome browser*/
+window.onload = function () {
+    if (window.chrome) {
+        var colgroup = document.getElementsByTagName('colgroup');
+        for (i = 0; i < colgroup.length; i++) {
+            while (isWidthTooBig(colgroup[i])) {
+                reduceSize(colgroup[i]);
+            }
+        }
+    }
+
+    if (typeof (eopdf) == "object") {
+        // Variable eopdf exists. So we are inside the converter
+        euCABlockSetup();
+    }
+}
+
+/* */
+function euCAPrintPopup(paraIds, tableIds, figureIds, handler) {
+
+    var w = 600; // width
+    var h = 500; // height
+
+    // Calculate the position of the window, works for dualscreens configurations
+    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+    var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+
+    var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    var left = ((width / 2) - (w / 2)) + dualScreenLeft; // left position
+    var top = ((height / 2) - (h / 2)) + dualScreenTop; // top position
+
+    // Open a popup window
+    var popup = open('', 'popup', 'toolbar=0, location=0, directories=0, status=0, menubar=0, scrollbars=0, resizable=0, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+    // Set the content of the popup window
+    var html =
+        '<title>Print options</title>' +
+            '<body style="margin-top:10px; ">' +
+                '<div style="font-family: Tahoma; font-size: 11pt;">' +
+                '<script type="text/javascript">' +
+                    'function euCAToggle(btn)' +
+                    '{' +
+                        'switch(btn.id)' +
+                        '{' +
+                            'case "all":' +
+                                'document.getElementById("blockType").setAttribute("disabled", "disabled");' +
+                                'document.getElementById("selectedIds").setAttribute("disabled", "disabled");' +
+                                'break;' +
+                            'case "ids":' +
+                                'document.getElementById("blockType").removeAttribute("disabled");' +
+                                'document.getElementById("selectedIds").removeAttribute("disabled");' +
+                                'euCADisplayIds(document.idform.blockType.options[document.idform.blockType.selectedIndex].value);' +
+                                'break;' +
+                        '}' +
+                    '}' +
+                    'function euCADisplayIds(option)' +
+                    '{' +
+                        'document.idform.selectedIds.options.length=0;' +
+                        'switch(option)' +
+                        '{' +
+                            'case "paragraphs":';
+    var cpt = 0;
+    for (var i in paraIds) {
+        html += 'document.idform.selectedIds.options[' + (cpt++) + '] = new Option("' + paraIds[i] + '","' + i + '",false, false);';
+    }
+    html +=
+                                'break;' +
+                            'case "tables":';
+    cpt = 0;
+    for (var i in tableIds) {
+        html += 'document.idform.selectedIds.options[' + (cpt++) + '] = new Option("' + tableIds[i] + '","' + i + '",false, false);';
+    }
+    html +=
+                                'break;' +
+                            'case "figures":';
+    cpt = 0;
+    for (var i in figureIds) {
+        html += 'document.idform.selectedIds.options[' + (cpt++) + '] = new Option("' + figureIds[i] + '","' + i + '",false, false);';
+    }
+    html +=
+                                'break;' +
+                        '}' +
+                    '}' +
+                    'function euCASubmit()' +
+                    '{' +
+                        'document.getElementById("okBtn").setAttribute("disabled", "disabled");' +
+                        'var isOk = true;' +
+                        'var ids = [];' +
+                        'var printType = "";' +
+                        'for (var i = 0; i < document.idform.print.length; i++)' +
+                        '{' +
+                            'if (document.idform.print[i].checked)' +
+                            '{' +
+                                'printType = document.idform.print[i].value;' +
+                                'break;' +
+                            '}' +
+                        '}' +
+                        'if (printType == "ids") {' +
+                            'var slct = document.getElementById("selectedIds");' +
+                            'for (var i = 0; i < slct.length; i++)' +
+                            '{' +
+                                'if(slct.options[i].selected == true)' +
+                                '{' +
+                                    'ids.push(slct.options[i].value); ' +
+                                '}' +
+                            '}' +
+                            'if (ids.length == 0)' +
+                            '{' +
+                                'isOk = confirm("You didn\'t select a block: the whole document will be printed.\\n\\nContinue?");' +
+                            '}' +
+                        '}' +
+                        'if (isOk)' +
+                        '{' +
+                            'window.close();' +
+                            'try' +
+                            '{' +
+                                'window.opener.' + handler + '(ids);' +
+                            '}' +
+                            'catch (err) {}' +
+                        "}" +
+                    '}' +
+                    'function init() {' +
+                        'document.getElementById("okBtn").focus();' +
+                    '}' +
+                    'window.onload= init;' +
+                '</' + 'script>' +
+                '<form name="idform">' +
+                    '<div id="wrapper" style="display:table; height:100%; width:100%">' +
+                        '<div id="top" style="display:table-row; height:45px;">' +
+                            '<input type="radio" id="all" name="print" value="all" checked="checked" onclick="euCAToggle(this)"/>' +
+                            '<span style="padding-left:5px;">Print all</span><br/>' +
+                            '<div style="display:table;">' +
+                                '<div style="display:table-cell; width:1%; white-space:nowrap; padding-right:20px;">' +
+                                    '<input type="radio" id="ids" name="print" value="ids" onclick="euCAToggle(this)"/>' +
+                                    '<span style="padding-left:5px;">Selected blocks:</span>' +
+                                '</div>' +
+                                '<div style="display: table-cell; width:99%">' +
+                                    '<select id="blockType" name="blockType" style="width:100%;" disabled="disabled" onChange="euCADisplayIds(this.value)">' +
+                                        '<option value="paragraphs">Paragraphs</option>' +
+                                        '<option value="tables">Tables</option>' +
+                                        '<option value="figures">Figures</option>' +
+                                    '</select><br/>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div id="middle" style="display:table-row;">' +
+                            '<select id="selectedIds" name="selectedIds" size="20" style="margin-top:10px; width:100%; height: 100%; disabled="disabled" multiple="multiple">' +
+                            '</select><br/>' +
+                        '</div>' +
+                        '<div id="bottom" style="display:table-row; height:40px;">' +
+                            '<div style="text-align: right; padding-top:20px">' +
+                                '<a onclick="euCASubmit();">' +
+                                    '<input type="button" value="OK" id="okBtn" name="okBtn" style="width: 80px;"/>' +
+                                '</a>' +
+                                '<a onclick="window.close();" style="padding-left:10px;">' +
+                                    '<input type="button" value="Cancel" style="width: 80px;"/>' +
+                                '</a>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</form>' +
+            '</div>' +
+        '</body>';
+    popup.document.write(html);
+    popup.document.close();
+
+    // Gives the focus to the popup window if it doesn't have it
+    if (window.focus) {
+        popup.focus();
+    }
+}
+
+function euCAGetIDs(paraIds, tableIds, figureIds) {    
+
+    $('div[class^="pr-tbl"]').each(function () {
+        var txt = $.trim($(this).find("div[class^='x-title']").first().text());
+        if (txt.length == 0) { txt = $.trim($(this).children(':first').text()); }
+        if (txt.length != 0) {
+            tableIds[$(this).attr('id')] = txt;
+        }
+
+    });
+
+    $('div[class^="x-pageblock-front"]').each(function () {
+        var childs = $(this).children('div').each(function () {
+            var txt = $.trim($(this).children(':first').text());
+            if (txt.length != 0) {
+                paraIds[$(this).attr('id')] = txt;
+            }
+        })
+    });
+
+    $('div[class^="x-n-para"], div[class^="x-task"]').each(function () {
+        var txt = $.trim($(this).children(':first').text());
+        if (txt.length != 0) {
+            paraIds[$(this).attr('id')] = txt;
+        }
+    });
+
+    $('div[class^="pr-figure"]').each(function () {
+        var txt = $.trim($(this).children(':first').text());
+        if (txt.length != 0) {
+            figureIds[$(this).parent().attr('id')] = txt;
+        }
+    });
+}
+
+
+/**
+ *  Setup block styles for printing.      
+ */
+function euCABlockSetup() {
+    var node;
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, null, false);
+    while (walker.nextNode()) {
+        node = walker.currentNode;
+
+        var nName = node.nodeName;
+        var nClass = node.className;
+
+        /* Display tables, figures and figure legends that are hidden by default by the CSS. */
+        if (node.style.display == "none" &&
+            ((nClass.indexOf('x-table') >= 0) || (nClass.indexOf('x-figure') >= 0) ||
+             (nClass.indexOf('x-key') >= 0) || (nClass.indexOf('x-graphic') >= 0))) {
+            node.style.display = "block";
+        }
+
+        /* Handles page-breaks for the figures. */
+        /* Only had a page-break in front of figure if there the precedent element is NOT a figure. */
+        if (nClass.indexOf('pr-brk') >= 0) {
+            var p = node.parentNode;
+            var ps = node;
+            do ps = ps.previousSibling;
+            while (ps && ps.nodeType != 1);
+            var ns = node;
+            do ns = ns.nextSibling;
+            while (ns && ns.nodeType != 1);
+            if (ps != null && ps.nodeType == 1 && ps.hasAttributes() && ps.attributes['class'] != null &&
+                (ps.attributes['class'].value.indexOf('x-figure') >= 0 || (ps.attributes['class'].value.indexOf('x-graphic') >= 0 || ps.attributes['class'].value.indexOf('pr-figure-min') >= 0))) {
+                /* Do nothing */
+            } else if (ns != null && ns.className.indexOf('x-graphic-2') >= 0) {
+                node.style.MarginBottom = '1px';
+            } else if (p == null || p.className.indexOf('x-ipc-fig') < 0) {
+                node.style.pageBreakBefore = 'always';
+                node.style.marginTop = '1px'; /* Otherwise, text preceding the figure might be on the new page. */
+            }
+        } else if (nClass == 'pr-brk-after') { /* Forces a page break after the block */
+            node.style.pageBreakAfter = 'always';
+        } else if (nClass == 'pr-figure') { /* Adds a margin at the top of the figures. */
+            node.style.marginTop = '5px';
+        } else if (nClass == 'pr-key-brk') { /* Forces a page-break after the legends of figures. */
+            node.style.paddingBottom = '2px';
+            node.style.pageBreakAfter = 'always';
+        } else if (nClass == 'pr-figure-min') { /* Hides the miniatures of figures in IPCs documents */
+            node.style.display = "none";
+        } else if (nClass.indexOf('x--ufe-fig-title') >= 0) { /* Hides the repeated title of figures in IPCs documents */
+            var p = node.parentNode;
+            if (p != null && p.className.indexOf('x-ipc-fig') >= 0) {
+                node.style.display = 'none';
+            }
+        } else if (nName == 'IMG' || nClass.indexOf('x-caution') >= 0 || nClass.indexOf('x-warning') >= 0) { /* Avoid page breaks inside of an image. */
+            node.style.pageBreakInside = 'avoid';
+        } else if (nClass.indexOf('x-title') >= 0 && node.parentNode.className.indexOf('x-graphic') >= 0) { /* Avoid page breaks inside of an image. */
+            node.style.display = "none";
+        }
+    }
 }

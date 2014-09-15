@@ -48,6 +48,11 @@ namespace EuCA.Pdf
         public string[] VisibleElementIds { get; set; }
 
         /// <summary>
+        /// Gets or sets a list of invisble element Ids.
+        /// </summary>
+        public string[] InvisibleElementIds { get; set; }
+
+        /// <summary>
         /// Gets or sets the watermark to add to the pages of the PDFs.
         /// </summary>
         public string Watermark { get; set; }
@@ -62,7 +67,8 @@ namespace EuCA.Pdf
             Footer = null;
             RepeatTableHeaderFooter = null;
             Timeout = null;
-            VisibleElementIds = new string[] {};
+            VisibleElementIds = new string[] { };
+            InvisibleElementIds = new string[] { };
             Watermark = null;
         }
 
@@ -82,6 +88,9 @@ namespace EuCA.Pdf
 
             // Deep copy of the VisibleElementsIds array
             copy.VisibleElementIds = VisibleElementIds.Select(id => id.Clone()).Cast<string>().ToArray();
+
+            // Deep copy of the InvisibleElementIds array
+            copy.InvisibleElementIds = InvisibleElementIds.Select(id => id.Clone()).Cast<string>().ToArray();
 
             return copy;
         }
