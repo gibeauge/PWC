@@ -27,7 +27,7 @@
               <xsl:value-of select="descendant::*[@ch:title][1]"/>
             </xsl:with-param>
           </xsl:call-template>
-          <body>
+          <body class="x-body x-body-{$doctype}">
             <xsl:apply-templates select="." mode="output-content"/>
           </body>
         </html>
