@@ -1,0 +1,56 @@
+#------------------------------------------------------------------------------
+# File         : init.acl
+# Description  : Temporary init file, for development use only
+#
+# Author(s)    : Damien Bénard
+# Company      : euroscript Canada Inc. for Pratt & Whitney Canada
+# Date         : 19 September 2014
+#------------------------------------------------------------------------------
+
+package init;
+
+# required packages
+require comp_dmp;
+
+# global package variables
+
+# forward declarations
+function init()			{}
+function edit_init() 	{}
+
+#---------------------------------------------------------------------------
+# Function	: init
+# Desc		: Initialisation function
+# Returns	: N/A
+#---------------------------------------------------------------------------
+function init() 
+{
+	set dialogdisplay=off;
+	set modified=off;
+	
+	# if (!java_init() && (main::is_e3 || main::is_e3_interactive)) {
+		# set javavmmemory=4096;
+		# set javavmargs="-Xms2048m -Xmx4096m -Xmn1g -Xss128k -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:SurvivorRatio=8 -XX:TargetSurvivorRatio=90 -XX:MaxTenuringThreshold=31 -XX:+AggressiveOpts";
+	# }
+	# 
+	# $comp_dmp::patchJvmSize=1024;
+
+	add_hook('editfilehook', 'edit_init');
+	
+	# Set the composition framework hook
+	add_hook( "compositionframeworkhook", "pwc_ape_wc::compFrameHook" );
+}
+
+#---------------------------------------------------------------------------
+# Function	: edit_init
+# Desc		: Initialise the edit environment
+# Returns	: N/A
+#---------------------------------------------------------------------------
+function edit_init()
+{	
+	set contextwarnings=off;
+	set documenttypewarnings=off;
+}
+
+init();
+source pwc_ape_wc;

@@ -1,0 +1,784 @@
+#------------------------------------------------------------------------------
+# File         : pwc_ape_wc.acl
+# Description  : Custom support for the PE com.arbortext.ptc.windchill.Compose
+#				 PE application that is called by WVS.
+#				 Overrides the ape_wc::convert function called by the PE 
+#				 com.arbortext.ptc.windchill.Compose PE application.
+#				 This changes the default behavior or the PE/WindChill 
+#				 connector provided by PTC.
+#				 If PE is updated to a newer version, changes to the ape_wc 
+#				 packages should be monitored.
+#
+# Author(s)    : Damien Bénard
+# Company      : euroscript Canada Inc. for Pratt & Whitney Canada
+# Date         : 23 September 2014
+#------------------------------------------------------------------------------
+
+# If this process is not running as a PE sub-process then stop now because
+# this references packages that will only be present in a PE environment.
+# (this must be all on one line)
+if (!$main::is_e3 && !$main::is_e3_interactive) { return; }
+
+package pwc_ape_wc;
+
+# required packages
+require e3;
+require _e3;
+require ape_wc;
+
+# global package variables
+global _STRICT_ = 1;
+
+global CUSTOM_INFO_ID = 1;
+global STYLESHEET_CONF = get_custom_dir(CUSTOM_INFO_ID) . $main::PCS . "conf/stylesheets.xml"; 
+
+global PUBLICATIONTYPE_PARAM 		= 'publication-type';
+global OUTPUTTYPE_PARAM 			= "type";
+global STYLESHEET_PARAM 			= "stylesheet";
+global TRANSFORMERPARAMS_PARAM		= "transformerParams";
+global OUTFILE_PARAM				= "outputFile";
+global OUTDIR_PARAM					= "output-dir";
+global DEFAULT_PARAM 				= "--default--";
+
+global XML_TYPE 					= 'xml';
+global HTMLONLINE_PUBLICATIONTYPE	= 'HTMLOnline';
+
+global DOCTYPE_XSL[];
+
+# forward declarations
+function ape_wc::convert() 			{}
+function htmlonline_preprocess()	{}
+function htmlonline_postprocess()	{}
+
+function compFrameHook()			{}
+function setXSLParameters()			{}
+function copyGraphics()				{}
+function _e3::CopyGraphics()		{}
+function copyGraphics2()			{}
+function moveGraphics()				{}
+function moveGraphicFile()			{}
+
+function isHTMLOnlinePub() 			{}
+function getParameterValue() 		{}
+function getStylesheet()			{}
+function getSchema()				{}
+function load_config_file()			{}
+
+#---------------------------------------------------------------------------
+# Function	: ape_wc::convert
+# Desc		: Method called by the PE com.arbortext.ptc.windchill.Compose
+#			  PE application.
+#			  Overrides the default function from the Windchill PE adapter.
+# Params	: callingClass : the java class that called this method
+# Returns	: the result of the conversion
+#---------------------------------------------------------------------------
+function ape_wc::convert(callingClass = 'com.arbortext.ptc.windchill.Compose') 
+{
+	# Call into Java to get a Map object containing all of our parameters.
+  	local parameterMap = java_static(callingClass, 'getParameterMap');
+  
+  	# Convert this to an ACL associative array.  If we didn't get a map object back,
+  	# we'll just have an empty parameter array and e3::convert2() will fail.
+  	local parameterArray[];
+  	if (parameterMap) { java_array_to_acl(parameterMap, parameterArray); }
+	
+	# Test if the publication is an HTML online publication
+	local isHTMLOnlinePub = isHTMLOnlinePub(parameterArray);
+	
+  	# These parameters are required.
+  	local inFile	= parameterArray['file'];
+  	local outFile	= parameterArray['output-file'];
+  
+  	local errorMessage = "";
+  
+	# Pre-process for HTML Online publciations
+	if (isHTMLOnlinePub) { 
+		local rc = htmlonline_preprocess(inFile, outFile, parameterArray);
+		if (rc != "ok") {
+			errorMessage = rc;
+		}
+	}
+	
+	if (errorMessage == "") {
+		# Conversion
+	    result = e3::convert2(inFile, outFile, parameterArray);
+	    
+	    # Decode 'e3::convert2' return array
+	  	local convertResult[];
+	  	e3::string_to_array( convertRc, convertResult );
+	  	# If conversion succeeded, we're done
+	  	if (convertResult["result"] != "ok") {
+			return result;    
+	    }
+	}
+    
+    # Post-process for HTML Online publications
+    if (isHTMLOnlinePub && errorMessage == "") { 
+    	local rc = htmlonline_postprocess(inFile, outFile, parameterArray);
+    	if (rc != "ok") { 
+    		errorMessage = rc;
+    	}
+    }
+    
+    if (errorMessage == "") {
+    	result = _e3::Convert2Result( "ok" );
+    } else {
+    	result = _e3::Convert2Result( "error", errorMessage );
+    }
+    
+    return result;
+}
+
+
+
+
+#---------------------------------------------------------------------------
+# Function	: htmlonline_postprocess
+# Desc		: Postprocessing tasks for HTML online publications
+# Params	: inFile : the file to convert
+# 			  outFile : the output file of the conversion
+# 			  parameterArray[] : the parameters of the conversion
+# Returns	: 'ok' if no problem is encounterred, an error message otherwise
+#---------------------------------------------------------------------------
+function htmlonline_postprocess(inFile, outFile, parameterArray[])
+{
+	local result = "ok";
+		
+	# Creating temporary zip directory
+	local zipTemp = get_e3_temp_dir() . $main::PCS . "zip_temp";
+	execute("mkdir -p " . zipTemp);
+		
+	# Creating Pages.zip and XML.zip 
+	local pagesDir = get_e3_temp_dir() . $main::PCS . "xsl_out" . $main::PCS . "Pages";
+	local pagesZip = zipTemp . $main::PCS . "Pages.zip";
+	local rc1 = _e3::ZipDirectory(pagesZip, pagesDir);	
+	if (rc1 != "ok") {
+		result = "An error occured while creating the pages zip: $rc1";
+	} else {
+	
+		local xmlDir = get_e3_temp_dir() . $main::PCS . "xsl_out" . $main::PCS . "XML";
+		local xmlZip = zipTemp . $main::PCS . "XML.zip";
+		local rc2 = _e3::ZipDirectory(xmlZip, xmlDir);		
+		if (rc2 != "ok") {
+			result = "An error occured while creating the xml zip: $rc2";
+		} else {
+		
+			local dirFolder = get_e3_temp_dir() . $main::PCS . "xsl_out";
+			local rc3 = _e3::ZipDirectory(outFile, zipTemp);	
+			if (rc3 != "ok") {
+				result = "An error occured while creating the output zip: $rc3";
+			}
+		}
+	}
+	
+	# Delete temporary files
+	#execute("remove_file -r -f " . dirFolder);
+	#execute("remove_file -r -f " . zipTemp);
+	
+	return result;
+}
+
+
+# ==========================================================================
+# == COMPOSITION FRAMEWORK HOOKS ===========================================
+# ==========================================================================
+
+
+#---------------------------------------------------------------------------
+# Function	: compFrameHook
+# Desc		: Composition Framework Hook used to execute our custom code  
+#			  during the differents steps of the conversion process.
+#			  If an error occurs in this function, the publication process
+#			  will be stopped.
+# Params	: doc : the doc begin composed.
+# 			  type : the type of composition.
+# 			  where : which step of the composition we are at.
+# 			  params[] : the parameters of the composition.
+# Returns	: 0 if everything worked out, -1 otherwise.
+#---------------------------------------------------------------------------
+function compFrameHook(doc, type, where, params[]) 
+{
+	local rc = 0;
+	
+	if (where == compose::HK_CFTI_INITIAL)  { 
+		rc = setXSLParameters(doc, params); 
+	} else if (where == compose::HK_CFTI_POSTPROC) { 
+		local graphDir = get_e3_temp_dir() . $main::PCS . "xsl_out" . $main::PCS . "Pages" . $main::PCS . "graphics";
+		
+		rc = copyGraphics(doc, graphDir);		
+	}
+	
+	return rc;
+}
+
+
+#---------------------------------------------------------------------------
+# Function	: setXSLParameters
+# Desc		: Sets the XSL transformation parameters that couldn't be set
+#			  in the top layers of the conversion.
+# Params	: doc : the document being composed.
+# 			  params[] : the parameters of the composition.
+#---------------------------------------------------------------------------
+function setXSLParameters(doc, params[])
+{
+	# Retrieve the existing transformation parameters that will be passed to
+	# the XSL at the start of the transformation.
+	local transformerParams = params[TRANSFORMERPARAMS_PARAM];
+
+	# Determine the output directory the XSL should for the
+	# different XML outputs.
+	local rootFolder = get_e3_temp_dir();
+	gsub("[\\]", "/", $rootFolder);
+	local outFolder = "file:///" . rootFolder . "/xsl_out";
+	
+	# If there already was some parameters in the transformation 
+	# parameters parameter
+	if (length(transformerParams) > 0) {
+		transformerParams .= "||";
+	} else {
+		transformerParams = "";
+	}
+	# Sets the output-dir parameter of the transformation
+	transformerParams .= "output-dir=$outFolder";
+
+	# Updates the transformation parameter
+	params[TRANSFORMERPARAMS_PARAM] = $transformerParams;
+	# Remember the output directory (used later in the composition process)
+	params[OUTDIR_PARAM] = outFolder;
+	
+	return 0;
+}
+
+
+
+#---------------------------------------------------------------------------
+# Function	: copyGraphics
+# Desc		: Copies all of the graphics in the current document
+#			  to a specified directory and adjusts the current
+#			  document to refer to them via relative pathnames
+# Params	: doc : the document being composed. 
+# 			  graphDir : the directory where to copy the graphics
+# Returns	: 0 if no error occured, -1 otherwise.
+#---------------------------------------------------------------------------
+function copyGraphics(doc, graphDir)
+{
+	local result = 0;
+	
+	local l_graphicProcessingRC = copyGraphics2(doc, graphDir);
+	if (l_graphicProcessingRC != "ok") {
+		result = -1;
+	}
+	
+	return result;
+}
+
+
+
+# ---------------------------------------------------------------------
+# Function:	_e3 :: CopyGraphics
+# 
+# Purpose:	copies all of the graphics in the current document
+#		to a specified directory and adjusts the current
+#		document to refer to them via relative pathnames
+# 
+# Parameters:	p_graphDir:	target directory
+#		p_relative:	1 -> edit all file references
+#				to relative pathnames
+#		p_gifConvert:	1 -> convert graphics to GIFs
+#		p_docDir:	directory from which document was loaded
+#				or null if unknown
+# 
+# Result:	"ok" or error message
+# ---------------------------------------------------------------------
+function _e3::CopyGraphics( p_graphDir, p_relative, p_gifConvert, p_docDir ) {
+
+  # Try to create archive
+  epicutil::mkdir_recursive( p_graphDir );
+
+  if ( ! access( p_graphDir, 'w' ) ) {
+    local l_rc = "_e3::CopyGraphics:  failed to create directory '"	\
+                 . p_graphDir						\
+		 . "'.";
+
+    _publow_util::Trace( e3::g_debug,					\
+			 l_rc						\
+		       );
+    return l_rc;
+  }
+
+  # Make sure current document is not read-only
+  doc_read_only( current_doc(), 0 );
+
+  # name of graphics directory
+  local l_graphBase = basename( p_graphDir );
+
+  # Table of file-reference/output name correspondences
+  local l_newName[];
+
+  # Map of converted graphic entity names.
+  local l_mappedEnts[];
+
+  # Loop to scan the document for graphics tags
+  goto_oid( oid_first() );
+
+  for ( ;; ) {
+
+    # Save current position
+    local l_initialPosition = oid_current_tag();
+    
+    # Find the next graphic tag
+    execute( "find -gr -nowrapscan" );
+
+    # If we didn't move, there are no more graphic tags:  exit
+    if ( oid_current_tag() == l_initialPosition ) {
+      break;
+    }
+
+    # Here we have a graphic tag:  retrieve attributes
+    local l_graphicOid  = oid_current_tag();		# get OID
+    local l_graphicName = oid_name( l_graphicOid );	# get tag name
+
+    local l_fileRefAttr		= graphic_file_attr_name( l_graphicName );
+    local l_entityRefAttr	= graphic_entity_attr_name( l_graphicName );
+
+    local l_fileRef		= oid_graphic_pathname( l_graphicOid );
+    local l_entRef		= "";
+
+    if ( l_entityRefAttr != "" ) {
+      l_entRef = oid_attr( l_graphicOid, l_entityRefAttr );
+    }
+
+    local l_notation		= entity_notation( l_entRef );
+
+    local l_onlyEntRef		= 0;
+    if ( l_fileRefAttr == "" && l_entityRefAttr != "" && l_entRef != "" ) {
+      # Here we know this graphic tag can only use an entity reference.
+      l_onlyEntRef = 1;
+    }
+
+    _publow_util::Trace( e3::g_debug,						 		\
+			   "_e3::CopyGraphics:  l_graphicOid    = '" . l_graphicOid    . "'\n"	\
+			 . "                    l_graphicName   = '" . l_graphicName   . "'\n"	\
+			 . "                    l_fileRefAttr   = '" . l_fileRefAttr   . "'\n"	\
+			 . "                    l_entityRefAttr = '" . l_entityRefAttr . "'\n"	\
+			 . "                    l_fileRef       = '" . l_fileRef       . "'\n"	\
+			 . "                    l_entRef        = '" . l_entRef        . "'\n"	\
+			 . "                    l_notation      = '" . l_notation      . "'\n"	\
+		       );
+
+    # Part of fix for 50163.
+    if ( l_onlyEntRef && l_mappedEnts[ l_entRef ] ) {
+      # This graphic can only use an entity reference AND the entity it is
+      # referencing has already been mapped.  We have no work to do for
+      # this case.
+      continue;
+    }
+
+    # If it's a repository (willow) object, resolve its POID into a pathname
+    if ( path_session( l_fileRef ) ) {
+      l_fileRef = sess_get_file( l_fileRef, 0, l_notation );
+      
+      _publow_util::Trace( e3::g_debug,								\
+			   "_e3::CopyGraphics:  l_fileRef (2)   = '" . l_fileRef       . "'\n"	\
+			 );
+    }
+    else {
+      # This is not a repository (willow) object.  If this is an http-reference,
+      # we leave it alone.
+      #
+      # Note: An iFS repository object is referenced via http but if we are
+      # connected to a repository, the path_session() call above would cause
+      # us to NOT get into here.  This is on purpose because a graphic that
+      # *this* iFS session has rights to see may not allow the same rights
+      # to an anonymous HTTP client.  So, in that case, it is best/safest to
+      # copy the graphic since we know nothing about the ultimate consumer
+      # of this data.
+      local l_lowerFileRef = tolower( l_fileRef );
+      if ( substr( l_lowerFileRef, 1, 6 ) == "http:/"			\
+	   || substr( l_lowerFileRef, 1, 7 ) == "https:/"		\
+	 ) {
+	# Appears to be an http reference.  Leave it unchanged.
+	continue;
+      }
+    }
+
+    # If we haven't already encountered this graphic, then assign it a name
+    # in the output directory.
+    if ( l_newName[ l_fileRef ] == "" ) {
+
+      # Compute absolute path equivalent to l_fileRef
+      local l_absRef \
+	= absolute_file_name( l_fileRef, p_docDir );
+
+      _publow_util::Trace( e3::g_debug,								\
+			   "_e3::CopyGraphics:  l_absRef        = '" . l_absRef        . "'\n"	\
+			 );
+
+
+      # If no mapping for absolute pathname either, create one
+      if ( l_newName[ l_absRef ] == "" ) {
+	local l_outputName;
+	local l_rc;
+
+	# CR 49889:  check to see if the file exists.  If it doesn't, l_absRef will
+	# probably point into Epic's current working directory, which is confusing
+	if ( ! access( l_absRef, "r" ) ) {
+	  if ( l_entRef != "" ) {
+	    l_rc = "_e3::CopyGraphics:  graphic file referenced via entity '"			\
+	           . l_entRef									\
+		   . "' (public ID='"								\
+		   . entity_pubid( l_entRef )							\
+		   . "' system ID='"								\
+		   . entity_sysid( l_entRef )							\
+		   . "') not found."								\
+		   ;
+	  }
+	  else {
+	    l_rc = "_e3::CopyGraphics:  graphic file '"						\
+	           . oid_attr( l_graphicOid, l_fileRefAttr )					\
+		   . "' not found.";
+	  }
+	}
+	else if ( ! p_gifConvert ) {
+	  l_rc = _e3::CopyGraphicFile( p_graphDir, l_absRef, l_outputName );
+	}
+	else {
+	  l_rc = _e3::ConvertGraphicFile( p_graphDir, l_absRef, l_graphicOid, l_outputName );
+	}
+
+	if ( l_rc != "ok" ) {
+	  _publow_util::Trace( e3::g_debug, l_rc );
+	  continue;
+	  #return l_rc;
+	}
+
+	# If we're producing SGML, XML, or HTML, edit pathnames to relative values
+	#
+	# We purposefully use a "/" here to better handle the common case where
+	# we are zipping up an HTML file (and its referenced graphics).  This
+	# will cause the HTML file to have references like ati1234/hammer.gif
+	# instead of ati1234\hammer.gif (only applies to E3 on Windows).  The
+	# later would cause problems with Unix browsers.
+	#
+	# If we are producing SGML or XML, this is still mostly OK because
+	# Epic on any Windows platform will handle /'s and any parser on Windows
+	# platforms >= NT will handle /'s correctly.
+	#
+	# This all has to do with the change to style_html() to use the new
+	# compose_using_xsl() routine.
+	if ( p_relative ) {
+	  l_newName[ l_absRef ] = l_graphBase . "/" . basename( l_outputName );
+	}
+	# If we're producing WORD or FRAME output, leave pathnames alone
+	else {
+	  l_newName[ l_absRef ] = l_outputName;
+	}
+      }
+
+      # We now have a mapping for the absolute pathname.  If l_fileRef isn't
+      # absolute, make an entry for it, too
+      if ( l_fileRef != l_absRef ) {
+	l_newName[ l_fileRef ] = l_newName[ l_absRef ];
+      }
+
+      # And l_newName[ l_fileRef ] now contains the ready-to-use filename
+    }
+
+    # l_newName[ l_fileRef ] contains the name to which our graphic tag
+    # should point.
+
+    local l_rc = _e3::SetOidGraphicPath( l_graphicOid, l_newName[ l_fileRef ] );
+    if ( l_rc != "ok" ) {
+      	return l_rc;
+    }
+
+    # Part of fix for 50163.
+    if ( l_onlyEntRef ) {
+      # This graphic can only use an entity reference.  Make a note that
+      # we've already mapped this entity so we'll properly handle any
+      # subsequent graphic tags which reference the same entity.
+      l_mappedEnts[ l_entRef ] = 1;
+    }
+
+    # End of loop:  go find the next graphic tag
+  }
+
+  return "ok";
+}
+
+
+
+function copyGraphics2(doc, graphDir) {
+
+	# Results of this function.
+	local result = 0;
+	# Directory containing the document being processed.
+	local docDir = doc_dir(doc);
+	# Table of file-reference/output name correspondences.
+  	local fileIndex[];
+  	
+	# Try to create the output directory for the graphics.
+	# If it fails, returns an error.
+  	
+  	execute("mkdir -p " . graphDir);
+	if (!access(graphDir, 'w')) {
+		local l_rc = "copyGraphics:  failed to create directory '" . graphDir . "'.";
+		_publow_util::Trace(e3::g_debug, l_rc);
+    	return l_rc;
+  	}
+  	
+  	# Make sure current document is not read-only.  	
+  	doc_read_only(doc, 0);
+	
+	# Root of the document.
+	local root = oid_root(doc);
+	# Array that will contain the oids of the different graphic elements.
+	local graphics[];
+	oid_xpath_nodeset(root, graphics, "//*[(@negnumber or @gnbr) and @negnum and @object-key and @size]");
+	
+	local g;
+	for ($g in $graphics) {
+		# Graphic tag oid.
+		local graphicOid    = $graphics[$g];
+		# Name of the graphic tag.
+    	local graphicName   = oid_name(graphicOid);
+    	# Size of the graphic (big, med or thm).
+		local size 			= oid_attr(graphicOid, "size");
+		# Name of the graphic file, unmodified by Windchill
+		local fileNameRoot	= oid_attr(graphicOid, "negnum");
+		# File ref of the graphic
+		local fileRefAttr	= "negnumber";
+		local fileRef       = oid_attr(graphicOid, fileRefAttr);
+		if (length(fileRef) == 0) { 
+			fileRefAttr 	= "gnbr"; 
+			fileRef 		= oid_attr(graphicOid, fileRefAttr);
+		}	
+		# File ref extension
+		local fileRefExt	= substr(basename(fileRef), length(basename(fileRef, '.*')) + 1);
+		# Directory that should contain this graphic.
+		local graphBase 	= "graphics/" . size;
+	
+		# Name of the grpahic file after the publication.
+		fileNewName			= fileNameRoot . "_" . size . fileRefExt;
+		fileNewPath			= graphDir . $main::PCS . size;
+		
+    	_publow_util::Trace( e3::g_debug,						 				\
+			   "copyGraphics:  graphicOid    = '" . graphicOid    	   . "'\n"	\
+			 . "                    graphicName   = '" . graphicName   . "'\n"	\
+			 . "                    fileRef       = '" . fileRef       . "'\n"	\
+		       );
+
+    	# If it's a repository (willow) object, resolve its POID into a pathname
+    	if (path_session(fileRef)) {
+      		fileRef = sess_get_file(fileRef, 0);      
+      		_publow_util::Trace(e3::g_debug, "copyGraphics:  fileRef (2)	= '" . fileRef . "'\n");
+    	}
+
+    	# We only process the graphic file once.
+		# If a mapping of the fileRef is found, we do not need to process the file.
+    	if (fileIndex[fileRef] == "") {
+
+	      	# Compute absolute path equivalent to fileRef
+	      	local absRef = absolute_file_name(fileRef, docDir);
+	      	_publow_util::Trace( e3::g_debug, "copyGraphics:  absRef	= '" . absRef . "'\n");
+	      	
+	      	# If no mapping for absolute pathname either, create one.
+	      	if (fileIndex[absRef] == "") {
+				local outputName;
+				local rc;
+	
+				# CR 49889:  check to see if the file exists.  If it doesn't, l_absRef will
+				# probably point into Epic's current working directory, which is confusing
+				if (!access(absRef, "r")) {	
+					rc = "copyGraphics:  graphic file '" . absRef . "' not found.";
+				} else {
+		  			rc = _e3::CopyGraphicFile(graphDir, absRef, outputName);
+				}
+	
+				if (rc != "ok") {
+		  			_publow_util::Trace(e3::g_debug, rc);
+		  			continue; # Ignore errors and missing images.
+				} else {
+					# Move the graphic file
+					moveGraphicFile(outputName, fileNewPath, fileNewName);
+					# Mapping of the file in the output files. 
+					fileIndex[absRef] = graphBase . "/" . fileNewName;
+				}
+	      	}
+	
+	      	# We now have a mapping for the absolute pathname. If fileRef isn't
+	      	# absolute, make an entry for it, too
+	      	if (fileRef != absRef) {
+				fileIndex[fileRef] = fileIndex[absRef];
+	      	}	      	
+		}
+	
+	} # End fo loop, process the next graphci tag
+
+  	return "ok";
+}
+
+
+#---------------------------------------------------------------------------
+# Function	: htmlonline_preprocess
+# Desc		: Preprocessing tasks for HTML online publications
+# Params	: inFile : the file to convert
+# 			  outFile : the output file of the conversion
+# 			  parameterArray[] : the parameters of the conversion
+# Returns	: 'ok' if no problem is encounterred, error message otherwise
+#---------------------------------------------------------------------------
+function htmlonline_preprocess(inFile, outFile, parameterArray[])
+{
+	local result = "ok";
+	
+	local doc = doc_open(inFile, 0x001+0x010+0x020+0x200+0x400+0x80000);       
+    local docIsValid = doc_valid(doc);    
+    if (docIsValid) { 
+		local schema = getSchema(doc);
+		local xsl = getStylesheet(schema);
+		if (length(xsl) > 0) {
+			parameterArray[$STYLESHEET_PARAM] = get_custom_dir(CUSTOM_INFO_ID) . $main::PCS . $xsl;
+		}
+	
+		doc_close(doc); 
+	} else {
+		result = "The file $inFile was not found or could not be opened.";
+	}
+	
+	return result;
+}
+
+
+
+function moveGraphicFile(filePath, outputDir, outputFileName) 
+{
+	local result = 0;
+
+	if (!access(outputDir, "e")) {
+	    execute("mkdir " . outputDir);
+	}
+	
+	if (access(outputDir, "e") && access(filePath, 'e')) {
+		local outputFilePath = outputDir . $main::PCS . outputFileName;
+		execute("mv " . filePath . " " . outputFilePath);
+	} else {
+		result = -1;
+	}
+	
+	return result;
+}
+
+
+# ==========================================================================
+# == UTILS =================================================================
+# ==========================================================================
+
+
+#---------------------------------------------------------------------------
+# Function	: pwc_ape_wc :: isHTMLOnlinePub
+# Desc		: Test if the publication is an HTML Online publication
+# Params	: parameterArray[] : array of parameters
+# Returns	: true if the publication is an HTML Online publication,
+#			  false otherwise.
+#---------------------------------------------------------------------------
+function isHTMLOnlinePub(parameterArray[]) 
+{
+	local publicationType = getParameterValue($parameterArray, $PUBLICATIONTYPE_PARAM);
+	local outType = getParameterValue($parameterArray, $OUTPUTTYPE_PARAM);
+	
+	return $publicationType == $HTMLONLINE_PUBLICATIONTYPE && $outType == $XML_TYPE;
+}
+
+
+#---------------------------------------------------------------------------
+# Function	: getStylesheet
+# Desc		: Gets the file path of the stylesheet associated with a doctype
+# Params	: doctype : an XML doctype name
+# Returns	: the file path of the stylesheet associated with the doctype,
+#			  an empty string otherwise.
+#---------------------------------------------------------------------------
+function getStylesheet(doctype)
+{
+	if (count(DOCTYPE_XSL) == 0) { load_config_file(); }
+	
+	local result = "";
+  	if (defined(DOCTYPE_XSL[doctype])) {
+     	result = DOCTYPE_XSL[doctype];
+    }
+  	return result;
+}
+
+
+#---------------------------------------------------------------------------
+# Function	: getSchema
+# Desc		: Determine the schema of the document from the @doctype 
+#			  attribute of the root of the document.
+# Params	: doc : the document to consider
+# Returns	: the schema of the document, "migrate" by default
+#---------------------------------------------------------------------------
+function getSchema(doc)
+{
+	local root = oid_root(doc);
+	local doctype = oid_attr(root, "doctype");
+	
+	local result;
+	if (index(doctype, 'oh')) { result = "migrate"; }
+	else if (index(doctype, 'ipc')) { result = "ipc"; }
+	else if (index(doctype, 'epc')) { result = "emipc"; }
+	else if (index(doctype, 'cir')) { result = "jmtosmigrate"; }
+	else if (index(doctype, 'em')) { result = "jmtosmigrate"; }
+	else if (index(doctype, 'lmm')) { result = "jmtosmigrate"; }
+	else if (index(doctype, 'tmm')) { result = "jmtosmigrate"; }
+	else if (index(doctype, 'mm')) { result = "migrate"; }
+	else { result = "migrate"; }
+	
+	return result;
+} 
+
+
+#---------------------------------------------------------------------------
+# Function	: load_config_file
+# Desc		: Load the configuration file
+#---------------------------------------------------------------------------
+function load_config_file()
+{
+	local doc = current_doc();
+
+	local config_doc = doc_open(STYLESHEET_CONF, 0x001+0x010+0x020+0x200+0x400+0x80000);
+	if (!doc_valid(config_doc)) { return; }
+
+	local arr[], oid;
+	oid_xpath_nodeset(oid_root(config_doc), arr, "//entry[@doctype]");
+	for ($oid in $arr)
+	{
+		local doctype = oid_attr(arr[oid], "doctype");
+		local value = oid_content(arr[oid]);
+		$DOCTYPE_XSL[doctype] = value;
+	}
+	
+	doc_close(config_doc);
+}
+
+
+# ---------------------------------------------------------------------
+# Function:	pwc_ape_wc :: getParamValue
+# 
+# Purpose:	Convenience function which extracts a given entry from
+#		the array or returns "--default--" if no such entry
+#		exists.
+# 
+# Parameter:	parameterArray - array or parameters
+#				key - parameter key name
+#
+# Result:	Requested parameter value or "--default--" if missing.
+# ---------------------------------------------------------------------
+function getParameterValue(parameterArray[], key)
+{
+	local result = DEFAULT_PARAM;
+  	if (defined(parameterArray[key]))
+    {
+     	result = parameterArray[key];
+    }
+    
+  	return result;
+}

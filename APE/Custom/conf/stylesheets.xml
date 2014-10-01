@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl-config>
+	<entry doctype="migrate">stylesheets\migrate.xsl</entry>
+	<entry doctype="jmtosmigrate">stylesheets\jmtosmigrate.xsl</entry>
+	<entry doctype="emipc">stylesheets\emipc.xsl</entry>
+	<entry doctype="ipc">stylesheets\ipc.xsl</entry>
+</xsl-config>

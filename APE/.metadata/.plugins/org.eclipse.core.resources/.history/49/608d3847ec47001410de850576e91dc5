@@ -1,0 +1,281 @@
+package ca.pwc.test;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.arbortext.e3.E3Application; // pecommon.jar
+import com.arbortext.e3.E3ApplicationConfig; // pecommon.jar
+import com.arbortext.e3.E3ApplicationRequest; // pecommon.jar
+import com.arbortext.e3.E3ApplicationResponse; // pecommon.jar
+import com.arbortext.e3.StringArray; // pecommon.jar
+import com.arbortext.epic.Acl; // aom.jar
+import com.arbortext.epic.AclException; // aom.jar
+
+public class Compose implements E3Application {
+
+    // Consts
+    
+
+    private static HashMap<String, String> g_parameterMap = null;
+
+    // E3Application Interface
+    
+    @Override
+    public void init(E3ApplicationConfig arg0) throws Exception {
+
+    }
+
+
+    @Override
+    public void destroy() {
+
+    }
+
+
+    @Override
+    public void doPost(E3ApplicationRequest paramE3ApplicationRequest, E3ApplicationResponse paramE3ApplicationResponse)
+            throws Exception {
+
+        this.doGet(paramE3ApplicationRequest, paramE3ApplicationResponse);
+    }
+
+
+    @Override
+    public void doGet(E3ApplicationRequest paramE3ApplicationRequest, E3ApplicationResponse paramE3ApplicationResponse)
+            throws Exception {
+        
+        try {   
+            doConvert(paramE3ApplicationRequest, paramE3ApplicationResponse);
+        } catch (Throwable localThrowable) {
+            StringBuffer localStringBuffer = new StringBuffer();
+            localStringBuffer.append("Compose Error\n\n");
+            localStringBuffer.append(localThrowable.getMessage());
+
+            localStringBuffer.append("\n\n---------------------------------------------------------");
+            localStringBuffer.append("\n\nThe following parameters were received with this request:\n\n");
+
+            @SuppressWarnings("rawtypes")
+            Enumeration localEnumeration = paramE3ApplicationRequest.getParameterNames();
+            while (localEnumeration.hasMoreElements()) {
+                String param = localEnumeration.nextElement().toString();
+                String value = paramE3ApplicationRequest.getParameter(param);
+                if (value != null) {
+                    if (param.equals("password")) {
+                        value = "************";
+                    }
+
+                    localStringBuffer.append(param);
+                    localStringBuffer.append("=");
+                    localStringBuffer.append(value);
+                    localStringBuffer.append("\n");
+                }
+            }
+
+            paramE3ApplicationResponse.setContentType("text/plain");
+            paramE3ApplicationResponse.setOutputPage(localStringBuffer.toString());
+            paramE3ApplicationResponse.setStatus(500);
+        }
+    }
+
+
+    // Methods
+
+
+    @SuppressWarnings("rawtypes")
+    private void doConvert(E3ApplicationRequest paramE3ApplicationRequest,
+            E3ApplicationResponse paramE3ApplicationResponse) throws Exception {
+        
+        // Copy the list of parameters in a HashMap
+        g_parameterMap = new HashMap<String, String>();
+        Enumeration localEnumeration = paramE3ApplicationRequest.getParameterNames();
+        while (localEnumeration.hasMoreElements()) {
+            String param = localEnumeration.nextElement().toString();
+            String value = paramE3ApplicationRequest.getParameter(param);
+            if (value != null && value.length() > 0) {
+                g_parameterMap.put(param, value);
+            }
+        }
+
+        // If the 'file-type' parameter is not set, use the default value 'xml'.
+        String fileType = paramE3ApplicationRequest.getParameter("file-type");
+        if (null == fileType || fileType.length() == 0) {
+            g_parameterMap.put("file-type", "xml");
+        }
+
+        // Gets the 'type' parameter value.
+        String type = paramE3ApplicationRequest.getParameter("type");
+        // Gets the 'rule' parameter value.
+        String rule = paramE3ApplicationRequest.getParameter("rule");
+        // Check if a 'rule' parameter was defined.
+        boolean isRule = (rule != null) && (rule.length() > 0);
+
+        // If no rule was specified and the type is 'xml' or 'sgml'
+        if (!isRule && (type.equals("xml") || type.equals("sgml"))) {
+            // Sets the default value 'yes' for the 'xml-header' parameter if no value was provided.
+            String xmlHeader = paramE3ApplicationRequest.getParameter("xml-header");
+            if (null == xmlHeader || xmlHeader.length() == 0) {
+                g_parameterMap.put("xml-header", "yes");
+            }
+            // Sets the default value 'yes' for the 'flatten-entities' parameter if no value was provided.
+            String flattenEntities = paramE3ApplicationRequest.getParameter("flatten-entities");
+            if (null == flattenEntities || flattenEntities.length() == 0) {
+                g_parameterMap.put("flatten-entities", "yes");
+            }
+
+        }
+
+        // If a rule is provided, the output type of the rule will be used.
+        if (isRule) {
+            g_parameterMap.remove("type");
+        }
+
+        File file = null;
+        try {
+            // Temp output file of the publication
+            file = File.createTempFile("wvs_pe", ".tmp");
+        } catch (IOException localIOException) {
+            String msg = stringFormat("Error creating temporary file: {0}", new String[] { localIOException.getMessage() });
+
+            throw new Exception(msg);
+        }
+
+        // Delete the output file if it already exist
+        file.delete();
+
+        String filePath = file.getAbsolutePath();        
+        g_parameterMap.put("output-file", filePath);
+
+        int i = 1;
+
+        String convertResult = null;
+        String result = null;
+        try {
+            convertResult = Acl.func("ape_wc::convert", "ca.pwc.test");
+
+            StringArray arr = new StringArray(convertResult, ':', '*');
+
+            result = arr.getValue("result");
+            String reason = arr.getValue("reason");
+
+            int statusCode = 200;
+            if (reason != null) {
+                try {
+                    statusCode = Integer.parseInt(reason);
+                } catch (Exception localException) {
+                    String msg = stringFormat("Internal error: ''resultReason'' is non-numeric: {0}", new String[] { reason });
+
+                    throw new Exception(msg);
+                }
+
+            }
+
+            if (null == result) {
+                throw new Exception("Internal error: null result");
+            }
+            
+            if (result.equals("ok")) {
+                String zipOutput = paramE3ApplicationRequest.getParameter("zip-output");
+                String mimeType = getOutputMimeType(type, zipOutput, isRule);
+                
+                paramE3ApplicationResponse.setContentType(mimeType);
+                paramE3ApplicationResponse.setOutputFile(file, true);
+                paramE3ApplicationResponse.setStatus(200);
+
+                i = 0;
+            } else if (result.equals("file")) {
+                paramE3ApplicationResponse.setContentType("text/html");
+                paramE3ApplicationResponse.setOutputFile(file, true);
+                paramE3ApplicationResponse.setStatus(statusCode);
+                
+                i = 0;
+            } else {
+                if (result.equals("string") || result.equals("error")) {
+                    String body = arr.getValue("body");
+                    if (null == body) {
+                        body = arr.getValue("page");
+                        if (null == body) {
+                            body = "Unexpected error: null 'body' or 'page'";
+                        }
+
+                    }
+
+                    StringBuffer buffer = new StringBuffer(body);
+                    unHtmlize(buffer);
+
+                    throw new Exception((buffer).toString());
+                }
+
+                throw new Exception("Unsupported result code: " + statusCode);
+            }
+
+        } catch (AclException ex) {
+            String msg = stringFormat("Error calling ACL function ''ape_wc::convert'': {0}", new String[] { ex.getMessage() });
+            throw new Exception(msg);
+        } finally {
+            if (i != 0) {
+                // Delete the temporary output file
+                file.delete();
+            }
+        }
+    }
+    
+   
+    public static Map<String, String> getParameterMap() {
+
+        if (null == g_parameterMap) {
+            g_parameterMap = new HashMap<String, String>();
+        }
+
+        return g_parameterMap;
+    }
+
+
+    private static String stringFormat(String paramString, Object[] paramArrayOfObject) {
+        return MessageFormat.format(paramString, paramArrayOfObject);
+    }
+
+
+    private String getOutputMimeType(String type, String zipOutput, boolean paramBoolean) {
+
+        String mimeType = "application/octet-stream";
+
+        if (paramBoolean || (zipOutput != null && zipOutput.equals("yes")) || type.equals("web") || type.equals("dmp")) {
+            mimeType = "application/zip";
+        } else if (type.equals("pdf")) {
+                mimeType = "application/pdf";
+        }else if (type.equals("postscript")) {
+                mimeType = "application/postscript";
+        } else if (type.equals("htmlhelp")) {
+                mimeType = "application/octet-stream";
+        }
+
+        return mimeType;
+    }
+
+
+    private void replaceAll(StringBuffer paramStringBuffer, String arg0, String arg1) {
+
+        int i;
+        while ((i = paramStringBuffer.indexOf(arg0)) != -1)
+            paramStringBuffer.replace(i, i + arg0.length(), arg1);
+    }
+
+
+    private void unHtmlize(StringBuffer paramStringBuffer) {
+
+        replaceAll(paramStringBuffer, "<br style=\"none\"/>", "\n");
+        replaceAll(paramStringBuffer, "<br>", "\n");
+        replaceAll(paramStringBuffer, "<br/>", "\n");
+        replaceAll(paramStringBuffer, "<p>", "\n");
+        replaceAll(paramStringBuffer, "</p>", "\n");
+        replaceAll(paramStringBuffer, "<pre>", "\n");
+        replaceAll(paramStringBuffer, "</pre>", "\n");
+        replaceAll(paramStringBuffer, "<b>", "");
+        replaceAll(paramStringBuffer, "</b>", "");
+    }
+
+}

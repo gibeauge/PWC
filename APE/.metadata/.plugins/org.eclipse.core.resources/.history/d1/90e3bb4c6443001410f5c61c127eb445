@@ -1,0 +1,8 @@
+package testhook;
+function compFrameHook( doc, type, where, params[] ) {
+  local is_e3 = ( main::is_e3 ? "e3" : "local" );
+  eval "chf:  $is_e3 doc=$doc type=$type where=$where" output=*debug;
+}
+set debug==extwin;
+add_hook( "compositionframeworkhook", "testhook::compFrameHook" );
+eval "installed composition framework hook" output=*debug;

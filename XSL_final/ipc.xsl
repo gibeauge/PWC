@@ -102,6 +102,9 @@
 
 <xsl:template match="figure[descendant::graphic]" priority="1">
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
+  <xsl:variable name="graphic-prop-filename">
+    <xsl:value-of select="$graphics-path"/><xsl:text>/</xsl:text>
+  </xsl:variable>
   <div class="pr-brk"></div>
   <div style="display:none;" class="x-figure-1-0">
      <xsl:copy-of select="@ch:*"/>
@@ -113,10 +116,26 @@
     <xsl:apply-templates select="key"/>
   </div>
   <span class="pr-figure-min">
-    <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');" class="x-a-no-border">
-       <img alt="Graphic" src="{descendant::graphic[@size='thm']/@negnumber}">
-       </img>
-    </a>
+    <xsl:for-each select="descendant::graphic[@size='thm']">
+      <xsl:variable name="filename">
+        <xsl:value-of select="@negnumber"/>
+      </xsl:variable>
+      <xsl:variable name="src">
+        <xsl:choose>
+          <xsl:when test="@size and @negnum and $graphics-path !=''">
+            <xsl:value-of select="$graphic-prop-filename"/><xsl:value-of select="@negnum"/>_<xsl:value-of select="@size"/><xsl:value-of select="substring($filename, string-length($filename)-4 + 1, 4)"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$filename"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <a href="#{$l-id}" onclick="displayGraphics('{$l-id}');" class="x-a-no-border">
+        <img alt="Graphic" src="{$src}">
+        </img>
+      </a>
+      <xsl:text> </xsl:text>
+    </xsl:for-each>
   </span>
 </xsl:template>
 
