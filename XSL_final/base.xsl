@@ -4721,20 +4721,25 @@
   <xsl:copy-of select="@ch:*"/>
   <img alt="Graphic">
     <xsl:copy-of select="@ch:*"/>
-    <xsl:variable name="graphic-prop-filename">
-       <!--
-       <xsl:if test="$graphics-path!=''">
+       <!--<xsl:if test="$graphics-path!=''">
           <xsl:call-template name="substring-before-last">
              <xsl:with-param name="str" select="$graphics-path"/>
              <xsl:with-param name="delim" select="'/'"/>
           </xsl:call-template>
           <xsl:text>/</xsl:text>
-       </xsl:if>
-       -->
-       <xsl:value-of select="$filename"/>
+       </xsl:if>-->
+    <xsl:variable name="graphic-prop-filename">
+      <xsl:value-of select="$graphics-path"/><xsl:text>/</xsl:text>
     </xsl:variable>
     <xsl:attribute name="src">
-       <xsl:value-of select="string($filename)"/>
+      <xsl:choose>
+        <xsl:when test="@size and @negnum and $graphics-path !=''">
+          <xsl:value-of select="$graphic-prop-filename"/><xsl:value-of select="@negnum"/>_<xsl:value-of select="@size"/><xsl:value-of select="substring($filename, string-length($filename)-4 + 1, 4)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="string($filename)"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:attribute>
     <xsl:attribute name="style">max-width: 100%; </xsl:attribute>
     <xsl:call-template name="maybe-set-id"/>

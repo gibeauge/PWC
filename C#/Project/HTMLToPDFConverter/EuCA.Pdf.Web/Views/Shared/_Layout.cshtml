@@ -1,17 +1,22 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="yui3-cssreset">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
+    @*<link href="~/Content/css_reset.css" rel="stylesheet" type="text/css"></link>*@
     <link href="~/Content/content.css" rel="stylesheet" type="text/css"></link>
+    <link href="~/Content/corev4.css" rel="stylesheet" type="text/css"></link>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/TreeviewHelper.css" rel="stylesheet" type="text/css"></link>
+    <link href="~/Content/zoom.css" rel="stylesheet" type="text/css"></link>
+    
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/pwcdisplay.js" type="text/javascript"></script>
     <script>
-        
+
         function printPDF() {
             var paraIds = new Object();
             var tableIds = new Object();
@@ -21,8 +26,7 @@
             euCAPrintPopup(paraIds, tableIds, figureIds, 'HandlePopupResult');
         }
 
-        function HandlePopupResult(ids)
-        {
+        function HandlePopupResult(ids) {
             var results = "";
             for (id in ids) {
                 results += ids[id] + ',';
@@ -37,16 +41,14 @@
 <body>
 
     @*<div class="container body-content">*@
-        @RenderBody()
+    @RenderBody()
     @*</div>*@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script>
         function myFunction() {
             $('#pwc a[href]')
-                .each(function ()
-                {
-                    if (this.href.match('localhost') && !this.getAttribute("href").match('#none') && !this.href.match('/#') && this.getAttribute("href").substr(0, 1) != '#')
-                    {
+                .each(function () {
+                    if (this.href.match('localhost') && !this.getAttribute("href").match('#none') && !this.href.match('/#') && this.getAttribute("href").substr(0, 1) != '#') {
                         var splitIdx = this.href.lastIndexOf('/');
                         var uriRoot = this.href.substr(0, splitIdx + 1);
                         var target = this.href.substr(splitIdx + 1);
@@ -70,10 +72,10 @@
             @if (!string.IsNullOrEmpty(ViewBag.Anchor))
             {
                 @:$("html, body").animate({ scrollTop: $('@ViewBag.Anchor').offset().top }, 1000);
-            }
+                        }
         }
         $(document).ready(myFunction);
     </script>
-    
+
 </body>
 </html>

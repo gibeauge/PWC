@@ -13,7 +13,7 @@
 <xsl:include href="chunking.xsl"/>
 <xsl:include href="toc.xsl"/>
 
-<xsl:param name="graphics-path" select="'/graphics'"/>
+<xsl:param name="graphics-path" select="'graphics'"/>
 <xsl:param name="images-path"   select="'images'"/>
 <xsl:param name="css-path"      select="'css'"/>
 <xsl:param name="js-path"       select="'javascript'"/>
@@ -78,6 +78,7 @@
   <!--
   <xsl:copy-of select="$tree5"/>
   -->
+  <result/>
 </xsl:template>
  
 <!-- INITIAL PASS MODE : add id and chunk attributes -->
