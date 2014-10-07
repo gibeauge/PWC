@@ -1526,7 +1526,7 @@
   <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
   <div>
     <span onclick="toggle('{$l-id}','{$l-id}');" onmouseover="this.style.cursor='pointer'">
-      <img alt="key" src="{$images-path}/keytofigure.jpg" style="border-style:none;"/>
+      <img alt="key" src="{$images-path}/keytofigure.jpg" style="border-style:none; display:inline;"/>
     </span>
   </div>
   <div style="display:none" class="x-key-1-0">
@@ -2913,7 +2913,7 @@
   	</xsl:if>
 	<div>
 	  <a href="#none" onclick="toggle('{@id}','{@id}');">
-	    <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
+	    <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
 	    <xsl:text>                   </xsl:text>
 	    <xsl:apply-templates mode="numbering" select="title"/>
 	  </a>
@@ -2958,7 +2958,7 @@
   	</xsl:if>
     <div>
       <a href="#none" onclick="toggle('{@id}','{@id}');">
-        <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
+        <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
         <xsl:text>                   </xsl:text>
         <xsl:apply-templates mode="numbering" select="title"/>
       </a>
@@ -2988,7 +2988,7 @@
   	</xsl:if>
     <div>
       <a href="#none" onclick="toggle('{@id}','{@id}');">
-        <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
+        <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
         <xsl:text>                   </xsl:text>
         <xsl:apply-templates mode="numbering" select="title"/>
       </a>
@@ -3116,7 +3116,7 @@
   	</xsl:if>
     <div>
       <a href="#none" onclick="toggle('{@id}','{@id}');">
-        <img alt="table" src="{$images-path}/table.gif" style="border-style:none;"/>
+        <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
         <xsl:text>                   </xsl:text>
         <xsl:apply-templates mode="numbering" select="title"/>
       </a>
@@ -4352,6 +4352,12 @@
         <xsl:if test="not(./*[not(self::_sfe:BeforeOrAfterText)]|./text()[normalize-space(.)!=''])"> x-zip-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
+  </span>
+</xsl:template>
+
+<xsl:template match="//para/text()[following-sibling::table]">
+  <span> 
+    <xsl:value-of select="."/>
   </span>
 </xsl:template>
 

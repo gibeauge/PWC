@@ -26,14 +26,8 @@
             euCAPrintPopup(paraIds, tableIds, figureIds, 'HandlePopupResult');
         }
 
-        function HandlePopupResult(ids) {
-            var results = "";
-            for (id in ids) {
-                results += ids[id] + ',';
-            }
-            results = results.substr(0, results.length - 1);
-
-            window.open('@Html.Raw(ViewBag.PdfUri)' + results, '_blank');
+        function HandlePopupResult(showIds, hiddenIds) {     
+            window.open('@Html.Raw(ViewBag.PdfUri)' + showIds + "&hids=" + hiddenIds, '_blank');
         }
 
     </script>
