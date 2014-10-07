@@ -57,7 +57,14 @@
           <xsl:when test="not(@size) or (@size and string(@size)!='big')"/>
           <xsl:otherwise>
             <_ufe:block-prespace>
-              <xsl:text>(SHEET X OF Y)</xsl:text>
+              <!--xsl:text>(SHEET X OF Y)</xsl:text-->
+              <xsl:if test="ancestor::figure and count(ancestor::figure//graphic[@size='big']) > 1">
+                <xsl:variable name="l-id" select="@_gte:id"/>
+                <xsl:text>(SHEET </xsl:text><xsl:value-of select="count(ancestor::figure//graphic[@size='big' and following::graphic[@_gte:id=$l-id]])+1"/>
+                <xsl:text> OF </xsl:text>
+                <xsl:value-of select="count(ancestor::figure//graphic[@size='big'])"/>
+                <xsl:text>)</xsl:text>
+              </xsl:if>
             </_ufe:block-prespace>
           </xsl:otherwise>
         </xsl:choose>
