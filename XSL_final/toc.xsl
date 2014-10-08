@@ -68,6 +68,13 @@
     <xsl:variable name="hasTitle" select="count(.//*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1]) > 0"/>
     <xsl:variable name="hasFiles" select="count(.//*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 1"/>
     
+    <xsl:variable name="isFigure">
+      <xsl:choose>
+        <xsl:when test="not($hasFiles) and $hasTitle and starts-with(.//*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1], 'Figure')">1</xsl:when>
+        <xsl:otherwise>0</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
     <xsl:choose>
       <xsl:when test="contains(@class, 'frontmatter')">
         <Page>
@@ -106,6 +113,7 @@
           <xsl:attribute name="FileType">
             <xsl:choose>
               <xsl:when test="$isFolder">FOLDER</xsl:when>
+              <xsl:when test="$isFigure = '1'">IMAGE</xsl:when>
               <xsl:otherwise>FILE</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -147,6 +155,13 @@
       </xsl:choose>
     </xsl:variable>
     
+    <!--<xsl:variable name="isFigure">
+      <xsl:choose>
+        <xsl:when test="starts-with(normalize-space(.), 'Figure')">1</xsl:when>
+        <xsl:otherwise>0</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>-->
+    
     <Page>
       <xsl:attribute name="ID">
         <xsl:call-template name="generate-toc-id"/>
@@ -166,6 +181,7 @@
       <xsl:attribute name="FileType">
         <xsl:choose>
           <xsl:when test="$hasFigure = '1'">FOLDER</xsl:when>
+          <!--<xsl:when test="$isFigure = '1'">IMAGE</xsl:when>-->
           <xsl:otherwise>FILE</xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
@@ -201,6 +217,7 @@
       </xsl:attribute>
       
       <xsl:attribute name="FileType">FILE</xsl:attribute>
+      <!--<xsl:attribute name="FileType">IMAGE</xsl:attribute>-->
       
       <xsl:attribute name="MIMEType">text/html</xsl:attribute>
     </Page>

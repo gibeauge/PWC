@@ -46,7 +46,7 @@ global HTMLONLINE_PUBLICATIONTYPE	= 'HTMLOnline';
 global DOCTYPE_XSL[];
 
 global XSL_TEMP_DIR					= "xsl_out";
-global ZIP_TEMP_DIR					= "zip_temp";
+#global ZIP_TEMP_DIR					= "zip_temp";
 global GRAPHICS_DIR					= "graphics";
 
 # forward declarations
@@ -176,35 +176,41 @@ function htmlonline_postprocess(inFile, outFile, parameterArray[])
 	local result = "ok";
 		
 	# Creating temporary zip directory
-	local zipTemp = get_e3_temp_dir() . $main::PCS . ZIP_TEMP_DIR;
-	execute("mkdir -p " . zipTemp);
-		
-	# Creating Pages.zip and XML.zip 
-	local pagesDir = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR . $main::PCS . "Pages";
-	local pagesZip = zipTemp . $main::PCS . "Pages.zip";
-	local rc1 = _e3::ZipDirectory(pagesZip, pagesDir);	
-	if (rc1 != "ok") {
-		result = "An error occured while creating the pages zip: $rc1";
-	} else {
+	#local zipTemp = get_e3_temp_dir() . $main::PCS . ZIP_TEMP_DIR;
+	#execute("mkdir -p " . zipTemp);
 	
-		local xmlDir = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR . $main::PCS . "XML";
-		local xmlZip = zipTemp . $main::PCS . "XML.zip";
-		local rc2 = _e3::ZipDirectory(xmlZip, xmlDir);		
-		if (rc2 != "ok") {
-			result = "An error occured while creating the xml zip: $rc2";
-		} else {
-		
-			local dirFolder = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR;
-			local rc3 = _e3::ZipDirectory(outFile, zipTemp);	
-			if (rc3 != "ok") {
-				result = "An error occured while creating the output zip: $rc3";
-			}
-		}
+	local folderDir = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR;
+	local rc = _e3::ZipDirectory(outFile, folderDir);	
+	if (rc != "ok") {
+		result = "An error occured while creating the output zip: $rc";
 	}
+		
+	## Creating Pages.zip and XML.zip 
+	#local pagesDir = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR . $main::PCS . "Pages";
+	#local pagesZip = zipTemp . $main::PCS . "Pages.zip";
+	#local rc1 = _e3::ZipDirectory(pagesZip, pagesDir);	
+	#if (rc1 != "ok") {
+	#	result = "An error occured while creating the pages zip: $rc1";
+	#} else {
+	#
+	#	local xmlDir = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR . $main::PCS . "XML";
+	#	local xmlZip = zipTemp . $main::PCS . "XML.zip";
+	#	local rc2 = _e3::ZipDirectory(xmlZip, xmlDir);		
+	#	if (rc2 != "ok") {
+	#		result = "An error occured while creating the xml zip: $rc2";
+	#	} else {
+	#	
+	#		local dirFolder = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR;
+	#		local rc3 = _e3::ZipDirectory(outFile, zipTemp);	
+	#		if (rc3 != "ok") {
+	#			result = "An error occured while creating the output zip: $rc3";
+	#		}
+	#	}
+	#}
 	
 	# Delete temporary files
 	execute("remove_file -r -f " . dirFolder);
-	execute("remove_file -r -f " . zipTemp);
+	#execute("remove_file -r -f " . zipTemp);
 	
 	return result;
 }

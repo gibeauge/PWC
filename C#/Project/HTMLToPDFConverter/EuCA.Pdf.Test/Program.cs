@@ -59,7 +59,7 @@ namespace EuCA.Pdf.Test
             {
                 BaseUrl = new Uri(@"C:\Users\dabenard.EUDOC\Desktop"),
                 RepeatTableHeaderFooter = true,
-                Watermark = "Printed Version"
+                //Watermark = "Printed Version"
             };
 
             using (var fs = new FileStream(@"C:\temp\test4.pdf", FileMode.Create, FileAccess.ReadWrite, FileShare.None))
@@ -74,9 +74,9 @@ namespace EuCA.Pdf.Test
             {
                 BaseUrl = new Uri(@"C:\Users\dabenard.EUDOC\Desktop"),
                 RepeatTableHeaderFooter = true,
-                Watermark = "Print Only",
-                Header = @"C:\Users\dabenard.EUDOC\Desktop\header.xml",
-                Footer = @"C:\Users\dabenard.EUDOC\Desktop\footer.xml",
+                //Watermark = "Print Only",
+                //Header = @"C:\Users\dabenard.EUDOC\Desktop\header.xml",
+                //Footer = @"C:\Users\dabenard.EUDOC\Desktop\footer.xml",
             };
 
             using (var fs = new FileStream(@"C:\temp\test5.pdf", FileMode.Create, FileAccess.ReadWrite, FileShare.None))

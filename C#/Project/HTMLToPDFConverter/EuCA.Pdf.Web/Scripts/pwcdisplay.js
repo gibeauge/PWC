@@ -1078,6 +1078,7 @@ function euCAPrintPopup(paraIds, tableIds, figureIds, handler) {
                         'if (showIds.length == 0)' +
                         '{' +
                             'isOk = confirm("You didn\'t select a block: the whole document will be printed.\\n\\nContinue?");' +
+                            'hiddenIds = [];' +
                         '}' +
                     '}' +
                     'if (isOk)' +
@@ -1092,8 +1093,12 @@ function euCAPrintPopup(paraIds, tableIds, figureIds, handler) {
                             'for (id = hiddenIds.length - 1; id >= 0; id--) {' +
                                 'hiddenIdsStr += hiddenIds[id] + ",";' +
                             '}' +
-                            'showIdsStr = showIdsStr.substr(0, showIdsStr.length - 1);' +
-                            'hiddenIdsStr = hiddenIdsStr.substr(0, hiddenIdsStr.length - 1);' +
+                            'if (showIdsStr.length > 0) {' +
+                                'showIdsStr = showIdsStr.substr(0, showIdsStr.length - 1);' +
+                            '}' +
+                            'if (hiddenIdsStr.length > 0) {' +
+                                'hiddenIdsStr = hiddenIdsStr.substr(0, hiddenIdsStr.length - 1);' +
+                            '}' +
                             'window.opener.' + handler + '(showIdsStr, hiddenIdsStr);' +
                         '}' +
                         'catch (err) {}' +
