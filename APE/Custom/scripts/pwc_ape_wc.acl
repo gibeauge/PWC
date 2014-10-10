@@ -237,11 +237,26 @@ function compFrameHook(doc, type, where, params[])
 {
 	local rc = 0;
 	
-	if (where == compose::HK_CFTI_INITIAL)  { 
-		rc = setXSLParameters(doc, params); 
-	} else if (where == compose::HK_CFTI_POSTPROC) { 
-		local graphDir = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR . $main::PCS . "Pages" . $main::PCS . GRAPHICS_DIR;		
-		rc = copyGraphics(doc, graphDir);		
+	local isHTMLOnlinePublication = 0;
+	if (params['compose.compositionType'] == 'xsl' && defined(params['stylesheet'])) {	
+		local xsl = params['stylesheet'];
+		if (count(DOCTYPE_XSL) == 0) { load_config_file(); }	
+		local doctype;
+		for (doctype in DOCTYPE_XSL) {
+			if (index(xsl, DOCTYPE_XSL[doctype])) {
+				isHTMLOnlinePublication = 1;
+				break;
+			}
+		}
+    }
+	
+	if (isHTMLOnlinePublication) {
+		if (where == compose::HK_CFTI_INITIAL)  { 
+			rc = setXSLParameters(doc, params); 
+		} else if (where == compose::HK_CFTI_POSTPROC) { 
+			local graphDir = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR . $main::PCS . "Pages" . $main::PCS . GRAPHICS_DIR;		
+			rc = copyGraphics(doc, graphDir);		
+		}
 	}
 	
 	return rc;
