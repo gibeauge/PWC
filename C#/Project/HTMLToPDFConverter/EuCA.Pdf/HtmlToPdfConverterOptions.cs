@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EuCA.Pdf.Properties;
+using System;
 using System.Drawing;
 using System.Linq;
 
@@ -13,14 +14,14 @@ namespace EuCA.Pdf
         public Uri BaseUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the path to a configuration file containing the information of the header of the PDF pages.
+        /// Gets or sets the export control informations to be displayed in the footer.
         /// </summary>
-        //public string Header { get; set; }
-
+        public string ExportControl { get; set; }
+    
         /// <summary>
-        /// Gets or sets the path to a configuration file containing the information regarding the footer of the PDF pages.
+        /// Gets or sets the export classification informations to be displayed in the footer.
         /// </summary>
-        //public string Footer { get; set; }
+        public string ExportClassification { get; set; }
 
         /// <summary>
         /// Gets or sets the output area in inches.
@@ -53,23 +54,17 @@ namespace EuCA.Pdf
         public string[] InvisibleElementIds { get; set; }
 
         /// <summary>
-        /// Gets or sets the watermark to add to the pages of the PDFs.
-        /// </summary>
-        //public string Watermark { get; set; }
-        
-        /// <summary>
         /// Default constructor.
         /// </summary>
         public HtmlToPdfConverterOptions()
         {
             BaseUrl = null;
-            //Header = null;
-            //Footer = null;
+            ExportControl = Resources.EXPORT_CONTROL_DEFAULT;
+            ExportClassification = Resources.EXPORT_CLASSIFICATION_DEFAULT;
             RepeatTableHeaderFooter = null;
             Timeout = null;
             VisibleElementIds = new string[] { };
             InvisibleElementIds = new string[] { };
-            //Watermark = null;
         }
 
         public object Clone()

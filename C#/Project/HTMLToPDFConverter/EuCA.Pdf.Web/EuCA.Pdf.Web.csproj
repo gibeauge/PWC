@@ -48,10 +48,6 @@
     <Reference Include="EO.Pdf.Mvc5">
       <HintPath>..\packages\EO.Pdf.6.0.18\tools\EO.Pdf.Mvc5.dll</HintPath>
     </Reference>
-    <Reference Include="EuCA.Pdf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\EuCA.Pdf\bin\Release\EuCA.Pdf.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -9281,6 +9277,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EuCA.Pdf\EuCA.Pdf.csproj">
+      <Project>{c3aaa1a1-6f4f-426c-87bb-55ec066d552b}</Project>
+      <Name>EuCA.Pdf</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
