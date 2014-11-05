@@ -444,6 +444,22 @@
   </div>
 </xsl:template>
 
+<xsl:template match="pnr" priority="1">
+  <span class="x-pnr-1-0">
+    <xsl:if test="../../descendant::*[local-name()='pwcsin']">
+      <span class="x-part-sin">
+        <xsl:for-each select="../../descendant::*[local-name()='pwcsin']">
+          <xsl:if test="position() > 1">
+            <xsl:text>,</xsl:text>
+          </xsl:if>
+          <xsl:value-of select="."/>
+        </xsl:for-each>
+      </span>
+    </xsl:if>
+    <xsl:call-template name="t-base-div-basic"/>
+  </span>
+</xsl:template>
+
 <xsl:template match="prtlist" priority="0">
   <xsl:apply-templates/>
 </xsl:template>

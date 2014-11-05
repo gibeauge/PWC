@@ -1,3 +1,4 @@
+.x-body .x-part-sin { display: none; }
 
 .x-body a { text-decoration:none; border-bottom: 1px dashed #6666ff; }
 .x-body a:hover { text-decoration:none; background-color:#ddddff; border-bottom: none;}

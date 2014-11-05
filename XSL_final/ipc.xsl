@@ -803,6 +803,16 @@
   </div>
 </xsl:template>
 
+<xsl:template match="sin[1]" priority="1">
+  <span class="x-part-sin">
+    <xsl:value-of select="."/>
+    <xsl:for-each select="../child::*[local-name()='sin'][position() > 1]">
+      <xsl:text>,</xsl:text>
+      <xsl:value-of select="."/>
+    </xsl:for-each>
+  </span>
+</xsl:template>
+
 <xsl:template match="spb-item" priority="0">
   <xsl:apply-templates/>
 </xsl:template>
