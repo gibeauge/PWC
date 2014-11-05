@@ -4221,7 +4221,14 @@
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
                 <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-                  <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                  <xsl:choose>
+                    <xsl:when test="$l-dest-node/title">
+                      <xsl:value-of select="$l-dest-node/title"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
                 </a>
               </span>
             </xsl:when>
@@ -4230,7 +4237,14 @@
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
                 <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-                  <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                  <xsl:choose>
+                    <xsl:when test="$l-dest-node/title">
+                      <xsl:value-of select="$l-dest-node/title"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
                 </a>
               </span>
             </xsl:otherwise>
