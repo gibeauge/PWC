@@ -198,9 +198,9 @@ namespace EuCA.Pdf
                 NoLink = true,
                 RepeatTableHeaderAndFooter = parameters.RepeatTableHeaderFooter ?? true,
                 FooterHtmlPosition = parameters.PageSize.Height - _regionAfter,
-                //FooterHtmlFormat = footer,
+                FooterHtmlFormat = footer,
                 HeaderHtmlPosition = 0F,
-                //HeaderHtmlFormat = header,
+                HeaderHtmlFormat = header,
             };
 
             // BaseUrl
