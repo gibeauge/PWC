@@ -2269,7 +2269,21 @@
 </xsl:template>
 
 <xsl:template match="partname" priority="0">
-  <xsl:apply-templates/>
+  <a href="#">
+    <xsl:attribute name="onclick">
+      <xsl:text>openIPC(</xsl:text>
+      <xsl:for-each select="following-sibling::*[local-name() = 'sin']">
+        <xsl:if test="position() &gt; 1">
+          <xsl:text>,</xsl:text>
+        </xsl:if>
+        <xsl:text>'</xsl:text>
+        <xsl:value-of select="."/>
+        <xsl:text>'</xsl:text>
+      </xsl:for-each>
+      <xsl:text>)</xsl:text>
+    </xsl:attribute>
+    <xsl:apply-templates/>
+  </a>
 </xsl:template>
 
 <xsl:template match="pcextract" priority="0">
@@ -2624,15 +2638,8 @@
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="sin" priority="0">
-  <span class="x-sin-2-0">
-    <xsl:text> </xsl:text>
-    <a href="#" onclick="openIPC('{.}')">
-      <xsl:apply-templates/>
-    </a>
-  </span>
-</xsl:template>
-
+<xsl:template match="sin" priority="0"/>
+  
 <xsl:template match="title-page/soa[@size='med']" priority="2">
   <div class="x-soa-1-0">
      <xsl:call-template name="t-base-img-graphic"/>
@@ -4214,7 +4221,14 @@
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
                 <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-                  <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                  <xsl:choose>
+                    <xsl:when test="$l-dest-node/title">
+                      <xsl:value-of select="$l-dest-node/title"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
                 </a>
               </span>
             </xsl:when>
@@ -4223,7 +4237,14 @@
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
                 <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-                  <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                  <xsl:choose>
+                    <xsl:when test="$l-dest-node/title">
+                      <xsl:value-of select="$l-dest-node/title"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:apply-templates mode="numbering" select="$l-dest-node"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
                 </a>
               </span>
             </xsl:otherwise>

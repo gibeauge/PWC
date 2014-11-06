@@ -7534,6 +7534,30 @@
     <Content Include="Content\Manuals\OH_pt6a_pt6a38_3021443\XML\Bookmark.xml" />
     <Content Include="Content\Manuals\OH_pt6a_pt6a38_3021443\XML\Metadata.xml" />
     <Content Include="Content\Manuals\OH_pt6a_pt6a38_3021443\XML\Structure.xml" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\css\content.css" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\images\keytofigure.jpg" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\images\table.gif" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\javascript\pwcdisplay.js" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\javascript\pwcdisplay_common.js" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\javascript\pwcdisplay_figure.js" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.77.20.01.mainprac.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.77.20.01.mainprac.lof.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.77.20.01.mainprac.lot.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.awl.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.awl.lot.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.awlror.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.awlror.lot.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.chapsect.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.intro.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.intro.lot.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.record-of-revisions.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.sblist.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\3077182.front.trlist.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\highlights.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\Pages\title-page.html" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\XML\Bookmark.xml" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\XML\Metadata.xml" />
+    <Content Include="Content\Manuals\tmm_pt6a_pt6a140a_3077182\XML\Structure.xml" />
     <Content Include="Content\Manuals\TMM_pw600_pw617fe_3072162\3072162.05.00.00.timelim.html" />
     <Content Include="Content\Manuals\TMM_pw600_pw617fe_3072162\3072162.05.10.00.oplimits.html" />
     <Content Include="Content\Manuals\TMM_pw600_pw617fe_3072162\3072162.05.10.00.oplimits.lof.html" />
@@ -9287,6 +9311,24 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

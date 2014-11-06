@@ -186,6 +186,12 @@
         </xsl:choose>
       </xsl:attribute>
       
+      <xsl:if test="$isFigure = '1'">
+        <xsl:attribute name="onclick">
+          <xsl:value-of select="descendant::*[local-name() = 'a']/@onclick"/>
+        </xsl:attribute>
+      </xsl:if>
+      
       <xsl:attribute name="MIMEType">text/html</xsl:attribute>
       
       <xsl:if test="string($lof) = '0' and $hasFigure = '1'">
