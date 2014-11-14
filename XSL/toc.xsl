@@ -70,7 +70,7 @@
     
     <!--<xsl:variable name="isFigure">
       <xsl:choose>
-        <xsl:when test="not($hasFiles) and $hasTitle and starts-with(.//*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1], 'Figure')">1</xsl:when>
+        <xsl:when test="not($hasFiles) and $hasTitle and starts-with(.//*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1], $gen-texts//text[@name='figure'])">1</xsl:when>
         <xsl:otherwise>0</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>-->
@@ -127,13 +127,13 @@
           </xsl:if>
           
           <xsl:choose>
-            <xsl:when test="starts-with($toc, 'List of Figures')">
+            <xsl:when test="starts-with($toc, $gen-texts//text[@name='lof'])">
               <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]|descendant::*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][position() > 1]" mode="toc">
                 <xsl:with-param name="lof">1</xsl:with-param>
               </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]|descendant::*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][position() > 1 and not(starts-with(normalize-space(.), 'Figure')) ]" mode="toc"/>
+              <xsl:apply-templates select="descendant::*[@ch:chunk = 'yes' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]|descendant::*[@ch:title and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][position() > 1 and not(starts-with(normalize-space(.), $gen-texts//text[@name='figure'])) ]" mode="toc"/>
             </xsl:otherwise>
           </xsl:choose>
           
@@ -150,14 +150,14 @@
     <xsl:variable name="hasFigure">
       <xsl:choose>
         <xsl:when test="string($lof) = '1'">0</xsl:when>
-        <xsl:when test="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), 'Figure')]">1</xsl:when>
+        <xsl:when test="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), $gen-texts//text[@name='figure'])]">1</xsl:when>
         <xsl:otherwise>0</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     
     <xsl:variable name="isFigure">
       <xsl:choose>
-        <xsl:when test="starts-with(normalize-space(.), 'Figure')">1</xsl:when>
+        <xsl:when test="starts-with(normalize-space(.), $gen-texts//text[@name='figure'])">1</xsl:when>
         <xsl:otherwise>0</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -195,7 +195,7 @@
       <xsl:attribute name="MIMEType">text/html</xsl:attribute>
       
       <xsl:if test="string($lof) = '0' and $hasFigure = '1'">
-        <xsl:apply-templates select="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), 'Figure')]" mode="tic"/>
+        <xsl:apply-templates select="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), $gen-texts//text[@name='figure'])]" mode="tic"/>
       </xsl:if>
       
     </Page>
@@ -228,7 +228,7 @@
       <xsl:attribute name="MIMEType">text/html</xsl:attribute>
     </Page>
     
-    <xsl:apply-templates select="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), 'Figure')]" mode="tic"/>
+    <xsl:apply-templates select="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), $gen-texts//text[@name='figure'])]" mode="tic"/>
     
   </xsl:template>
   

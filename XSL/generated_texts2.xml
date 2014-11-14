@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generated-text>
+<texts language="EN">
+<text name="attach-parts">ATTACHING PARTS</text>
+<text name="chapsect-list-col1">CHAPTER/SECTION/SUBJECT</text>
+<text name="chapsect-list-col2">TITLE</text>
+<text name="eff-code-col1">EFF</text>
+<text name="eff-code-col2">MODEL</text>
+<text name="fignote">Note</text>
+<text name="highlights">HIGHLIGHTS</text>
+<text name="highlights-col1">Revision</text>
+<text name="highlights-col2">CH/SE/SU</text>
+<text name="highlights-col3">Pageblock Title</text>
+<text name="highlights-col4">Description of Change</text>
+<text name="highlights-front">Front</text>
+<text name="item-not-illus">ITEM NOT ILLUSTRATED</text>
+<text name="kits">KITS, REPAIR/SERVICE PARTS</text>
+<text name="lof">List of Figures</text>
+<text name="lot">List of Tables</text>
+<text name="partial-bd">PARTIAL BREAKDOWN FOLLOWS</text>
+<text name="parts-list-col1">Fig. Item</text>
+<text name="parts-list-col2">Part No.</text>
+<text name="parts-list-col3">Airline Part No.</text>
+<text name="parts-list-col4">Nomenclature</text>
+<text name="parts-list-col5">Effect Code</text>
+<text name="parts-list-col6">Units Per Assy.</text>
+<text name="spblist-col1">P&#x26;WC SPB No.</text>
+<text name="spblist-col2">Rev. No.</text>
+<text name="spblist-col3">Incorporation Status</text>
+<text name="trlist-col1">T.R. No.</text>
+<text name="trlist-col2">Effectivity</text>
+<text name="trlist-col3">Filed Adjacent to</text>
+<text name="trlist-col4">T.R. Status</text>
+
+<text name="pdlist-title">PARTS DIGEST LIST</text>
+<text name="pre-sb">Pre-SB</text>
+<text name="post-sb">Post-SB</text>
+</texts>
+</generated-text>

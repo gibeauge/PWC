@@ -153,7 +153,7 @@
   <xsl:template name="expand-gentext-caution">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span class=" x-caution-label-1-0">CAUTION: </span>
+        <span class=" x-caution-label-1-0"><xsl:value-of select="$gen-texts//text[@name='caution']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></span>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -161,7 +161,7 @@
   <xsl:template name="expand-gentext-warning">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span class=" x-warning-label-1-0">WARNING: </span>  
+        <span class=" x-warning-label-1-0"><xsl:value-of select="$gen-texts//text[@name='warning']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></span>  
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -263,7 +263,7 @@
     
   <xsl:template match="address/att" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Attention: </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-att']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
@@ -330,7 +330,7 @@
   
   <xsl:template match="_ufe:chapsect-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">LIST OF CHAPTER/SECTION/SUBJECTS</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='chapsect-title']"/></xsl:with-param>
     </xsl:call-template>    
   </xsl:template>
     
@@ -344,7 +344,7 @@
   
   <xsl:template match="_ufe:cir-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">CLEANING INSPECTION REPAIR (CIR) MANUAL</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='cir-title']"/></xsl:with-param>
     </xsl:call-template>    
   </xsl:template>
   
@@ -381,13 +381,13 @@
   
   <xsl:template match="ata-page-block//consumables//_ufe:consumables-title" mode="gentext" priority="2">
     <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
-      <xsl:with-param name="content">Consumable Materials</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='consumables-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="page-block//consumables//_ufe:consumables-title" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
-      <xsl:with-param name="content">Consumable Materials</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='consumables-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -411,7 +411,7 @@
     
   <xsl:template match="deleted" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>This topic has been deleted.</xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='deleted']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -425,7 +425,7 @@
   
   <xsl:template match="_ufe:eipc-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">ILLUSTRATED PARTS CATALOG</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='eipc-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -439,14 +439,14 @@
   
   <xsl:template match="_ufe:em-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">OVERHAUL MANUAL</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='em-title']"/></xsl:with-param>
     </xsl:call-template>    
   </xsl:template>
   
   <xsl:template match="email" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>Email: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='address-email']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/>
         <_ufe:email-link>
           <xsl:if test="string(.)">
             <xsl:attribute name="email">
@@ -483,18 +483,10 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <xsl:choose>
-          <xsl:when test="@enginetype='APU'">
-            <xsl:text>AUXILIARY POWER UNIT</xsl:text>
-          </xsl:when>
-          <xsl:when test="@enginetype='SHAFT'">
-            <xsl:text>TURBOSHAFT ENGINE</xsl:text>
-          </xsl:when>
-          <xsl:when test="@enginetype='PROP'">
-            <xsl:text>TURBOPROP ENGINE</xsl:text>
-          </xsl:when>
-          <xsl:when test="@enginetype='FAN'">
-            <xsl:text>TURBOFAN ENGINE</xsl:text>
-          </xsl:when>
+          <xsl:when test="@enginetype='APU'"><xsl:value-of select="$gen-texts//text[@name='engine-type-apu']"/></xsl:when>
+          <xsl:when test="@enginetype='SHAFT'"><xsl:value-of select="$gen-texts//text[@name='engine-type-shaft']"/></xsl:when>
+          <xsl:when test="@enginetype='PROP'"><xsl:value-of select="$gen-texts//text[@name='engine-type-prop']"/></xsl:when>
+          <xsl:when test="@enginetype='FAN'"><xsl:value-of select="$gen-texts//text[@name='engine-type-fan']"/></xsl:when>
         </xsl:choose>
       </xsl:with-param>
     </xsl:call-template>
@@ -502,7 +494,7 @@
   
   <xsl:template match="address/fax" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>FAX: </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-fax']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -520,13 +512,13 @@
   
   <xsl:template match="page-block//fixtures-and-equipment//_ufe:fixequ-title" mode="gentext" priority="2">
     <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
-      <xsl:with-param name="content">Fixtures, Equipment and Supplier Tools</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='fixequ-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="ata-page-block//fixtures-and-equipment//_ufe:fixequ-title" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
-      <xsl:with-param name="content">Fixtures, Equipment and Supplier Tools</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='fixequ-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -588,13 +580,13 @@
   
   <xsl:template match="page-block//general//_ufe:general-title" mode="gentext" priority="2">
     <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
-      <xsl:with-param name="content">General</xsl:with-param>   
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='general-title']"/></xsl:with-param>   
     </xsl:call-template>    
   </xsl:template>
   
   <xsl:template match="ata-page-block//general//_ufe:general-title" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext-pgblk-ufe-title2">
-      <xsl:with-param name="content">General</xsl:with-param>   
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='general-title']"/></xsl:with-param>   
     </xsl:call-template>    
   </xsl:template>
   
@@ -616,7 +608,7 @@
   
   <xsl:template match="_ufe:glossary-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">GLOSSARY</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='glossary-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -645,7 +637,7 @@
   
   <xsl:template match="_ufe:howtouse-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">HOW TO USE MANUAL</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='howtouse-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -670,7 +662,7 @@
   
   <xsl:template match="_ufe:intro-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">INTRODUCTION</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='intro-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -832,7 +824,7 @@
   
   <xsl:template match="manual-pn" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Manual Part No. </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='manual-pn']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -854,7 +846,7 @@
   
   <xsl:template match="model" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><_ufe:title-block><xsl:text>Model(s) </xsl:text></_ufe:title-block></xsl:with-param>
+      <xsl:with-param name="content"><_ufe:title-block><xsl:value-of select="$gen-texts//text[@name='model']"/></_ufe:title-block></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -881,7 +873,7 @@
   
   <xsl:template match="_ufe:not-applicable" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content"><xsl:text>Not Applicable</xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='not-applicable']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -913,7 +905,7 @@
   
   <xsl:template match="_ufe:num-index-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">NUMERICAL INDEX</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='num-index-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -931,13 +923,13 @@
   
   <xsl:template match="_ufe:nut-option-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">NUT OPTIONS</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='nut-option-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="orig-date" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Original Issue date </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='orig-date']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1228,7 +1220,7 @@
   
   <xsl:template match="_ufe:pdlist-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">PARTS DIGEST LIST</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='pdlist-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
@@ -1240,13 +1232,13 @@
   
   <xsl:template match="postsb" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Post-SB</xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='post-sb']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
   <xsl:template match="presb" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Pre-SB</xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='pre-sb']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
@@ -1255,10 +1247,10 @@
       <xsl:with-param name="content">
         <_ufe:proprietary-warning/>
         <_ufe:block-prespace>
-          <xsl:text>This manual contains proprietary information of Pratt &amp; Whitney Canada Corp. ("P&amp;WC"), which P&amp;WC provides in confidence and solely for the purposes of supporting engine certification and providing applicable information regarding the proper use, maintenance, inspection, repair, servicing, and parts application of P&amp;WC products and services, as directed therein. Neither this manual nor any information in it may be disclosed to others, or used for any other purpose, including, without, limitation, to design, create, develop, reproduce, manufacture or derive any design, part, product, material, process, modification, configuration change or repair, or obtain FAA or other government approval to do so. Possession and use of this manual is also subject to the restrictions set out in P&amp;WC's Technical Data Agreement (a copy of which may be obtained by contacting P&amp;WC Technical Publications). The contents of this manual may be subject to export control laws. Unauthorized export or re-export of the manual, or parts thereof, is prohibited. By accepting and possessing this manual, you agree to be bound by the foregoing terms.</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='proprietary-notice-1']"/>
         </_ufe:block-prespace>
         <_ufe:block-prespace>
-          <xsl:text>If a Government agency or department intends to disclose any information, written notice should be given to: VP - Legal Services, Pratt &amp; Whitney Canada Corp., 1000 Marie-Victorin (01BE5), Longueuil, Quebec J4G 1A1.</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='proprietary-notice-2']"/>
         </_ufe:block-prespace>
       </xsl:with-param>
     </xsl:call-template>
@@ -1267,7 +1259,7 @@
   <xsl:template match="_ufe:proprietary-warning" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
-        <xsl:text>WARNING - PROPRIETARY RIGHTS &amp; EXPORT CONTROLS NOTICE</xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='proprietary-warning']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -1287,7 +1279,7 @@
     
   <xsl:template match="address/ref" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>REF: </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-ref']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1427,7 +1419,7 @@
   
   <xsl:template match="sb" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>SB</xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='sb']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
@@ -1441,7 +1433,7 @@
   
   <xsl:template match="_ufe:sblist-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">SERVICE BULLETIN LIST</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='sblist-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1455,7 +1447,7 @@
   
   <xsl:template match="_ufe:spblist-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">SPARE PARTS BULLETIN LIST</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='spblist-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1478,7 +1470,7 @@
         <xsl:text>&#xa0;</xsl:text>
         <xsl:text>&#xa0;</xsl:text>
         <span style="text-decoration: underline; ">
-          <xsl:text>Special Tools</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='spectools-title']"/>
         </span>
       </xsl:with-param>
     </xsl:call-template>    
@@ -1491,7 +1483,7 @@
         <xsl:text>&#xa0;</xsl:text>
         <xsl:text>&#xa0;</xsl:text>
         <span style="text-decoration: underline; ">
-          <xsl:text>Special Tools</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='spectools-title']"/>
         </span>
       </xsl:with-param>
     </xsl:call-template>
@@ -1534,7 +1526,7 @@
   
   <xsl:template match="_ufe:supplier-list-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">SUPPLIER LIST</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='supplier-list-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1623,7 +1615,7 @@
   
   <xsl:template match="address/tel[1]" mode="gentext" priority="2">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>TEL: </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-tel']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1637,7 +1629,7 @@
   
   <xsl:template match="_ufe:temp-rev-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
-      <xsl:with-param name="content">TEMPORARY REVISION INDEX</xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='temp-rev-title']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1661,26 +1653,26 @@
   
   <xsl:template match="book[contains(@doctype, 'epc')]/frontmatter//graphic/title" mode="gentext" priority="69">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" mode="gentext" priority="68">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Figure </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="ata-page-block//task/graphic/title" mode="gentext" priority="67">
     <xsl:call-template name="expand-gentext3">
       <xsl:with-param name="content-before">
-        <xsl:text>Figure </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
         <xsl:text>&#xa0;</xsl:text>        
       </xsl:with-param>
       <xsl:with-param name="content-after">
         <xsl:variable name="task" select="ancestor-or-self::task[1]"/>
-        <xsl:variable name="pre" select="concat(' (Task ', $task/@chapnbr, '-', $task/@sectnbr, '-', $task/@subjnbr, '-', $task/@func, '-', $task/@seq)"/>
+        <xsl:variable name="pre" select="concat(' (',$gen-texts//text[@name='task'],' ', $task/@chapnbr, '-', $task/@sectnbr, '-', $task/@subjnbr, '-', $task/@func, '-', $task/@seq)"/>
         <xsl:choose>
           <xsl:when test="&anc-task-c;">
             <xsl:value-of select="concat($pre, '-', $task/@confltr, ')')"/>
@@ -1699,13 +1691,13 @@
   <xsl:template match="page-block//task/graphic/title" mode="gentext" priority="66">
     <xsl:call-template name="expand-gentext3">
       <xsl:with-param name="content-before">
-        <xsl:text>Figure </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
         <xsl:text>&#xa0;</xsl:text>        
       </xsl:with-param>
       <xsl:with-param name="content-after">
         <xsl:variable name="task" select="ancestor-or-self::task[1]"/>
-        <xsl:variable name="pre" select="concat(' (Task ', $task/@chapnbr, '-', $task/@sectnbr, '-', $task/@subjnbr, '-', $task/@func, '-', $task/@seq)"/>
+        <xsl:variable name="pre" select="concat(' (',$gen-texts//text[@name='task'],' ', $task/@chapnbr, '-', $task/@sectnbr, '-', $task/@subjnbr, '-', $task/@func, '-', $task/@seq)"/>
         <xsl:choose>
           <xsl:when test="&anc-task-c;">
             <xsl:value-of select="concat($pre, '-', $task/@confltr, ')')"/>
@@ -1755,20 +1747,20 @@
   
   <xsl:template match="book[contains(@doctype, 'epc')]//figure/title" mode="gentext" priority="54">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Figure </xsl:text><xsl:value-of select="ancestor-or-self::figure[1]/@fignbr"/><xsl:text> </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text><xsl:value-of select="ancestor-or-self::figure[1]/@fignbr"/><xsl:text> </xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="book[contains(@doctype, 'epc')]//graphic/title" mode="gentext" priority="53">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:text>Figure </xsl:text><xsl:value-of select="ancestor-or-self::figure[1]/@fignbr"/><xsl:text> </xsl:text></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text><xsl:value-of select="ancestor-or-self::figure[1]/@fignbr"/><xsl:text> </xsl:text></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="book[contains(@doctype, 'ipc')]//figure/title" mode="gentext" priority="52">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>Figure </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text>
         <xsl:if test="(ancestor-or-self::figure[1]//figno)[1]/*|(ancestor-or-self::figure[1]//figno)[1]/text()|(ancestor-or-self::figure[1]//figno)[1]/processing-instruction()">
           <_gte:Gentexted-Content-Wrapper>
             <xsl:apply-templates mode="gentext" select="(ancestor-or-self::figure[1]//figno)[1]/*|(ancestor-or-self::figure[1]//figno)[1]/text()|(ancestor-or-self::figure[1]//figno)[1]/processing-instruction()">
@@ -1786,13 +1778,13 @@
       <xsl:with-param name="content-before">
         <xsl:choose>
           <xsl:when test="../@display='expand'">
-            <xsl:text>Table </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='table']"/><xsl:text> </xsl:text>
             <xsl:call-template name="t-styler-numbering"/>
             <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
           <xsl:otherwise>
             <_ufe:hidden>
-              <xsl:text>Table </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='table']"/><xsl:text> </xsl:text>
               <xsl:call-template name="t-styler-numbering"/>
             </_ufe:hidden>
             <xsl:text>&#xa0;</xsl:text>
@@ -1801,7 +1793,7 @@
       </xsl:with-param>
       <xsl:with-param name="content-after">
         <xsl:variable name="task" select="ancestor-or-self::task[1]"/>
-        <xsl:variable name="pre" select="concat(' (Task ', $task/@chapnbr, '-', $task/@sectnbr, '-', $task/@subjnbr, '-', $task/@func, '-', $task/@seq)"/>
+        <xsl:variable name="pre" select="concat(' (',$gen-texts//text[@name='task'],' ', $task/@chapnbr, '-', $task/@sectnbr, '-', $task/@subjnbr, '-', $task/@func, '-', $task/@seq)"/>
         <xsl:variable name="title">
           <xsl:choose>
             <xsl:when test="&anc-task-c;">
@@ -1836,7 +1828,7 @@
   <xsl:template match="page-block//graphic/title" mode="gentext" priority="50">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>Figure </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
         <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
@@ -1846,7 +1838,7 @@
   <xsl:template match="ata-page-block//graphic/title" mode="gentext" priority="49">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>Figure </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text>
         <xsl:call-template name="t-styler-numbering"/>
         <xsl:text>&#xa0;</xsl:text>
       </xsl:with-param>
@@ -1888,7 +1880,7 @@
           <xsl:when test="&pb-01;"/>
           <xsl:when test="&pb-02; or &pb-03; or &pb-04; or &pb-05; or &pb-06; or &pb-07; or &pb-08; or &pb-09; or 
                           &pb-10; or &pb-11; or &pb-12; or &pb-13; or &pb-14; or &pb-15; or &pb-16; or &pb-17; or &pb-18;">
-            <xsl:text>Figure </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text>
             <xsl:call-template name="t-styler-numbering"/>
             <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
@@ -1997,14 +1989,14 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="&anc-doc-cir; or &anc-doc-em; or &anc-doc-tmm;">
-            <xsl:text>Table </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='table']"/><xsl:text> </xsl:text>
             <xsl:call-template name="t-styler-numbering-ufe"/>
             <xsl:text>&#xa0;</xsl:text>
           </xsl:when>
           <xsl:when test="&pb-01;"/>
           <xsl:when test="&pb-02; or &pb-03; or &pb-04; or &pb-05; or &pb-06; or &pb-07; or &pb-08; or &pb-09; or 
             &pb-10; or &pb-11; or &pb-12; or &pb-13; or &pb-14; or &pb-15; or &pb-16; or &pb-17; or &pb-18;">
-            <xsl:text>Table </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='table']"/><xsl:text> </xsl:text>
             <xsl:call-template name="t-styler-numbering-ufe"/>
             <xsl:text>&#xa0;</xsl:text>
             <xsl:text>&#xa0;</xsl:text>
@@ -2020,7 +2012,7 @@
         <xsl:choose>
           <xsl:when test="&anc-doc-cir; or &anc-doc-em; or &anc-doc-tmm;">
             <_ufe:hidden>
-              <xsl:text>Table </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='table']"/><xsl:text> </xsl:text>
               <xsl:call-template name="t-styler-numbering"/>
             </_ufe:hidden>
             <xsl:text>&#xa0;</xsl:text>
@@ -2029,7 +2021,7 @@
           <xsl:when test="&pb-02; or &pb-03; or &pb-04; or &pb-05; or &pb-06; or &pb-07; or &pb-08; or &pb-09; or 
                           &pb-10; or &pb-11; or &pb-12; or &pb-13; or &pb-14; or &pb-15; or &pb-16; or &pb-17; or &pb-18;">
             <_ufe:hidden>
-              <xsl:text>Table </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='table']"/><xsl:text> </xsl:text>
               <xsl:call-template name="t-styler-numbering"/>
               <xsl:text> </xsl:text>
             </_ufe:hidden>
@@ -2078,10 +2070,10 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="contains(//book/@doctype, 'lmm')">
-            <xsl:text>LINE MAINTENANCE MANUAL</xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='tmm-title-lmm']"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:text>MAINTENANCE MANUAL</xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='tmm-title']"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -2162,7 +2154,7 @@
   <xsl:template match="url" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>Website: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='url']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
         <_ufe:url-link>
           <xsl:if test="string(.)">
             <xsl:attribute name="url">
@@ -2262,7 +2254,7 @@
   <xsl:template match="_sfe:CollectionItem[position()&gt;1 and not(position()=last())]" mode="gentext" priority="2">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
-        <xsl:text>, </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='sep2']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -2270,7 +2262,7 @@
   <xsl:template match="_sfe:CollectionItem[last()]" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
-        <xsl:text>, and </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='sep2']"/><xsl:value-of select="$gen-texts//text[@name='cond-and-1']"/><xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -2294,7 +2286,7 @@
   <xsl:template match="_sfe:IndexPage[position()&gt;1]" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
-        <xsl:text>, </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='sep2']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -2302,9 +2294,9 @@
   <xsl:template match="_sfe:IndexSee" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
-        <xsl:text>, </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='sep2']"/>
         <span style="font-style: italic; ">
-          <xsl:text>See </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='see']"/><xsl:text> </xsl:text>
         </span>
       </xsl:with-param>
     </xsl:call-template>
@@ -2313,9 +2305,9 @@
   <xsl:template match="_sfe:IndexSeeAlso" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
-        <xsl:text>, </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='sep2']"/>
         <span style="font-style: italic; ">
-          <xsl:text>See also </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='see-also']"/><xsl:text> </xsl:text>
         </span>
       </xsl:with-param>
     </xsl:call-template>

@@ -20,7 +20,10 @@
 
 <xsl:param name="max-expansion-pass-count"  select="number(3)"/>
 <xsl:param name="output-dir"                select="concat('file:///C:/Work/Projets/PWC/chunks/_', $doctype, '_',/book/@object-key, '_', /book/@revnbr, '.', /book/@point-revnbr)"/>
-  
+
+<xsl:variable name="lang"       select="if (/*/@lang) then /*/@lang else 'EN'"/>
+<xsl:variable name="gen-texts"  select="document('generated_texts.xml')//texts[@language=$lang]"/>
+
 <xsl:template match="/">
   <!-- Create and output Metadatas file -->
   <xsl:result-document href="{concat($output-dir, '/XML/Metadata.xml')}" method="xml" encoding="utf-8" 

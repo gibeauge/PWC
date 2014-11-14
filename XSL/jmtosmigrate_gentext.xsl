@@ -66,7 +66,7 @@
   <xsl:template match="pgblk/effect" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>EFF: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='effect']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
         <xsl:value-of select="@effrg"/>
       </xsl:with-param>
     </xsl:call-template>
@@ -156,9 +156,9 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <span class="x-note-label-1-0">
-          <xsl:text>NOTE</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='note']"/>
         </span>
-        <xsl:text>: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -167,9 +167,9 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <span class="x-note-label-1-0">
-          <xsl:text>NOTE</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='note']"/>
         </span>
-        <xsl:text>: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -178,9 +178,9 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <span class="x-note-label-1-0">
-          <xsl:text>NOTE</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='note']"/>
         </span>
-        <xsl:text>: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -191,17 +191,17 @@
         <xsl:choose>
           <xsl:when test="@nbr">
                 <span class="x-note-label-1-0">
-                  <xsl:text>NOTE</xsl:text>
+                  <xsl:value-of select="$gen-texts//text[@name='note']"/>
                 </span>
-                <xsl:text>: </xsl:text>
+                <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
                 <xsl:value-of select="@nbr"/>
                 <xsl:text>. </xsl:text>
           </xsl:when>
           <xsl:otherwise>
                 <span class="x-note-label-1-0">
-                  <xsl:text>NOTE</xsl:text>
+                  <xsl:value-of select="$gen-texts//text[@name='note']"/>
                 </span>
-                <xsl:text>: </xsl:text>
+                <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -214,17 +214,17 @@
         <xsl:choose>
           <xsl:when test="@nbr">
             <span class="x-note-label-1-0">
-              <xsl:text>NOTE</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:text>: </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
             <xsl:value-of select="@nbr"/>
             <xsl:text>. </xsl:text>
           </xsl:when>
           <xsl:otherwise>
             <span class="x-note-label-1-0">
-              <xsl:text>NOTE</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:text>: </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -257,17 +257,17 @@
         <xsl:choose>
           <xsl:when test="@nbr">
             <span class="x-note-label-1-0">
-              <xsl:text>NOTE</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:text>: </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
             <xsl:value-of select="@nbr"/>
             <xsl:text>. </xsl:text>
           </xsl:when>
           <xsl:otherwise>
             <span class="x-note-label-1-0">
-              <xsl:text>NOTE</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:text>: </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -325,11 +325,11 @@
           </xsl:if>
         </_ufe:engine-type>
         <_ufe:title-block>
-          <xsl:text>MODEL(S)</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='pwcem-title-1']"/>
         </_ufe:title-block>
         <_ufe:title-block>
           <xsl:value-of select="@model"/>
-          <xsl:text> ENGINES</xsl:text>
+          <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='pwcem-title-2']"/>
         </_ufe:title-block>
         <span style="font-size: 11pt; font-weight: normal; ">
           <xsl:if test="(ancestor-or-self::pwcem-title[1]//statement)[1]/*|(ancestor-or-self::pwcem-title[1]//statement)[1]/text()|(ancestor-or-self::pwcem-title[1]//statement)[1]/processing-instruction()">
@@ -341,11 +341,11 @@
           </xsl:if>
         </span>
         <_ufe:title-block>
-          <xsl:text>Manual Part No. </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='pwcem-title-3']"/>
           <xsl:value-of select="@docnbr"/>
         </_ufe:title-block>
         <_ufe:title-block>
-          <xsl:text>Issued </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='pwcem-title-4']"/><xsl:text> </xsl:text>
           <xsl:call-template name="FormatDate">
             <xsl:with-param name="DateTime" select="@oidate"/>
             <xsl:with-param name="DateFormat">dmy</xsl:with-param>
@@ -369,11 +369,11 @@
           </xsl:if>
         </_ufe:engine-type>
         <_ufe:title-block>
-          <xsl:text>MODEL(S)</xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='pwcem-title-1']"/>
         </_ufe:title-block>
         <_ufe:title-block>
           <xsl:value-of select="@model"/>
-          <xsl:text> ENGINES</xsl:text>
+          <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='pwcem-title-2']"/>
         </_ufe:title-block>
         <span style="font-size: 11pt; font-weight: normal; ">
           <xsl:if test="(ancestor-or-self::pwclmm-title[1]//statement)[1]/*|(ancestor-or-self::pwclmm-title[1]//statement)[1]/text()|(ancestor-or-self::pwclmm-title[1]//statement)[1]/processing-instruction()">
@@ -385,11 +385,11 @@
           </xsl:if>
         </span>
         <_ufe:title-block>
-          <xsl:text>Manual Part No. </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='pwcem-title-3']"/>
           <xsl:value-of select="@docnbr"/>
         </_ufe:title-block>
         <_ufe:title-block>
-          <xsl:text>Issued </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='pwcem-title-4']"/><xsl:text> </xsl:text>
           <xsl:call-template name="FormatDate">
             <xsl:with-param name="DateTime" select="@oidate"/>
             <xsl:with-param name="DateFormat">dmy</xsl:with-param>
@@ -408,13 +408,13 @@
         <xsl:choose>
           <xsl:when test="not(@sbcond) or @sbcond='NA' or @sbcond='na' or @sbcond='RWK' or @sbcond='rwk'">
             <_sfe:BeforeOrAfterText>
-              <xsl:text>SB</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='sb']"/>
               <xsl:value-of select="@sbnbr"/>
             </_sfe:BeforeOrAfterText>
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="@sbcond"/>
-            <xsl:text>-SB</xsl:text>
+            <xsl:text>-</xsl:text><xsl:value-of select="$gen-texts//text[@name='sb']"/>
             <xsl:value-of select="@sbnbr"/>
           </xsl:otherwise>
         </xsl:choose>
@@ -442,9 +442,9 @@
         <xsl:if test="not(@_gte:Gentext-Expanded)">
           <_sfe:BeforeOrAfterText>
             <_ufe:block-prespace>
-              <xsl:text>(SHEET </xsl:text>
+              <xsl:text>(</xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet']"/><xsl:text> </xsl:text>
               <xsl:value-of select="@sheetnbr"/>
-              <xsl:text> OF </xsl:text>
+              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet-of']"/><xsl:text> </xsl:text>
               <xsl:value-of select="(ancestor-or-self::graphic[1]//sheet)[position()=last()]/@sheetnbr"/>
               <xsl:text>)</xsl:text>
             </_ufe:block-prespace>
@@ -555,7 +555,7 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <_ufe:task-postspace>
-          <xsl:text>Subtask </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='subtask']"/><xsl:text> </xsl:text>
           <xsl:value-of select="@chapnbr"/>
           <xsl:text>-</xsl:text>
           <xsl:value-of select="@sectnbr"/>
@@ -582,7 +582,7 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <_ufe:task-postspace>
-          <xsl:text>Task </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='task']"/><xsl:text> </xsl:text>
           <xsl:value-of select="@chapnbr"/>
           <xsl:text>-</xsl:text>
           <xsl:value-of select="@sectnbr"/>
@@ -648,7 +648,7 @@
             </xsl:apply-templates>
           </_gte:Gentexted-Content-Wrapper>
         </xsl:if>
-        <xsl:text> of </xsl:text>
+        <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet-of']"/><xsl:text> </xsl:text>
         <xsl:if test="(ancestor-or-self::teddtl[1]//toolnbr)[1]/*|(ancestor-or-self::teddtl[1]//toolnbr)[1]/text()|(ancestor-or-self::teddtl[1]//toolnbr)[1]/processing-instruction()">
           <_gte:Gentexted-Content-Wrapper>
             <xsl:apply-templates mode="gentext" select="(ancestor-or-self::teddtl[1]//toolnbr)[1]/*|(ancestor-or-self::teddtl[1]//toolnbr)[1]/text()|(ancestor-or-self::teddtl[1]//toolnbr)[1]/processing-instruction()">
@@ -749,7 +749,7 @@
       <xsl:with-param name="content">
         <_ufe:center>
           <span style="text-decoration: underline; ">
-            <xsl:text>TEMPORARY REVISION INDEX</xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='trlist']"/>
           </span>
         </_ufe:center>
       </xsl:with-param>

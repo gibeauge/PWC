@@ -20,7 +20,7 @@
   <xsl:template match="build-spec" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>Build Specification No. </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='buildspec']"/><xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -50,8 +50,8 @@
               <!--xsl:text>(SHEET X OF Y)</xsl:text-->
               <xsl:if test="ancestor::figure and count(ancestor::figure//graphic[@size='big']) > 1">
                 <xsl:variable name="l-id" select="@_gte:id"/>
-                <xsl:text>(SHEET </xsl:text><xsl:value-of select="count(ancestor::figure//graphic[@size='big' and following::graphic[@_gte:id=$l-id]])+1"/>
-                <xsl:text> OF </xsl:text>
+                <xsl:text>(</xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet']"/><xsl:text> </xsl:text><xsl:value-of select="count(ancestor::figure//graphic[@size='big' and following::graphic[@_gte:id=$l-id]])+1"/>
+                <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet-of']"/><xsl:text> </xsl:text>
                 <xsl:value-of select="count(ancestor::figure//graphic[@size='big'])"/>
                 <xsl:text>)</xsl:text>
               </xsl:if>
@@ -68,31 +68,31 @@
       <xsl:with-param name="content-before">
         <xsl:choose>
           <xsl:when test="@prc='S'">
-            <xsl:text>INTRCHG WITH P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='inter-s']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@prc='N'">
-            <xsl:text>NONINTR WITH P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='inter-n']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@prc=number('7')">
-            <xsl:text>RESTRICTED INTERCHANGEABILITY WITH P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='inter-7']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@prc=number('6')">
-            <xsl:text>INTRCHG AS A SET WITH P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='inter-6']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@prc=number('3')">
-            <xsl:text>NOT INTR WITH P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='inter-3']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@prc=number('2')">
-            <xsl:text>TWO-WAY INTRCHG WITH P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='inter-2']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@prc=number('1')">
-            <xsl:text>ONE-WAY INTRCHG WITH P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='inter-1']"/><xsl:text> </xsl:text>
           </xsl:when>
         </xsl:choose>
       </xsl:with-param>
       <xsl:with-param name="content-after">
         <xsl:if test="@prc=number('7')">
-          <xsl:text>. REFER TO APPLICABLE SERVICE BULLETIN.</xsl:text>
+          <xsl:text>. </xsl:text><xsl:value-of select="$gen-texts//text[@name='inter-7-sb']"/><xsl:text>.</xsl:text>
         </xsl:if>
       </xsl:with-param>
     </xsl:call-template>
@@ -102,7 +102,7 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <_ufe:fig-title>
-          <xsl:text>Figure </xsl:text>
+          <xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text>
           <xsl:if test="(ancestor-or-self::ipc-fig[1]//figno)[1]/*|(ancestor-or-self::ipc-fig[1]//figno)[1]/text()|(ancestor-or-self::ipc-fig[1]//figno)[1]/processing-instruction()">
             <_gte:Gentexted-Content-Wrapper>
               <xsl:apply-templates mode="gentext" select="(ancestor-or-self::ipc-fig[1]//figno)[1]/*|(ancestor-or-self::ipc-fig[1]//figno)[1]/text()|(ancestor-or-self::ipc-fig[1]//figno)[1]/processing-instruction()">
@@ -124,7 +124,7 @@
   <xsl:template match="kits" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>KITS, REPAIR/SERVICE PARTS</xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='kits']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -132,7 +132,7 @@
   <xsl:template match="lpln" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>LATEST PARTS LIST NO: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='lpln']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -175,22 +175,22 @@
         <xsl:choose>
           <xsl:when test="&anc-pre-partnbr-nut-table; and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '4']]]">
             <_ufe:block-nospace>
-              <xsl:text>SEE TABLE FOR OPTIONAL PART NUMBERS</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='opt-pn']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="&anc-pre-partnbr-nut-table; and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '3']]]">
             <_ufe:block-nospace>
-              <xsl:text>SEE TABLE FOR OPTIONAL PART NUMBERS</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='opt-pn']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="&anc-pre-partnbr-nut-table; and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '2']]]">
             <_ufe:block-nospace>
-              <xsl:text>SEE TABLE FOR OPTIONAL PART NUMBERS</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='opt-pn']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="&anc-pre-partnbr-nut-table; and ancestor::entry[preceding-sibling::entry[part-nbr[@indent = '1']]]">
             <_ufe:block-nospace>
-              <xsl:text>SEE TABLE FOR OPTIONAL PART NUMBERS</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='opt-pn']"/>
             </_ufe:block-nospace>
           </xsl:when>
         </xsl:choose>
@@ -204,59 +204,59 @@
         <xsl:choose>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and not(@select-at and string(@select-at)='BALANCING') and not(@select-at and string(@select-at)='DETAIL-BAL') and (@select-at and string(@select-at)='TRIM-BAL')">
             <_ufe:block-nospace>
-              <xsl:text>SELECT AT TRIM-BAL</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-trim']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and not(@select-at and string(@select-at)='BALANCING') and (@select-at and string(@select-at)='DETAIL-BAL')">
             <_ufe:block-nospace>
-              <xsl:text>SELECT AT DETAIL-BAL</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-detail']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and (@select-at and string(@select-at)='BALANCING')">
             <_ufe:block-nospace>
-              <xsl:text>SELECT AT BALANCING</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-balancing']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and (@select-at and string(@select-at)='ASSEMBLY')">
             <_ufe:block-nospace>
-              <xsl:text>SELECT AT ASSEMBLY</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-assembly']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
             <_ufe:block-nospace>
-              <xsl:text>(IC) CONSISTS OF:</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
             <_ufe:block-nospace>
-              <xsl:text>SELECT AT TRIM-BAL</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-trim']"/>
             </_ufe:block-nospace>
             <_ufe:block-nospace>
-              <xsl:text>(IC) CONSISTS OF:</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
             <_ufe:block-nospace>
-              <xsl:text>SELECT AT DETAIL-BAL</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-detail']"/>
             </_ufe:block-nospace>
             <_ufe:block-nospace>
-              <xsl:text>(IC) CONSISTS OF:</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
             <_ufe:block-nospace>
-              <xsl:text>SELECT AT BALANCING</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-balancing']"/>
             </_ufe:block-nospace>
             <_ufe:block-nospace>
-              <xsl:text>(IC) CONSISTS OF:</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
           <xsl:when test="(@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
             <_ufe:block-nospace>
-              <xsl:text>SELECT AT ASSEMBLY</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-assembly']"/>
             </_ufe:block-nospace>
             <_ufe:block-nospace>
-              <xsl:text>(IC) CONSISTS OF:</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
         </xsl:choose>
@@ -290,17 +290,17 @@
         <xsl:choose>
           <xsl:when test="(following-sibling::note) or (preceding-sibling::note)">
             <span class="x-note-label-2-0">
-              <xsl:text>NOTE</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:text>: </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
             <xsl:call-template name="t-styler-numbering"/>
             <xsl:text> </xsl:text>
           </xsl:when>
           <xsl:otherwise>
             <span class="x-note-label-2-0">
-              <xsl:text>NOTE</xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:text>: </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -335,31 +335,31 @@
         <xsl:choose>
           <xsl:when test="@cat='use-with' and preceding-sibling::pntype[1][@cat!='use-with']"> </xsl:when>
           <xsl:when test="@cat='field' and preceding-sibling::pntype[1][@cat!='field']">
-            <xsl:text>Field reidentification P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-field']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='rew' and preceding-sibling::pntype[1][@cat!='rew']">
-            <xsl:text>Reworked from P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-rew']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='NewMay' and preceding-sibling::pntype[1][@cat!='NewMay']">
-            <xsl:text>May be obtained by rework of P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-newmay']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='comp-of' and preceding-sibling::pntype[1][@cat!='comp-of']">
-            <xsl:text>component of P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-comp-of']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='use-with' and preceding-sibling::pntype[1][@cat='use-with']">
-            <xsl:text> AND </xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='cond-and-2']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='field' and preceding-sibling::pntype[1][@cat='field']">
-            <xsl:text> AND </xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='cond-and-2']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='rew' and preceding-sibling::pntype[1][@cat='rew']">
-            <xsl:text> OR </xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='cond-or']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='NewMay' and preceding-sibling::pntype[1][@cat='NewMay']">
-            <xsl:text> OR </xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='cond-or']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='comp-of' and preceding-sibling::pntype[1][@cat='comp-of']">
-            <xsl:text> AND </xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='cond-and-2']"/><xsl:text> </xsl:text>
           </xsl:when>
         </xsl:choose>
       </xsl:with-param>
@@ -371,19 +371,19 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="@cat='use-with'">
-            <xsl:text>use with P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-use-with']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='field'">
-            <xsl:text>Field reidentification P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-field']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='rew'">
-            <xsl:text>Reworked from P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-rew']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='NewMay'">
-            <xsl:text>May be obtained by rework of P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-newmay']"/><xsl:text> </xsl:text>
           </xsl:when>
           <xsl:when test="@cat='comp-of'">
-            <xsl:text>component of P/N </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='pntype-comp-of']"/><xsl:text> </xsl:text>
           </xsl:when>
         </xsl:choose>
       </xsl:with-param>
@@ -393,7 +393,7 @@
   <xsl:template match="pwc-pn" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>P&#x26;WC P/N: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='pwc-pn']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -403,18 +403,18 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="substring-before(.,',') != '0'">
-            <xsl:text>USE </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='range-use']"/><xsl:text> </xsl:text>
             <xsl:value-of select="string(substring-before(.,','))"/>
-            <xsl:text> MIN TO </xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='range-min']"/><xsl:text> </xsl:text>
             <xsl:value-of select="string(substring-after(.,','))"/>
-            <xsl:text> MAX.</xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='range-max']"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:text>USE </xsl:text>
+            <xsl:value-of select="$gen-texts//text[@name='range-use']"/><xsl:text> </xsl:text>
             <xsl:value-of select="string(substring-before(.,','))"/>
-            <xsl:text> TO </xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='range-to']"/><xsl:text> </xsl:text>
             <xsl:value-of select="string(substring-after(.,','))"/>
-            <xsl:text> MAX.</xsl:text>
+            <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='range-max']"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -444,7 +444,7 @@
         <xsl:value-of select="string(substring-before(., ','))"/>
         <xsl:text> </xsl:text>
         <xsl:value-of select="@type"/>
-        <xsl:text> NO. </xsl:text>
+        <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='sb-stat-no']"/><xsl:text> </xsl:text>
         <xsl:value-of select="string(substring-after(., ','))"/>
       </xsl:with-param>
     </xsl:call-template>
@@ -502,7 +502,7 @@
         <xsl:value-of select="string(substring-before(., ','))"/>
         <xsl:text> </xsl:text>
         <xsl:value-of select="@type"/>
-        <xsl:text> NO. </xsl:text>
+        <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='sb-stat-no']"/><xsl:text> </xsl:text>
         <xsl:value-of select="string(substring-after(., ','))"/>
       </xsl:with-param>
     </xsl:call-template>
@@ -530,7 +530,7 @@
                   <xsl:value-of select="string(./@ref)"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:text>SEE FIG. </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='see-lbl']"/><xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-fig']"/><xsl:text> </xsl:text>
               <xsl:if test="node()[not(self::_sfe:BeforeOrAfterText)]">
                 <_gte:Gentexted-Content-Wrapper>
                   <xsl:apply-templates mode="gentext">
@@ -538,7 +538,7 @@
                   </xsl:apply-templates>
                 </_gte:Gentexted-Content-Wrapper>
               </xsl:if>
-              <xsl:text> FOR BREAKDOWN</xsl:text>
+              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-brk']"/>
             </_sfe:InternalLink>
           </xsl:when>
           <xsl:when test="@ntype and string(@ntype)='CHAPFIGNHA'">
@@ -548,11 +548,11 @@
                   <xsl:value-of select="string(./@ref)"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:text>SEE </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='see-lbl']"/><xsl:text> </xsl:text>
               <xsl:value-of select="string(substring-before(.,' '))"/>
-              <xsl:text> FIG.</xsl:text>
+              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-fig']"/>
               <xsl:value-of select="string(substring-after(.,' '))"/>
-              <xsl:text> FOR NHA</xsl:text>
+              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-nha']"/>
             </_sfe:InternalLink>
           </xsl:when>
           <xsl:when test="@ntype='CHAPFIGBDN'">
@@ -562,11 +562,11 @@
                   <xsl:value-of select="string(./@ref)"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:text>SEE </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='see-lbl']"/><xsl:text> </xsl:text>
               <xsl:value-of select="string(substring-before(.,' '))"/>
-              <xsl:text> FIG.</xsl:text>
+              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-fig']"/>
               <xsl:value-of select="string(substring-after(.,' '))"/>
-              <xsl:text> FOR BREAKDOWN</xsl:text>
+              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-brk']"/>
             </_sfe:InternalLink>
           </xsl:when>
           <xsl:when test="@ntype='CHAPFIG'">
@@ -576,9 +576,9 @@
                   <xsl:value-of select="string(./@ref)"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:text>SEE </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='see-lbl']"/><xsl:text> </xsl:text>
               <xsl:value-of select="string(substring-before(.,' '))"/>
-              <xsl:text> FIG.</xsl:text>
+              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-fig']"/>
               <xsl:value-of select="string(substring-after(.,' '))"/>
             </_sfe:InternalLink>
           </xsl:when>
@@ -589,7 +589,7 @@
                   <xsl:value-of select="string(./@ref)"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:text>SEE FIG. </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='see-lbl']"/><xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-fig']"/><xsl:text> </xsl:text>
               <xsl:if test="node()[not(self::_sfe:BeforeOrAfterText)]">
                 <_gte:Gentexted-Content-Wrapper>
                   <xsl:apply-templates mode="gentext">
@@ -597,7 +597,7 @@
                   </xsl:apply-templates>
                 </_gte:Gentexted-Content-Wrapper>
               </xsl:if>
-              <xsl:text> FOR NHA</xsl:text>
+              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-nha']"/>
             </_sfe:InternalLink>
           </xsl:when>
           <xsl:when test="@ntype='FIGNOTE' and not(@fignote-nbr)">
@@ -607,7 +607,7 @@
                   <xsl:value-of select="string(./@ref)"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:text>SEE NOTE </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='see-lbl']"/><xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-note']"/><xsl:text> </xsl:text>
               <xsl:if test="node()[not(self::_sfe:BeforeOrAfterText)]">
                 <_gte:Gentexted-Content-Wrapper>
                   <xsl:apply-templates mode="gentext">
@@ -624,7 +624,7 @@
                   <xsl:value-of select="string(./@ref)"/>
                 </xsl:attribute>
               </xsl:if>
-              <xsl:text>SEE NOTE </xsl:text>
+              <xsl:value-of select="$gen-texts//text[@name='see-lbl']"/><xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-note']"/><xsl:text> </xsl:text>
               <xsl:value-of select="@fignote-nbr"/>
             </_sfe:InternalLink>
           </xsl:when>
@@ -703,7 +703,7 @@
   <xsl:template match="subattach" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext3">
       <xsl:with-param name="content-before">
-        <xsl:text>ATTACHING PARTS</xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='subattach']"/>
       </xsl:with-param>
       <xsl:with-param name="content-after">
         <xsl:processing-instruction name="Pub">_newline</xsl:processing-instruction>
@@ -715,7 +715,7 @@
   <xsl:template match="supp-code" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>SUPPLIER CODE: </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='supp-code']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -723,7 +723,7 @@
   <xsl:template match="supp-pn" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:text>SUPPLIER P/N </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='supp-pn']"/><xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
