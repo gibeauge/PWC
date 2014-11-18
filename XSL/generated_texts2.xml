@@ -31,9 +31,37 @@
 <text name="trlist-col2">Effectivity</text>
 <text name="trlist-col3">Filed Adjacent to</text>
 <text name="trlist-col4">T.R. Status</text>
-
-<text name="pdlist-title">PARTS DIGEST LIST</text>
-<text name="pre-sb">Pre-SB</text>
-<text name="post-sb">Post-SB</text>
+</texts>
+<texts language="ZH">
+<text name="attach-parts">连接零件</text>
+<text name="chapsect-list-col1">章/节/主题</text>
+<text name="chapsect-list-col2">标题</text>
+<text name="eff-code-col1">有效性</text>
+<text name="eff-code-col2">型号</text>
+<text name="fignote">注</text>
+<text name="highlights">重点</text>
+<text name="highlights-col1">修订版</text>
+<text name="highlights-col2">章/节/主题</text>
+<text name="highlights-col3">页块标题</text>
+<text name="highlights-col4">变更说明</text>
+<text name="highlights-front">前面</text>
+<text name="item-not-illus">没有图解的项目</text>
+<text name="kits">套件、修理/维修零件</text>
+<text name="lof">插图清单</text>
+<text name="lot">表格清单</text>
+<text name="partial-bd">部分细分如下</text>
+<text name="parts-list-col1">项目图</text>
+<text name="parts-list-col2">零件号</text>
+<text name="parts-list-col3">航线零件号</text>
+<text name="parts-list-col4">术语</text>
+<text name="parts-list-col5">有效性代码</text>
+<text name="parts-list-col6">每个总成的装置数</text>
+<text name="spblist-col1">P&amp;WC SPB 编号</text>
+<text name="spblist-col2">修订号</text>
+<text name="spblist-col3">注册状态</text>
+<text name="trlist-col1">T.R.编号</text>
+<text name="trlist-col2">有效性</text>
+<text name="trlist-col3">存档邻近</text>
+<text name="trlist-col4">T.R.状态</text>
 </texts>
 </generated-text>
