@@ -14,7 +14,9 @@
   <xsl:template match="/*" mode="toc">
     <xsl:variable name="toc-tmp">
       <Structure>
-        <xsl:apply-templates mode="toc"/>
+        <Pages>
+          <xsl:apply-templates mode="toc"/>
+        </Pages>
       </Structure>
     </xsl:variable>
     <!-- Use TOC to create bookmarks -->
