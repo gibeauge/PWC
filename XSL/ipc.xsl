@@ -485,6 +485,7 @@
               <xsl:text>x-part-nbr-1-0</xsl:text>
               <xsl:if test="@ref and string(@ref)!=''"> x-part-nbr-1-1</xsl:if>
            </xsl:attribute>
+           <xsl:call-template name="t-base-part-attr"/>
            <xsl:call-template name="t-base-div-basic-h">
               <xsl:with-param name="hidden" select="$hidden"/>
            </xsl:call-template>
@@ -494,8 +495,9 @@
         <div>
            <xsl:attribute name="class">
               <xsl:text>x-part-nbr-1-0</xsl:text>
-              <xsl:if test="@ref and string(@ref)!=''">x-part-nbr-1-1</xsl:if>
+              <xsl:if test="@ref and string(@ref)!=''"> x-part-nbr-1-1</xsl:if>
            </xsl:attribute>
+           <xsl:call-template name="t-base-part-attr"/>
            <xsl:call-template name="t-base-div-basic"/>
         </div>
      </xsl:when>

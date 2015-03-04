@@ -4824,6 +4824,23 @@
    </tbody>
 </xsl:template>
 
+<xsl:template name="t-base-part-attr">
+  <xsl:variable name="part-nbr-tmp">
+    <xsl:apply-templates select=".//text()[not(ancestor::sin)]"/>
+  </xsl:variable>
+  <xsl:variable name="part-nbr" select="upper-case(normalize-space($part-nbr-tmp))"/>
+  <xsl:variable name="part-abc" select="translate($part-nbr, '1234567890', '')"/>
+
+  <xsl:choose>
+    <xsl:when test="$part-nbr='' or translate($part-nbr, '*', '')=''"/>
+    <!--xsl:when test="$part-nbr='DELETED' or $part-nbr='TRANSFERED' or $part-nbr='TRANSFERRED' or $part-nbr='COMMERCIALLY AVAILABLE'"/-->
+    <xsl:when test="$part-nbr=$part-abc"/>
+    <xsl:otherwise>
+      <xsl:attribute name="onclick">OpenProductDetails('<xsl:value-of select="$part-nbr"/>')</xsl:attribute>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template name="t-base-pwcmetainfo">
   <div id="pwcmetainfo" style="display:none">
     <div id="chapter">

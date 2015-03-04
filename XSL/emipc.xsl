@@ -446,6 +446,7 @@
 
 <xsl:template match="pnr" priority="1">
   <span class="x-pnr-1-0">
+    <xsl:call-template name="t-base-part-attr"/>
     <xsl:if test="../../descendant::*[local-name()='pwcsin']">
       <span class="x-part-sin">
         <xsl:for-each select="../../descendant::*[local-name()='pwcsin']">
