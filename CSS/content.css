@@ -256,7 +256,9 @@
 
 .x-graphic-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
 .x-graphic-1-1 {}
+.x-graphic-1-2 {}
 .x-graphic-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
+.x-grphcref-1-0 {margin-left: 0pt; margin-right: 0pt; }
 
 .x-highlights-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 
@@ -347,9 +349,25 @@
 
 .x-kwd-1-0 {margin-left: 0pt; margin-right: 0pt; }
 
+.x-l1item-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l1item-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l1item-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l1item-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
 .x-l1item-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l2item-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l2item-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l2item-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l2item-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
 .x-l2item-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l3item-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l3item-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l3item-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l3item-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
 .x-l3item-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l4item-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l4item-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l4item-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
+.x-l4item-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
 .x-l4item-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; margin-left: 0pt; text-indent: 0pt; }
 .x-l5item-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-l6item-1-0 {margin-left: 0pt; margin-right: 0pt; }
@@ -680,16 +698,21 @@
 .x-pwccss-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-pwcem-apu-title-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-pwcemtask-1-0 {margin-left: 0pt; margin-right: 0pt; }
+.x-pwcem-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 24pt; text-align: center; }
+.x-pwclmm-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; font-size: 24pt; text-align: center; }
 .x-pwc-model-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight: bold; margin-top: 12pt; }
 .x-pwcni-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
 .x-pwcnitem-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-pwcpbfront-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-pwc-pn-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+.x-pwcsbnbr-1-0 {margin-left: 0pt; margin-right: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
 .x-pwcsin-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-pwcsoa-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
 .x-pwcsoa-1-1 {}
 .x-pwcspbdata-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; }
 .x-pwcspblist-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
+.x-pwcspbnbr-1-0 {margin-left: 0pt; margin-right: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
+.x-pwc-title-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-size: 18pt; text-align: center; }
 
 .x-q-and-st-1-0 {margin-left: 0pt; margin-right: 0pt; }
 
@@ -738,9 +761,29 @@
 
 .x-body-jmtosmigrate .x-sbdata-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; }
 .x-sbdata-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
+.x-sbeff-1-0 {margin-left: 0pt; margin-right: 0pt; }
+.x-sbeff-1-1 {}
 .x-sb-1-0 {margin-left: 0pt; margin-right: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
 .x-sb-item-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-sblist-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
+
+.x-sbnbr-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
+.x-sbnbr-2-0 {margin-left: 0pt; margin-right: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
+
+.x-sb-stat-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
+.x-sb-stat-1-1 {}
+.x-sb-stat-1-2 {}
+.x-sb-stat-1-3 {}
+.x-sb-stat-1-4 {}
+.x-sb-stat-1-5 {}
+.x-sb-stat-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
+.x-sb-stat-2-1 {}
+.x-sb-stat-2-2 {}
+.x-sb-stat-2-3 {}
+.x-sb-stat-2-4 {}
+.x-sb-stat-2-5 {}
+.x-sb-stat-3-0 {margin-left: 0pt; margin-right: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
+.x-sb-stat-4-0 {margin-left: 0pt; margin-right: 0pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
 
 .x-sd-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 
@@ -773,6 +816,10 @@
 .x-sfn-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-sftq-1-0 {margin-left: 0pt; margin-right: 0pt; }
 
+.x-sheet-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
+.x-sheet-1-1 {}
+.x-sheet-1-2 {}
+
 .x-sin-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-sin-2-0 {margin-left: 0pt; margin-right: 0pt; }
 
@@ -790,6 +837,8 @@
 
 .x-spb-item-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-spb-list-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
+
+.x-spbnbr-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; color: #0000FF; text-decoration: underline ; text-decoration: underline ; }
 
 .x-spec-assem-1-0 {margin-left: 0pt; margin-right: 0pt; }
 
