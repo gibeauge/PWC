@@ -2926,13 +2926,16 @@
 	  </a>
 	</div>
 	<div style="display:none" class="x-table-3-0">
-	   <xsl:copy-of select="@ch:*"/>
-	   <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
+	   <!--
+       <xsl:copy-of select="@ch:*"/>
+       <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
 	   <xsl:attribute name="id">
 	      <xsl:value-of select="$pf-id"/>
 	      <xsl:apply-templates mode="set-id" select="."/>
 	   </xsl:attribute>
 	   <xsl:apply-templates/>
+       -->
+       <xsl:call-template name="t-base-div-basic2"/>
 	</div>
 	<xsl:call-template name="t-base-js-toggle"/>
   </div>
@@ -2971,6 +2974,7 @@
       </a>
     </div>
     <div style="display:none" class="x-table-5-0">
+       <!--
        <xsl:copy-of select="@ch:*"/>
        <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
        <xsl:attribute name="id">
@@ -2978,6 +2982,8 @@
           <xsl:apply-templates mode="set-id" select="."/>
        </xsl:attribute>
        <xsl:apply-templates/>
+       -->
+       <xsl:call-template name="t-base-div-basic2"/>
     </div>
     <xsl:call-template name="t-base-js-toggle"/>
   </div>
@@ -4220,7 +4226,10 @@
               <span style="display:none" class="x-xref-1-0">
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
+                <!--
                 <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
+                -->
+                <a href="#none" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
                   <xsl:choose>
                     <xsl:when test="$l-dest-node/title">
                       <xsl:value-of select="$l-dest-node/title"/>
@@ -4236,7 +4245,10 @@
               <span class="x-xref-2-0">
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
+                <!--
                 <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
+                -->
+                <a href="#none" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
                   <xsl:choose>
                     <xsl:when test="$l-dest-node/title">
                       <xsl:value-of select="$l-dest-node/title"/>
@@ -4513,8 +4525,16 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="*" mode="set-id">
-  <xsl:number level="multiple" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
+<xsl:template match="frontmatter//*" mode="set-id">
+  <xsl:text>f</xsl:text><xsl:number level="multiple" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
+</xsl:template>
+
+<xsl:template match="num-index//*" mode="set-id">
+  <xsl:text>n</xsl:text><xsl:number level="multiple" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
+</xsl:template>
+
+<xsl:template match="chapter//*" mode="set-id">
+  <xsl:text>c</xsl:text><xsl:number count="chapter"/>.<xsl:number level="multiple" from="chapter" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
 </xsl:template>
 
 <xsl:template name="length-to-pixels">
@@ -4918,6 +4938,19 @@
     <xsl:when test="ancestor-or-self::book[contains(@doctype,'lmm')]//page-block[@pb-name='title-page']">LINE MAINTENANCE MANUAL</xsl:when>
     <xsl:when test="ancestor-or-self::book[contains(@doctype,'em')]//page-block[@pb-name='title-page']">OVERHAUL MANUAL</xsl:when>
     <xsl:when test="ancestor-or-self::book[contains(@doctype,'cir')]//page-block[@pb-name='title-page']">CLEANING INSPECTION REPAIR (CIR) MANUAL</xsl:when>
+    <xsl:otherwise>
+       <xsl:value-of select="//page-block[@pb-name='title-page'][1]/module/title-page/manual-title"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="t-base-pwcbannerinfo-title-2">
+  <xsl:choose>
+    <xsl:when test="/book[contains(@doctype,'epc')]//page-block[@pb-name='title-page']">ILLUSTRATED PARTS CATALOG</xsl:when>
+    <xsl:when test="/book[contains(@doctype,'tmm')]//page-block[@pb-name='title-page']">MAINTENANCE MANUAL</xsl:when>
+    <xsl:when test="/book[contains(@doctype,'lmm')]//page-block[@pb-name='title-page']">LINE MAINTENANCE MANUAL</xsl:when>
+    <xsl:when test="/book[contains(@doctype,'em')]//page-block[@pb-name='title-page']">OVERHAUL MANUAL</xsl:when>
+    <xsl:when test="/book[contains(@doctype,'cir')]//page-block[@pb-name='title-page']">CLEANING INSPECTION REPAIR (CIR) MANUAL</xsl:when>
     <xsl:otherwise>
        <xsl:value-of select="//page-block[@pb-name='title-page'][1]/module/title-page/manual-title"/>
     </xsl:otherwise>

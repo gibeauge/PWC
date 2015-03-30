@@ -21,7 +21,7 @@
         method="xhtml" encoding="utf-8" indent="no"
         omit-xml-declaration="yes" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
         exclude-result-prefixes="ch #default" >
-        <html>
+        <html lang="{lower-case($lang)}">
           <xsl:call-template name="build-header">
             <xsl:with-param name="title">
               <xsl:value-of select="descendant::*[@ch:title][1]"/>

@@ -1,0 +1,108 @@
+
+html {
+	height: 100%;
+	width: 100%;
+	margin:0px;
+	padding:0px;
+	border:0px;
+	font-size: 10pt;
+}
+
+body {
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	height: 100%;
+}
+
+img {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	margin-right: 4px;
+}
+
+a:hover {
+	text-decoration: underline;
+	background: #dddddd;
+}
+
+a:focus {
+	background: #668899;
+	color:HighlightText;
+	width:100%;		
+}
+
+a:active {
+	background: #668899;
+	color:HighlightText;
+	width:100%;		
+}
+
+td {
+	font-size: 10pt;
+}
+
+.s-toc {
+	overflow: scroll-x;
+	margin-left: 0;
+}
+
+#root {
+	margin-top: -20px;
+    margin-left: -40px;
+}
+
+.ui-layout-content {
+	overflow: auto;
+	padding: 10px;
+}
+
+.ui-layout-pane {
+	background: #FFF;
+	border: 1px solid #BBB;
+	overflow: auto;
+}
+
+.ui-layout-north {
+	padding: 10px;
+}
+
+.ui-layout-west {
+	padding: 5px;
+}
+
+.ui-layout-center {
+	padding: 10px;
+}
+
+.ui-layout-resizer {
+	background-color: #DDD;
+	border: none;
+	height: 2px;
+}
+
+/*
+.ui-layout-toggler {
+}
+
+.ui-layout-toggler-north {
+}
+
+.ui-layout-toggler-west {
+}
+*/
+
+.ui-layout-center {
+}
+
+.ui-layout-resizer-west {
+}
+
+/*
+.ui-layout-resizer-north {
+}
+*/
+

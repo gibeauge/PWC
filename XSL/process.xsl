@@ -30,7 +30,7 @@
                        indent="yes" exclude-result-prefixes="ch #default" omit-xml-declaration="no">
     <Metadatas>
       <PartNo><xsl:value-of select="/book/@manualpnr"/></PartNo>
-      <Title><xsl:call-template name="t-base-pwcbannerinfo-title"/></Title>
+      <Title><xsl:call-template name="t-base-pwcbannerinfo-title-2"/></Title>
       <OriginalIssueDate><xsl:value-of select="/book/@exportdate"/></OriginalIssueDate>
       <Engine><xsl:value-of select="/book/@family"/></Engine>
       <EngineModels><xsl:value-of select="/book/@model"/></EngineModels>
