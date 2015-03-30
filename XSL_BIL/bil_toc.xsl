@@ -7,8 +7,6 @@
 
 <xsl:param name="output-dir"/>
 
-<!-- TEST Guillaume -->
-
 <xsl:template match="/">
   <html>
     <head>
