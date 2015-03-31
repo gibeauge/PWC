@@ -117,7 +117,7 @@
       data.instance.close_node(data.node);
     }
     var href_url = $('#' + data.node.id).find('a').first().attr("href");
-    if (href_url != "") {
+	if (href_url != "") {
       var anchor_idx = href_url.indexOf("#");
       if (anchor_idx != -1) {
         var anchor = href_url.substring(anchor_idx+1);
@@ -125,12 +125,13 @@
         $("#pane_content").load(href_url);
         document.getElementById(anchor).scrollIntoView(true);
       }
-      else {
+     else {
         $("#pane_content").load(href_url);
-      }
+    }
     }
   });
   
+ 
   // Change icon when opening a folder
   $("#toc").on("open_node.jstree", function(event, data) {
     var icon_path = data.node.icon;
@@ -176,8 +177,8 @@
 <xsl:template match="Page">
   <xsl:variable name="icon">
     <xsl:choose>
-      <xsl:when test="@FileType='FILE'">./css/toc_file.gif</xsl:when>
-      <xsl:when test="@FileType='FOLDER' and @URL">./css/toc_closed_files.gif</xsl:when>
+		<xsl:when test="(@FileType='FOLDER' and @URL) or (@FileType='FILE' and @Title='List of Figures')">./css/toc_closed_files.gif</xsl:when>
+		<xsl:when test="@FileType='FILE' or @FileType='IMAGE'">./css/toc_file.gif</xsl:when>
       <xsl:otherwise>./css/toc_closed.gif</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -186,9 +187,19 @@
     "text" : "<xsl:value-of select="@Title"/>",
     "icon" : "<xsl:value-of select="$icon"/>",
     "li_attr" : { "title" : "<xsl:value-of select="@Title"/>" },
-    "a_attr" : { "href" : "<xsl:value-of select="@URL"/>" },
-    <xsl:if test="@FileType='FOLDER'">
-      "children" : [
+	<xsl:choose>
+		<xsl:when test="@FileType='IMAGE'">
+		"a_attr" : { "href" : "null" , "onclick" : "<xsl:value-of select="@onclick"/>" },
+		</xsl:when>
+		<xsl:when test="@FileType='FILE' and @Title='List of Figures'">
+		"a_attr" : { "href" : "null"},
+				</xsl:when>
+		<xsl:otherwise>
+		"a_attr" : { "href" : "<xsl:value-of select="@URL"/>" },
+		</xsl:otherwise>
+    </xsl:choose>
+	<xsl:if test="@FileType='FOLDER' or (@FileType='FILE' and @Title='List of Figures')">
+      	  "children" : [
         <xsl:apply-templates/>
       ]
     </xsl:if> 
