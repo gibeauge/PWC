@@ -66,15 +66,11 @@ td {
 	overflow: auto;
 }
 
-.ui-layout-north {
-	padding: 10px;
-}
-
 .ui-layout-west {
 	padding: 5px;
 }
 
-.ui-layout-center {
+.ui-layout-center.content {
 	padding: 10px;
 }
 
@@ -82,6 +78,49 @@ td {
 	background-color: #DDD;
 	border: none;
 	height: 2px;
+}
+
+/* Banner */
+.banner{
+	background-color: #000;
+}
+
+.banner img {
+	float: left;
+}
+
+.banner div.metadata {
+	text-align: center;
+	color: #fff;
+}
+
+/* Navigation bar */
+.ui-layout-north.nav {
+    background-color: #DDD;
+ /* height: 25px; */
+    position: fixed;
+    width: inherit;
+}
+
+.menu {
+	padding: 0px;
+	list-style: none;
+	margin: 0px;
+	float: right;
+	
+}
+
+.menu li {
+	display: inline-block;
+}
+
+.menu li a {
+	display:block;
+	
+}
+
+.menu li a img {
+	margin: 0px;
 }
 
 /*
@@ -105,4 +144,3 @@ td {
 .ui-layout-resizer-north {
 }
 */
-

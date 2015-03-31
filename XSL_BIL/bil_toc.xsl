@@ -22,8 +22,24 @@
       <script type="text/javascript">
       var main_layout;
       $(document).ready(function () {
-        main_layout = $('body').layout( { closable: false, spacing_open: 2, north__resizable: false, west__size: 300 } );
-      });
+      	
+      	//Outer-layout options
+		main_layout = $('body').layout( {
+        	closable: false, 
+        	spacing_open: 2, 
+        	north__resizable: false, 
+        	west__size: 300,
+        	
+        	//Inner-layout options
+        	center__childOptions:{
+        		center__paneSelector: ".content",
+        		north__paneSelector: ".nav",
+        		north__size: 25,
+        		closable: false,
+        		spacing_open: 0
+        	}
+       	 });
+	  });
       </script>
     </head>
     <body>
@@ -33,10 +49,30 @@
 </xsl:template>
 
 <xsl:template match="Structure">
-  <div class="ui-layout-north">Banner</div>
-  <div class="ui-layout-center"><div id="pane_content">&#160;</div></div>
+<div class="ui-layout-north banner">
+	<img src="images/pwcbanner.jpg"/>
+	<div class="metadata">
+		<p>MAINTENANCE MANUAL</p>
+	</div>
+</div>
+  
+ <div class="ui-layout-center">
+ 
+	<div class="ui-layout-north nav">
+		<ul class="menu">
+			<li class="home"><a href="#" title="Home"><img src="CSS/home.gif" /></a></li>
+			<li class="prev"><a href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
+			<li class="next"><a href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
+			<li class="print"><a href="#" title="Print"><img src="CSS/print.gif" /></a></li>
+		</ul>
+	</div>
+	
+  	<div class="ui-layout-center content">
+  		<div id="pane_content">&#160;</div>
+  	</div>
+  </div>
+  
   <div class="ui-layout-west">
-
   <div id="toc" class="s-toc"></div>
  
   <script type="text/javascript">
