@@ -29,6 +29,7 @@
         	spacing_open: 2, 
         	north__resizable: false, 
         	west__size: 300,
+			north__size: 73,
         	
         	//Inner-layout options
         	center__childOptions:{
@@ -39,22 +40,29 @@
         		spacing_open: 0
         	}
        	 });
+		 
+		 //Add Metadata
+		 $("#load_home").ready(function() {
+        $("#load_content").load("metadata.html");
+    });
+		 
 	  });
-      </script>
-    </head>
+	  
+    </script>
+	</head>
     <body>
-      <xsl:apply-templates/>
+		<xsl:apply-templates/>
     </body>
   </html>
 </xsl:template>
 
 <xsl:template match="Structure">
-<div class="ui-layout-north banner">
-	<img src="images/pwcbanner.jpg"/>
-	<div class="metadata">
-		<p>MAINTENANCE MANUAL</p>
+<div class="ui-layout-north banner" id="load_home">
+	<div id="topBar">
+    <div id="load_content">#</div>
 	</div>
 </div>
+
   
  <div class="ui-layout-center">
  
