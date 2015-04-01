@@ -29,7 +29,7 @@
         	spacing_open: 2, 
         	north__resizable: false, 
         	west__size: 300,
-			north__size: 73,
+			north__size: 75,
         	
         	//Inner-layout options
         	center__childOptions:{
