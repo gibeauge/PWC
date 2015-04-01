@@ -105,9 +105,8 @@ td {
 .menu {
 	padding: 0px;
 	list-style: none;
-	margin: 0px;
 	float: right;
-	
+	margin: 3px 5px 0px 0px;
 }
 
 .menu li {
@@ -116,7 +115,18 @@ td {
 
 .menu li a {
 	display:block;
-	
+}
+
+.menu li a:active {
+	background-color: #848484;
+}
+
+.menu li a:focus {
+	background-color: inherit;
+}
+
+.menu li a:hover {
+	background-color: #B3B3B3;
 }
 
 .menu li a img {

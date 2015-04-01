@@ -17,7 +17,7 @@
       <script type="text/javascript" src="js/jquery.ui-1.10.4.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.layout-1.4.3.min.js"> // JS </script>
       <script type="text/javascript" src="js/jstree-3.0.9.min.js"> // JS </script>
-      <script type="text/javascript" src="js/jquery.address-1.5.min.js"> // JS </script>
+      <script type="text/javascript" src="js/jquery.ba-bbq.min.js"> // JS </script>
       <script type="text/javascript" src="js/pwcdisplay.js"> // JS </script>
       <script type="text/javascript">
       var main_layout;
@@ -68,10 +68,10 @@
  
 	<div class="ui-layout-north nav">
 		<ul class="menu">
-			<li class="home"><a href="#" title="Home"><img src="CSS/home.gif" /></a></li>
-			<li class="prev"><a href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
-			<li class="next"><a href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
-			<li class="print"><a href="#" title="Print"><img src="CSS/print.gif" /></a></li>
+			<li><a id="home" href="#" title="Home"><img src="CSS/home.gif" /></a></li>
+			<li><a id="prev" href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
+			<li><a id="next" href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
+			<li><a id="print" href="#" title="Print"><img src="CSS/print.gif" /></a></li>
 		</ul>
 	</div>
 	
@@ -130,10 +130,12 @@
       if (anchor_idx != -1) {
         var anchor = href_url.substring(anchor_idx+1);
         href_url = href_url.substring(0,anchor_idx);
+        $.bbq.pushState({ url : href_url, anchor : anchor });
         $("#pane_content").load(href_url);
         document.getElementById(anchor).scrollIntoView(true);
       }
      else {
+    	$.bbq.pushState({ url : href_url });
         $("#pane_content").load(href_url);
     }
     }
@@ -169,6 +171,31 @@
     }
     data.instance.set_icon(data.node,icon_path);
   });
+  
+  //Manage navigation
+  $(window).bind("hashchange", function(e) {
+  	var url = $.bbq.getState("url");
+  	var anchor = $.bbq.getState("anchor");
+  	$("#pane_content").load(url);
+  	if (anchor != '') {
+  		document.getElementById(anchor).scrollIntoView(true);
+  	}
+  	//Add select_node class to the new node
+  	//$("#toc").jstree("select_node", )
+  });
+  
+  //Previous top menu button
+  $('#prev').click(function(){ 
+  	history.back(); 
+  	return false; 
+  });
+
+  //Next top menu button
+  $('#next').click(function(){ 
+  	history.forward() 
+  	return false; 
+  });
+  
   </script>
   </div>
 </xsl:template>
