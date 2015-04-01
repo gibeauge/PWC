@@ -134,6 +134,13 @@
   </xsl:copy>
 </xsl:template>
 
+<xsl:template match="div[contains(@class, 'x-graphic-')]/*/div[contains(@class, 'x-sheet-')]//div[contains(@class, 'pr-tbl')]" priority="5">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+  <xsl:call-template name="get-translated-object"/>
+</xsl:template>
+
 <xsl:template match="div[contains(@class, 'x-lof-')]">
   <div>
     <xsl:apply-templates select="@*"/>

@@ -1729,12 +1729,6 @@
 
 <xsl:template match="num-index" priority="0">
   <div class="x-num-index-1-0">
-     <!--
-     <xsl:copy-of select="@ch:*"/>
-     <xsl:call-template name="maybe-set-id">
-        <xsl:with-param name="only-if-id-attr" select="'no'"/>
-     </xsl:call-template>
-     -->
      <xsl:call-template name="t-base-div-chunk">
        <xsl:with-param name="ch-name" select="'numerical-index'"/>
      </xsl:call-template>
@@ -2503,17 +2497,11 @@
         </xsl:call-template>
       </div>
     </xsl:when>
-    <!--
-    <xsl:when test="@refid and //*[@id=current()/@refid][self::table and (ancestor::figure or ancestor::graphic)]">
-    -->
     <xsl:when test="@refid and .//_gte:Link[@type='table-figure']">
       <span class="x-refint-2-0">
         <xsl:call-template name="t-base-div-basic"/>
       </span>
     </xsl:when>
-    <!--
-    <xsl:when test="@refid and //*[@id=current()/@refid][self::table]">
-    -->
     <xsl:when test="@refid and .//_gte:Link[@type='table']">
       <span class="x-refint-3-0">
         <xsl:call-template name="t-base-div-basic"/>
@@ -2885,7 +2873,7 @@
   </xsl:attribute>
   <xsl:if test="title">
   	<xsl:attribute name="id">
-  		<xsl:value-of select="concat('pr_', generate-id(.))"/>
+      <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	</xsl:attribute>
   </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -2901,7 +2889,7 @@
    </xsl:attribute>
    <xsl:if test="title">
 	  	<xsl:attribute name="id">
-	  		<xsl:value-of select="concat('pr_', generate-id(.))"/>
+          <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
 	  	</xsl:attribute>
   	</xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -2912,7 +2900,7 @@
   <div>
   	<xsl:if test="title">
    	  <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
   	  <xsl:attribute name="class">
         <xsl:text>pr-tbl</xsl:text>
@@ -2926,15 +2914,6 @@
 	  </a>
 	</div>
 	<div style="display:none" class="x-table-3-0">
-	   <!--
-       <xsl:copy-of select="@ch:*"/>
-       <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
-	   <xsl:attribute name="id">
-	      <xsl:value-of select="$pf-id"/>
-	      <xsl:apply-templates mode="set-id" select="."/>
-	   </xsl:attribute>
-	   <xsl:apply-templates/>
-       -->
        <xsl:call-template name="t-base-div-basic2"/>
 	</div>
 	<xsl:call-template name="t-base-js-toggle"/>
@@ -2949,7 +2928,7 @@
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -2960,7 +2939,7 @@
   <div>
   	<xsl:if test="title">
    	  <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
   	  <xsl:attribute name="class">
         <xsl:text>pr-tbl</xsl:text>
@@ -2974,15 +2953,6 @@
       </a>
     </div>
     <div style="display:none" class="x-table-5-0">
-       <!--
-       <xsl:copy-of select="@ch:*"/>
-       <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
-       <xsl:attribute name="id">
-          <xsl:value-of select="$pf-id"/>
-          <xsl:apply-templates mode="set-id" select="."/>
-       </xsl:attribute>
-       <xsl:apply-templates/>
-       -->
        <xsl:call-template name="t-base-div-basic2"/>
     </div>
     <xsl:call-template name="t-base-js-toggle"/>
@@ -2993,7 +2963,7 @@
   <div>
   	<xsl:if test="title">
    	  <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
   	  <xsl:attribute name="class">
         <xsl:text>pr-tbl</xsl:text>
@@ -3020,7 +2990,7 @@
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -3035,7 +3005,7 @@
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -3050,7 +3020,7 @@
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -3065,7 +3035,7 @@
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -3080,7 +3050,7 @@
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -3095,7 +3065,7 @@
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -3110,7 +3080,7 @@
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
@@ -3121,7 +3091,7 @@
   <div>
   	<xsl:if test="title">
    	  <xsl:attribute name="id">
-        <xsl:value-of select="concat('pr_', generate-id(.))"/>
+        <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
   	  </xsl:attribute>
   	  <xsl:attribute name="class">
         <xsl:text>pr-tbl</xsl:text>
@@ -3420,44 +3390,6 @@
   <div ch:title="notoc">
    <xsl:attribute name="class">
     <xsl:text>x-title-32-0</xsl:text>
-        <!--<xsl:choose>
-          <xsl:when test="&pb-01-ata;"> x-title-32-1</xsl:when>
-          <xsl:when test="&pb-01-p;"> x-title-32-2</xsl:when>
-          <xsl:when test="&pb-02-ata;"> x-title-32-3</xsl:when>
-          <xsl:when test="&pb-02-p;"> x-title-32-4</xsl:when>
-          <xsl:when test="&pb-03-ata;"> x-title-32-5</xsl:when>
-          <xsl:when test="&pb-03-p;"> x-title-32-6</xsl:when>
-          <xsl:when test="&pb-04-ata;"> x-title-32-7</xsl:when>
-          <xsl:when test="&pb-04-p;"> x-title-32-8</xsl:when>
-          <xsl:when test="&pb-05-ata;"> x-title-32-9</xsl:when>
-          <xsl:when test="&pb-05-p;"> x-title-32-10</xsl:when>
-          <xsl:when test="&pb-06-ata;"> x-title-32-11</xsl:when>
-          <xsl:when test="&pb-06-p;"> x-title-32-12</xsl:when>
-          <xsl:when test="&pb-07-ata;"> x-title-32-13</xsl:when>
-          <xsl:when test="&pb-07-p;"> x-title-32-14</xsl:when>
-          <xsl:when test="&pb-08-ata;"> x-title-32-15</xsl:when>
-          <xsl:when test="&pb-08-p;"> x-title-32-16</xsl:when>
-          <xsl:when test="&pb-09-ata;"> x-title-32-17</xsl:when>
-          <xsl:when test="&pb-09-p;"> x-title-32-18</xsl:when>
-          <xsl:when test="&pb-10-ata;"> x-title-32-19</xsl:when>
-          <xsl:when test="&pb-10-p;"> x-title-32-20</xsl:when>
-          <xsl:when test="&pb-11-ata;"> x-title-32-21</xsl:when>
-          <xsl:when test="&pb-11-p;"> x-title-32-22</xsl:when>
-          <xsl:when test="&pb-12-ata;"> x-title-32-23</xsl:when>
-          <xsl:when test="&pb-12-p;"> x-title-32-24</xsl:when>
-          <xsl:when test="&pb-13-ata;"> x-title-32-25</xsl:when>
-          <xsl:when test="&pb-13-p;"> x-title-32-26</xsl:when>
-          <xsl:when test="&pb-14-ata;"> x-title-32-27</xsl:when>
-          <xsl:when test="&pb-14-p;"> x-title-32-28</xsl:when>
-          <xsl:when test="&pb-15-ata;"> x-title-32-29</xsl:when>
-          <xsl:when test="&pb-15-p;"> x-title-32-30</xsl:when>
-          <xsl:when test="&pb-16-ata;"> x-title-32-31</xsl:when>
-          <xsl:when test="&pb-16-p;"> x-title-32-32</xsl:when>
-          <xsl:when test="&pb-17-ata;"> x-title-32-33</xsl:when>
-          <xsl:when test="&pb-17-p;"> x-title-32-34</xsl:when>
-          <xsl:when test="&pb-18-ata;"> x-title-32-35</xsl:when>
-          <xsl:when test="&pb-18-p;"> x-title-32-36</xsl:when>
-        </xsl:choose>-->
    </xsl:attribute>
     <xsl:call-template name="t-base-div-title"/>
   </div>
@@ -4193,9 +4125,6 @@
   <xsl:param name="hidden" select="'yes'"/>
   
   <xsl:variable name="l-ref" select="@ref"/>
-  <!--
-  <xsl:variable name="l-dest-node" select="//*[@id=$l-ref]"/>
-  -->
   <xsl:variable name="l-dest-node" select="id($l-ref)"/>
   
   <xsl:choose>
@@ -4226,9 +4155,6 @@
               <span style="display:none" class="x-xref-1-0">
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
-                <!--
-                <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-                -->
                 <a href="#none" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
                   <xsl:choose>
                     <xsl:when test="$l-dest-node/title">
@@ -4245,9 +4171,6 @@
               <span class="x-xref-2-0">
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
-                <!--
-                <a href="#{$l-id}" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
-                -->
                 <a href="#none" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
                   <xsl:choose>
                     <xsl:when test="$l-dest-node/title">
@@ -4420,10 +4343,6 @@
      <xsl:apply-templates/>
   </xsl:element>
 </xsl:template>
-
-<!--
-<xsl:template match="@xml:id"/>
--->
 
 <xsl:template match="_ufe:hardspace" priority="2">
   <xsl:text>&#xa0;</xsl:text>
@@ -4768,13 +4687,6 @@
   <xsl:copy-of select="@ch:*"/>
   <img alt="Graphic">
     <xsl:copy-of select="@ch:*"/>
-       <!--<xsl:if test="$graphics-path!=''">
-          <xsl:call-template name="substring-before-last">
-             <xsl:with-param name="str" select="$graphics-path"/>
-             <xsl:with-param name="delim" select="'/'"/>
-          </xsl:call-template>
-          <xsl:text>/</xsl:text>
-       </xsl:if>-->
     <xsl:variable name="graphic-prop-filename">
       <xsl:value-of select="$graphics-path"/><xsl:text>/</xsl:text>
     </xsl:variable>
