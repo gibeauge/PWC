@@ -196,6 +196,12 @@
   	return false; 
   });
   
+  //Home top menu button
+  $('#home').click(function(){
+  	var href = "title-page.html";
+  	$("#pane_content").load(href);
+  });
+  
   </script>
   </div>
 </xsl:template>
