@@ -1,0 +1,96 @@
+ /* Display header and footer on every page for printing 
+ thead { display: table-header-group;} tfoot {display: table-footer-group;}
+
+ 
+ thead #contentHeader {
+	border-bottom: 1px solid #000;
+	text-align:center;
+	padding-bottom:2px;
+	font-weight:bold;
+	color:#000 !important;
+}
+tfoot #contentFooter {
+	font-weight:bold;
+	border-top: 1px solid #000;
+	text-align:center;
+	font-size:0.8em;
+	padding:5px;
+	margin:5px;
+	color:#000 !important;
+}
+thead #contentHeader .header-big {
+	font-size:1.1em;
+	margin:0px;
+	padding:0px;
+}
+*/
+
+/* Hide header and footer on screen */
+ @media screen {
+  .print_header{ display:none;}
+ } 
+ 
+ /* CSS for printing only */
+ @media print {
+	/**
+	 *	PRINT Stylesheet
+	 * 
+	 *	First 'neutralize' all the positioning/overflow CSS added by Layout
+	 *	Then change or add cosmetic styles (borders, padding) for printing
+	 *
+	 *	MUST use "!important" for all size, position, margin & overflow rules,
+	 *	so these will 'override' styles applied to the elements by Layout
+	 */
+
+	 .metadata {  
+		font-weight:  bold;
+	}
+	 
+
+	#banner_img{
+		display:	none;
+	}
+	 
+	.menu {
+		display: 	none;
+	}
+	
+	html, body {
+		/* NEUTRALIZE 'layout container' styles */
+		overflow:	visible 	!important;
+		width:		auto		!important;
+		height:		auto		!important;
+		position:	static		!important;
+	}
+	.ui-layout-pane ,
+	.ui-layout-resizer ,
+	.ui-layout-toggler {
+		/* NEUTRALIZE 'layout element' styles */
+		display:	none		!important; /* hide ALL by default */
+		position:	relative	!important;
+		top:		auto		!important;
+		bottom:		auto		!important;
+		left:		auto		!important;
+		right:		auto		!important;
+		width:		auto		!important;
+		height:		auto		!important;
+		overflow:	visible		!important;
+	}
+	/* SHOW ONLY the panes you want */
+	/*
+	.ui-layout-pane-south ,
+	.ui-layout-pane-east ,*/
+	.ui-layout-pane-north {
+		display:	table-header-group		!important;
+			
+	}
+	.ui-layout-pane-center {
+		display:	table-row-group		!important;
+		/* OPTIONAL: change cosmetic styles as desired
+		border:		0			!important;
+		padding:	0			!important;
+		background:	transparent	!important;
+		*/
+	}
+
+ }

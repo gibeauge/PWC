@@ -25,12 +25,18 @@
 
 	<xsl:template match="Metadatas">
 		<div id="content">
-			<img src="images/pwcbanner.jpg"/>
+			<img src="images/pwcbanner.jpg" id="banner_img"/>
 			<div class="metadata">
+				<div class="print_header">
+					<xsl:apply-templates select="Title"/><br /><br />
+					PRATT &amp; WHITNEY CANADA
+				</div>
 				<xsl:apply-templates select="Title"/><br />
 				MODEL(S) <xsl:value-of select="upper-case(EngineModels)" /><br />
-				Manual Part No. <xsl:apply-templates select="PartNo" />, Revision No. <xsl:apply-templates select="RevisionNo"/>, Dated <xsl:value-of select="format-date(xs:date($g-date),'[MN,*-3] [D01]/[Y0001]', 'en', (), ())"/>
+				Manual Part No. <xsl:apply-templates select="PartNo" />, Revision No. <xsl:apply-templates select="RevisionNo"/>, Dated <xsl:value-of select="format-date(xs:date($g-date),'[MN,*-3] [D01]/[Y0001]', 'en', (), ())"/><br />
+				<hr class="print_header" size = "1px"/>
 			</div>
+			
 		</div>
 	</xsl:template>
 

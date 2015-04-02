@@ -13,6 +13,7 @@
       <link href="css/content.css" rel="stylesheet" type="text/css" />
       <link href="css/jstree.css" rel="stylesheet" type="text/css" />
       <link href="css/bil_pub.css" rel="stylesheet" type="text/css" />
+	  <link href="css/printer.css" rel="stylesheet" type="text/css" />
       <script type="text/javascript" src="js/jquery-1.11.2.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.ui-1.10.4.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.layout-1.4.3.min.js"> // JS </script>
@@ -71,7 +72,7 @@
 			<li><a id="home" href="#" title="Home"><img src="CSS/home.gif" /></a></li>
 			<li><a id="prev" href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
 			<li><a id="next" href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
-			<li><a id="print" href="#" title="Print"><img src="CSS/print.gif" /></a></li>
+			<li><a href="#" id="print" title="Print" onclick="print_page()"><img src="CSS/print.gif" /></a></li>
 		</ul>
 	</div>
 	
@@ -84,6 +85,54 @@
   <div id="toc" class="s-toc"></div>
  
   <script type="text/javascript">
+  //print function
+  function print_page(){
+	var print_img = confirm('Click "OK" to print with the figures. Otherwise, click "Cancel" to only print the text.');
+    if (print_img == false) {
+		printWithoutImg();
+	}
+	else{
+		window.print();
+	}
+  }
+  
+  //Create a new style node in head section to hide images and Print
+  function printWithoutImg () {
+			//Create style node with attributes id and media
+            var style = document.createElement("style");
+            style.setAttribute("id","imgHide");
+			style.setAttribute("media","print");
+			//Create Text Node with css value
+			var value = document.createTextNode("img {display: none}");
+			//Append nodes to the document header
+			style.appendChild(value);
+			document.head.appendChild(style);
+			
+			//Print
+			window.print();
+			
+			//Delete created node
+			document.head.removeChild(style);
+        }
+  
+  $('#toc').jstree({
+    'core' : {
+      'themes' : { "dots" : false },
+      'plugins' : [ "json", "themes"],
+      'data' : [
+        { 
+          "text" : "_Root_", 
+          "id" : "root",
+          "state" : { "opened" : true }, 
+          "children" : [
+            <xsl:apply-templates/>
+          ]
+        }
+      ]
+    }
+  });
+  
+  
   $('#toc').jstree({
     'core' : {
       'themes' : { "dots" : false },
