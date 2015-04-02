@@ -11,14 +11,14 @@
 
 <xsl:variable name="src-doc" select="document(concat('file:///',replace($src-doc-path,'\\','/')))"/>
 
-<xsl:variable name="lang"   select="if (/*/@lang) then /*/@lang else 'en'"/>
-<xsl:variable name="prefix" select="if (@lang='en') then '' else concat($lang,'_')"/>
+<xsl:variable name="lang-trad"   select="if (/*/@lang) then /*/@lang else 'en'"/>
+<xsl:variable name="prefix"      select="if (lang-trad='en') then '' else concat($lang-trad,'_')"/>
 
 <xsl:template match="/">
   <xsl:variable name="zh-tree">
     <tree><xsl:apply-templates select="//body/*"/></tree>
   </xsl:variable>
-  <html lang="{concat($src-doc/*/@lang,'-',$lang)}">
+  <html lang="{concat($src-doc/*/@lang,'-',$lang-trad)}">
     <xsl:copy-of select="$src-doc/*/head"/>
     <body>
       <xsl:copy-of select="$src-doc/*/body/@*"/>
