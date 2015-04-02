@@ -28,6 +28,10 @@ thead #contentHeader .header-big {
 /* Hide header and footer on screen */
  @media screen {
   .print_header{ display:none;}
+  .ui-layout-pane-south {
+		display:	none		!important;
+				
+	}
  } 
  
  /* CSS for printing only */
@@ -82,6 +86,7 @@ thead #contentHeader .header-big {
 	.ui-layout-pane-east ,*/
 	.ui-layout-pane-north {
 		display:	table-header-group		!important;
+		
 			
 	}
 	.ui-layout-pane-center {
@@ -91,6 +96,13 @@ thead #contentHeader .header-big {
 		padding:	0			!important;
 		background:	transparent	!important;
 		*/
+	}
+	.ui-layout-pane-south {
+		display:			table-footer-group		!important;
+		text-align: 		center;
+		font-weight:  		bold;
+		font-size:			10px;
+		
 	}
 
  }

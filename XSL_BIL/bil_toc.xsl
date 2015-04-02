@@ -8,6 +8,7 @@
 <xsl:param name="output-dir"/>
 
 <xsl:template match="/">
+  <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</xsl:text>
   <html>
     <head>
       <link href="css/content.css" rel="stylesheet" type="text/css" />
@@ -58,25 +59,35 @@
 </xsl:template>
 
 <xsl:template match="Structure">
-  <div class="ui-layout-north banner" id="load_home">
+<div class="ui-layout-north banner" id="load_home">
 	<div id="topBar">
-      <div id="load_content">#</div>
+    <div id="load_content">#</div>
 	</div>
-  </div>
+</div>
+
   
-  <div class="ui-layout-center">
+ <div class="ui-layout-center">
+ 
 	<div class="ui-layout-north nav">
-	  <ul class="menu">
-		<li><a id="home" href="#" title="Home"><img src="CSS/home.gif" /></a></li>
-		<li><a id="prev" href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
-		<li><a id="next" href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
-		<li><a href="#" id="print" title="Print" onclick="print_page()"><img src="CSS/print.gif" /></a></li>
-	  </ul>
+		<ul class="menu">
+			<li><a id="home" href="#" title="Home"><img src="CSS/home.gif" /></a></li>
+			<li><a id="prev" href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
+			<li><a id="next" href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
+			<li><a href="#" id="print" title="Print" onclick="print_page()"><img src="CSS/print.gif" /></a></li>
+		</ul>
 	</div>
 	
   	<div class="ui-layout-center content">
-  	  <div id="pane_content">&#160;</div>
-  	</div>
+  		<div id="pane_content">&#160;</div>
+		  	</div>
+  </div>
+  
+  <!-- TEST FOOTER -->
+  <div class="ui-layout-south">
+	<div id="print_footer">
+		<hr class="print_header" size = "1px"/>
+		Printed on: <xsl:value-of select="current-date()" /> P<xsl:text disable-output-escaping="yes">&amp;</xsl:text>WC Proprietary - subject to restrictions In Technical Data Agreement
+	</div>
   </div>
   
   <div class="ui-layout-west">
@@ -87,31 +98,32 @@
   function print_page(){
 	var print_img = confirm('Click "OK" to print with the figures. Otherwise, click "Cancel" to only print the text.');
     if (print_img == false) {
-	  printWithoutImg();
+		printWithoutImg();
 	}
 	else{
-	  window.print();
+		window.print();
 	}
   }
   
   //Create a new style node in head section to hide images and Print
   function printWithoutImg () {
-	//Create style node with attributes id and media
-    var style = document.createElement("style");
-    style.setAttribute("id","imgHide");
-	style.setAttribute("media","print");
-	//Create Text Node with css value
-	var value = document.createTextNode("img {display: none}");
-	//Append nodes to the document header
-	style.appendChild(value);
-	document.head.appendChild(style);
+			//Create style node with attributes id and media
+            var style = document.createElement("style");
+            style.setAttribute("id","imgHide");
+			style.setAttribute("media","print");
+			//Create Text Node with css value
+			var value = document.createTextNode("img {display: none}");
+			//Append nodes to the document header
+			style.appendChild(value);
+			document.head.appendChild(style);
 			
-	//Print
-	window.print();
+			//Print
+			window.print();
 			
-	//Delete created node
-	document.head.removeChild(style);
-  }
+			//Delete created node
+			document.head.removeChild(style);
+        }
+
   
   $('#toc').jstree({
     'core' : {
@@ -163,10 +175,10 @@
         $("#pane_content").load(href_url);
         document.getElementById(anchor).scrollIntoView(true);
       }
-      else {
+     else {
     	$.bbq.pushState({ url : href_url });
         $("#pane_content").load(href_url);
-      }
+    }
     }
   });
   
@@ -207,7 +219,7 @@
   	var anchor = $.bbq.getState("anchor");
   	$("#pane_content").load(url);
   	if (anchor != '') {
-  	  document.getElementById(anchor).scrollIntoView(true);
+  		document.getElementById(anchor).scrollIntoView(true);
   	}
   	//Add select_node class to the new node
   	//$("#toc").jstree("select_node", )
