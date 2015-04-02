@@ -58,26 +58,24 @@
 </xsl:template>
 
 <xsl:template match="Structure">
-<div class="ui-layout-north banner" id="load_home">
+  <div class="ui-layout-north banner" id="load_home">
 	<div id="topBar">
-    <div id="load_content">#</div>
+      <div id="load_content">#</div>
 	</div>
-</div>
-
+  </div>
   
- <div class="ui-layout-center">
- 
+  <div class="ui-layout-center">
 	<div class="ui-layout-north nav">
-		<ul class="menu">
-			<li><a id="home" href="#" title="Home"><img src="CSS/home.gif" /></a></li>
-			<li><a id="prev" href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
-			<li><a id="next" href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
-			<li><a href="#" id="print" title="Print" onclick="print_page()"><img src="CSS/print.gif" /></a></li>
-		</ul>
+	  <ul class="menu">
+		<li><a id="home" href="#" title="Home"><img src="CSS/home.gif" /></a></li>
+		<li><a id="prev" href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
+		<li><a id="next" href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
+		<li><a href="#" id="print" title="Print" onclick="print_page()"><img src="CSS/print.gif" /></a></li>
+	  </ul>
 	</div>
 	
   	<div class="ui-layout-center content">
-  		<div id="pane_content">&#160;</div>
+  	  <div id="pane_content">&#160;</div>
   	</div>
   </div>
   
@@ -89,49 +87,31 @@
   function print_page(){
 	var print_img = confirm('Click "OK" to print with the figures. Otherwise, click "Cancel" to only print the text.');
     if (print_img == false) {
-		printWithoutImg();
+	  printWithoutImg();
 	}
 	else{
-		window.print();
+	  window.print();
 	}
   }
   
   //Create a new style node in head section to hide images and Print
   function printWithoutImg () {
-			//Create style node with attributes id and media
-            var style = document.createElement("style");
-            style.setAttribute("id","imgHide");
-			style.setAttribute("media","print");
-			//Create Text Node with css value
-			var value = document.createTextNode("img {display: none}");
-			//Append nodes to the document header
-			style.appendChild(value);
-			document.head.appendChild(style);
+	//Create style node with attributes id and media
+    var style = document.createElement("style");
+    style.setAttribute("id","imgHide");
+	style.setAttribute("media","print");
+	//Create Text Node with css value
+	var value = document.createTextNode("img {display: none}");
+	//Append nodes to the document header
+	style.appendChild(value);
+	document.head.appendChild(style);
 			
-			//Print
-			window.print();
+	//Print
+	window.print();
 			
-			//Delete created node
-			document.head.removeChild(style);
-        }
-  
-  $('#toc').jstree({
-    'core' : {
-      'themes' : { "dots" : false },
-      'plugins' : [ "json", "themes"],
-      'data' : [
-        { 
-          "text" : "_Root_", 
-          "id" : "root",
-          "state" : { "opened" : true }, 
-          "children" : [
-            <xsl:apply-templates/>
-          ]
-        }
-      ]
-    }
-  });
-  
+	//Delete created node
+	document.head.removeChild(style);
+  }
   
   $('#toc').jstree({
     'core' : {
@@ -183,10 +163,10 @@
         $("#pane_content").load(href_url);
         document.getElementById(anchor).scrollIntoView(true);
       }
-     else {
+      else {
     	$.bbq.pushState({ url : href_url });
         $("#pane_content").load(href_url);
-    }
+      }
     }
   });
   
@@ -227,7 +207,7 @@
   	var anchor = $.bbq.getState("anchor");
   	$("#pane_content").load(url);
   	if (anchor != '') {
-  		document.getElementById(anchor).scrollIntoView(true);
+  	  document.getElementById(anchor).scrollIntoView(true);
   	}
   	//Add select_node class to the new node
   	//$("#toc").jstree("select_node", )
@@ -247,8 +227,9 @@
   
   //Home top menu button
   $('#home').click(function(){
-  	var href = "title-page.html";
-  	$("#pane_content").load(href);
+  	//var href = "title-page.html";
+  	//$("#pane_content").load(href);
+    $("#toc").jstree().select_node("#<xsl:value-of select="//Page[@URL and not(preceding::Page)]/@ID"/>");
   });
   
   </script>
