@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+				xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 version="2.0">
 
 <xsl:output method="xml" indent="yes"/>
@@ -29,7 +30,8 @@
 		main_layout = $('body').layout( {
         	closable: false, 
         	spacing_open: 2, 
-        	north__resizable: false, 
+        	north__resizable: false,
+			south__resizable: false,			
         	west__size: 300,
 			north__size: 75,
         	
@@ -86,7 +88,7 @@
   <div class="ui-layout-south">
 	<div id="print_footer">
 		<hr class="print_header" size = "1px"/>
-		Printed on: <xsl:value-of select="current-date()" /> P<xsl:text disable-output-escaping="yes">&amp;</xsl:text>WC Proprietary - subject to restrictions In Technical Data Agreement
+		Printed on: <xsl:value-of select="format-date(xs:date(current-date()),'[D01] [MN,*-3]/[Y0001]', 'en', (), ())" /> P<xsl:text disable-output-escaping="yes">&amp;</xsl:text>WC Proprietary - subject to restrictions in Technical Data Agreement
 	</div>
   </div>
   
