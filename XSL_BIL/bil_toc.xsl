@@ -8,6 +8,10 @@
 
 <xsl:param name="output-dir"/>
 
+<xsl:variable name="lang-orig"   select="if (/*/@lang) then upper-case(/*/@lang) else 'EN'"/>
+<xsl:variable name="texts"       select="document('bil_texts.xml')//texts[@language=$lang-orig]"/>
+<xsl:variable name="print_msg" 	 select="$texts//text[@name='print_message']" />
+
 <xsl:template match="/">
   <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</xsl:text>
   <html>
@@ -84,7 +88,7 @@
 		  	</div>
   </div>
   
-  <!-- TEST FOOTER -->
+  <!-- FOOTER -->
   <div class="ui-layout-south">
 	<div id="print_footer">
 		<hr class="print_header" size = "1px"/>
@@ -98,7 +102,8 @@
   <script type="text/javascript">
   //print function
   function print_page(){
-	var print_img = confirm('Click "OK" to print with the figures. Otherwise, click "Cancel" to only print the text.');
+    var l_print_msg = '<xsl:value-of select='$print_msg'/>';
+	var print_img = confirm(l_print_msg);
     if (print_img == false) {
 		printWithoutImg();
 	}

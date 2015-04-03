@@ -28,7 +28,7 @@ thead #contentHeader .header-big {
 /* Hide header and footer on screen */
  @media screen {
   .print_header{ display:none;}
-  .ui-layout-pane-south {
+  .ui-layout-pane-south, #print_footer {
 		display:	none		!important;
 				
 	}
