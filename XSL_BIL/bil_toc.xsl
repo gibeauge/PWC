@@ -173,17 +173,18 @@
       data.instance.close_node(data.node);
     }
     var href_url = $('#' + data.node.id).find('a').first().attr("href");
+    var node_id = data.node.id;
 	if (href_url != "") {
       var anchor_idx = href_url.indexOf("#");
       if (anchor_idx != -1) {
         var anchor = href_url.substring(anchor_idx+1);
         href_url = href_url.substring(0,anchor_idx);
-        $.bbq.pushState({ url : href_url, anchor : anchor });
+        $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
         $("#pane_content").load(href_url);
         document.getElementById(anchor).scrollIntoView(true);
       }
      else {
-    	$.bbq.pushState({ url : href_url });
+    	$.bbq.pushState({ url : href_url, id : data.node.id });
         $("#pane_content").load(href_url);
     }
     }
@@ -224,12 +225,13 @@
   $(window).bind("hashchange", function(e) {
   	var url = $.bbq.getState("url");
   	var anchor = $.bbq.getState("anchor");
+  	var node_id = $.bbq.getState("id");
   	$("#pane_content").load(url);
+  	$("#toc").jstree("deselect_all");
+ 	$("#toc").jstree("select_node", node_id);
   	if (anchor != '') {
   		document.getElementById(anchor).scrollIntoView(true);
   	}
-  	//Add select_node class to the new node
-  	//$("#toc").jstree("select_node", )
   });
   
   //Previous top menu button
@@ -246,8 +248,6 @@
   
   //Home top menu button
   $('#home').click(function(){
-  	//var href = "title-page.html";
-  	//$("#pane_content").load(href);
     $("#toc").jstree().select_node("#<xsl:value-of select="//Page[@URL and not(preceding::Page)]/@ID"/>");
   });
   
