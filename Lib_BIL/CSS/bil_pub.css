@@ -24,18 +24,18 @@ img {
 	margin-right: 4px;
 }
 
-a:hover {
+.content a:hover {
 	text-decoration: underline;
 	background: #dddddd;
 }
 
-a:focus {
+content a:focus {
 	background: #668899;
 	color:HighlightText;
 	width:100%;		
 }
 
-a:active {
+content a:active {
 	background: #668899;
 	color:HighlightText;
 	width:100%;		
