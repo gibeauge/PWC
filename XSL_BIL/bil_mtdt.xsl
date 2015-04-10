@@ -10,7 +10,7 @@
 	
 	<xsl:variable name="g-date">
 		<xsl:variable name="g-pwc-date" select="/Metadatas/OriginalIssueDate" />
-		<xsl:value-of select="concat(substring($g-pwc-date,1,4) , '-' , substring($g-pwc-date,7,2) , '-' , substring($g-pwc-date,5,2))"/>
+		<xsl:value-of select="concat(substring($g-pwc-date,1,4) , '-' , substring($g-pwc-date,5,2) , '-' , substring($g-pwc-date,7,2))"/>
 	</xsl:variable> 
 
 	<xsl:template match="/">
