@@ -51,8 +51,12 @@ td {
 }
 
 #root {
-	margin-top: -20px;
+	margin-top: 0px;
     margin-left: -40px;
+}
+
+#root_anchor {
+	display: none;
 }
 
 .ui-layout-content {
