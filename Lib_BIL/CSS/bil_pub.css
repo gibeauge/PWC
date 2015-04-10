@@ -55,10 +55,6 @@ td {
     margin-left: -40px;
 }
 
-#root_anchor {
-	display: none;
-}
-
 .ui-layout-content {
 	overflow: auto;
 	padding: 10px;
