@@ -251,6 +251,48 @@
     $("#toc").jstree().select_node("#<xsl:value-of select="//Page[@URL and not(preceding::Page)]/@ID"/>");
   });
   
+  	//Manage internal links to tasks
+	//Since the class for the link is added dynamically
+	//We need to use event delegation to register the event handler  
+	$(document).on('click', "a.x--sfe-InternalLink-1-0", function(e, data) {
+		e.preventDefault();
+		var href_url = $(this).attr("href");
+		var anchor_idx = href_url.indexOf("#");
+		if (anchor_idx != -1) {
+			var anchor = href_url.substring(anchor_idx+1);
+			href_url = href_url.substring(0,anchor_idx);
+			if(href_url != "") {
+				var node_id = getIdFromHref(href_url);
+				console.log(node_id);
+				getReference(node_id, null);
+			} else {
+				document.getElementById(anchor).scrollIntoView(true);
+			}
+		}
+	});
+	
+  	function getIdFromHref(href_url) {
+		console.log(href_url);
+		var tree = $("#toc").data().jstree.get_json("#", {"flat": true});
+			
+		for(var i=0; i < tree.length; i++) {
+			var href = tree[i].a_attr.href;
+			if (href.contains(href_url)) {
+				console.log(tree[i].id);
+				var node_id = tree[i].id;
+				return node_id;
+			}
+		}
+	}
+
+	function getReference(id, anchor) {
+		console.log(id);
+		$("#toc").jstree().close_all();
+		$("#toc").jstree('select_node', id);
+	}
+  
+  
+  
   </script>
   </div>
 </xsl:template>
