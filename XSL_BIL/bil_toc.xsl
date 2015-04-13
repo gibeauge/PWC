@@ -265,6 +265,7 @@
 </xsl:template>
 
 <xsl:template match="Page">
+  <xsl:variable name="dquot">"</xsl:variable>
   <xsl:variable name="icon">
     <xsl:choose>
 		<xsl:when test="(@FileType='FOLDER' and @URL) or (@FileType='FILE' and @Title='List of Figures')">./css/toc_closed_files.gif</xsl:when>
@@ -274,9 +275,9 @@
   </xsl:variable>
   {
     "id" : "<xsl:value-of select="@ID"/>",
-    "text" : "<xsl:value-of select="@Title"/>",
+    "text" : "<xsl:value-of select="replace(@Title,$dquot,concat('\\',$dquot))"/>",
     "icon" : "<xsl:value-of select="$icon"/>",
-    "li_attr" : { "title" : "<xsl:value-of select="@Title"/>" },
+    "li_attr" : { "title" : "<xsl:value-of select="replace(@Title,$dquot,concat('\\',$dquot))"/>" },
 	<xsl:choose>
 		<xsl:when test="@FileType='IMAGE'">
 		"a_attr" : { "href" : "null" , "onclick" : "<xsl:value-of select="@onclick"/>" },

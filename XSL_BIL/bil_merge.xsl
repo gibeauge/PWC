@@ -3,7 +3,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="2.0">
 
-<xsl:output method="html" indent="yes"/>
+<xsl:output method="html" indent="no"/>
 
 <xsl:key name="k-id" match="*" use="@id"/>
 
@@ -15,12 +15,25 @@
   <xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="/html/@lang"/>
-
 <xsl:template match="@*|node()">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="/html/@lang"/>
+
+<xsl:template match="head/link"/>
+<xsl:template match="head/script"/>
+<xsl:template match="body/script"/>
+
+<xsl:template match="td/node()[1][self::text()]|td/node()[position()=last()][self::text()]" priority="3">
+  <xsl:choose>
+    <xsl:when test="normalize-space(.)=''"></xsl:when>
+    <xsl:otherwise>
+      <xsl:next-match/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class, 'x-task-')]">
@@ -31,8 +44,8 @@
     </xsl:if>
     <table style="width:100%">
       <colgroup>
-        <col  style="width:50%"/>
-        <col  style="width:50%"/>
+        <col style="width:50%"/>
+        <col style="width:50%"/>
       </colgroup>
       <tbody>
         <xsl:apply-templates select="node()"/>
