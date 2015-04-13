@@ -36,6 +36,60 @@
   </xsl:choose>
 </xsl:template>
 
+<xsl:template match="div[contains(@class, 'x-pbfmatr-')]">
+  <div>
+    <xsl:apply-templates select="@*"/>
+    <xsl:if test="@id and key('k-id',concat($prefix,@id))">
+      <span id="{concat($prefix,@id)}"/>
+    </xsl:if>
+    <table style="width:100%">
+      <colgroup>
+        <col style="width:50%"/>
+        <col style="width:50%"/>
+      </colgroup>
+      <tbody>
+        <xsl:apply-templates select="node()"/>
+      </tbody>
+    </table>
+  </div>
+</xsl:template>
+
+<xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-title')]" priority="5">
+  <tr>
+    <td style="vertical-align:top">
+      <xsl:copy>
+        <xsl:apply-templates select="@*|node()"/>
+      </xsl:copy>
+    </td>
+    <td style="vertical-align:top">
+      <xsl:call-template name="get-translated-object"/>
+    </td>
+  </tr>
+</xsl:template>
+
+<xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-list1-')]" priority="5">
+  <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-list1-')]/table[contains(@class,'x-l1item-')]" priority="5">
+  <tr>
+    <td style="vertical-align:top">
+      <xsl:copy>
+        <xsl:apply-templates select="@*|node()"/>
+      </xsl:copy>
+    </td>
+    <td style="vertical-align:top">
+      <div class="{../@class}">
+        <xsl:call-template name="get-translated-object">
+          <xsl:with-param name="from-parent" select="'1'"/>
+          <xsl:with-param name="class" select="@class"/>
+          <xsl:with-param name="pos" select="count(preceding-sibling::*)+1"/>
+        </xsl:call-template>
+      </div>
+    </td>
+  </tr>
+</xsl:template>
+
 <xsl:template match="div[contains(@class, 'x-task-')]">
   <div>
     <xsl:apply-templates select="@*"/>
@@ -71,6 +125,19 @@
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-title')]" priority="5">
+  <tr>
+    <td style="vertical-align:top">
+      <xsl:copy>
+        <xsl:apply-templates select="@*|node()"/>
+      </xsl:copy>
+    </td>
+    <td style="vertical-align:top">
+      <xsl:call-template name="get-translated-object"/>
+    </td>
+  </tr>
+</xsl:template>
+
+<xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-subtask-')]" priority="5">
   <tr>
     <td style="vertical-align:top">
       <xsl:copy>
@@ -215,6 +282,7 @@
   <xsl:param name="from-parent" select="'0'"/>
   <xsl:param name="class"/>
   <xsl:param name="text-only" select="'0'"/>
+  <xsl:param name="pos" select="number('1')"/>
   
   <xsl:choose>
     <xsl:when test="@id">
@@ -237,10 +305,10 @@
       <xsl:variable name="trad-obj" select="key('k-id',concat($prefix,../@id))"/>
       <xsl:choose>
         <xsl:when test="$trad-obj and $trad-obj/*[contains(@class,$class)] and $text-only='0'">
-          <xsl:copy-of select="$trad-obj/*[contains(@class,$class)][1]"/>
+          <xsl:copy-of select="$trad-obj/*[contains(@class,$class)][$pos]"/>
         </xsl:when>
         <xsl:when test="$trad-obj and $trad-obj/*[contains(@class,$class)] and $text-only='1'">
-          <xsl:copy-of select="$trad-obj/*[contains(@class,$class)][1]//text()"/>
+          <xsl:copy-of select="$trad-obj/*[contains(@class,$class)][$pos]//text()"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:call-template name="error">
@@ -254,10 +322,10 @@
       <xsl:variable name="trad-obj" select="key('k-id',concat($prefix,../../@id))"/>
       <xsl:choose>
         <xsl:when test="$trad-obj and $trad-obj/*/*[contains(@class,$class)] and $text-only='0'">
-          <xsl:copy-of select="$trad-obj/*/*[contains(@class,$class)][1]"/>
+          <xsl:copy-of select="$trad-obj/*/*[contains(@class,$class)][$pos]"/>
         </xsl:when>
         <xsl:when test="$trad-obj and $trad-obj/*/*[contains(@class,$class)] and $text-only='1'">
-          <xsl:copy-of select="$trad-obj/*/*[contains(@class,$class)][1]//text()"/>
+          <xsl:copy-of select="$trad-obj/*/*[contains(@class,$class)][$pos]//text()"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:call-template name="error">

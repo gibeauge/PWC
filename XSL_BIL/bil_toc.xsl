@@ -308,30 +308,32 @@
 
 <xsl:template match="Page">
   <xsl:variable name="dquot">"</xsl:variable>
+  <xsl:variable name="ftype" select="@FileType"/>
+  <xsl:variable name="title" select="replace(@Title,$dquot,concat('\\',$dquot))"/>
   <xsl:variable name="icon">
     <xsl:choose>
-		<xsl:when test="(@FileType='FOLDER' and @URL) or (@FileType='FILE' and @Title='List of Figures')">./css/toc_closed_files.gif</xsl:when>
-		<xsl:when test="@FileType='FILE' or @FileType='IMAGE'">./css/toc_file.gif</xsl:when>
+		<xsl:when test="($ftype='FOLDER' and @URL) or ($ftype='FILE' and $title='List of Figures') or ($ftype='FILE' and .//Page[@FileType='FILE'])">./css/toc_closed_files.gif</xsl:when>
+		<xsl:when test="$ftype='FILE' or $ftype='IMAGE'">./css/toc_file.gif</xsl:when>
       <xsl:otherwise>./css/toc_closed.gif</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
   {
     "id" : "<xsl:value-of select="@ID"/>",
-    "text" : "<xsl:value-of select="replace(@Title,$dquot,concat('\\',$dquot))"/>",
+    "text" : "<xsl:value-of select="$title"/>",
     "icon" : "<xsl:value-of select="$icon"/>",
-    "li_attr" : { "title" : "<xsl:value-of select="replace(@Title,$dquot,concat('\\',$dquot))"/>" },
+    "li_attr" : { "title" : "<xsl:value-of select="$title"/>" },
 	<xsl:choose>
-		<xsl:when test="@FileType='IMAGE'">
+		<xsl:when test="$ftype='IMAGE'">
 		"a_attr" : { "href" : "null" , "onclick" : "<xsl:value-of select="@onclick"/>" },
 		</xsl:when>
-		<xsl:when test="@FileType='FILE' and @Title='List of Figures'">
+		<xsl:when test="$ftype='FILE' and $title='List of Figures'">
 		"a_attr" : { "href" : "null"},
-				</xsl:when>
+		</xsl:when>
 		<xsl:otherwise>
 		"a_attr" : { "href" : "<xsl:value-of select="@URL"/>" },
 		</xsl:otherwise>
     </xsl:choose>
-	<xsl:if test="@FileType='FOLDER' or (@FileType='FILE' and @Title='List of Figures')">
+	<xsl:if test="$ftype='FOLDER' or ($ftype='FILE' and $title='List of Figures') or ($ftype='FILE' and .//Page[@FileType='FILE'])">
       	  "children" : [
         <xsl:apply-templates/>
       ]
