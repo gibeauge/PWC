@@ -161,7 +161,7 @@
   });
   
   // Change icon when selection a node when it is a folder
-  $("#toc").bind("select_node.jstree", function (event, data) {
+  $("#toc").bind("changed.jstree", function (event, data) {
     var icon_path = data.node.icon;
     if (icon_path == "./css/toc_closed_files.gif") {
       data.instance.open_node(data.node);
@@ -235,7 +235,6 @@
   	var anchor = $.bbq.getState("anchor");
   	var node_id = $.bbq.getState("id");
   	$("#pane_content").load(url);
-  	$("#toc").jstree("deselect_all");
  	$("#toc").jstree("select_node", node_id);
   	if (anchor != '') {
   		document.getElementById(anchor).scrollIntoView(true);
