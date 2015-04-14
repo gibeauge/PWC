@@ -44,8 +44,8 @@
     </xsl:if>
     <table style="width:100%">
       <colgroup>
-        <col style="width:50%"/>
-        <col style="width:50%"/>
+        <col style="width:53%"/>
+        <col style="width:47%"/>
       </colgroup>
       <tbody>
         <xsl:apply-templates select="node()"/>
@@ -71,19 +71,22 @@
   <xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-list1-')]/table[contains(@class,'x-l1item-')]" priority="5">
+<xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-list1-')]/table[contains(@class,'x-l1item')]" priority="5">
+  <xsl:variable name="class" select="@class"/>
   <tr>
     <td style="vertical-align:top">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
+      <div class="{../@class}">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
     </td>
     <td style="vertical-align:top">
       <div class="{../@class}">
         <xsl:call-template name="get-translated-object">
           <xsl:with-param name="from-parent" select="'1'"/>
           <xsl:with-param name="class" select="@class"/>
-          <xsl:with-param name="pos" select="count(preceding-sibling::*)+1"/>
+          <xsl:with-param name="pos" select="count(preceding-sibling::*[contains(@class,$class)])+1"/>
         </xsl:call-template>
       </div>
     </td>
@@ -98,8 +101,8 @@
     </xsl:if>
     <table style="width:100%">
       <colgroup>
-        <col style="width:50%"/>
-        <col style="width:50%"/>
+        <col style="width:53%"/>
+        <col style="width:47%"/>
       </colgroup>
       <tbody>
         <xsl:apply-templates select="node()"/>
@@ -118,7 +121,7 @@
     <td style="vertical-align:top">
       <xsl:call-template name="get-translated-object">
         <xsl:with-param name="from-parent" select="'1'"/>
-        <xsl:with-param name="class" select="'task-postspace'"/>
+        <xsl:with-param name="class" select="@class"/>
       </xsl:call-template>
     </td>
   </tr>
@@ -133,6 +136,24 @@
     </td>
     <td style="vertical-align:top">
       <xsl:call-template name="get-translated-object"/>
+    </td>
+  </tr>
+</xsl:template>
+
+<xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-warning-wrapper') or contains(@class,'x-caution-wrapper')]" priority="5">
+  <xsl:variable name="class" select="@class"/>
+  <tr>
+    <td style="vertical-align:top">
+      <xsl:copy>
+        <xsl:apply-templates select="@*|node()"/>
+      </xsl:copy>
+    </td>
+    <td style="vertical-align:top">
+      <xsl:call-template name="get-translated-object">
+        <xsl:with-param name="from-parent" select="'1'"/>
+        <xsl:with-param name="class" select="@class"/>
+        <xsl:with-param name="pos" select="count(preceding-sibling::*[contains(@class,$class)])+1"/>
+      </xsl:call-template>
     </td>
   </tr>
 </xsl:template>
@@ -157,9 +178,11 @@
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-tfmatr')]/div[contains(@class,'x-tprereq')]" priority="5">
   <tr>
     <td style="vertical-align:top">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
+      <div class="{../@class}">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
     </td>
     <td style="vertical-align:top">
       <div class="{../@class}">
@@ -229,8 +252,8 @@
     </xsl:if>
     <table style="width:100%">
       <colgroup>
-        <col  style="width:50%"/>
-        <col  style="width:50%"/>
+        <col  style="width:53%"/>
+        <col  style="width:47%"/>
       </colgroup>
       <tbody>
         <xsl:apply-templates select="node()"/>
