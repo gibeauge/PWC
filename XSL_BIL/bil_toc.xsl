@@ -284,7 +284,7 @@
   	function getIdFromHref(href_url) {
 		console.log(href_url);
 		var tree = $("#toc").data().jstree.get_json("#", {"flat": true});
-		for(var i=1; i &lt; tree.length; i++) {
+		for(var i=1; i < tree.length; i++) {
 			var href = tree[i].a_attr.href;
 			var href_idx = href.indexOf(href_url);
 			if (href_idx != -1) {
