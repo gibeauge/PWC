@@ -149,6 +149,9 @@
     }
   });
   
+  //Global variable to scroll to anchor
+  var global_anchor="";
+  
   // Hide first useless level
   $("#toc").bind("loaded.jstree", function (event, data) {
     $("a:contains('_Root_')").css("visibility","hidden")  
@@ -179,14 +182,19 @@
       if (anchor_idx != -1) {
         var anchor = href_url.substring(anchor_idx+1);
         href_url = href_url.substring(0,anchor_idx);
+        if(global_anchor != ""){
+        	anchor = global_anchor;
+        }
         $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
         $("#pane_content").load(href_url);
-        document.getElementById(anchor).scrollIntoView(true);
-      }
-     else {
+        setTimeout(function() { 
+			document.getElementById(anchor).scrollIntoView();
+			}, 1000);
+     } else {
     	$.bbq.pushState({ url : href_url, id : data.node.id });
         $("#pane_content").load(href_url);
-    }
+     }
+     global_anchor="";
     }
   });
   
@@ -263,8 +271,10 @@
 			href_url = href_url.substring(0,anchor_idx);
 			if(href_url != "") {
 				var node_id = getIdFromHref(href_url);
+				global_anchor = anchor;
 				console.log(node_id);
-				getReference(node_id, null);
+				$("#toc").jstree().close_all();
+				$("#toc").jstree('select_node', node_id);
 			} else {
 				document.getElementById(anchor).scrollIntoView(true);
 			}
@@ -274,25 +284,16 @@
   	function getIdFromHref(href_url) {
 		console.log(href_url);
 		var tree = $("#toc").data().jstree.get_json("#", {"flat": true});
-			
-		for(var i=0; i < tree.length; i++) {
+		for(var i=1; i &lt; tree.length; i++) {
 			var href = tree[i].a_attr.href;
-			if (href.contains(href_url)) {
-				console.log(tree[i].id);
+			var href_idx = href.indexOf(href_url);
+			if (href_idx != -1) {
 				var node_id = tree[i].id;
 				return node_id;
 			}
 		}
 	}
-
-	function getReference(id, anchor) {
-		console.log(id);
-		$("#toc").jstree().close_all();
-		$("#toc").jstree('select_node', id);
-	}
-  
-  
-  
+	
   </script>
   </div>
 </xsl:template>
