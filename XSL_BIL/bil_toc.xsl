@@ -185,11 +185,18 @@
         if(global_anchor != ""){
         	anchor = global_anchor;
         }
+        console.log("Scroll to anchor : " + anchor)
         $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
         $("#pane_content").load(href_url);
+        
+
         setTimeout(function() { 
+            //If the anchor is a table, we have to diplay it to be able to scroll to
+        	if(anchor.indexOf("t") != -1) {
+        		$("#" + anchor).css({"display":"block"});
+       		}
 			document.getElementById(anchor).scrollIntoView();
-			}, 1000);
+		}, 1000);
      } else {
     	$.bbq.pushState({ url : href_url, id : data.node.id });
         $("#pane_content").load(href_url);
@@ -258,28 +265,60 @@
     $("#toc").jstree().select_node("#<xsl:value-of select="//Page[@URL and not(preceding::Page)]/@ID"/>");
   });
   
+
+  
   	//Manage internal links to tasks
 	//Since the class for the link is added dynamically
 	//We need to use event delegation to register the event handler  
-	$(document).on('click', "a.x--sfe-InternalLink-1-0", function(e, data) {
+	$(document).on('click', "#pane_content a", function(e, data) {
 		e.preventDefault();
-		var href_url = $(this).attr("href");
+		//Element contains "onclick" attribute
+		if($(this).attr("onclick") != undefined) {
+			//Link to a graphic
+			if($(this).attr("onclick").contains("displayGraphics")){
+				console.log("Link to a graphic");
+			//Table link
+			} else if ($(this).attr("onclick").contains("toggle")) {
+				console.log("Table link");
+			//Link to a table
+			} else if ($(this).attr("onclick").contains("showTable")) {
+				console.log("LLink to a table");
+				var href_url = $(this).attr("href");
+				linkTo(href_url);
+			}
+		}
+		//Element contains "class" attribute
+		if($(this).attr("class") != undefined) {
+			//Link to a task
+			if ($(this).attr("class").contains("x--sfe-InternalLink-1-0")){
+				console.log("Link to a task");
+				var href_url = $(this).attr("href");
+				linkTo(href_url);
+			}
+		}
+	});
+	
+	//Bind links depending on the element href
+	function linkTo(href_url) {
 		var anchor_idx = href_url.indexOf("#");
 		if (anchor_idx != -1) {
 			var anchor = href_url.substring(anchor_idx+1);
 			href_url = href_url.substring(0,anchor_idx);
 			if(href_url != "") {
+				console.log("External link");
 				var node_id = getIdFromHref(href_url);
 				global_anchor = anchor;
 				console.log(node_id);
 				$("#toc").jstree().close_all();
 				$("#toc").jstree('select_node', node_id);
 			} else {
+				console.log("Internal link");
 				document.getElementById(anchor).scrollIntoView(true);
 			}
 		}
-	});
-	
+	}
+
+	//Get node ID depending on the href
   	function getIdFromHref(href_url) {
 		console.log(href_url);
 		var tree = $("#toc").data().jstree.get_json("#", {"flat": true});
