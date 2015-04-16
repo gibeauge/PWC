@@ -193,8 +193,15 @@
         setTimeout(function() { 
             //If the anchor is a table, we have to diplay it to be able to scroll to
         	if(anchor.indexOf("t") != -1) {
+        		//If the anchor is a table in a graphic we have to display the graphic
+   				if ($("#" + anchor).parents(".x-graphic-1-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
+   					console.log("The table is contained into a graphic");
+   					var graphic_id = $("#" + anchor).parents(".x-graphic-1-0").attr("id");
+   					displayGraphics(graphic_id);
+   				}
         		$("#" + anchor).css({"display":"block"});
        		}
+       		
 			document.getElementById(anchor).scrollIntoView();
 		}, 1000);
      } else {
@@ -282,7 +289,14 @@
 				console.log("Table link");
 			//Link to a table
 			} else if ($(this).attr("onclick").contains("showTable")) {
-				console.log("LLink to a table");
+				console.log("Link to a table");
+				//The table is contained into a graphic
+				if($(this).parents(".x-refint-2-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
+					console.log("Click on graphic table");
+					var parent_div = $(this).parents(".x-taskproc-1-0");
+					var onclick = parent_div.find("a[onclick^='displayGraphics']").attr("onclick");
+					eval(onclick);
+				}
 				var href_url = $(this).attr("href");
 				linkTo(href_url);
 			}
