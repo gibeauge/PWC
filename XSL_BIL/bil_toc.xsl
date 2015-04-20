@@ -186,9 +186,9 @@
         	anchor = global_anchor;
         }
         console.log("Scroll to anchor : " + anchor)
-        $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
         $("#pane_content").load(href_url);
         
+        $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
 
         setTimeout(function() { 
             //If the anchor is a table, we have to diplay it to be able to scroll to
@@ -245,6 +245,7 @@
   
   //Manage navigation
   $(window).bind("hashchange", function(e) {
+  	console.log("Hashchange");
   	var url = $.bbq.getState("url");
   	var anchor = $.bbq.getState("anchor");
   	var node_id = $.bbq.getState("id");
@@ -282,13 +283,13 @@
 		//Element contains "onclick" attribute
 		if($(this).attr("onclick") != undefined) {
 			//Link to a graphic
-			if($(this).attr("onclick").contains("displayGraphics")){
+			if($(this).attr("onclick").indexOf("displayGraphics") != -1){
 				console.log("Link to a graphic");
 			//Table link
-			} else if ($(this).attr("onclick").contains("toggle")) {
+			} else if ($(this).attr("onclick").indexOf("toggle") != -1) {
 				console.log("Table link");
 			//Link to a table
-			} else if ($(this).attr("onclick").contains("showTable")) {
+			} else if ($(this).attr("onclick").indexOf("showTable") != -1) {
 				console.log("Link to a table");
 				//The table is contained into a graphic
 				if($(this).parents(".x-refint-2-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
@@ -304,7 +305,7 @@
 		//Element contains "class" attribute
 		if($(this).attr("class") != undefined) {
 			//Link to a task
-			if ($(this).attr("class").contains("x--sfe-InternalLink-1-0")){
+			if ($(this).attr("class").indexOf("x--sfe-InternalLink-1-0") != -1){
 				console.log("Link to a task");
 				var href_url = $(this).attr("href");
 				linkTo(href_url);
