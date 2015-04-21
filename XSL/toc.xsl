@@ -55,6 +55,10 @@
     </xsl:copy>
   </xsl:template>
   
+  <xsl:template match="*[local-name()='Page'][@Display='false']" mode="del-bookmark">
+    <xsl:apply-templates mode="del-bookmark"/>
+  </xsl:template>
+  
   <xsl:template match="@bookmark" mode="del-bookmark"/>
 
   <xsl:template match="*" mode="toc">

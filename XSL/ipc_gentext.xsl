@@ -44,7 +44,7 @@
     <xsl:if test="not(@_gte:Gentext-Expanded)">
       <_sfe:BeforeOrAfterText>
         <xsl:choose>
-          <xsl:when test="not(@size) or (@size and string(@size)!='big')"/>
+          <xsl:when test="not(@size) or (@size!='big')"/>
           <xsl:otherwise>
             <_ufe:block-prespace>
               <!--xsl:text>(SHEET X OF Y)</xsl:text-->
@@ -199,35 +199,36 @@
   </xsl:template>
 
   <xsl:template match="nomen-col" mode="gentext" priority="0">
+    <xsl:variable name="sel-at" select="@select-at"/>
     <xsl:call-template name="expand-gentext2">
       <xsl:with-param name="content">
         <xsl:choose>
-          <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and not(@select-at and string(@select-at)='BALANCING') and not(@select-at and string(@select-at)='DETAIL-BAL') and (@select-at and string(@select-at)='TRIM-BAL')">
+          <xsl:when test="not(($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not($sel-at='ASSEMBLY') and not($sel-at='BALANCING') and not($sel-at='DETAIL-BAL') and ($sel-at='TRIM-BAL')">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-trim']"/>
             </_ufe:block-nospace>
           </xsl:when>
-          <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and not(@select-at and string(@select-at)='BALANCING') and (@select-at and string(@select-at)='DETAIL-BAL')">
+          <xsl:when test="not(($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not($sel-at='ASSEMBLY') and not($sel-at='BALANCING') and ($sel-at='DETAIL-BAL')">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-detail']"/>
             </_ufe:block-nospace>
           </xsl:when>
-          <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not(@select-at and string(@select-at)='ASSEMBLY') and (@select-at and string(@select-at)='BALANCING')">
+          <xsl:when test="not(($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and not($sel-at='ASSEMBLY') and ($sel-at='BALANCING')">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-balancing']"/>
             </_ufe:block-nospace>
           </xsl:when>
-          <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and (@select-at and string(@select-at)='ASSEMBLY')">
+          <xsl:when test="not(($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]) and ($sel-at='ASSEMBLY')">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-assembly']"/>
             </_ufe:block-nospace>
           </xsl:when>
-          <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
+          <xsl:when test="not(($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
-          <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
+          <xsl:when test="not(($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and (($sel-at='TRIM-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-trim']"/>
             </_ufe:block-nospace>
@@ -235,7 +236,7 @@
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
-          <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
+          <xsl:when test="not(($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and not(($sel-at='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and (($sel-at='DETAIL-BAL') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-detail']"/>
             </_ufe:block-nospace>
@@ -243,7 +244,7 @@
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
-          <xsl:when test="not((@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and ((@select-at and string(@select-at)='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
+          <xsl:when test="not(($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])) and (($sel-at='BALANCING') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]]))">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-balancing']"/>
             </_ufe:block-nospace>
@@ -251,7 +252,7 @@
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-list']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
             </_ufe:block-nospace>
           </xsl:when>
-          <xsl:when test="(@select-at and string(@select-at)='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
+          <xsl:when test="($sel-at='ASSEMBLY') and (parent::entry[preceding-sibling::entry[part-nbr[@ic-opt = 'LIST']]])">
             <_ufe:block-nospace>
               <xsl:value-of select="$gen-texts//text[@name='nomen-col-assembly']"/>
             </_ufe:block-nospace>
@@ -322,7 +323,6 @@
                   </xsl:apply-templates>
                 </_gte:Gentexted-Content-Wrapper>
               </xsl:if>
-            
           </_sfe:InternalLink>
         </xsl:if>
       </xsl:with-param>
@@ -424,7 +424,6 @@
   <xsl:template match="nomen-col/sb-stat[@type='SPB']" mode="gentext" priority="3">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <_ufe:block-nospace/>
         <xsl:choose>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='4'">
             <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
@@ -455,35 +454,30 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='4'">
-            <_ufe:block-nospace/>
             <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='3'">
-            <_ufe:block-nospace/>
             <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='2'">
-            <_ufe:block-nospace/>
             <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='1'">
-            <_ufe:block-nospace/>
             <_ufe:hardspace/><_ufe:hardspace/><_ufe:hardspace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
           </xsl:when>
           <xsl:when test="ancestor::entry/preceding-sibling::entry[2]/*[name()='part-nbr']/@indent='0'">
-            <_ufe:block-nospace/>
             <xsl:value-of select="@cond"/>
             <xsl:text>-</xsl:text>
             <xsl:value-of select="@type"/>
@@ -496,7 +490,6 @@
   <xsl:template match="sb-stat[@type='SPB']" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <_ufe:block-nospace/>
         <xsl:value-of select="@cond"/>
         <xsl:text>-</xsl:text>
         <xsl:value-of select="string(substring-before(., ','))"/>
@@ -511,7 +504,6 @@
   <xsl:template match="sb-stat" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <_ufe:block-nospace/>
         <xsl:value-of select="@cond"/>
         <xsl:text>-</xsl:text>
         <xsl:value-of select="@type"/>
@@ -523,7 +515,7 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:choose>
-          <xsl:when test="@ntype and string(@ntype)='FIGBDN'">
+          <xsl:when test="@ntype='FIGBDN'">
             <_sfe:InternalLink>
               <xsl:if test="string(./@ref)">
                 <xsl:attribute name="targetId">
@@ -541,7 +533,7 @@
               <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='see-brk']"/>
             </_sfe:InternalLink>
           </xsl:when>
-          <xsl:when test="@ntype and string(@ntype)='CHAPFIGNHA'">
+          <xsl:when test="@ntype='CHAPFIGNHA'">
             <_sfe:InternalLink>
               <xsl:if test="string(./@ref)">
                 <xsl:attribute name="targetId">

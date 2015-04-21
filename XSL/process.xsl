@@ -65,7 +65,7 @@
   <xsl:variable name="tree4">
     <xsl:apply-templates select="exslt:node-set($tree3)" mode="expand-numbering"/>
   </xsl:variable>
-  
+      
   <!-- NO MODE : create HTML tree -->
   <xsl:variable name="tree5">
     <xsl:apply-templates select="exslt:node-set($tree4)/*"/>
@@ -204,6 +204,13 @@
   </xsl:choose>
 </xsl:template>
 
+<xsl:template match="page-block[@pb-name='nut_option']/lot" mode="initial-pass-mode" priority="3">
+  <xsl:choose>
+    <xsl:when test="$doctype='emipc'"/>
+    <xsl:otherwise><xsl:next-match/></xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+      
 <xsl:template match="lof|lot|title-page" mode="initial-pass-mode" priority="2">
   <xsl:copy>
     <xsl:attribute name="ch:chunk">yes</xsl:attribute>

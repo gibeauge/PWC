@@ -2375,14 +2375,14 @@
   
   <xsl:variable name="foClass">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='med')">hidden</xsl:when>
+        <xsl:when test="not(@size) or (@size!='med')">hidden</xsl:when>
         <xsl:otherwise>graphic-block</xsl:otherwise>
      </xsl:choose>
   </xsl:variable>
   <xsl:variable name="blockness">block</xsl:variable>
   <xsl:variable name="hiddenness">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='med')">yes</xsl:when>
+        <xsl:when test="not(@size) or (@size!='med')">yes</xsl:when>
         <xsl:otherwise>no</xsl:otherwise>
      </xsl:choose>
   </xsl:variable>
@@ -2406,7 +2406,7 @@
            <div>
               <xsl:attribute name="class">
                  <xsl:text>x-pwcsoa-1-0</xsl:text>
-                 <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
+                 <xsl:if test="not(@size) or (@size!='med')"> x-pwcsoa-1-1</xsl:if>
               </xsl:attribute>
               <xsl:call-template name="t-base-div-basic"/>
            </div>
@@ -2416,7 +2416,7 @@
         <div>
            <xsl:attribute name="class">
               <xsl:text>x-pwcsoa-1-0</xsl:text>
-              <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
+              <xsl:if test="not(@size) or (@size!='med')"> x-pwcsoa-1-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic"/>
         </div>
@@ -2425,7 +2425,7 @@
         <div>
            <xsl:attribute name="class">
               <xsl:text>x-pwcsoa-1-0</xsl:text>
-              <xsl:if test="not(@size) or (@size and string(@size)!='med')"> x-pwcsoa-1-1</xsl:if>
+              <xsl:if test="not(@size) or (@size!='med')"> x-pwcsoa-1-1</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-img-graphic"/>
         </div>
@@ -4361,7 +4361,7 @@
 <xsl:template name="row">
   <xsl:attribute name="class">
      <xsl:text>x-row-1-0</xsl:text>
-     <xsl:if test="(@role and string(@role)='changebar') or (entry[1]/marker)"> x-row-1-1</xsl:if>
+     <xsl:if test="(@role='changebar') or (entry[1]/marker)"> x-row-1-1</xsl:if>
   </xsl:attribute>
 </xsl:template>
 
@@ -4758,7 +4758,7 @@
 
 <xsl:template name="t-base-part-attr">
   <xsl:variable name="part-nbr-tmp">
-    <xsl:apply-templates select=".//text()[not(ancestor::sin)]"/>
+    <xsl:apply-templates select=".//text()[not(ancestor::sin) and not(ancestor::_sfe:BeforeOrAfterText)]"/>
   </xsl:variable>
   <xsl:variable name="part-nbr" select="upper-case(normalize-space($part-nbr-tmp))"/>
   <xsl:variable name="part-abc" select="translate($part-nbr, '1234567890', '')"/>
@@ -4768,7 +4768,7 @@
     <!--xsl:when test="$part-nbr='DELETED' or $part-nbr='TRANSFERED' or $part-nbr='TRANSFERRED' or $part-nbr='COMMERCIALLY AVAILABLE'"/-->
     <xsl:when test="$part-nbr=$part-abc"/>
     <xsl:otherwise>
-      <xsl:attribute name="onclick">OpenProductDetails('<xsl:value-of select="$part-nbr"/>')</xsl:attribute>
+      <xsl:value-of select="$part-nbr"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

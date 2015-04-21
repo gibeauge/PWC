@@ -58,7 +58,7 @@
   <div>
      <xsl:attribute name="class">
         <xsl:text>x-consumables-1-0</xsl:text>
-        <xsl:if test="@empty and string(@empty)='YES'"> x-consumables-1-1</xsl:if>
+        <xsl:if test="@empty='YES'"> x-consumables-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
   </div>
@@ -120,7 +120,7 @@
   <div>
      <xsl:attribute name="class">
         <xsl:text>x-fixtures-and-equipment-1-0</xsl:text>
-        <xsl:if test="@empty and string(@empty)='YES'"> x-fixtures-and-equipment-1-1</xsl:if>
+        <xsl:if test="@empty='YES'"> x-fixtures-and-equipment-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
   </div>
@@ -143,7 +143,7 @@
   
   <xsl:variable name="foClass">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='big')">hidden</xsl:when>
+        <xsl:when test="not(@size) or (@size!='big')">hidden</xsl:when>
         <xsl:when test="count(following-sibling::graphic[@size='big']) &gt; 0">graphic-block</xsl:when>
         <xsl:otherwise>graphic-block</xsl:otherwise>
      </xsl:choose>
@@ -151,7 +151,7 @@
   <xsl:variable name="blockness">block</xsl:variable>
   <xsl:variable name="hiddenness">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='big')">yes</xsl:when>
+        <xsl:when test="not(@size) or (@size!='big')">yes</xsl:when>
         <xsl:when test="count(following-sibling::graphic[@size='big']) &gt; 0">no</xsl:when>
         <xsl:otherwise>no</xsl:otherwise>
      </xsl:choose>
@@ -177,7 +177,7 @@
               <xsl:attribute name="class">
                  <xsl:text>x-graphic-1-0</xsl:text>
                  <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-                 <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
+                 <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
               </xsl:attribute>
               <xsl:call-template name="t-base-div-basic"/>
            </div>
@@ -188,7 +188,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-graphic-1-0</xsl:text>
               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
            </xsl:attribute>
            <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -201,7 +201,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-graphic-1-0</xsl:text>
               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
            </xsl:attribute>
            <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -449,7 +449,7 @@
   <div>
      <xsl:attribute name="class">
         <xsl:text>x-special-tools-1-0</xsl:text>
-        <xsl:if test="@empty and string(@empty)='YES'"> x-special-tools-1-1</xsl:if>
+        <xsl:if test="@empty='YES'"> x-special-tools-1-1</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
   </div>

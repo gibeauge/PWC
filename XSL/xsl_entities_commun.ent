@@ -5,10 +5,10 @@
 <!ENTITY not-anc-pgblk-0-13-task-c    "not(&anc-pgblk-0-13; and &anc-task-c;)">
 <!ENTITY not-anc-pgblk-0-13-task-v    "not(&anc-pgblk-0-13; and &anc-task-v;)">
 
-<!ENTITY anc-trlist-no-title          "ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='trlist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)">
-<!ENTITY anc-sblist-no-title          "ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='sblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)">
-<!ENTITY anc-spblist-no-title         "ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='spblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)">
-<!ENTITY anc-pdlist-no-title          "ancestor-or-self::page-block[1]/@pb-name and string(ancestor-or-self::page-block[1]/@pb-name)='pdlist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)">
+<!ENTITY anc-trlist-no-title          "ancestor-or-self::page-block[1]/@pb-name='trlist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)">
+<!ENTITY anc-sblist-no-title          "ancestor-or-self::page-block[1]/@pb-name='sblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)">
+<!ENTITY anc-spblist-no-title         "ancestor-or-self::page-block[1]/@pb-name='spblist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)">
+<!ENTITY anc-pdlist-no-title          "ancestor-or-self::page-block[1]/@pb-name='pdlist' and not(ancestor-or-self::page-block[1]/pageblock-title) and not(./title)">
 
 <!ENTITY anc-doc-oh                   "ancestor::book[contains(@doctype,'oh')]">
 <!ENTITY anc-doc-cir                  "ancestor::book[contains(@doctype,'circ')]">

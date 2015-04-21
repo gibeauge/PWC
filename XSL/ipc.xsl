@@ -116,7 +116,7 @@
     <xsl:apply-templates select="key"/>
   </div>
   <span class="pr-figure-min">
-    <xsl:for-each select="descendant::graphic[@size='thm']">
+    <xsl:for-each select="descendant::graphic[@size='thm'][1]">
       <xsl:variable name="filename">
         <xsl:value-of select="@negnumber"/>
       </xsl:variable>
@@ -156,7 +156,7 @@
 
   <xsl:variable name="foClass">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='big')">hidden</xsl:when>
+        <xsl:when test="not(@size) or (@size!='big')">hidden</xsl:when>
         <xsl:when test="count(following-sibling::graphic[@size='big']) &gt; 0">graphic-block</xsl:when>
         <xsl:otherwise>graphic-block</xsl:otherwise>
      </xsl:choose>
@@ -164,7 +164,7 @@
   <xsl:variable name="blockness">block</xsl:variable>
   <xsl:variable name="hiddenness">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='big')">yes</xsl:when>
+        <xsl:when test="not(@size) or (@size!='big')">yes</xsl:when>
         <xsl:when test="count(following-sibling::graphic[@size='big']) &gt; 0">no</xsl:when>
         <xsl:otherwise>no</xsl:otherwise>
      </xsl:choose>
@@ -190,7 +190,7 @@
               <xsl:attribute name="class">
                  <xsl:text>x-graphic-1-0</xsl:text>
                  <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-                 <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
+                 <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
               </xsl:attribute>
               <xsl:call-template name="t-base-div-basic"/>
            </div>
@@ -201,7 +201,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-graphic-1-0</xsl:text>
               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
            </xsl:attribute>
            <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -214,7 +214,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-graphic-1-0</xsl:text>
               <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-graphic-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
            </xsl:attribute>
            <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -453,14 +453,14 @@
   
   <xsl:variable name="foClass">
      <xsl:choose>
-        <xsl:when test="@ref and string(@ref)!=''">hidden</xsl:when>
+        <xsl:when test="@ref!=''">hidden</xsl:when>
         <xsl:otherwise>block</xsl:otherwise>
      </xsl:choose>
   </xsl:variable>
   <xsl:variable name="blockness">block</xsl:variable>
   <xsl:variable name="hiddenness">
      <xsl:choose>
-        <xsl:when test="@ref and string(@ref)!=''">yes</xsl:when>
+        <xsl:when test="@ref!=''">yes</xsl:when>
         <xsl:otherwise>no</xsl:otherwise>
      </xsl:choose>
   </xsl:variable>
@@ -478,14 +478,26 @@
         </xsl:otherwise>
      </xsl:choose>
   </xsl:variable>
+  <xsl:variable name="part-nbr-opd">
+    <xsl:call-template name="t-base-part-attr"/>
+  </xsl:variable>
   <xsl:choose>
-     <xsl:when test="$fo-class='hidden-block'">
+     <xsl:when test="$fo-class='block' and $part-nbr-opd!='' and (not(@ref) or @ref='')">
         <div>
            <xsl:attribute name="class">
               <xsl:text>x-part-nbr-1-0</xsl:text>
-              <xsl:if test="@ref and string(@ref)!=''"> x-part-nbr-1-1</xsl:if>
            </xsl:attribute>
-           <xsl:call-template name="t-base-part-attr"/>
+           <a href="#">
+              <xsl:attribute name="onclick">OpenProductDetails('<xsl:value-of select="$part-nbr-opd"/>')</xsl:attribute>
+              <xsl:call-template name="t-base-div-basic"/>
+           </a>
+        </div>
+     </xsl:when>
+     <xsl:when test="$fo-class='hidden-block'">
+        <div>
+           <xsl:attribute name="class">
+              <xsl:text>x-part-nbr-1-0 x-part-nbr-1-1</xsl:text>
+           </xsl:attribute>
            <xsl:call-template name="t-base-div-basic-h">
               <xsl:with-param name="hidden" select="$hidden"/>
            </xsl:call-template>
@@ -495,13 +507,28 @@
         <div>
            <xsl:attribute name="class">
               <xsl:text>x-part-nbr-1-0</xsl:text>
-              <xsl:if test="@ref and string(@ref)!=''"> x-part-nbr-1-1</xsl:if>
            </xsl:attribute>
-           <xsl:call-template name="t-base-part-attr"/>
            <xsl:call-template name="t-base-div-basic"/>
         </div>
      </xsl:when>
   </xsl:choose>
+</xsl:template>
+
+<xsl:template match="part-nbr//_sfe:InternalLink" priority="3">
+  <xsl:variable name="part-nbr-opd">
+    <xsl:for-each select="ancestor::part-nbr">
+      <xsl:call-template name="t-base-part-attr"/>
+    </xsl:for-each>
+  </xsl:variable>
+  <a class="x--sfe-InternalLink-1-0">
+     <xsl:if test="@targetId">
+        <xsl:attribute name="href"><xsl:value-of select="concat('#',@targetId)"/></xsl:attribute>
+     </xsl:if>
+     <xsl:if test="$part-nbr-opd!=''">
+        <xsl:attribute name="onclick">OpenProductDetails('<xsl:value-of select="$part-nbr-opd"/>')</xsl:attribute>
+     </xsl:if>
+     <xsl:call-template name="t-base-div-basic"/>
+  </a>
 </xsl:template>
 
 <xsl:template match="_ufe:partial-breakdown" priority="0">
@@ -642,6 +669,12 @@
   </div>
 </xsl:template>
 
+<xsl:template match="sb-stat/_sfe:BeforeOrAfterText/_ufe:hardspace[not(preceding-sibling::text())]" priority="5"/>
+
+<xsl:template match="sb-stat/_sfe:BeforeOrAfterText/_ufe:hardspace[not(preceding-sibling::text())]" mode="keep-sp">
+  <xsl:text>&#xa0;</xsl:text>
+</xsl:template>
+
 <xsl:template match="nomen-col/sb-stat[@type='SPB']" priority="3">
   <xsl:param name="hidden" select="'yes'"/>
   
@@ -664,6 +697,7 @@
            <xsl:apply-templates/>
         </xsl:when>
         <xsl:otherwise>
+           <xsl:apply-templates select="_sfe:BeforeOrAfterText/_ufe:hardspace[not(preceding-sibling::text())]" mode="keep-sp"/>
            <a href="#" onclick="spbLink('{.}');">
               <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
            </a>
@@ -687,6 +721,7 @@
      </xsl:attribute>
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
+     <xsl:apply-templates select="_sfe:BeforeOrAfterText/_ufe:hardspace[not(preceding-sibling::text())]" mode="keep-sp"/>
      <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>
@@ -704,6 +739,7 @@
            <xsl:apply-templates/>
         </xsl:when>
         <xsl:otherwise>
+           <xsl:apply-templates select="_sfe:BeforeOrAfterText/_ufe:hardspace[not(preceding-sibling::text())]" mode="keep-sp"/>
            <a href="#" onclick="spbLink('{.}');">
               <xsl:apply-templates select="_sfe:BeforeOrAfterText"/>
            </a>
@@ -716,6 +752,7 @@
   <span class="x-sb-stat-2-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:call-template name="maybe-set-id"/>
+     <xsl:apply-templates select="_sfe:BeforeOrAfterText/_ufe:hardspace[not(preceding-sibling::text())]" mode="keep-sp"/>
      <a href="#" onclick="sbLink('{.}');">
         <xsl:apply-templates/>
      </a>

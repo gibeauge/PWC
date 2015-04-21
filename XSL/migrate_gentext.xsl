@@ -54,7 +54,7 @@
     <xsl:if test="not(@_gte:Gentext-Expanded)">
       <_sfe:BeforeOrAfterText>
         <xsl:choose>
-          <xsl:when test="not(@size) or (@size and string(@size)!='big')"/>
+          <xsl:when test="not(@size) or (@size!='big')"/>
           <xsl:otherwise>
             <_ufe:block-prespace>
               <!--xsl:text>(SHEET X OF Y)</xsl:text-->

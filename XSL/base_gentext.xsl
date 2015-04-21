@@ -1268,7 +1268,7 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:choose>
-          <xsl:when test="(@per-assy and string(@per-assy)='TEXT') or (@per-assy and string(@per-assy)='EMPTY')"/>
+          <xsl:when test="(@per-assy='TEXT') or (@per-assy='EMPTY')"/>
           <xsl:otherwise>
             <xsl:value-of select="@per-assy"/>
           </xsl:otherwise>
@@ -1581,10 +1581,7 @@
   <xsl:template match="table" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:if test="(@tabstyle and string(@tabstyle)='general') or
-          (@tabstyle and string(@tabstyle)='consumables') or 
-          (@tabstyle and string(@tabstyle)='special-tools') or 
-          (@tabstyle and string(@tabstyle)='fixtures-and-equipment')">
+        <xsl:if test="(@tabstyle='general') or (@tabstyle='consumables') or (@tabstyle='special-tools') or (@tabstyle='fixtures-and-equipment')">
           <_ufe:npara-numbering/>
         </xsl:if>
       </xsl:with-param>
@@ -1897,7 +1894,7 @@
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
         <xsl:choose>
-          <xsl:when test="(ancestor-or-self::table[1]/@role and string(ancestor-or-self::table[1]/@role)='torque-and-stretch') or (ancestor-or-self::table[1]/@role and string(ancestor-or-self::table[1]/@role)='spec-assem')"/>
+          <xsl:when test="(ancestor-or-self::table[1]/@role='torque-and-stretch') or (ancestor-or-self::table[1]/@role='spec-assem')"/>
           <xsl:otherwise>
             <xsl:call-template name="t-styler-numbering"/>
             <xsl:text>&#xa0;</xsl:text>

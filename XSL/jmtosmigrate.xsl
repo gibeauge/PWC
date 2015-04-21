@@ -214,7 +214,7 @@
             <xsl:text> </xsl:text>
             <xsl:apply-templates mode="s_numbering" select="$l-node/title"/>
          </a>
-         <xsl:if test="@sheetnbr and string(@sheetnbr)!=''">
+         <xsl:if test="@sheetnbr!=''">
             <xsl:value-of select="concat(' Sheet ',@sheetnbr)"/>
          </xsl:if>
          <xsl:value-of select="@post-auto-text"/>
@@ -1117,7 +1117,7 @@
   
   <xsl:variable name="foClass">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='big')">hidden</xsl:when>
+        <xsl:when test="not(@size) or (@size!='big')">hidden</xsl:when>
         <xsl:when test="count(following-sibling::sheet[@size='big']) &gt; 0">graphic-block</xsl:when>
         <xsl:otherwise>graphic-block</xsl:otherwise>
      </xsl:choose>
@@ -1125,7 +1125,7 @@
   <xsl:variable name="blockness">block</xsl:variable>
   <xsl:variable name="hiddenness">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='big')">yes</xsl:when>
+        <xsl:when test="not(@size) or (@size!='big')">yes</xsl:when>
         <xsl:when test="count(following-sibling::sheet[@size='big']) &gt; 0">no</xsl:when>
         <xsl:otherwise>no</xsl:otherwise>
      </xsl:choose>
@@ -1150,7 +1150,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic-h">
               <xsl:with-param name="hidden" select="$hidden"/>
@@ -1162,7 +1162,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
            <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -1175,7 +1175,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
            <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -1494,9 +1494,9 @@
      <xsl:attribute name="class">
         <xsl:text>x-subtask-1-0</xsl:text>
         <xsl:choose>
-          <xsl:when test="(@confltr and string(@confltr)!='') and (@varnbr and string(@varnbr)!='') and (@varnbr and string(@varnbr)!='0')"> x-subtask-1-1</xsl:when>
-          <xsl:when test="(@confltr and string(@confltr)!='')"> x-subtask-1-2</xsl:when>
-          <xsl:when test="(@varnbr and string(@varnbr)!='') and (@varnbr and string(@varnbr)!='0')"> x-subtask-1-3</xsl:when>
+          <xsl:when test="(@confltr!='') and (@varnbr!='') and (@varnbr!='0')"> x-subtask-1-1</xsl:when>
+          <xsl:when test="(@confltr!='')"> x-subtask-1-2</xsl:when>
+          <xsl:when test="(@varnbr!='') and (@varnbr!='0')"> x-subtask-1-3</xsl:when>
         </xsl:choose>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
@@ -1513,8 +1513,8 @@
   <div>
      <xsl:attribute name="class">
         <xsl:text>x-task-1-0</xsl:text>
-        <xsl:if test="(@confltr and string(@confltr)!='')"> x-task-1-1</xsl:if>
-        <xsl:if test="(@varnbr and string(@varnbr)!='') and (@varnbr and string(@varnbr)!='0')"> x-task-1-2</xsl:if>
+        <xsl:if test="(@confltr!='')"> x-task-1-1</xsl:if>
+        <xsl:if test="(@varnbr!='') and (@varnbr!='0')"> x-task-1-2</xsl:if>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic2"/>
   </div>

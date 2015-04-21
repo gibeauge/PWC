@@ -659,7 +659,8 @@
     <xsl:when test="$units='*' and ($proportional-colwidth-supported='yes')">
       <!-- Here, we pass through the given proportional width -->
       <!-- DBE -->
-      <xsl:choose><!-- context: tgroup -->
+      <!--
+      <xsl:choose>
         <xsl:when test="not(./colspec/@colwidth[substring(., string-length(.)) != '*']) and count(./colspec) > 0 and count(./colspec[@colwidth]) = count(./colspec)">
           <xsl:variable name="total-width" select="sum(./colspec/@colwidth/number(substring(., 1, string-length(.)-1)))"/>
           <xsl:value-of select="concat(format-number($val div $total-width * 100, '0'), '%')"/>
@@ -668,6 +669,9 @@
           <xsl:value-of select="$size"/>
         </xsl:otherwise>
       </xsl:choose>
+      -->
+      <xsl:variable name="total-width" select="sum(./colspec/@colwidth[ends-with(.,'*')]/number(substring(., 1, string-length(.)-1))) + number(@cols) - count(colspec)"/>
+      <xsl:value-of select="concat(format-number($val div $total-width * 100, '##.##'), '%')"/>
       <!-- DBE -->
     </xsl:when>
     <xsl:when test="$units='*'">

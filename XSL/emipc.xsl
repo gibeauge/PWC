@@ -172,7 +172,7 @@
     </div>
   </div>
   <span class="pr-figure-min">
-    <xsl:for-each select="descendant::sheet[@size='thm']">
+    <xsl:for-each select="descendant::sheet[@size='thm'][1]">
       <xsl:variable name="filename">
         <xsl:value-of select="@gnbr"/>
       </xsl:variable>
@@ -212,7 +212,7 @@
      <xsl:apply-templates/>
   </div>
   <span class="pr-figure-min">
-    <xsl:for-each select="descendant::sheet[@size='thm']">
+    <xsl:for-each select="descendant::sheet[@size='thm'][1]">
       <xsl:variable name="filename">
         <xsl:value-of select="@gnbr"/>
       </xsl:variable>
@@ -445,8 +445,25 @@
 </xsl:template>
 
 <xsl:template match="pnr" priority="1">
-  <span class="x-pnr-1-0">
+  <xsl:variable name="part-nbr-opd">
     <xsl:call-template name="t-base-part-attr"/>
+  </xsl:variable>
+  <span class="x-pnr-1-0">
+    <xsl:choose>
+      <xsl:when test="$part-nbr-opd!=''">
+        <a href="#">
+          <xsl:attribute name="onclick">OpenProductDetails('<xsl:value-of select="$part-nbr-opd"/>')</xsl:attribute>
+          <xsl:call-template name="t-pnr"/>
+        </a>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="t-pnr"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </span>
+</xsl:template>
+
+<xsl:template name="t-pnr">
     <xsl:if test="../../descendant::*[local-name()='pwcsin']">
       <span class="x-part-sin">
         <xsl:for-each select="../../descendant::*[local-name()='pwcsin']">
@@ -458,7 +475,6 @@
       </span>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic"/>
-  </span>
 </xsl:template>
 
 <xsl:template match="prtlist" priority="0">
@@ -595,7 +611,7 @@
 
   <xsl:variable name="foClass">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='big')">hidden</xsl:when>
+        <xsl:when test="not(@size) or (@size!='big')">hidden</xsl:when>
         <xsl:when test="count(following-sibling::sheet[@size='big']) &gt; 0">graphic-block</xsl:when>
         <xsl:otherwise>graphic-block</xsl:otherwise>
      </xsl:choose>
@@ -603,7 +619,7 @@
   <xsl:variable name="blockness">block</xsl:variable>
   <xsl:variable name="hiddenness">
      <xsl:choose>
-        <xsl:when test="not(@size) or (@size and string(@size)!='big')">yes</xsl:when>
+        <xsl:when test="not(@size) or (@size!='big')">yes</xsl:when>
         <xsl:when test="count(following-sibling::sheet[@size='big']) &gt; 0">no</xsl:when>
         <xsl:otherwise>no</xsl:otherwise>
      </xsl:choose>
@@ -628,7 +644,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic-h">
               <xsl:with-param name="hidden" select="$hidden"/>
@@ -640,7 +656,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
            <xsl:if test="count(following-sibling::sheet[@size='med']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -653,7 +669,7 @@
            <xsl:attribute name="class">
               <xsl:text>x-sheet-1-0</xsl:text>
               <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size and string(@size)!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
            </xsl:attribute>
            <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
