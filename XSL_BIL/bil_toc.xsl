@@ -146,6 +146,7 @@
   
   // Global variable to scroll to anchor
   var global_anchor="";
+  var reloadContentOnly = false;
   
   // Hide first useless level and load default page
   $("#toc").bind("ready.jstree", function (event, data) {
@@ -157,7 +158,6 @@
   
   // Change icon when selection a node when it is a folder
   $("#toc").bind("changed.jstree", function (event, data) {
-    var href_url = $('#' + data.node.id).find('a').first().attr("href");
     var icon_path = data.node.icon;
     if (icon_path == "./css/toc_closed_files.gif") {
       data.instance.open_node(data.node);
@@ -165,48 +165,51 @@
     else if (icon_path == "./css/toc_closed.gif") {
       data.instance.open_node(data.node);
     }
-    else if (icon_path == "./css/toc_open_files.gif") {
+    else if (icon_path == "./css/toc_open_files.gif" <xsl:text disable-output-escaping="yes">&amp;&amp;</xsl:text> !reloadContentOnly) {
       data.instance.close_node(data.node);
     }
-    else if (icon_path == "./css/toc_open.gif") {
+    else if (icon_path == "./css/toc_open.gif" <xsl:text disable-output-escaping="yes">&amp;&amp;</xsl:text> !reloadContentOnly) {
       data.instance.close_node(data.node);
     }
     
-    var node_id = data.node.id;
-    if (href_url != "") {
-      var anchor_idx = href_url.indexOf("#");
-      if (anchor_idx != -1) {
-        var anchor = href_url.substring(anchor_idx+1);
-        href_url = href_url.substring(0,anchor_idx);
-        if(global_anchor != "") {
-          anchor = global_anchor;
-        }
-        $("#pane_content").load(href_url);
-        $(window).unbind("hashchange");
-	    $(window).bind("hashchange", hashHasNotChanged);
-        $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
-
-        setTimeout(function() { 
-          // If the anchor is a table, we have to diplay it to be able to scroll to
-          if(anchor.indexOf("t") != -1) {
-            // If the anchor is a table in a graphic we have to display the graphic
-            if ($("#" + anchor).parents(".x-graphic-1-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
-              var graphic_id = $("#" + anchor).parents(".x-graphic-1-0").attr("id");
-              displayGraphics(graphic_id);
-            }
-            $("#" + anchor).css({"display":"block"});
+    if (!reloadContentOnly) {
+      var href_url = $('#' + data.node.id).find('a').first().attr("href");
+      var node_id = data.node.id;
+      if (href_url != "") {
+        var anchor_idx = href_url.indexOf("#");
+        if (anchor_idx != -1) {
+          var anchor = href_url.substring(anchor_idx+1);
+          href_url = href_url.substring(0,anchor_idx);
+          if(global_anchor != "") {
+            anchor = global_anchor;
           }
+          $("#pane_content").load(href_url);
+          $(window).unbind("hashchange");
+          $(window).bind("hashchange", hashHasNotChanged);
+          $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
+
+          setTimeout(function() { 
+            // If the anchor is a table, we have to diplay it to be able to scroll to
+            if(anchor.indexOf("t") != -1) {
+              // If the anchor is a table in a graphic we have to display the graphic
+              if ($("#" + anchor).parents(".x-graphic-1-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
+                var graphic_id = $("#" + anchor).parents(".x-graphic-1-0").attr("id");
+                displayGraphics(graphic_id);
+              }
+              $("#" + anchor).css({"display":"block"});
+            }
            
-          document.getElementById(anchor).scrollIntoView();
-        }, 1000);
+            document.getElementById(anchor).scrollIntoView();
+          }, 1000);
+        }
+        else {
+          $(window).unbind("hashchange");
+          $(window).bind("hashchange", hashHasNotChanged);
+          $.bbq.pushState({ url : href_url, id : data.node.id });
+          $("#pane_content").load(href_url);
+        }
+        global_anchor="";
       }
-      else {
-        $(window).unbind("hashchange");
-        $(window).bind("hashchange", hashHasNotChanged);
-        $.bbq.pushState({ url : href_url, id : data.node.id });
-        $("#pane_content").load(href_url);
-      }
-      global_anchor="";
     }
   });
   
@@ -224,7 +227,9 @@
     var node_id = $.bbq.getState("id");
     $("#toc").jstree("deselect_all", node_id);
     $("#pane_content").load(url);
+    reloadContentOnly = true;
     $("#toc").jstree("select_node", node_id);
+    reloadContentOnly = false;
     if (anchor != '') {
       var anchor_obj = document.getElementById(anchor);
       if (anchor_obj != null) {
@@ -324,8 +329,12 @@
         global_anchor = anchor;
         $("#toc").jstree().close_all();
         $("#toc").jstree('select_node', node_id);
-      } else {
-        document.getElementById(anchor).scrollIntoView(true);
+      } 
+      else {
+        var anchor_obj = document.getElementById(anchor);
+        if (anchor_obj != null) {
+          document.getElementById(anchor).scrollIntoView(true);
+        }
       }
     }
   }
