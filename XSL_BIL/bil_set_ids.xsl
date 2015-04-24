@@ -21,9 +21,11 @@
   <html lang="{concat($src-doc/*/@lang,'-',$lang-trad)}">
     <xsl:copy-of select="$src-doc/*/head"/>
     <body>
+      <div>
       <xsl:copy-of select="$src-doc/*/body/@*"/>
       <xsl:apply-templates select="$src-doc/*/body/node()" mode="out"/>
       <xsl:apply-templates select="exslt:node-set($zh-tree)/*/node()" mode="out"/>
+      </div>
       <xsl:copy-of select="$src-doc/*/body//script"/>
     </body>
   </html>

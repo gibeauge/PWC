@@ -21,10 +21,12 @@
       <link href="css/bil_pub.css" rel="stylesheet" type="text/css" />
 	  <link href="css/printer.css" rel="stylesheet" type="text/css" />
       <script type="text/javascript" src="js/jquery-1.11.2.min.js"> // JS </script>
+      <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.ui-1.10.4.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.layout-1.4.3.min.js"> // JS </script>
       <script type="text/javascript" src="js/jstree-3.0.9.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.ba-bbq.min.js"> // JS </script>
+      <script type="text/javascript" src="js/jquery.inview2.min.js"> // JS </script>
       <script type="text/javascript" src="js/pwcdisplay.js"> // JS </script>
       <script type="text/javascript">
       var main_layout;
@@ -153,7 +155,7 @@
   var global_anchor="";
   
   // Hide first useless level
-  $("#toc").bind("loaded.jstree", function (event, data) {
+  $("#toc").bind("ready.jstree", function (event, data) {
     $("a:contains('_Root_')").css("visibility","hidden")  
     $(".jstree-last .jstree-icon").first().hide()
     
@@ -185,7 +187,6 @@
         if(global_anchor != ""){
         	anchor = global_anchor;
         }
-        console.log("Scroll to anchor : " + anchor)
         $("#pane_content").load(href_url);
         
         $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
@@ -195,7 +196,6 @@
         	if(anchor.indexOf("t") != -1) {
         		//If the anchor is a table in a graphic we have to display the graphic
    				if ($("#" + anchor).parents(".x-graphic-1-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
-   					console.log("The table is contained into a graphic");
    					var graphic_id = $("#" + anchor).parents(".x-graphic-1-0").attr("id");
    					displayGraphics(graphic_id);
    				}
@@ -245,14 +245,16 @@
   
   //Manage navigation
   $(window).bind("hashchange", function(e) {
-  	console.log("Hashchange");
   	var url = $.bbq.getState("url");
   	var anchor = $.bbq.getState("anchor");
   	var node_id = $.bbq.getState("id");
   	$("#pane_content").load(url);
  	$("#toc").jstree("select_node", node_id);
   	if (anchor != '') {
-  		document.getElementById(anchor).scrollIntoView(true);
+      var anchor_obj = document.getElementById(anchor);
+      if (anchor_obj != null) {
+        document.getElementById(anchor).scrollIntoView(true);
+      }
   	}
   });
   
@@ -284,16 +286,12 @@
 		if($(this).attr("onclick") != undefined) {
 			//Link to a graphic
 			if($(this).attr("onclick").indexOf("displayGraphics") != -1){
-				console.log("Link to a graphic");
 			//Table link
 			} else if ($(this).attr("onclick").indexOf("toggle") != -1) {
-				console.log("Table link");
 			//Link to a table
 			} else if ($(this).attr("onclick").indexOf("showTable") != -1) {
-				console.log("Link to a table");
 				//The table is contained into a graphic
 				if($(this).parents(".x-refint-2-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
-					console.log("Click on graphic table");
 					var parent_div = $(this).parents(".x-taskproc-1-0");
 					var onclick = parent_div.find("a[onclick^='displayGraphics']").attr("onclick");
 					eval(onclick);
@@ -306,7 +304,6 @@
 		if($(this).attr("class") != undefined) {
 			//Link to a task
 			if ($(this).attr("class").indexOf("x--sfe-InternalLink-1-0") != -1){
-				console.log("Link to a task");
 				var href_url = $(this).attr("href");
 				linkTo(href_url);
 			}
@@ -320,14 +317,11 @@
 			var anchor = href_url.substring(anchor_idx+1);
 			href_url = href_url.substring(0,anchor_idx);
 			if(href_url != "") {
-				console.log("External link");
 				var node_id = getIdFromHref(href_url);
 				global_anchor = anchor;
-				console.log(node_id);
 				$("#toc").jstree().close_all();
 				$("#toc").jstree('select_node', node_id);
 			} else {
-				console.log("Internal link");
 				document.getElementById(anchor).scrollIntoView(true);
 			}
 		}
@@ -335,7 +329,6 @@
 
 	//Get node ID depending on the href
   	function getIdFromHref(href_url) {
-		console.log(href_url);
 		var tree = $("#toc").data().jstree.get_json("#", {"flat": true});
 		for(var i=1; i <xsl:text disable-output-escaping="yes">&lt;</xsl:text> tree.length; i++) {
 			var href = tree[i].a_attr.href;
