@@ -481,6 +481,7 @@
   <xsl:choose>
     <xsl:when test="$count>count($colspecs)">
       <col>
+        <!--
     	<xsl:if test="$inhibit-default-colwidth-emission='0'">
     	  <xsl:attribute name="width">
             <xsl:call-template name="size-to-pixels">
@@ -488,6 +489,7 @@
             </xsl:call-template>
     	  </xsl:attribute>
     	</xsl:if>
+        -->
       </col>
     </xsl:when>
     <xsl:otherwise>
@@ -521,6 +523,7 @@
                 <xsl:value-of select="$colspec/@charoff"/>
               </xsl:attribute>
             </xsl:if>
+            <!--
             <xsl:if test="normalize-space($colspec/@colwidth)!=''">
               <xsl:attribute name="width">
                 <xsl:call-template name="size-to-pixels">
@@ -535,6 +538,7 @@
                 </xsl:call-template>
               </xsl:attribute>
             </xsl:if>
+            -->
           </xsl:element>
         </xsl:when>
         <xsl:otherwise>
