@@ -188,19 +188,7 @@
           $(window).bind("hashchange", hashHasNotChanged);
           $.bbq.pushState({ url : href_url, anchor : anchor, id : data.node.id });
 
-          setTimeout(function() { 
-            // If the anchor is a table, we have to diplay it to be able to scroll to
-            if(anchor.indexOf("t") != -1) {
-              // If the anchor is a table in a graphic we have to display the graphic
-              if ($("#" + anchor).parents(".x-graphic-1-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
-                var graphic_id = $("#" + anchor).parents(".x-graphic-1-0").attr("id");
-                displayGraphics(graphic_id);
-              }
-              $("#" + anchor).css({"display":"block"});
-            }
-           
-            document.getElementById(anchor).scrollIntoView();
-          }, 1000);
+          setTimeout(scrollToAnchor, 1000, anchor);
         }
         else {
           $(window).unbind("hashchange");
@@ -229,15 +217,29 @@
     $("#pane_content").load(url);
     reloadContentOnly = true;
     $("#toc").jstree("select_node", node_id);
+    document.getElementById(node_id).scrollIntoView(true);
     reloadContentOnly = false;
     if (anchor != '') {
-      var anchor_obj = document.getElementById(anchor);
-      if (anchor_obj != null) {
-        document.getElementById(anchor).scrollIntoView(true);
-      }
+      setTimeout(scrollToAnchor, 1000, anchor);
     }
   }
-   
+  
+  function scrollToAnchor(anchor) {
+    // If the anchor is a table, we have to diplay it to be able to scroll to
+    if(anchor.indexOf("t") != -1) {
+      // If the anchor is a table in a graphic we have to display the graphic
+      if ($("#" + anchor).parents(".x-graphic-1-0").length > 0) {
+        var graphic_id = $("#" + anchor).parents(".x-graphic-1-0").attr("id");
+        displayGraphics(graphic_id);
+      }
+      $("#" + anchor).css({"display":"block"});
+    }
+    var anchor_obj = document.getElementById(anchor);
+    if (anchor_obj != null) {
+      document.getElementById(anchor).scrollIntoView(true);
+    }
+  }
+  
   // Change icon when opening a folder
   $("#toc").on("open_node.jstree", function(event, data) {
     var icon_path = data.node.icon;
@@ -291,15 +293,17 @@
   $(document).on('click', "#pane_content a", function(e, data) {
     e.preventDefault();
     //Element contains "onclick" attribute
-    if($(this).attr("onclick") != undefined) {
-      //Link to a graphic
-      if($(this).attr("onclick").indexOf("displayGraphics") != -1){
-      //Table link
-      } else if ($(this).attr("onclick").indexOf("toggle") != -1) {
-      //Link to a table
-      } else if ($(this).attr("onclick").indexOf("showTable") != -1) {
+    if ($(this).attr("onclick") != undefined) {
+      // Link to a graphic
+      if ($(this).attr("onclick").indexOf("displayGraphics") != -1) {
+      // Table link
+      } 
+      else if ($(this).attr("onclick").indexOf("toggle") != -1) {
+      // Link to a table
+      } 
+      else if ($(this).attr("onclick").indexOf("showTable") != -1) {
         //The table is contained into a graphic
-        if($(this).parents(".x-refint-2-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
+        if ($(this).parents(".x-refint-2-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
           var parent_div = $(this).parents(".x-taskproc-1-0");
           var onclick = parent_div.find("a[onclick^='displayGraphics']").attr("onclick");
           eval(onclick);
@@ -308,10 +312,10 @@
         linkTo(href_url);
       }
     }
-    //Element contains "class" attribute
+    // Element contains "class" attribute
     if($(this).attr("class") != undefined) {
-      //Link to a task
-      if ($(this).attr("class").indexOf("x--sfe-InternalLink-1-0") != -1){
+      // Link to a task
+      if ($(this).attr("class").indexOf("x--sfe-InternalLink-1-0") != -1) {
         var href_url = $(this).attr("href");
         linkTo(href_url);
       }
@@ -321,11 +325,22 @@
   // Bind links depending on the element href
   function linkTo(href_url) {
     var anchor_idx = href_url.indexOf("#");
-    if (anchor_idx != -1) {
+    if (anchor_idx == -1) {
+        var node_id = getIdFromHref(href_url);
+        if (node_id == "") {
+          return false;
+        }
+        $("#toc").jstree().close_all();
+        $("#toc").jstree('select_node', node_id);
+    }
+    else {
       var anchor = href_url.substring(anchor_idx+1);
       href_url = href_url.substring(0,anchor_idx);
-      if(href_url != "") {
+      if (href_url != "") {
         var node_id = getIdFromHref(href_url);
+        if (node_id == "") {
+          return false;
+        }
         global_anchor = anchor;
         $("#toc").jstree().close_all();
         $("#toc").jstree('select_node', node_id);
@@ -342,7 +357,7 @@
   // Get node ID depending on the href
   function getIdFromHref(href_url) {
     var tree = $("#toc").data().jstree.get_json("#", {"flat": true});
-    for(var i=1; i <xsl:text disable-output-escaping="yes">&lt;</xsl:text> tree.length; i++) {
+    for (var i=1; i <xsl:text disable-output-escaping="yes">&lt;</xsl:text> tree.length; i++) {
       var href = tree[i].a_attr.href;
       var href_idx = href.indexOf(href_url);
       if (href_idx != -1) {
@@ -350,6 +365,7 @@
         return node_id;
       }
     }
+    return "";
   }
     </script>
   </div>
