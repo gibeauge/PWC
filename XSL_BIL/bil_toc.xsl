@@ -228,7 +228,7 @@
     // If the anchor is a table, we have to diplay it to be able to scroll to
     if(anchor.indexOf("t") != -1) {
       // If the anchor is a table in a graphic we have to display the graphic
-      if ($("#" + anchor).parents(".x-graphic-1-0").length > 0) {
+      if ($("#" + anchor).parents(".x-graphic-1-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
         var graphic_id = $("#" + anchor).parents(".x-graphic-1-0").attr("id");
         displayGraphics(graphic_id);
       }
