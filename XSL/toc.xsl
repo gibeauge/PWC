@@ -11,6 +11,7 @@
   <xsl:variable name="sharp" select="'#'"/>
 
   <!-- Create TOC and Bookmarks files -->
+  
   <xsl:template match="/*" mode="toc">
     <xsl:variable name="toc-tmp">
       <Structure>
@@ -49,25 +50,7 @@
     </xsl:result-document>
   </xsl:template>
 
-  <xsl:template match="@*|node()" mode="del-bookmark">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()" mode="del-bookmark"/>
-    </xsl:copy>
-  </xsl:template>
-  
-  <xsl:template match="*[local-name()='Page'][@Display='false']" mode="del-bookmark">
-    <xsl:apply-templates mode="del-bookmark"/>
-  </xsl:template>
-  
-  <xsl:template match="@URL-tmp" mode="del-bookmark">
-    <xsl:if test="../@FileType='FOLDER' and not(../@URL) and ../child::Page[@URL and not(Page) and not(starts-with(normalize-space(@Title), $gen-texts//text[@name='figure']))]">
-      <xsl:attribute name="URL">
-        <xsl:value-of select="."/>
-      </xsl:attribute>
-    </xsl:if>
-  </xsl:template>
-  
-  <xsl:template match="@bookmark" mode="del-bookmark"/>
+  <!-- Mode to build TOC -->
 
   <xsl:template match="*" mode="toc">
     <xsl:if test="descendant::*[@ch:chunk = 'yes'] or ancestor::*[@ch:title = 'toc']">
@@ -81,14 +64,7 @@
     <xsl:variable name="isFolder" select="descendant::*[@ch:chunk = 'yes' and descendant::*[@ch:title = 'toc']]"/>
     <xsl:variable name="hasTitle" select="count(.//*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1]) > 0"/>
     <xsl:variable name="hasFiles" select="count(.//*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id]) > 1"/>
-    
-    <!--<xsl:variable name="isFigure">
-      <xsl:choose>
-        <xsl:when test="not($hasFiles) and $hasTitle and starts-with(.//*[@ch:title = 'toc' and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $id][1], $gen-texts//text[@name='figure'])">1</xsl:when>
-        <xsl:otherwise>0</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>-->
-    
+        
     <xsl:choose>
       <xsl:when test="contains(@class, 'frontmatter')">
         <Page>
@@ -130,7 +106,6 @@
           <xsl:attribute name="FileType">
             <xsl:choose>
               <xsl:when test="$isFolder">FOLDER</xsl:when>
-<!--              <xsl:when test="$isFigure = '1'">IMAGE</xsl:when>-->
               <xsl:otherwise>FILE</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -240,13 +215,10 @@
       </xsl:attribute>
       
       <xsl:attribute name="FileType">FILE</xsl:attribute>
-<!--      <xsl:attribute name="FileType">IMAGE</xsl:attribute>-->
-      
       <xsl:attribute name="MIMEType">text/html</xsl:attribute>
     </Page>
     
     <xsl:apply-templates select="following::*[@ch:title = 'toc'][position()=1 and generate-id(ancestor::*[@ch:chunk = 'yes'][1]) = $chunk-id and starts-with(normalize-space(.), $gen-texts//text[@name='figure'])]" mode="tic"/>
-    
   </xsl:template>
   
   <xsl:template match="*[@ch:title]" mode="toc-title">
@@ -265,6 +237,30 @@
   <xsl:template name="normalize-space">
     <xsl:param name="str" select="''"/>
     <xsl:value-of select="normalize-space(translate($str, '&#xa0;&#xA0;&#x2003;&#x2002;', '    '))"/>
+  </xsl:template>
+
+  <!-- Mode to delete bookmarks from TOC -->
+
+  <xsl:template match="@*|node()" mode="del-bookmark">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="del-bookmark"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="@bookmark" mode="del-bookmark"/>
+  
+  <!-- extra rules on TOC that cannot be expressed during normal TOC build
+       so use this mode to post-process TOC -->
+  <xsl:template match="*[local-name()='Page'][@Display='false']" mode="del-bookmark">
+    <xsl:apply-templates mode="del-bookmark"/>
+  </xsl:template>
+  
+  <xsl:template match="@URL-tmp" mode="del-bookmark">
+    <xsl:if test="../@FileType='FOLDER' and not(../@URL) and ../child::Page[@URL and not(Page) and not(starts-with(normalize-space(@Title), $gen-texts//text[@name='figure']))]">
+      <xsl:attribute name="URL">
+        <xsl:value-of select="."/>
+      </xsl:attribute>
+    </xsl:if>
   </xsl:template>
   
 </xsl:stylesheet>

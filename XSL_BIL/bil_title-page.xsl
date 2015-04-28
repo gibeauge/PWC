@@ -20,7 +20,9 @@
 
 <xsl:template match="div[contains(@class,'pwc-cgp-stmnt')]">
   <div class="{@class}">
-    <xsl:value-of select="$texts//text[@name='bil_statement']"/>
+    <xsl:value-of select="$texts//text[@name='bil_statement_1']"/>
+    <xsl:value-of select="concat(upper-case(//div[@id='ModelNo']), '. ')"/>
+    <xsl:value-of select="$texts//text[@name='bil_statement_2']"/>
   </div>
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
