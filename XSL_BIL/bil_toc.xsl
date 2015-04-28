@@ -28,6 +28,8 @@
       <script type="text/javascript" src="js/jquery.ba-bbq.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.inview2.min.js"> // JS </script>
       <script type="text/javascript" src="js/pwcdisplay.js"> // JS </script>
+	  <script type="text/javascript" src="js/printer.js"> // JS </script>
+	  <!--script type="text/javascript" src="js/toolbar.js"> // JS </script-->
       <script type="text/javascript">
       var main_layout;
       $(document).ready(function () {
@@ -98,14 +100,8 @@
     <script type="text/javascript">
   // Print function
   function print_page(){
-    var l_print_msg = '<xsl:value-of select='$print_msg'/>';
-    var print_img = confirm(l_print_msg);
-    if (print_img == false) {
-      printWithoutImg();
-    }
-    else{
-      window.print();
-    }
+    print_butt(window);
+    
   }
   
   // Create a new style node in head section to hide images and Print
