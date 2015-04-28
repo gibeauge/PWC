@@ -70,7 +70,7 @@
   <xsl:variable name="tree5">
     <xsl:apply-templates select="exslt:node-set($tree4)/*"/>
   </xsl:variable>
-  
+    
   <!-- CHUNKING : split and output HTML -->
   <xsl:variable name="tree6" select="$tree5"/>
   <xsl:apply-templates select="exslt:node-set($tree6)/*" mode="output"/>
@@ -78,8 +78,13 @@
   <!-- TOC : create TOC and Bookmarks -->
   <xsl:variable name="tree7" select="$tree5"/>
   <xsl:apply-templates select="exslt:node-set($tree7)/*" mode="toc"/>
+
+  <!-- debug -->
   <!--
-  <xsl:copy-of select="$tree5"/>
+  <xsl:result-document href="{concat($output-dir, '/XML/tree5.xml')}" method="xml" encoding="utf-8" 
+                         indent="yes" exclude-result-prefixes="ch" omit-xml-declaration="no">
+    <xsl:copy-of select="$tree5"/>
+  </xsl:result-document>
   -->
   <result/>
 </xsl:template>
@@ -204,12 +209,14 @@
   </xsl:choose>
 </xsl:template>
 
+<!--
 <xsl:template match="page-block[@pb-name='nut_option']/lot" mode="initial-pass-mode" priority="3">
   <xsl:choose>
     <xsl:when test="$doctype='emipc'"/>
     <xsl:otherwise><xsl:next-match/></xsl:otherwise>
   </xsl:choose>
 </xsl:template>
+-->
       
 <xsl:template match="lof|lot|title-page" mode="initial-pass-mode" priority="2">
   <xsl:copy>

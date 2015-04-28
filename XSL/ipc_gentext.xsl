@@ -132,7 +132,8 @@
   <xsl:template match="lpln" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:value-of select="$gen-texts//text[@name='lpln']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+        <xsl:value-of select="$gen-texts//text[@name='lpln']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+        <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -293,7 +294,8 @@
             <span class="x-note-label-2-0">
               <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+            <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+            <xsl:text> </xsl:text>
             <xsl:call-template name="t-styler-numbering"/>
             <xsl:text> </xsl:text>
           </xsl:when>
@@ -301,7 +303,8 @@
             <span class="x-note-label-2-0">
               <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+            <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+            <xsl:text> </xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -393,7 +396,8 @@
   <xsl:template match="pwc-pn" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:value-of select="$gen-texts//text[@name='pwc-pn']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+        <xsl:value-of select="$gen-texts//text[@name='pwc-pn']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+        <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -707,7 +711,8 @@
   <xsl:template match="supp-code" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:value-of select="$gen-texts//text[@name='supp-code']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+        <xsl:value-of select="$gen-texts//text[@name='supp-code']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+        <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

@@ -153,7 +153,10 @@
   <xsl:template name="expand-gentext-caution">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span class=" x-caution-label-1-0"><xsl:value-of select="$gen-texts//text[@name='caution']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></span>
+        <span class=" x-caution-label-1-0">
+          <xsl:value-of select="concat($gen-texts//text[@name='caution'], $gen-texts//text[@name='sep0'])"/>
+        </span>
+        <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -161,7 +164,10 @@
   <xsl:template name="expand-gentext-warning">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <span class=" x-warning-label-1-0"><xsl:value-of select="$gen-texts//text[@name='warning']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></span>  
+        <span class=" x-warning-label-1-0">
+          <xsl:value-of select="concat($gen-texts//text[@name='warning'], $gen-texts//text[@name='sep0'])"/>
+        </span>
+        <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -2151,7 +2157,8 @@
   <xsl:template match="url" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:value-of select="$gen-texts//text[@name='url']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+        <xsl:value-of select="$gen-texts//text[@name='url']"/><xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+        <xsl:text> </xsl:text>
         <_ufe:url-link>
           <xsl:if test="string(.)">
             <xsl:attribute name="url">

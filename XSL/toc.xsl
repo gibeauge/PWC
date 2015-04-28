@@ -59,6 +59,14 @@
     <xsl:apply-templates mode="del-bookmark"/>
   </xsl:template>
   
+  <xsl:template match="@URL-tmp" mode="del-bookmark">
+    <xsl:if test="../@FileType='FOLDER' and not(../@URL) and ../child::Page[@URL and not(Page) and not(starts-with(normalize-space(@Title), $gen-texts//text[@name='figure']))]">
+      <xsl:attribute name="URL">
+        <xsl:value-of select="."/>
+      </xsl:attribute>
+    </xsl:if>
+  </xsl:template>
+  
   <xsl:template match="@bookmark" mode="del-bookmark"/>
 
   <xsl:template match="*" mode="toc">
@@ -115,6 +123,9 @@
               <xsl:value-of select="concat(@ch:filename, $html-ext, $sharp, $toc/@id)"/>
             </xsl:attribute>
           </xsl:if>
+          <xsl:attribute name="URL-tmp">
+            <xsl:value-of select="concat(@ch:filename, $html-ext, $sharp, $toc/@id)"/>
+          </xsl:attribute>
           
           <xsl:attribute name="FileType">
             <xsl:choose>

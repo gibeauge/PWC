@@ -69,18 +69,18 @@
 .x-callout-1-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-callout-2-0 {margin-left: 0pt; margin-right: 0pt; }
 
-.x-caution-1-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; color: #222222; }
-.x-caution-2-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; color: #222222; }
-.x-caution-3-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; color: #222222; }
-.x-caution-4-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; color: #222222; }
-.x-caution-5-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; color: #222222; }
+.x-caution-1-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -57pt; color: #222222; }
+.x-caution-2-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -57pt; color: #222222; }
+.x-caution-3-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -57pt; color: #222222; }
+.x-caution-4-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -57pt; color: #222222; }
+.x-caution-5-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -57pt; color: #222222; }
 .x-caution-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222; }
 .x-caution-7-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222; }
 .x-caution-8-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222; }
 .x-caution-9-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222; }
 .x-caution-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222; }
-.x-caution-11-0 {margin-right: 0pt; font-weight: bold; margin-left: 62pt; text-indent: -62pt; color: #222222; }
-.x-caution-12-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -63pt; color: #222222; }
+.x-caution-11-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -57pt; color: #222222; }
+.x-caution-12-0 {margin-right: 0pt; font-weight: bold; margin-left: 63pt; text-indent: -57pt; color: #222222; }
 
 .x-caution-wrapper-1-0 {margin-left: 18pt; margin-top: 8pt; padding: 2pt; border: 1px solid #9F6000; background-color: #FEEFB3;}
 .x-caution-wrapper-2-0 {margin-left: 18pt; margin-top: 8pt; padding: 2pt; border: 1px solid #9F6000; background-color: #FEEFB3;}
@@ -477,30 +477,32 @@
 .x-no-street-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 
 .x-body-ipc .x-note-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 70pt; text-indent: -45pt; }
-.x-note-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 61pt; text-indent: -43pt; }
+.x-note-1-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 61pt; text-indent: -43pt; }
 .x-note-1-1 {}
 .x-body-ipc .x-note-2-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 59pt; text-indent: -41pt; }
-.x-note-2-1 {margin-left: 76pt; text-indent: -57pt; }
+.x-note-2-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 61pt; text-indent: -43pt; }
+.x-note-2-1             {margin-left: 76pt; text-indent: -57pt; }
 .x-body-ipc .x-note-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
-.x-note-3-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 61pt; text-indent: -43pt; }
+.x-note-3-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 61pt; text-indent: -43pt; }
 .x-body-ipc .x-note-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
-.x-note-4-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 70pt; text-indent: -45pt; }
+.x-note-4-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 70pt; text-indent: -45pt; }
 .x-note-4-1 {}
-.x-note-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
-.x-note-5-1 {margin-left: 76pt; text-indent: -57pt; }
-.x-note-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
-.x-note-7-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+.x-body-ipc .x-note-5-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+.x-note-5-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 63pt; text-indent: -43pt; }
+.x-note-5-1             {margin-left: 76pt; text-indent: -57pt; }
+.x-note-6-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+.x-note-7-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-body-ipc .x-note-8-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 59pt; text-indent: -41pt; }
-.x-note-8-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
-.x-note-8-1 {margin-left: 76pt; text-indent: -57pt; }
-.x-body-ipc .x-note-9-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 43pt; text-indent: -43pt; }
-.x-note-9-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+.x-note-8-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+.x-note-8-1             {margin-left: 76pt; text-indent: -57pt; }
+.x-body-ipc .x-note-9-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 43pt; text-indent: -38pt; }
+.x-note-9-0             {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
 .x-note-9-1 {}
-.x-note-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
-.x-note-11-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 61pt; text-indent: -43pt; }
+.x-note-10-0            {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }
+.x-note-11-0            {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 61pt; text-indent: -43pt; }
 .x-note-11-1 {}
-.x-note-12-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 43pt; text-indent: -43pt; }
-.x-note-12-1 {margin-left: 55pt; text-indent: -55pt; }
+.x-note-12-0            {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 43pt; text-indent: -43pt; }
+.x-note-12-1            {margin-left: 55pt; text-indent: -55pt; }
 
 .x-note-label-1-0 {font-weight: bold; text-decoration: underline; }
 .x-note-label-2-0 {text-decoration: underline; }
@@ -558,7 +560,7 @@
 .x-para-9-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 18pt; text-indent: 0pt; margin-bottom: 6pt; }
 .x-para-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 18pt; text-indent: -18pt; }
 .x-para-11-0 {margin-left: 0pt; margin-right: 0pt; }
-.x-para-12-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 1.5em; text-indent: -1.5em; }
+.x-para-12-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 36pt; text-indent: -18pt; }
 .x-para-13-0 {margin-left: 0pt; margin-right: 0pt; margin-top: 8pt; }
 .x-para-14-0 {margin-left: 0pt; margin-right: 0pt; margin-top: 8pt; }
 .x-para-15-0 {margin-left: 0pt; margin-right: 0pt; }
@@ -591,10 +593,10 @@
 .x-para-42-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; }
 .x-para-43-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; }
 .x-para-44-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 6pt; margin-bottom: 6pt; }
-.x-para-45-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 18pt; text-indent: -18pt; }
+.x-para-45-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 36pt; text-indent: -18pt; }
 .x-para-46-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; text-align: center; }
 .x-para-47-0 {margin-left: 0pt; margin-right: 0pt; margin-top: 8pt; }
-.x-para-48-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 18pt; text-indent: -18pt; }
+.x-para-48-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 36pt; text-indent: -18pt; }
 .x-para-49-0 {margin-left: 0pt; margin-right: 0pt; }
 .x-para-50-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 18pt; }
 .x-para-51-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 1.5em; margin-bottom: 6pt; }
@@ -1358,18 +1360,18 @@
 .x-vendata-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; margin-left: 18pt; text-indent: 0pt; }
 .x-vendlist-1-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top: 8pt; }
 
-.x-warning-1-0 {margin-right: 0pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; color: #222222;}
-.x-warning-2-0 {margin-right: 0pt; margin-left: 66pt; text-indent: -66pt; color: #222222;}
-.x-warning-3-0 {margin-right: 0pt; font-weight: bold; margin-left: 65pt; text-indent: -65pt; color: #222222;}
-.x-warning-4-0 {margin-right: 0pt; font-weight: bold; margin-left: 67pt; text-indent: -67pt; color: #222222;}
-.x-warning-5-0 {margin-right: 0pt; margin-left: 66pt; text-indent: -66pt; color: #222222;}
+.x-warning-1-0 {margin-right: 0pt; font-weight: bold; margin-left: 66pt; text-indent: -59pt; color: #222222;}
+.x-warning-2-0 {margin-right: 0pt; margin-left: 66pt; text-indent: -59pt; color: #222222;}
+.x-warning-3-0 {margin-right: 0pt; font-weight: bold; margin-left: 66pt; text-indent: -59pt; color: #222222;}
+.x-warning-4-0 {margin-right: 0pt; font-weight: bold; margin-left: 66pt; text-indent: -59pt; color: #222222;}
+.x-warning-5-0 {margin-right: 0pt; margin-left: 66pt; text-indent: -59pt; color: #222222;}
 .x-warning-6-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222;}
 .x-warning-7-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222;}
 .x-warning-8-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222;}
 .x-warning-9-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222;}
 .x-warning-10-0 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; color: #222222;}
-.x-warning-11-0 {margin-right: 0pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; color: #222222;}
-.x-warning-12-0 {margin-right: 0pt; font-weight: bold; margin-left: 6.5em; text-indent: -6.5em; color: #222222;}
+.x-warning-11-0 {margin-right: 0pt; font-weight: bold; margin-left: 66pt; text-indent: -59pt; color: #222222;}
+.x-warning-12-0 {margin-right: 0pt; font-weight: bold; margin-left: 66pt; text-indent: -59pt; color: #222222;}
 
 .x-warning-wrapper-1-0 {margin-top: 8pt; padding: 2pt; border: 1px solid #D8000C; background-color: #FFBABA;}
 .x-warning-wrapper-2-0 {margin-left: 17pt;margin-top: 8pt; padding: 2pt; border: 1px solid #D8000C; background-color: #FFBABA;}

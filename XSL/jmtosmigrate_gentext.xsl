@@ -66,8 +66,7 @@
   <xsl:template match="pgblk/effect" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:value-of select="$gen-texts//text[@name='effect']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
-        <xsl:value-of select="@effrg"/>
+        <xsl:value-of select="concat($gen-texts//text[@name='effect'], $gen-texts//text[@name='sep0'], ' ', @effrg)"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -158,7 +157,8 @@
         <span class="x-note-label-1-0">
           <xsl:value-of select="$gen-texts//text[@name='note']"/>
         </span>
-        <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+        <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+        <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -169,7 +169,8 @@
         <span class="x-note-label-1-0">
           <xsl:value-of select="$gen-texts//text[@name='note']"/>
         </span>
-        <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+        <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+        <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -180,7 +181,8 @@
         <span class="x-note-label-1-0">
           <xsl:value-of select="$gen-texts//text[@name='note']"/>
         </span>
-        <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+        <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+        <xsl:text> </xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
@@ -190,18 +192,20 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="@nbr">
-                <span class="x-note-label-1-0">
-                  <xsl:value-of select="$gen-texts//text[@name='note']"/>
-                </span>
-                <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
-                <xsl:value-of select="@nbr"/>
-                <xsl:text>. </xsl:text>
+            <span class="x-note-label-1-0">
+              <xsl:value-of select="$gen-texts//text[@name='note']"/>
+            </span>
+            <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="@nbr"/>
+            <xsl:text>. </xsl:text>
           </xsl:when>
           <xsl:otherwise>
-                <span class="x-note-label-1-0">
-                  <xsl:value-of select="$gen-texts//text[@name='note']"/>
-                </span>
-                <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+            <span class="x-note-label-1-0">
+              <xsl:value-of select="$gen-texts//text[@name='note']"/>
+            </span>
+            <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+            <xsl:text> </xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -216,7 +220,8 @@
             <span class="x-note-label-1-0">
               <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+            <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+            <xsl:text> </xsl:text>
             <xsl:value-of select="@nbr"/>
             <xsl:text>. </xsl:text>
           </xsl:when>
@@ -224,7 +229,8 @@
             <span class="x-note-label-1-0">
               <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+            <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+            <xsl:text> </xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
@@ -259,7 +265,8 @@
             <span class="x-note-label-1-0">
               <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+            <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+            <xsl:text> </xsl:text>
             <xsl:value-of select="@nbr"/>
             <xsl:text>. </xsl:text>
           </xsl:when>
@@ -267,7 +274,8 @@
             <span class="x-note-label-1-0">
               <xsl:value-of select="$gen-texts//text[@name='note']"/>
             </span>
-            <xsl:value-of select="$gen-texts//text[@name='sep1']"/>
+            <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
+            <xsl:text> </xsl:text>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:with-param>
