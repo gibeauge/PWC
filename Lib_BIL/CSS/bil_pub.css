@@ -29,13 +29,13 @@ img {
 	background: #dddddd;
 }
 
-content a:focus {
+.content a:focus {
 	background: #668899;
 	color:HighlightText;
 	width:100%;		
 }
 
-content a:active {
+.content a:active {
 	background: #668899;
 	color:HighlightText;
 	width:100%;		
@@ -43,6 +43,14 @@ content a:active {
 
 td {
 	font-size: 10pt;
+}
+
+.merge {
+	width: 100%;
+}
+
+.merge td {
+	vertical-align: top;
 }
 
 .s-toc {

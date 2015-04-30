@@ -3,6 +3,40 @@ function outerHTML(node){
     return node.outerHTML || new XMLSerializer().serializeToString(node);
 }
 
+function resizeTables() {
+	var tables = document.getElementsByTagName('table');
+	for (var i = 0; i < tables.length; i++) {
+		var table = tables[i];
+		if (table.className!="merge" && table.width=="100%") {
+			table.width = "90%"
+		}	
+	}
+}
+
+function fixPageBreak() {
+	var div_xmodule = $(".x-module-1-0");
+	if (div_xmodule.length > 0) {
+		div_xmodule[0].className = div_xmodule[0].className + " x-module-1-0-first";
+	}
+	var div_xgraphic = $(".x-graphic-1-0");
+	if (div_xgraphic.length > 0) {
+		div_xgraphic[0].className = div_xgraphic[0].className + " x-graphic-1-0-first";
+	}
+	var div_xfigure = $(".x-figure-1-0");
+	if (div_xfigure.length > 0) {
+		div_xfigure[0].className = div_xfigure[0].className + " x-figure-1-0-first";
+	}
+}
+
+/* Function to call after the print is called */
+function afterPrint(win) {
+	var temp_style = document.getElementById('figureCss');
+	if (temp_style) {
+		var body = temp_style.parentNode;
+		body.removeChild(temp_style);
+	}
+}
+
 /* Custom print function */
 function print_butt(window) {
 		if(window.chrome) {
@@ -11,6 +45,7 @@ function print_butt(window) {
 				return;
 			}
 		}
+		//resizeTables();
 		var r=confirm('Click "OK" to print with the figures. Otherwise, click "Cancel" to only print the text.');
 		if (r==true) {
 			var style = document.createElement('style');
@@ -32,15 +67,6 @@ function print_butt(window) {
 		else {
 			afterPrint(window);
 		}
-}
-
-/* Function to call after the print is called */
-function afterPrint(win) {
-	var sheetToBeRemoved = win.document.getElementById('figureCss');
-	if(sheetToBeRemoved) {
-		var sheetParent = sheetToBeRemoved.parentNode;
-		sheetParent.removeChild(sheetToBeRemoved);
-	}
 }
 
 /*
@@ -122,7 +148,7 @@ var getElementsByClassName = function (className, tag, elm){
 	return getElementsByClassName(className, tag, elm);
 };
 
-function fixPageBreak(){
+function fixPageBreak_(){
 	if(getElementsByClassName('x-module-1-0','div',document).length > 0) {
 		getElementsByClassName('x-module-1-0','div',document)[0].className = getElementsByClassName('x-module-1-0','div',document)[0].className + " x-module-1-0-first";
 	}	

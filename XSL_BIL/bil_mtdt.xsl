@@ -14,36 +14,25 @@
 	</xsl:variable> 
 
 	<xsl:template match="/">
-		<html>
-			<head>
-			</head>
-			<body>
-				<xsl:apply-templates/>
-			</body>
-		</html>
+		<xsl:apply-templates/>
 	</xsl:template>
 
 	<xsl:template match="Metadatas">
-		<div id="content">
+		<div id="banner">
 			<img src="images/pwcbanner.jpg" id="banner_img"/>
 			<div class="metadata">
 				<div class="print_header">
-					<xsl:apply-templates select="Title"/><br /><br />
 					PRATT &amp; WHITNEY CANADA
 				</div>
 				<xsl:apply-templates select="Title"/><br />
 				MODEL(S) <xsl:value-of select="upper-case(EngineModels)" /><br />
-				Manual Part No. <xsl:apply-templates select="PartNo" />, Revision No. <xsl:apply-templates select="RevisionNo"/>, Dated <xsl:value-of select="format-date(xs:date($g-date),'[MN,*-3] [D01]/[Y0001]', 'en', (), ())"/><br />
-				<hr class="print_header" size = "1px"/>
+				<div class="manual-pt-no">Manual Part No. <xsl:apply-templates select="PartNo" />, Revision No. <xsl:apply-templates select="RevisionNo"/>, Dated <xsl:value-of select="format-date(xs:date($g-date),'[MN,*-3] [D01]/[Y0001]', 'en', (), ())"/></div>
 			</div>
-			
 		</div>
 	</xsl:template>
 
 	<xsl:template match="*">
 		<xsl:copy-of select="text()" />
 	</xsl:template>
-
-
 
 </xsl:stylesheet>

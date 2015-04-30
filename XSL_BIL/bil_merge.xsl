@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:exslt="http://exslt.org/common"
                 version="2.0">
 
 <xsl:output method="html" indent="no"/>
@@ -12,7 +13,86 @@
 <xsl:variable name="prefix" select="concat($lang-trad,'_')"/>
 
 <xsl:template match="/">
-  <xsl:apply-templates/>
+  <xsl:variable name="tree1">
+    <xsl:apply-templates/>
+  </xsl:variable>
+  <xsl:apply-templates select="exslt:node-set($tree1)" mode="proc-tables"/>
+</xsl:template>
+
+<xsl:template match="@*|node()" mode="proc-tables">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()" mode="proc-tables"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="table[@class='merge']/tbody/tr" mode="proc-tables">
+  <xsl:choose>
+    <xsl:when test="td[1]//table[@size]">
+      <xsl:variable name="div-id-orig" select="td[1]//div[@class='pr-tbl' and .//table[@size] and not(following-sibling::*)]/@id"/>
+      <xsl:choose>
+        <xsl:when test="$div-id-orig">
+          <xsl:variable name="div-id-trad" select="concat($prefix, $div-id-orig)"/>
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()" mode="proc-tables-rem">
+              <xsl:with-param name="ids-del" select="concat($div-id-orig, '|', $div-id-trad, '|')"/>
+            </xsl:apply-templates>
+          </xsl:copy>
+          <tr>
+            <td><xsl:apply-templates select=".//div[@id=$div-id-orig]" mode="proc-tables-add"/></td>
+            <td><xsl:apply-templates select=".//div[@id=$div-id-trad]" mode="proc-tables-add"/></td>
+          </tr>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()" mode="proc-tables"/>
+          </xsl:copy>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:copy>
+        <xsl:apply-templates select="@*|node()" mode="proc-tables"/>
+      </xsl:copy>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="@*|node()" mode="proc-tables-rem">
+  <xsl:param name="ids-del"/>
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()" mode="proc-tables-rem">
+      <xsl:with-param name="ids-del" select="$ids-del"/>
+    </xsl:apply-templates>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="div[@class='pr-tbl']" mode="proc-tables-rem">
+  <xsl:param name="ids-del"/>
+  <xsl:choose>
+    <xsl:when test="contains($ids-del, concat(@id, '|'))"></xsl:when>
+    <xsl:otherwise>
+      <xsl:copy>
+        <xsl:apply-templates select="@*|node()" mode="proc-tables-rem"/>
+      </xsl:copy>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="@*|node()" mode="proc-tables-add">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()" mode="proc-tables-add"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="table" mode="proc-tables-add">
+  <xsl:variable name="size" select="count(colgroup/col)"/>
+  <xsl:copy>
+    <xsl:apply-templates select="@*[not(name()='size') and not(name()='class')]"/>
+    <xsl:attribute name="class">
+      <xsl:value-of select="if (@class) then concat(@class,' ',concat('x-table-big-',$size)) else concat('x-table-big-',$size)"/>
+    </xsl:attribute>
+    <xsl:apply-templates select="node()" mode="proc-tables-add"/>
+  </xsl:copy>
 </xsl:template>
 
 <xsl:template match="@*|node()">
@@ -42,7 +122,7 @@
     <xsl:if test="@id and key('k-id',concat($prefix,@id))">
       <span id="{concat($prefix,@id)}"/>
     </xsl:if>
-    <table style="width:100%">
+    <table class="merge">
       <colgroup>
         <col style="width:53%"/>
         <col style="width:47%"/>
@@ -56,12 +136,12 @@
 
 <xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-title')]" priority="5">
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <xsl:call-template name="get-translated-object"/>
     </td>
   </tr>
@@ -74,14 +154,14 @@
 <xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-list1-')]/table[contains(@class,'x-l1item')]" priority="5">
   <xsl:variable name="class" select="@class"/>
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <div class="{../@class}">
         <xsl:copy>
           <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
       </div>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <div class="{../@class}">
         <xsl:call-template name="get-translated-object">
           <xsl:with-param name="from-parent" select="'1'"/>
@@ -99,7 +179,7 @@
     <xsl:if test="@id and key('k-id',concat($prefix,@id))">
       <span id="{concat($prefix,@id)}"/>
     </xsl:if>
-    <table style="width:100%">
+    <table class="merge">
       <colgroup>
         <col style="width:53%"/>
         <col style="width:47%"/>
@@ -113,12 +193,12 @@
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'task-postspace')]" priority="5">
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <xsl:call-template name="get-translated-object">
         <xsl:with-param name="from-parent" select="'1'"/>
         <xsl:with-param name="class" select="@class"/>
@@ -129,12 +209,12 @@
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-title')]" priority="5">
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <xsl:call-template name="get-translated-object"/>
     </td>
   </tr>
@@ -143,12 +223,12 @@
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-warning-wrapper') or contains(@class,'x-caution-wrapper')]" priority="5">
   <xsl:variable name="class" select="@class"/>
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <xsl:call-template name="get-translated-object">
         <xsl:with-param name="from-parent" select="'1'"/>
         <xsl:with-param name="class" select="@class"/>
@@ -160,12 +240,12 @@
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-subtask-')]" priority="5">
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <xsl:call-template name="get-translated-object"/>
     </td>
   </tr>
@@ -177,14 +257,14 @@
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-tfmatr')]/div[contains(@class,'x-tprereq')]" priority="5">
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <div class="{../@class}">
         <xsl:copy>
           <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
       </div>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <div class="{../@class}">
         <xsl:call-template name="get-translated-object"/>
       </div>
@@ -194,12 +274,12 @@
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-taskproc')]" priority="5">
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <xsl:call-template name="get-translated-object"/>
     </td>
   </tr>
@@ -207,7 +287,7 @@
 
 <xsl:template match="div[contains(@class, 'x-task-')]/*" priority="1">
   <tr>
-    <td colspan="2" style="vertical-align:top">
+    <td colspan="2">
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
@@ -250,7 +330,7 @@
     <xsl:if test="@id and key('k-id',concat($prefix,@id))">
       <span id="{concat($prefix,@id)}"/>
     </xsl:if>
-    <table style="width:100%">
+    <table class="merge">
       <colgroup>
         <col  style="width:53%"/>
         <col  style="width:47%"/>
@@ -264,12 +344,12 @@
 
 <xsl:template match="div[contains(@class,'x-lof-1')]/div[contains(@class,'x-lof-item')]" priority="5">
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <xsl:call-template name="get-translated-object"/>
     </td>
   </tr>
@@ -277,12 +357,12 @@
 
 <xsl:template match="div[contains(@class,'x-lof-1')]/div[contains(@class,'x-title')]" priority="5">
   <tr>
-    <td style="vertical-align:top">
+    <td>
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
-    <td style="vertical-align:top">
+    <td>
       <xsl:call-template name="get-translated-object"/>
     </td>
   </tr>
@@ -290,12 +370,19 @@
 
 <xsl:template match="div[contains(@class, 'x-lof-1')]/*" priority="1">
   <tr>
-    <td colspan="2" style="color:green">
+    <td colspan="2">
       <xsl:copy>
         <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
     </td>
   </tr>
+</xsl:template>
+
+<xsl:template match="div[@class='pr-tbl']//table[count(colgroup/col)>=4 or count(tbody/tr)>=10]">
+  <xsl:copy>
+    <xsl:attribute name="size"><xsl:value-of select="count(colgroup/col)"/></xsl:attribute>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
 </xsl:template>
 
 <!-- Remove translated content from file -->

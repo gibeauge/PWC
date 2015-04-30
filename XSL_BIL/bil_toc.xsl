@@ -54,8 +54,8 @@
         });
      
         //Add Metadata
-        $("#load_home").ready(function() {
-          $("#load_content").load("metadata.html");
+        $("#load_banner").ready(function() {
+          $("#pane_banner").load("metadata.html");
         });
       });
       </script>
@@ -67,10 +67,8 @@
 </xsl:template>
 
 <xsl:template match="Structure">
-  <div class="ui-layout-north banner" id="load_home">
-    <div id="topBar">
-      <div id="load_content">#</div>
-    </div>
+  <div class="ui-layout-north banner" id="load_banner">
+    <div id="pane_banner">#</div>
   </div>
   <div class="ui-layout-center">
     <div class="ui-layout-north nav">
@@ -88,10 +86,7 @@
   
   <!-- FOOTER -->
   <div class="ui-layout-south">
-    <div id="print_footer">
-      <hr class="print_header" size = "1px"/>
-      Printed on: <xsl:value-of select="format-date(xs:date(current-date()),'[D01] [MN,*-3]/[Y0001]', 'en', (), ())" /> P<xsl:text disable-output-escaping="yes">&amp;</xsl:text>WC Proprietary - subject to restrictions in Technical Data Agreement
-    </div>
+    <div class="footer">Printed on: <xsl:value-of select="format-date(xs:date(current-date()),'[D01] [MN,*-3]/[Y0001]', 'en', (), ())" /> P<xsl:text disable-output-escaping="yes">&amp;</xsl:text>WC Proprietary - subject to restrictions in Technical Data Agreement</div>
   </div>
   
   <div class="ui-layout-west">

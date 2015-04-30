@@ -1,144 +1,164 @@
 
+/* CSS for screen only */
 /* Hide header and footer on screen */
  @media screen {
-  .print_header{ display:none;}
-  .ui-layout-pane-south, #print_footer {
-		display:	none		!important;
-				
-	}
-	
+    .ui-layout-pane-south, #pane_footer {
+        display:    none        !important;
+    }
+    
+    .metadata {
+        padding-top: 10px;
+    }
+    
+    .print_header {
+        display: none;
+    }
+    
+    .print_sep_top, .print_sep_bottom {
+        display: none;
+    }
  } 
  
  /* CSS for printing only */
  @media print {
-	/**
-	 *	PRINT Stylesheet
-	 * 
-	 *	First 'neutralize' all the positioning/overflow CSS added by Layout
-	 *	Then change or add cosmetic styles (borders, padding) for printing
-	 *
-	 *	MUST use "!important" for all size, position, margin & overflow rules,
-	 *	so these will 'override' styles applied to the elements by Layout
-	 */
 
-	 /* Fix text cut on the right side 
-	#pane_content > tbody > tr > td > div { width:95%;}
-	#contentWrapperPrint > tbody > tr > td { vertical-align: top;}*/
-	
-	 .metadata {  
-		font-weight:  bold;
-	}
-	 
+    html, body {
+        /* NEUTRALIZE 'layout container' styles */
+        overflow:   visible     !important; 
+        width:      auto        !important;
+        height:     auto        !important;
+        position:   static      !important;
+    }
+    
+    .ui-layout-pane, .ui-layout-resizer, .ui-layout-toggler {
+        display:    none        !important;
+        position:   relative    !important;
+        top:        auto        !important;
+        bottom:     auto        !important;
+        left:       auto        !important;
+        right:      auto        !important;
+        width:      auto        !important;
+        height:     auto        !important;
+        overflow:   visible     !important;
+    }
 
-	#banner_img{
-		display:	none;
-	}
-	 
-	.menu {
-		display: 	none;
-	}
-	
-	html, body {
-		/* NEUTRALIZE 'layout container' styles */
-		overflow:	visible 	!important; 
-		width:		auto		!important;
-		height:		auto		!important;
-		position:	static		!important;
-	}
-	.ui-layout-pane ,
-	.ui-layout-resizer ,
-	.ui-layout-toggler {
-		/* NEUTRALIZE 'layout element' styles */
-		display:	none		!important; /* hide ALL by default */
-		position:	relative	!important;
-		top:		auto		!important;
-		bottom:		auto		!important;
-		left:		auto		!important;
-		right:		auto		!important;
-		width:		auto		!important;
-		height:		auto		!important;
-		overflow:	visible		!important;
-	}
-	/* SHOW ONLY the panes you want */
-	/*
-	.ui-layout-pane-south ,
-	.ui-layout-pane-east ,*/
-	.ui-layout-pane-north {
-		display:	table-header-group		!important;
-		border-bottom: 1px solid #000;
-		text-align:center;
-		padding-bottom:2px;
-		font-weight:bold;
-		color:#000 !important;
-				
-	}
-	.ui-layout-pane-center {
-		display:	table-row-group			!important;
-		/* OPTIONAL: change cosmetic styles as desired
-		border:		0			!important;
-		padding:	0			!important;
-		background:	transparent	!important;
-		*/
-	}
-	.ui-layout-pane-south {
-		display:			table-footer-group		!important;
-		font-weight:bold;
-		border-top: 1px solid #000;
-		text-align:center;
-		font-size:0.8em;
-		padding:5px;
-		margin:5px;
-		color:#000 !important;
-		
-	}
-	
-	.ui-layout-pane-north .print_header{
-		font-size:1.1em;
-		margin:0px;
-		padding:0px;
-		
-	}
-	
-	
-	/* Hide second title of the figures */
-	.x-graphic-2-0 > div[class*="x-title"], .x--ufe-fig-title-1-0 {
-		display:none;
-	}
-	/* Remove vertical lines */
-	.x-figure-1-0 .x-sheet-1-1, .x-figure-1-0 .x-graphic-1-1, .x-graphic-2-0 .x-sheet-1-1, .x-graphic-1-0 .x-sheet-1-0 {
-		border:0px !important;
-	}	
-	/* Remove id below figure */
-	.x-figure-1-0 img + div, .x-graphic-2-0 img + div, .x-graphic-1-0 img + div {
-		display:none !important;
-	}
-	/* Add page break after every module and figure */
-	.x-module-1-0  {
-		page-break-before:always;
-	}
-	.x-figure-1-0  {
-		page-break-before:always;
-		margin-top:0px;
-	}
-	.x-task-1-0 .x-graphic-1-0  {
-		page-break-before:always;
-		margin-top:0px !important;
-	}	
-	/* Fix page break caused by some margins and long titles when printing figures */
-	.x-task-1-0 .x-graphic-1-0 > div[class*="x-title"], .x-task-1-0 .x-graphic-1-0 .x-sheet-1-0  {
-		margin-top:0px !important;
-	}
-	.x-task-1-0 .x-graphic-1-0 > div[class*="x-title"] {
-		font-size:12pt;
-	}
-	/* Do not put a page break after the first module or figure of the page */
-	.x-module-1-0-first, .x-figure-1-0-first, .x-task-1-0 .x-graphic-1-0-first{
-		page-break-before:auto !important;
-	}
+    #pane_content { 
+        width: 98%;
+    }
+    
+    .metadata {
+        font-weight: bold;
+        padding-bottom: 5px;
+    }
+    
+    .manual-pt-no {
+    	padding-bottom: 5px;
+    	border-bottom: 1px solid black;
+    }
 
-	/* Display all tables */
-	div[class*="x-table"] {
-		display: block				!important;
-	}
+    #banner_img, .menu {
+        display: none;
+    }
+    
+    .ui-layout-pane-north {
+        display:    table-header-group      !important;
+        border-bottom: 1px solid #000;
+        text-align:center;
+        padding-bottom:2px;
+        font-weight:bold;
+        color:#000 !important;
+                
+    }
+    .ui-layout-pane-center {
+        display:    table-row-group         !important;
+        /* OPTIONAL: change cosmetic styles as desired
+        border:     0           !important;
+        padding:    0           !important;
+        background: transparent !important;
+        */
+    }
+    .ui-layout-pane-south {
+        display:            none        !important;
+        font-weight:bold;
+        text-align:center;
+        font-size:0.8em;
+        padding:5px;
+        margin:5px;
+        color:#000 !important;
+        
+    }
+    
+    .ui-layout-pane-north .print_header{
+        font-size:1.1em;
+        margin:0px;
+        padding:0px;
+        
+    }
+    
+    .footer {
+        padding-top: 5px;
+        border-top: 1px solid black;
+    }
+    
+    /* Hide second title of the figures */
+    .x-graphic-2-0 > div[class*="x-title"], .x--ufe-fig-title-1-0 {
+        display:none;
+    }
+    /* Remove vertical lines */
+    .x-figure-1-0 .x-sheet-1-1, .x-figure-1-0 .x-graphic-1-1, .x-graphic-2-0 .x-sheet-1-1, .x-graphic-1-0 .x-sheet-1-0 {
+        border:0px !important;
+    }   
+    /* Remove id below figure */
+    .x-figure-1-0 img + div, .x-graphic-2-0 img + div, .x-graphic-1-0 img + div {
+        display:none !important;
+    }
+    /* Add page break after every module and figure */
+    .x-module-1-0  {
+        page-break-before:always;
+    }
+    .x-figure-1-0  {
+        page-break-before:always;
+        margin-top:0px;
+    }
+    .x-task-1-0 .x-graphic-1-0  {
+        page-break-before:always;
+        margin-top:0px !important;
+    }   
+    /* Fix page break caused by some margins and long titles when printing figures */
+    .x-task-1-0 .x-graphic-1-0 > div[class*="x-title"], .x-task-1-0 .x-graphic-1-0 .x-sheet-1-0  {
+        margin-top:0px !important;
+    }
+    .x-task-1-0 .x-graphic-1-0 > div[class*="x-title"] {
+        font-size:12pt;
+    }
+    /* Do not put a page break after the first module or figure of the page */
+    .x-module-1-0-first, .x-figure-1-0-first, .x-task-1-0 .x-graphic-1-0-first{
+        page-break-before:auto !important;
+    }
+
+    /* Display all tables */
+    div[class*="x-table"] {
+        display: block              !important;
+    }
+    
+    table[class*="x-table-big"] {
+        clear: left !important;
+        margin-left: 0pt !important;
+    }
+    
+    table[class*="x-table-big"] td {
+        font-size: 8pt              !important;
+    }
+    table[class*="x-table-big"] th {
+        font-size: 8pt              !important;
+    }
+    
+    table[class*="x-table-big"] .x-para {
+        margin-right: 0pt;
+        text-indent: 0pt;
+        margin-top: 3pt             !important;
+        margin-left: 3pt            !important;
+    }
+
 
  }
