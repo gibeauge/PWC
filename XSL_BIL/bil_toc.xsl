@@ -18,6 +18,7 @@
     <head>
       <link href="css/content.css" rel="stylesheet" type="text/css" />
       <link href="css/jstree.css" rel="stylesheet" type="text/css" />
+      <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
       <link href="css/bil_pub.css" rel="stylesheet" type="text/css" />
       <link href="css/printer.css" rel="stylesheet" type="text/css" />
       <script type="text/javascript" src="js/jquery-1.11.2.min.js"> // JS </script>
@@ -65,9 +66,11 @@
 </xsl:template>
 
 <xsl:template match="Structure">
+  <!-- HEADER -->
   <div class="ui-layout-north banner" id="load_banner">
     <div id="pane_banner">#</div>
   </div>
+  <!-- CONTENT -->
   <div class="ui-layout-center">
     <div class="ui-layout-north nav">
       <ul class="menu">
@@ -81,20 +84,18 @@
       <div id="pane_content">&#160;</div>
     </div>
   </div>
-  
   <!-- FOOTER -->
   <div class="ui-layout-south">
     <div class="footer">Printed on: <xsl:value-of select="format-date(xs:date(current-date()),'[D01] [MN,*-3]/[Y0001]', 'en', (), ())" /> P<xsl:text disable-output-escaping="yes">&amp;</xsl:text>WC Proprietary - subject to restrictions in Technical Data Agreement</div>
   </div>
-  
+  <!-- TOC -->
   <div class="ui-layout-west">
     <div id="toc" class="s-toc"></div>
  
     <script type="text/javascript">
   // Print function
   function print_page(){
-    print_butt(window);
-    
+    bil_print_dialog();
   }
   
   // Create a new style node in head section to hide images and Print
