@@ -8,14 +8,29 @@
 <xsl:variable name="lang-orig"   select="if (/*/@lang) then upper-case(/*/@lang) else 'EN'"/>
 <xsl:variable name="texts"       select="document('bil_texts.xml')//texts[@language=$lang-orig]"/>
 
+<!--
 <xsl:template match="/">
   <xsl:apply-templates/>
 </xsl:template>
+-->
 
 <xsl:template match="@*|node()">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
+</xsl:template>
+
+<xsl:template match="/">
+  <html lang="{$lang-orig}">
+    <xsl:copy-of select="/*/head"/>
+    <body>
+      <div>
+      <xsl:copy-of select="/*/body/@*"/>
+      <xsl:apply-templates select="/*/body/node()"/>
+      </div>
+      <xsl:copy-of select="/*/body//script"/>
+    </body>
+  </html>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'pwc-cgp-stmnt')]">

@@ -48,10 +48,6 @@
 <xsl:template match="div[@id='pwcmetainfo']"/>
 <xsl:template match="div[@id='pwcbannerinfo']"/>
 
-<!--  do not change metadata IDs -->
-<!--
-<xsl:template match="@id[not(ancestor-or-self::*[@id='pwcmetainfo' or @id='pwcbannerinfo'])]">
--->
 <xsl:template match="@id">
   <xsl:attribute name="id">
     <xsl:value-of select="concat($prefix,.)"/>

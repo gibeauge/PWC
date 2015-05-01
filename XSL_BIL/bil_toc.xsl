@@ -26,10 +26,8 @@
       <script type="text/javascript" src="js/jquery.layout-1.4.3.min.js"> // JS </script>
       <script type="text/javascript" src="js/jstree-3.0.9.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.ba-bbq.min.js"> // JS </script>
-      <script type="text/javascript" src="js/jquery.inview2.min.js"> // JS </script>
       <script type="text/javascript" src="js/pwcdisplay.js"> // JS </script>
 	  <script type="text/javascript" src="js/printer.js"> // JS </script>
-	  <!--script type="text/javascript" src="js/toolbar.js"> // JS </script-->
       <script type="text/javascript">
       var main_layout;
       $(document).ready(function () {
