@@ -39,8 +39,8 @@
         overflow:   visible     !important;
     }
 
-    #pane_print { 
-        width: 98%;
+    #pane_print_content { 
+        width: 95%;
     }
     
     .metadata {
@@ -118,13 +118,45 @@
         margin-top: 0px 		!important;
     }
     .x-task-1-0 .pr-figure > div[class*="x-title"] {
-        font-size: 11pt 		!important;
+        font-size: 12pt 		!important;
+    }
+
+	.pr-brk-after, .pr-key-brk {
+        page-break-after: always;
+    }
+    
+    .pr-figure-min {
+    	display: none;			!important;
     }
 
     /* Display all tables */
-    div[class*="x-table"] {
+    div[class*="x-table"],  div[class*="x-key"] {
         display: block          !important;
+        font-size: 9pt 			!important;
     }
+    
+    div[class*="x-table"] .x-para, div[class*="x-key"] .x-para {
+        margin-top: 5pt 		!important;
+        margin-left: 5pt 		!important;
+    }
+
+	div[class*="x-caution-wrapper"] {
+        width: 90%;
+        page-break-inside: avoid;
+    }
+    
+    div[class*="x-warning-wrapper"] {
+        width: 90%;
+        page-break-inside: avoid;
+    }
+    
+    div[class*="x-note"] {
+        width: 90%;
+    }
+
+	.pr-figure img {
+		width: 100%;
+	}
 
 	/*
 	table[border="1"] {

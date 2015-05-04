@@ -218,22 +218,26 @@
 <xsl:template match="div[contains(@class, 'x-graphic-')]/*/div[contains(@class, 'x-title-')]" priority="5">
   <xsl:copy>
   	<xsl:apply-templates select="@*|node()"/>
-    <xsl:text> / </xsl:text>
-    <xsl:call-template name="get-translated-object">
-      <xsl:with-param name="text-only" select="'1'"/>
-    </xsl:call-template>
+    <span class="graphic-title-trans">
+      <xsl:text> / </xsl:text>
+      <xsl:call-template name="get-translated-object">
+        <xsl:with-param name="text-only" select="'1'"/>
+      </xsl:call-template>
+    </span>
   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="div[contains(@class, 'x-graphic-')]/*/div[contains(@class, 'block-prespace')]" priority="5">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
-    <xsl:text> / </xsl:text>
-    <xsl:call-template name="get-translated-object">
-      <xsl:with-param name="from-parent" select="'1'"/>
-      <xsl:with-param name="class" select="'block-prespace'"/>
-      <xsl:with-param name="text-only" select="'1'"/>
-    </xsl:call-template>
+    <span class="graphic-title-trans">
+      <xsl:text> / </xsl:text>
+      <xsl:call-template name="get-translated-object">
+        <xsl:with-param name="from-parent" select="'1'"/>
+        <xsl:with-param name="class" select="'block-prespace'"/>
+        <xsl:with-param name="text-only" select="'1'"/>
+      </xsl:call-template>
+    </span>
   </xsl:copy>
 </xsl:template>
 

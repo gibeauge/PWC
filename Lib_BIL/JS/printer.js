@@ -1,33 +1,4 @@
 
-function resizeTables() {
-	var tables = document.getElementsByTagName('table');
-	for (var i = 0; i < tables.length; i++) {
-		var table = tables[i];
-		if (table.className!="merge" && table.width=="100%") {
-			table.width = "95%"
-		}	
-	}
-}
-
-function fixPageBreak() {
-	var div_xmodule = $(".x-module-1-0");
-	if (div_xmodule.length > 0) {
-		div_xmodule[0].className = div_xmodule[0].className + " x-module-1-0-first";
-	}
-	var div_xgraphic = $(".x-graphic-1-0");
-	if (div_xgraphic.length > 0) {
-		if (div_xgraphic[0].parentNode.className.indexOf("x-ata-page-block-1-0")!=-1 || div_xgraphic[0].parentNode.className.indexOf("x-ipc-fig-1-0")!=-1) {
-			div_xgraphic[0].className = div_xgraphic[0].className + " x-graphic-1-0-first";
-		}
-	}
-	var div_xfigure = $(".x-figure-1-0");
-	if (div_xfigure.length > 0) {
-		if (div_xfigure[0].parentNode.className.indexOf("x-ata-page-block-1-0")!=-1 || div_xfigure[0].parentNode.className.indexOf("x-ipc-fig-1-0")!=-1) {
-			div_xfigure[0].className = div_xfigure[0].className + " x-figure-1-0-first";
-		}
-	}
-}
-
 /* Custom print function */
 function bil_print_dialog() {
 	$("body").append("<div id='dialog-print'></div>");
@@ -87,6 +58,7 @@ function bil_print(src_lang, print_images) {
     $("#pane_print").append("<div id='pane_print_content'>" + $("#pane_content .x-body").wrap('<p/>').parent().html() + "</div>");
     if (src_lang) {
         $("#pane_print_content .merge-c2").remove();
+        $("#pane_print_content .graphic-title-trans").remove();
     }
     else {
         $("#pane_print_content .merge-c1").remove();
@@ -94,7 +66,7 @@ function bil_print(src_lang, print_images) {
     $("#pane_print_content .merge > tbody > tr > td").children().unwrap().unwrap().unwrap().unwrap();
     //$("#pane_print").append("<div id='pane_print_footer'>" + $(".footer").wrap('<p/>').parent().html() + "</div>");
 
-	//resizeTables();
+	resizeTables();
 	
 	if (print_images) {
 		var style = document.createElement('style');
@@ -115,6 +87,38 @@ function bil_print(src_lang, print_images) {
 	}
 	else {
 		afterPrint();
+	}
+}
+
+function resizeTables() {
+	var tables = document.getElementsByTagName('table');
+	for (var i = 0; i < tables.length; i++) {
+		var table = tables[i];
+		if (table.className!="merge" && table.width=="100%") {
+            table.width = "90%"
+        }
+        else if (table.className.indexOf("x--zero-left-margins") > -1) {
+            table.width = "90%"
+        }
+	}
+}
+
+function fixPageBreak() {
+	var div_xmodule = $(".x-module-1-0");
+	if (div_xmodule.length > 0) {
+		div_xmodule[0].className = div_xmodule[0].className + " x-module-1-0-first";
+	}
+	var div_xgraphic = $(".x-graphic-1-0");
+	if (div_xgraphic.length > 0) {
+		if (div_xgraphic[0].parentNode.className.indexOf("x-ata-page-block-1-0")!=-1 || div_xgraphic[0].parentNode.className.indexOf("x-ipc-fig-1-0")!=-1) {
+			div_xgraphic[0].className = div_xgraphic[0].className + " x-graphic-1-0-first";
+		}
+	}
+	var div_xfigure = $(".x-figure-1-0");
+	if (div_xfigure.length > 0) {
+		if (div_xfigure[0].parentNode.className.indexOf("x-ata-page-block-1-0")!=-1 || div_xfigure[0].parentNode.className.indexOf("x-ipc-fig-1-0")!=-1) {
+			div_xfigure[0].className = div_xfigure[0].className + " x-figure-1-0-first";
+		}
 	}
 }
 
