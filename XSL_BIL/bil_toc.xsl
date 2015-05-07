@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 
+  File        : bil_toc.xsl
+  Author      : Gilles Beaugeais (euroscript Canada for PWC Canada)
+  Description : Generate HTML TOC from Structure.xml file, and Javascript for navigation
+-->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 version="2.0">
@@ -74,10 +80,10 @@
   <div class="ui-layout-center">
     <div class="ui-layout-north nav">
       <ul class="menu">
-        <li><a id="home" href="#" title="Home"><img src="CSS/home.gif" /></a></li>
-        <li><a id="prev" href="#" title="Go Back"><img src="CSS/e_back.gif" /></a></li>
-        <li><a id="next" href="#" title="Go Forward"><img src="CSS/e_forward.gif" /></a></li>
-        <li><a href="#" id="print" title="Print" onclick="print_page()"><img src="CSS/print.gif" /></a></li>
+        <li><a id="home" href="#" title="Home"><img src="CSS/images/home.gif" /></a></li>
+        <li><a id="prev" href="#" title="Go Back"><img src="CSS/images/e_back.gif" /></a></li>
+        <li><a id="next" href="#" title="Go Forward"><img src="CSS/images/e_forward.gif" /></a></li>
+        <li><a href="#" id="print" title="Print" onclick="print_page()"><img src="CSS/images/print.gif" /></a></li>
       </ul>
     </div>
     <div class="ui-layout-center content">
@@ -149,16 +155,16 @@
   // Change icon when selection a node when it is a folder
   $("#toc").bind("changed.jstree", function (event, data) {
     var icon_path = data.node.icon;
-    if (icon_path == "./css/toc_closed_files.gif") {
+    if (icon_path == "./css/images/toc_closed_files.gif") {
       data.instance.open_node(data.node);
     }
-    else if (icon_path == "./css/toc_closed.gif") {
+    else if (icon_path == "./css/images/toc_closed.gif") {
       data.instance.open_node(data.node);
     }
-    else if (icon_path == "./css/toc_open_files.gif" <xsl:text disable-output-escaping="yes">&amp;&amp;</xsl:text> !reloadContentOnly) {
+    else if (icon_path == "./css/images/toc_open_files.gif" <xsl:text disable-output-escaping="yes">&amp;&amp;</xsl:text> !reloadContentOnly) {
       data.instance.close_node(data.node);
     }
-    else if (icon_path == "./css/toc_open.gif" <xsl:text disable-output-escaping="yes">&amp;&amp;</xsl:text> !reloadContentOnly) {
+    else if (icon_path == "./css/images/toc_open.gif" <xsl:text disable-output-escaping="yes">&amp;&amp;</xsl:text> !reloadContentOnly) {
       data.instance.close_node(data.node);
     }
     
@@ -233,14 +239,14 @@
   // Change icon when opening a folder
   $("#toc").on("open_node.jstree", function(event, data) {
     var icon_path = data.node.icon;
-    if (icon_path == "./css/toc_closed_files.gif") {
-      icon_path = "./css/toc_open_files.gif"
+    if (icon_path == "./css/images/toc_closed_files.gif") {
+      icon_path = "./css/images/toc_open_files.gif"
     }
-    else if (icon_path == "./css/toc_closed.gif") {
-      icon_path = "./css/toc_open.gif"
+    else if (icon_path == "./css/images/toc_closed.gif") {
+      icon_path = "./css/images/toc_open.gif"
     }
     else {
-      icon_path = "./css/toc_open.gif"
+      icon_path = "./css/images/toc_open.gif"
     }
     data.instance.set_icon(data.node,icon_path);
   });
@@ -248,14 +254,14 @@
   // Change icon when closing a folder
   $("#toc").on("close_node.jstree", function(event, data) {
     var icon_path = data.node.icon;
-    if (icon_path == "./css/toc_open_files.gif") {
-      icon_path = "./css/toc_closed_files.gif"
+    if (icon_path == "./css/images/toc_open_files.gif") {
+      icon_path = "./css/images/toc_closed_files.gif"
     }
-    else if (icon_path == "./css/toc_open.gif") {
-      icon_path = "./css/toc_closed.gif"
+    else if (icon_path == "./css/images/toc_open.gif") {
+      icon_path = "./css/images/toc_closed.gif"
     }
     else {
-      icon_path = "./css/toc_closed.gif"
+      icon_path = "./css/images/toc_closed.gif"
     }
     data.instance.set_icon(data.node,icon_path);
   });
@@ -376,9 +382,9 @@
   <xsl:variable name="title" select="replace(@Title,$dquot,concat('\\',$dquot))"/>
   <xsl:variable name="icon">
     <xsl:choose>
-    <xsl:when test="($ftype='FOLDER' and @URL) or ($ftype='FILE' and $title='List of Figures') or ($ftype='FILE' and .//Page[@FileType='FILE'])">./css/toc_closed_files.gif</xsl:when>
-    <xsl:when test="$ftype='FILE' or $ftype='IMAGE'">./css/toc_file.gif</xsl:when>
-      <xsl:otherwise>./css/toc_closed.gif</xsl:otherwise>
+    <xsl:when test="($ftype='FOLDER' and @URL) or ($ftype='FILE' and $title='List of Figures') or ($ftype='FILE' and .//Page[@FileType='FILE'])">./css/images/toc_closed_files.gif</xsl:when>
+    <xsl:when test="$ftype='FILE' or $ftype='IMAGE'">./css/images/toc_file.gif</xsl:when>
+      <xsl:otherwise>./css/images/toc_closed.gif</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
   {

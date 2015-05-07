@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 
+  File        : bil_title-page.xsl
+  Author      : Gilles Beaugeais (euroscript Canada for PWC Canada)
+  Description : Add title page message for translation
+-->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="2.0">
 

@@ -6,34 +6,11 @@ var revisionColor = "#DDDDDD";
 
 //var sbspbPrefix = "http://webtop.pwc.ca/ecmwebtop65/custom/pwcgui/corp/library/getDCTMdoc/getDCTMdoc.jsp?docbase=techpubs&";  // original line
 var sbspbPrefix = "/technical-publications/bulletins/show/"; // SR170565: modified line
-var soaDisclaimerPath = "/soaDisclaimer.txt";
-var graphicDisclaimerPath = "/graphicDisclaimer.txt";
+
 var graphicDisclaimer = 'P&amp;WC Proprietary - subject to restrictions in Technical Data Agreement';
-var soaDisclaimer = "This manual contains proprietary information of Pratt " + 
-"&amp; Whitney Canada Corp. (  P&amp;WC  ), which P&amp;WC provides in " +
-"confidence and solely for the purposes of supporting engine certification " +
-"and providing applicable information regarding the proper use, maintenance, " +
-"inspection, repair, servicing and parts application of P&amp;WC products "+ 
-"and services, as directed therein. Neither this manual nor any information " + 
-"in it may be disclosed to others, or used for any other purpose, " + 
-"including, without limitation, to design, create, develop, reproduce, " + 
-"manufacture or derive any design, part, product, material, process, " + 
-"modification, configuration change or repair, or obtain FAA or other " + 
-"government approval to do so. Possession and use of this manual is " + 
-"also subject to the restrictions set out in P&amp;WC fs Technical Data " + 
-"Agreement (a copy of which may be obtained by contacting P&amp;WC " + 
-"Technical Publications). The contents of this manual may be subject to " +
-"export control laws. Unauthorized export or re-export of the manual, or " +
-"parts thereof, is prohibited. By accepting and possessing this manual, you " + 
-"agree to be bound by the foregoing terms. <br/>If a Government agency " + 
-"or department intends to disclose any information, written notice should be given to: " +
-"VP - Legal Services, Pratt &amp; Whitney Canada Corp., 1000 Marie-Victorin " + 
-"(01BE5), Longueuil, Quebec J4G 1A1.";
 
 var enMonths=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 
-var haveSoaDisclaimer = false;
-var haveGraphicDisclaimer = false;
 var gFigRef;
 
 // globals retrieved from metadata
@@ -52,8 +29,6 @@ var metaEngineFamily = "";
 var metaPbTitle = "";
 
 function manType(manCode) {
-    
-   
     var manShortCode = manCode.substring(0,2);
     
     switch (manShortCode) {
@@ -260,22 +235,7 @@ function invokeGraphic(figRef) {
     // load it as the official disclaimer, otherwise, just use the default.
     var xmlhttp;
     var inHTML;
-/*    if (!haveGraphicDisclaimer) {
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        }
-        else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET",graphicDisclaimerPath,false);
-        xmlhttp.send();
-        if (xmlhttp.status == 200) {
-           graphicDisclaimer = xmlhttp.responseText;
-        }
-       
-        haveGraphicDisclaimer = true;
-    }
-    */    
+   
     inHTML = countSheets(figRef.innerHTML);
     if (metaChapter == "frontmatter") {
         docTitle = "";
@@ -325,41 +285,6 @@ function invokeGraphic(figRef) {
     winRef.document.writeln('<td><input id="bClose" type="button" value="Close" onclick="window.close();"/></td></tr></table></form>')
     winRef.document.writeln('</body></html>');
     
-    winRef.document.close();
-}
-
-
-function displayConsumables(consumableElementId) {
-    
-    var winRef;
-    var conRef;
-    
-    conRef = document.getElementById(consumableElementId);
-    
-    winRef = window.open("","_blank",
-                         "scrollbars=yes, status=no, toolbar=no, location=no, resizable=1, menubar=1, width=600, height=600");
-    winRef.document.write('<HTML><STYLE = "text/css">body {font-family:Verdana}</STYLE>');
-//    winRef.document.write('<link href="css/styler.css" rel="stylesheet" type="text/css" />');
-    winRef.document.write('<BODY><CENTER>');
-    winRef.document.write('<div id="consumables">' + conRef.innerHTML + '</div>');
-    winRef.document.write('</CENTER></BODY></HTML>');
-    winRef.document.close();
-}
-
-function displayEffCodes(effTableElementId) {
-    
-    var winRef;
-    var effRef;
-    
-    effRef = document.getElementById(effTableElementId);
-    winRef = window.open("","_blank",
-                         "scrollbars=yes, status=no, toolbar=no, location=no, resizable=1, menubar=1, width=400, height=400");
-    winRef.document.write('<HTML><STYLE = "text/css">body {font-family:Verdana}</STYLE>');
-// LB - not needed right now, perhaps in the future...
-//    winRef.document.write('<link href="css/styler.css" rel="stylesheet" type="text/css" />');
-    winRef.document.write('<BODY><CENTER>');
-    winRef.document.write('<div id="eff">' + effRef.innerHTML + '</div>');
-    winRef.document.write('</CENTER></BODY></HTML>');
     winRef.document.close();
 }
 
@@ -421,27 +346,7 @@ function addTableChangebarsByDocument(doc){
             for (var i=0; i < cells.length; i++) {
                 cells[i].style.backgroundColor = revisionColor;
             }
-            
-/*            var cbDiv = doc.createElement("div");
-            
-            if(cells.length > 0){
-                var cell1 = cells[0];
-                cell1.style.cssFloat="clear";
-                cbDiv.className = "changebar";
-                cbDiv.style.borderLeft = "3px solid black"; 
-                cbDiv.style.display = "block";
-                cbDiv.style.position = "relative";
-                pcbDiv.style.zIndex = "-10"; 
-                cbDiv.style.cssFloat = "left";
-                cbDiv.style.styleFloat = "left";
-                cbDiv.style.padding = "0px"; 
-                cbDiv.style.height = rowHeight + "px"; 
-                cbDiv.style.margin = "-6px 0px -" + rowHeight + "px -16px";
-                cbDiv.innerHTML = "&nbsp;";
-                cell1.insertBefore(cbDiv, cell1.firstChild);
-
-            }
-*/        }
+        }
     }
     clobberUnlinkableAnchors();
 } 
@@ -476,7 +381,7 @@ function addChangebarsByDocument(doc){
             var revbarHeight = 10;
             
             revbarFloat.className = "revbarFloat";
-//          revbarFloat.style.borderLeft = "3px solid black"; 
+//            revbarFloat.style.borderLeft = "3px solid black"; 
             revbarFloat.style.display = "block";
             revbarFloat.style.position = "relative";
             revbarFloat.style.zIndex = "-10"; 
@@ -491,13 +396,13 @@ function addChangebarsByDocument(doc){
             
             sibling = revbarDiv.nextSibling;
             //Get the top margin of the first sibling so that we know where to start the revbar
-                        var topMargin = 0;
-                        if (typeof sibling.currentStyle != "undefined") {
-                            topMargin = sibling.currentStyle.marginTop;
-                        }
-//                        var calcHeight = 0;
+            var topMargin = 0;
+            if (typeof sibling.currentStyle != "undefined") {
+                topMargin = sibling.currentStyle.marginTop;
+            }
+//            var calcHeight = 0;
             var siblingCount = 0;
-//                        var calcAlert = "";
+//            var calcAlert = "";
             while(sibling.nodeType != null){
                 
                 if(sibling.className != null){
@@ -507,12 +412,7 @@ function addChangebarsByDocument(doc){
                         break;
                     } 
                     else if(sibling.className.indexOf("x-graphic") >= 0){
-                                            //We need to get the child img's height to calculate the revbar height
-/*                                                var cHeight = calcImgHeight(sibling);
-                        revbarHeight = revbarHeight + cHeight;
-                                                calcAlert = calcAlert + " imgHeight = " + cHeight;
-                        topMargin = "0px";
-*/                      siblings[siblingCount] = sibling;
+                        siblings[siblingCount] = sibling;
                         siblingCount++;
                     }
                     else{
@@ -527,34 +427,24 @@ function addChangebarsByDocument(doc){
             
             //Move the sibling into the changebar div
             for(var h = 0; h < siblings.length; h++){
-                            if (siblings[h].nodeType == 1) {
-                                siblings[h].style.backgroundColor = revisionColor;
-                                if (siblings[h].className.indexOf("x-graphic") >= 0) {
-                                    siblings[h].style.borderLeft = "10px solid " + revisionColor;
-                                }
-                                var descendants = siblings[h].getElementsByTagName('*');
-                                for (var j=0; j < descendants.length; j++) {
-                                    if (descendants[j].nodeType == 1) {
-                                        descendants[j].style.backgroundColor = revisionColor;
-                                        if (descendants[j].className.indexOf("x-graphic") >= 0) {
-                                            descendants[j].style.borderLeft = "10px solid " + revisionColor;
-                                        }
-                                    }
-                                }
+                if (siblings[h].nodeType == 1) {
+                    siblings[h].style.backgroundColor = revisionColor;
+                    if (siblings[h].className.indexOf("x-graphic") >= 0) {
+                        siblings[h].style.borderLeft = "10px solid " + revisionColor;
+                    }
+                    var descendants = siblings[h].getElementsByTagName('*');
+                    for (var j=0; j < descendants.length; j++) {
+                        if (descendants[j].nodeType == 1) {
+                            descendants[j].style.backgroundColor = revisionColor;
+                            if (descendants[j].className.indexOf("x-graphic") >= 0) {
+                                descendants[j].style.borderLeft = "10px solid " + revisionColor;
                             }
-//              revbarDiv.appendChild(siblings[h]);
                         }
+                    }
+                }
+            }
                             
-//                        alert("sibling change count = " + sibChangeCount);
-            //Calculate the revbar height and add the revbar float with the border
-/*                        alert('calc: ' + calcAlert + ' revbarHeight = ' + revbarHeight + 'offsetHeight = ' + revbarDiv.offsetHeight);
-            revbarHeight = revbarHeight + revbarDiv.offsetHeight;
-            revbarFloat.style.height = revbarHeight + "px"; 
-            revbarFloat.style.marginBottom = "-" + (revbarHeight) + "px";
-            revbarFloat.style.marginTop = topMargin;
-            
-            //Add the revbar float to the revbar div
-*/                  revbarDiv.insertBefore(revbarFloat, revbarDiv.firstChild);
+            revbarDiv.insertBefore(revbarFloat, revbarDiv.firstChild);
         }
         
     }
@@ -563,32 +453,6 @@ function addChangebarsByDocument(doc){
 function addChangebars() {
     addChangebarsByDocument(document);
 }
-
-//Find an image's height
-function calcImgHeight(imgDiv){
-    var imgHeight = 0;
-    var images = new Array();
-    images = imgDiv.getElementsByTagName('img');
-    for(var i = 0; i < images.length; i++){
-        var imgage = images[i];
-        
-        imgHeight = imgHeight + loadImg(imgage.src);
-            }
-    return imgHeight;
-}
-
-function loadImg(imgPath){
-    var myImage = new Image();
-    var imgHeight = 0;
-    myImage.name = imgPath;
-    myImage.src = imgPath;
-    
-    imgHeight = myImage.height;
-    
-    return imgHeight;
-}
-
-
 
 //Expand or collapse tables
 function toggle(heading, tableId) {
@@ -606,45 +470,6 @@ function toggle(heading, tableId) {
     }
     //Change bars won't be displayed until the table is visible
     addTableChangebars();
-}
-
-// change the Statement of Authority disclaimer to a specific text
-function changeSoaTo(updatedDisclaimer) {
-        var allDivs = document.getElementsByTagName("div");
-        for (var i=0; i < allDivs.length; i++) {
-            if (allDivs[i].getAttribute("title") == "soa") {
-                allDivs[i].innerHTML = updatedDisclaimer;
-            }
-        }
-}
-
-// first update the SOA with the default disclaimer, and retrieve the changeable
-// one from a static address. If successful, update the SOA with the found disclaimer
-function updateSOA() {
-/*
-  This function will be removed in favor of setting the disclaimer as an entity.
-  
-    var content;
-    var xmlhttp;
-    if (!haveSoaDisclaimer) {
-        // find the div with a title="soa", and replace it's contents
-        // with the response
-        changeSoaTo(soaDisclaimer);
-        
-        if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        }
-        else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        
-        xmlhttp.open("GET",soaDisclaimerPath,false);
-        xmlhttp.send();
-        if (xmlhttp.status == 200) {
-            changeSoaTo(xmlhttp.responseText);
-        }
-    }
-*/
 }
 
 // Test for digits
@@ -712,23 +537,6 @@ function spbLink(linkValue) {
         "scrollbars=yes, status=no, toolbar=no, location=no, resizable=1, menubar=1, width=800, height=400");
 }
 
-//Determines if the width of the columns are too big
-function isWidthTooBig(colgroup) {
-    var col = colgroup.getElementsByTagName('col');
-    for(j = 0; j < col.length; j++) {
-        if(col[j].getAttribute('width') !=null && parseInt(col[j].getAttribute('width')) > 1000)
-            return true;
-    }
-    return false;
-}
-// Reduce width by half
-function reduceSize(colgroup) {
-    var col = colgroup.getElementsByTagName('col');
-    for(j = 0; j < col.length; j++) {
-        col[j].setAttribute('width', parseInt(col[j].getAttribute('width'))/2);
-    }
-}
-
 function toggle (headingId, tableId) { 
   var headingObj = document.getElementById(headingId);
   var tableObj = document.getElementById(tableId);
@@ -754,380 +562,4 @@ function showTable(tableId) {
   if (tableObj) {
     tableObj.style.display='block';
   }
-}
-
-/* EUROSCRIPT MODIFICATIONS */
-
-/*Fix tables layout for Google's Chrome browser*/
-window.onload = function () {
-    if (window.chrome) {
-        var colgroup = document.getElementsByTagName('colgroup');
-        for (i = 0; i < colgroup.length; i++) {
-            while (isWidthTooBig(colgroup[i])) {
-                reduceSize(colgroup[i]);
-            }
-        }
-    }
-
-    if (typeof (eopdf) == "object") {
-        // Variable eopdf exists. So we are inside the converter
-        euCABlockSetup();
-    }
-}
-
-/* */
-function euCAPrintPopup(paraIds, tableIds, figureIds, handler) {
-
-    var w = 600; // width
-    var h = 580; // height
-
-    // Calculate the position of the window, works for dualscreens configurations
-    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
-    var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
-
-    var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-    var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-
-    var left = ((width / 2) - (w / 2)) + dualScreenLeft; // left position
-    var top = ((height / 2) - (h / 2)) + dualScreenTop; // top position
-
-    // Open a popup window
-    var popup = open('', 'popup', 'toolbar=0, location=0, directories=0, status=0, menubar=0, scrollbars=0, resizable=0, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-
-    // Set the content of the popup window
-    var html =
-        '<title>Print options</title>' +
-            '<body style="margin-top:10px; ">' +
-                '<div style="font-family: Tahoma; font-size: 11pt;">' +
-                '<script type="text/javascript">' +
-                    'function euCAToggle(btn)' +
-                    '{' +
-                        'switch(btn.id)' +
-                        '{' +
-                            'case "all":' +
-                                'document.getElementById("allParas").setAttribute("disabled", "disabled");' +
-                                    'document.getElementById("selectedParaIds").setAttribute("disabled", "disabled");' +
-                                'document.getElementById("allTables").setAttribute("disabled", "disabled");' +
-                                    'document.getElementById("selectedTableIds").setAttribute("disabled", "disabled");' +
-                                'document.getElementById("allFigures").setAttribute("disabled", "disabled");' +
-                                'document.getElementById("selectedFigureIds").setAttribute("disabled", "disabled");' +
-                                'var nodes = document.getElementsByClassName("inputTxt");' +
-                                'for (i = 0; i < nodes.length; i++) { nodes[i].style.color="gray"; }' +
-                                'document.getElementById("borderblock").style.borderColor="gray";' +
-                                'break;' +
-                            'case "ids":' +
-                                'document.getElementById("allParas").removeAttribute("disabled");' +
-                                'if (!document.getElementById("allParas").checked) {' +
-                                    'document.getElementById("selectedParaIds").removeAttribute("disabled");' +
-                                '}' +
-                                'document.getElementById("allTables").removeAttribute("disabled");' +
-                                'if (!document.getElementById("allTables").checked) {' +
-                                    'document.getElementById("selectedTableIds").removeAttribute("disabled");' +
-                                '}' +
-                                'document.getElementById("allFigures").removeAttribute("disabled");' +
-                                'if (!document.getElementById("allFigures").checked) {' +
-                                    'document.getElementById("selectedFigureIds").removeAttribute("disabled");' +
-                                '}' +
-                                'var nodes = document.getElementsByClassName("inputTxt");' +
-                                'for (i = 0; i < nodes.length; i++) { nodes[i].style.color="black"; }' +
-                                'document.getElementById("borderblock").style.borderColor="black";' +
-                                'euCADisplayIds();' +
-                                'break;' +
-                            'case "allParas":' +
-                                'if (document.getElementById("allParas").checked) {' +
-                                    'document.getElementById("selectedParaIds").setAttribute("disabled", "disabled");' +
-                                '} else {' +
-                                    'document.getElementById("selectedParaIds").removeAttribute("disabled");' +
-                                '}' +
-                                'break;' +
-                            'case "allTables":' +
-                                'if (document.getElementById("allTables").checked) {' +
-                                    'document.getElementById("selectedTableIds").setAttribute("disabled", "disabled");' +
-                                '} else {' +
-                                    'document.getElementById("selectedTableIds").removeAttribute("disabled");' +
-                                '}' +
-                                'break;' +
-                            'case "allFigures":' +
-                                'if (document.getElementById("allFigures").checked) {' +
-                                    'document.getElementById("selectedFigureIds").setAttribute("disabled", "disabled");' +
-                                '} else {' +
-                                    'document.getElementById("selectedFigureIds").removeAttribute("disabled");' +
-                                '}' +
-                                'break;' +
-                        '}' +
-                    '}' +
-                    'function euCADisplayIds()' +
-                    '{' +
-                        'document.idform.selectedParaIds.options.length=0;' +
-                        'document.idform.selectedTableIds.options.length=0;' +
-                        'document.idform.selectedFigureIds.options.length=0;';
-    var cpt = 0;
-    for (var i in paraIds) {
-        html += 'document.idform.selectedParaIds.options[' + (cpt++) + '] = new Option("' + paraIds[i] + '","' + i + '",false, false);';
-    }
-    cpt = 0;
-    for (var i in tableIds) {
-        html += 'document.idform.selectedTableIds.options[' + (cpt++) + '] = new Option("' + tableIds[i] + '","' + i + '",false, false);';
-    }
-    cpt = 0;
-    for (var i in figureIds) {
-        html += 'document.idform.selectedFigureIds.options[' + (cpt++) + '] = new Option("' + figureIds[i] + '","' + i + '",false, false);';
-    }
-    html +=
-                '}' +
-                'function euCASubmit()' +
-                '{' +
-                    'document.getElementById("okBtn").setAttribute("disabled", "disabled");' +
-                    'var isOk = true;' +
-                    'var showIds = [];' +
-                    'var hiddenIds = [];' +
-                    'var printType = "";' +
-                    'for (var i = 0; i < document.idform.print.length; i++)' +
-                    '{' +
-                        'if (document.idform.print[i].checked)' +
-                        '{' +
-                            'printType = document.idform.print[i].value;' +
-                            'break;' +
-                        '}' +
-                    '}' +
-                    'if (printType == "ids") {' +
-                        
-                        'var slct = document.getElementById("selectedParaIds");' +
-                        'for (var i = 0; i < slct.length; i++)' +
-                        '{' +
-                            'var allParas = document.getElementById("allParas").checked;' +
-                            'if(slct.options[i].selected == true || allParas) {' +
-                                'showIds.push(slct.options[i].value);' +
-                            '}' +
-                        '}' +
-                        'var slct = document.getElementById("selectedTableIds");' +
-                        'for (var i = 0; i < slct.length; i++)' +
-                        '{' +
-                            'var allTables = document.getElementById("allTables").checked;' +
-                            'if(slct.options[i].selected == true || allTables) {' +
-                               'showIds.push(slct.options[i].value);' +
-                            '} else {' +
-                                'hiddenIds.push(slct.options[i].value);' +
-                            '}' +
-                        '}' +
-                        'var slct = document.getElementById("selectedFigureIds");' +
-                        'for (var i = 0; i < slct.length; i++)' +
-                        '{' +
-                            'var allFigures = document.getElementById("allFigures").checked;' +
-                            'if(slct.options[i].selected == true || allFigures) {' +
-                                'showIds.push(slct.options[i].value);' +
-                            '} else {' +
-                                'hiddenIds.push(slct.options[i].value);' +
-                            '}' +
-                        '}' +
-                        'if (showIds.length == 0)' +
-                        '{' +
-                            'isOk = confirm("You didn\'t select a block: the whole document will be printed.\\n\\nContinue?");' +
-                            'hiddenIds = [];' +
-                        '}' +
-                    '}' +
-                    'if (isOk)' +
-                    '{' +
-                        'window.close();' +
-                        'try' +
-                        '{' +
-                            'var showIdsStr = ""; var hiddenIdsStr = "";' +
-                            'for (id = showIds.length - 1; id >= 0; id--) {' +
-                                'showIdsStr += showIds[id] + ",";' +
-                            '}' +
-                            'for (id = hiddenIds.length - 1; id >= 0; id--) {' +
-                                'hiddenIdsStr += hiddenIds[id] + ",";' +
-                            '}' +
-                            'if (showIdsStr.length > 0) {' +
-                                'showIdsStr = showIdsStr.substr(0, showIdsStr.length - 1);' +
-                            '}' +
-                            'if (hiddenIdsStr.length > 0) {' +
-                                'hiddenIdsStr = hiddenIdsStr.substr(0, hiddenIdsStr.length - 1);' +
-                            '}' +
-                            'window.opener.' + handler + '(showIdsStr, hiddenIdsStr);' +
-                        '}' +
-                        'catch (err) {}' +
-                    '} else {' +
-                        'document.getElementById("okBtn").removeAttribute("disabled");' +
-                    '}' +
-                '}' +
-                'function init() {' +
-                    'document.getElementById("okBtn").focus();' +
-                '}' +
-                'window.onload= init;' +
-            '</' + 'script>' +
-            '<form name="idform">' +
-                '<div id="wrapper" style="display:table; width:100%">' +
-                    '<div id="top" style="display:table-row; height:45px;">' +
-                        '<input type="radio" id="all" name="print" value="all" checked="checked" onclick="euCAToggle(this)"/>' +
-                        '<span style="padding-left:5px;">Print all content (paragraph, tables and figures)</span><br/>' +
-                        '<input type="radio" id="ids" name="print" value="ids" onclick="euCAToggle(this)"/>' +
-                        '<span style="padding-left:5px;">Select content to print:</span>' +
-                    '</div>' +
-                '</div>' +
-                '<div id="borderblock" style="padding:10px; border: 1px solid gray; margin-left:10px; margin-right:10px;">' +
-                    '<div style="display:table; width:100%;">' +
-                        '<div style="display:table-row; height:20px;">' +
-                            '<span class="inputTxt" style="margin-left:5px; margin-bottom:2px; color:gray;">Paragraphs:</span>' +
-                        '</div>' +
-                        '<div id="pragraphs_block" style="display:table-row;">' +
-                            '<select id="selectedParaIds" name="selectedParaIds" size="5" style="width:100%; height: 100%; disabled="disabled" multiple="multiple">' +
-                            '</select>' +
-                        '</div>' +
-                        '<div style="display:table-row; height:40px;">' +
-                            '<div style="margin-bottom:8px; margin-top:2px;">' +
-                                '<input type="checkbox" id="allParas" name="allParas" value="allParas" disabled="disabled" onclick="euCAToggle(this)">' +
-                                    '<span class="inputTxt" style="margin-left:2px; color:gray;">Print all paragraphs</span>' +
-                                '</input>' +
-                            '</div>' +
-                            '<span class="inputTxt" style="margin-left:5px; margin-bottom:2px; color:gray;">Tables:</span>' +
-                        '</div>' +
-                        '<div id="table_block" style="display:table-row;">' +
-                            '<select id="selectedTableIds" name="selectedTableIds" size="5" style="width:100%; height: 100%; disabled="disabled" multiple="multiple">' +
-                            '</select>' +
-                        '</div>' +
-                        '<div style="display:table-row; height:40px;">' +
-                            '<div style="margin-bottom:8px; margin-top:2px;">' +
-                                '<input type="checkbox" id="allTables" name="allTables" value="allTables" disabled="disabled" onclick="euCAToggle(this)">' +
-                                    '<span class="inputTxt" style="margin-left:2px; color:gray;">Print all tables</span>' +
-                                '</input>' +
-                            '</div>' +
-                            '<span class="inputTxt" style="margin-left:5px; margin-bottom:2px; color:gray;">Figures:</span>' +
-                        '</div>' +
-                        '<div id="figure_block" style="display:table-row;">' +
-                            '<select id="selectedFigureIds" name="selectedFigureIds" size="5" style="width:100%; height: 100%; disabled="disabled" multiple="multiple">' +
-                            '</select>' +
-                        '</div>' +
-                        '<div style="display:table-row; height:20px;">' +
-                            '<div style="margin-top:2px;">' +
-                                '<input type="checkbox" id="allFigures" name="allFigures" value="allFigures" disabled="disabled" onclick="euCAToggle(this)">' +
-                                    '<span class="inputTxt" style="margin-left:2px; color:gray;">Print all figures</span>' +
-                                '</input>' +
-                            '</div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>' +
-                '<div style="display:table; width:100%">' +
-                    '<div id="bottom" style="display:table-row; height:40px;">' +
-                        '<div style="text-align: right; padding-top:20px">' +
-                            '<a onclick="euCASubmit();">' +
-                                '<input type="button" value="OK" id="okBtn" name="okBtn" style="width: 80px;"/>' +
-                            '</a>' +
-                            '<a onclick="window.close();" style="padding-left:10px; margin-right:10px;">' +
-                                '<input type="button" value="Cancel" style="width: 80px;"/>' +
-                            '</a>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>' +
-            '</form>' +
-        '</div>' +
-    '</body>';
-    popup.document.write(html);
-    popup.document.close();
-
-    // Gives the focus to the popup window if it doesn't have it
-    if (window.focus) {
-        popup.focus();
-    }
-}
-
-function euCAGetIDs(paraIds, tableIds, figureIds) {    
-
-    $('div[class^="pr-tbl"]').each(function () {
-        var txt = $.trim($(this).find("div[class^='x-title']").first().text());
-        if (txt.length == 0) { txt = $.trim($(this).children(':first').text()); }
-        if (txt.length != 0) {
-            tableIds[$(this).attr('id')] = txt;
-        }
-
-    });
-
-    $('div[class^="x-pageblock-front"]').each(function () {
-        var childs = $(this).children('div').each(function () {
-            var txt = $.trim($(this).children(':first').text());
-            if (txt.length != 0) {
-                paraIds[$(this).attr('id')] = txt;
-            }
-        })
-    });
-
-    $('div[class^="x-n-para"], div[class^="x-task"]').each(function () {
-        var txt = $.trim($(this).children(':first').text());
-        if (txt.length != 0) {
-            paraIds[$(this).attr('id')] = txt;
-        }
-    });
-
-    $('div[class^="pr-figure"]').each(function () {
-        var txt = $.trim($(this).children(':first').text());
-        if (txt.length != 0) {
-            figureIds[$(this).parent().attr('id')] = txt;
-        }
-    });
-}
-
-
-/**
- *  Setup block styles for printing.      
- */
-function euCABlockSetup() {
-    var node;
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, null, false);
-    while (walker.nextNode()) {
-        node = walker.currentNode;
-
-        var nName = node.nodeName;
-        var nClass = node.className;
-
-        /* Hides images */
-        if (nName == "IMG" && node.src != null && (node.src.indexOf('table.gif') >= 0 || node.src.indexOf('keytofigure.jpg') >= 0)) {
-            node.style.display = "none";
-        }
-
-        /* Display tables, figures and figure legends that are hidden by default by the CSS. */
-        if (node.style.display == "none" &&
-            ((nClass.indexOf('x-table') >= 0) || (nClass.indexOf('x-figure') >= 0) ||
-             (nClass.indexOf('x-key') >= 0) || (nClass.indexOf('x-graphic') >= 0))) {
-            node.style.display = "block";
-        }
-
-        /* Handles page-breaks for the figures. */
-        /* Only had a page-break in front of figure if there the precedent element is NOT a figure. */
-        if (nClass.indexOf('pr-brk') >= 0) {
-            var p = node.parentNode;
-            var ps = node;
-            do ps = ps.previousSibling;
-            while (ps && ps.nodeType != 1);
-            var ns = node;
-            do ns = ns.nextSibling;
-            while (ns && ns.nodeType != 1);
-            if (ps != null && ps.nodeType == 1 && ps.hasAttributes() && ps.attributes['class'] != null &&
-                (ps.attributes['class'].value.indexOf('x-figure') >= 0 || (ps.attributes['class'].value.indexOf('x-graphic') >= 0 || ps.attributes['class'].value.indexOf('pr-figure-min') >= 0))) {
-                /* Do nothing */
-            } else if (ns != null && ns.className.indexOf('x-graphic-2') >= 0) {
-                node.style.MarginBottom = '1px';
-            } else if (p == null || p.className.indexOf('x-ipc-fig') < 0) {
-                node.style.pageBreakBefore = 'always';
-                node.style.marginTop = '1px'; /* Otherwise, text preceding the figure might be on the new page. */
-            }
-        } else if (nClass == 'pr-brk-after') { /* Forces a page break after the block */
-            node.style.pageBreakAfter = 'always';
-        } else if (nClass == 'pr-figure') { /* Adds a margin at the top of the figures. */
-            node.style.marginTop = '5px';
-        } else if (nClass == 'pr-key-brk') { /* Forces a page-break after the legends of figures. */
-            node.style.paddingBottom = '2px';
-            node.style.pageBreakAfter = 'always';
-        } else if (nClass == 'pr-figure-min') { /* Hides the miniatures of figures in IPCs documents */
-            node.style.display = "none";
-        } else if (nClass.indexOf('x--ufe-fig-title') >= 0) { /* Hides the repeated title of figures in IPCs documents */
-            var p = node.parentNode;
-            if (p != null && p.className.indexOf('x-ipc-fig') >= 0) {
-                node.style.display = 'none';
-            }
-        } else if (nName == 'IMG' || nClass.indexOf('x-caution') >= 0 || nClass.indexOf('x-warning') >= 0) { /* Avoid page breaks inside of an image. */
-            node.style.pageBreakInside = 'avoid';
-        } else if (nClass.indexOf('x-title') >= 0 && node.parentNode.className.indexOf('x-graphic') >= 0) {
-            node.style.display = "none";
-        }
-    }
 }

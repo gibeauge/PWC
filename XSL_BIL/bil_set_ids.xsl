@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 
+  File        : bil_set_ids.xsl
+  Author      : Gilles Beaugeais (euroscript Canada for PWC Canada)
+  Description : Concatenates source content (EN) and translated content (ZH), 
+                 while re-identifying translated structures and links.  
+-->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:exslt="http://exslt.org/common"
                 exclude-result-prefixes="exslt"
@@ -15,7 +22,7 @@
 <xsl:variable name="prefix"      select="if (lang-trad='en') then '' else concat($lang-trad,'_')"/>
 
 <xsl:template match="/">
-  <xsl:variable name="zh-tree">
+  <xsl:variable name="trans-tree">
     <tree><xsl:apply-templates select="//body/*"/></tree>
   </xsl:variable>
   <html lang="{concat($src-doc/*/@lang,'-',$lang-trad)}">
@@ -24,7 +31,7 @@
       <div>
       <xsl:copy-of select="$src-doc/*/body/@*"/>
       <xsl:apply-templates select="$src-doc/*/body/node()" mode="out"/>
-      <xsl:apply-templates select="exslt:node-set($zh-tree)/*/node()" mode="out"/>
+      <xsl:apply-templates select="exslt:node-set($trans-tree)/*/node()" mode="out"/>
       </div>
       <xsl:copy-of select="$src-doc/*/body//script"/>
     </body>

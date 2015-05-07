@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 
+  File        : bil_merge.xsl
+  Author      : Gilles Beaugeais (euroscript Canada for PWC Canada)
+  Description : Merge source contents (EN) and translated contents (ZH) as a table.
+                 Correspondance is done using class names and ID
+-->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="2.0">
 
