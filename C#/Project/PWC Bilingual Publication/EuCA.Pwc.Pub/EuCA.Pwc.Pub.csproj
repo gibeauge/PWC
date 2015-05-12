@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{620092D6-4661-4607-B3DE-6912E7EFAF3D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EuCA.Pwc.Pub</RootNamespace>
+    <AssemblyName>EuCA.Pwc.Pub</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ProcessParameters.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicationProcess.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lib\java\saxonb9-1-0-8j\doc\img\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="lib\java\saxonb9-1-0-8j\doc\img\saxonica_logo.gif" />
+    <Content Include="lib\java\saxonb9-1-0-8j\doc\index.html" />
+    <Content Include="lib\java\saxonb9-1-0-8j\doc\saxondocs.css" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\APACHE-ANT.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\APACHE-RESOLVER.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\APACHE-XERCES.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\CERN.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\FRIJTERS.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\GPL+CLASSPATH.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\JAMESCLARK.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\LEGAL.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\LICENSE.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\THAI.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\notices\UNICODE.txt" />
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9-dom.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9-dom4j.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9-jdom.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9-s9api.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9-sql.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9-xom.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9-xpath.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9-xqj.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\java\saxonb9-1-0-8j\saxon9.jar">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EuCA.Pwc.Pub.CLI", "EuCA.Pwc.Pub.CLI\EuCA.Pwc.Pub.CLI.csproj", "{3030D45E-08ED-4BDC-865B-5FFDD69432F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CLI", "CLI", "{0E7B123C-EA50-412C-A187-C12F8DBCECBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{37E77575-83BB-4693-8F6B-F9F034F151D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{277F0A15-1ACB-4401-AF9B-F2A6E1229149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EuCA.Pwc.Pub", "EuCA.Pwc.Pub\EuCA.Pwc.Pub.csproj", "{620092D6-4661-4607-B3DE-6912E7EFAF3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Work", "Work", "{2B3353CF-66C4-4537-A1B4-77950B713C34}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{33CC3E91-048C-480D-AA78-7BF31E341AAC}"
+	ProjectSection(SolutionItems) = preProject
+		M:\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.EN.corr.out.xml = M:\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.EN.corr.out.xml
+		M:\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.ZH.corr.out.xml = M:\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.ZH.corr.out.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EuCA.Pwc.Pub.UI", "..\EuCa\PWC\EuCA.Pwc.Pub.UI\EuCA.Pwc.Pub.UI\EuCA.Pwc.Pub.UI.csproj", "{5676A7B1-ED7B-4709-8142-DB1E753E5C93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3030D45E-08ED-4BDC-865B-5FFDD69432F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3030D45E-08ED-4BDC-865B-5FFDD69432F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3030D45E-08ED-4BDC-865B-5FFDD69432F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3030D45E-08ED-4BDC-865B-5FFDD69432F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{620092D6-4661-4607-B3DE-6912E7EFAF3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{620092D6-4661-4607-B3DE-6912E7EFAF3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{620092D6-4661-4607-B3DE-6912E7EFAF3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{620092D6-4661-4607-B3DE-6912E7EFAF3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5676A7B1-ED7B-4709-8142-DB1E753E5C93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5676A7B1-ED7B-4709-8142-DB1E753E5C93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5676A7B1-ED7B-4709-8142-DB1E753E5C93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5676A7B1-ED7B-4709-8142-DB1E753E5C93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3030D45E-08ED-4BDC-865B-5FFDD69432F0} = {0E7B123C-EA50-412C-A187-C12F8DBCECBC}
+		{620092D6-4661-4607-B3DE-6912E7EFAF3D} = {277F0A15-1ACB-4401-AF9B-F2A6E1229149}
+		{33CC3E91-048C-480D-AA78-7BF31E341AAC} = {2B3353CF-66C4-4537-A1B4-77950B713C34}
+		{5676A7B1-ED7B-4709-8142-DB1E753E5C93} = {37E77575-83BB-4693-8F6B-F9F034F151D8}
+	EndGlobalSection
+EndGlobal

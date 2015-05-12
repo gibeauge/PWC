@@ -1,0 +1,81 @@
+﻿<Mahapps:MetroWindow x:Class="EuCA.Pwc.Pub.UI.View.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Mahapps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="{Binding Title}" Height="300" Width="600"
+        ResizeMode="CanResizeWithGrip"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        EnableDWMDropShadow="True"
+        WindowTransitionsEnabled="False"
+        BorderThickness="1"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
+        <Label      Grid.Row="0" Grid.Column="0"
+                    Margin="0 0 10 10"
+                    Content="Original manual"/>
+        <TextBox    Grid.Row="0" Grid.Column="1" 
+                    Margin="0 0 10 10"
+                    Text="{Binding FileOrig, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button     Grid.Row="0" Grid.Column="2" 
+                    Content="..."
+                    Margin="0 0 0 10"
+                    Command="{Binding BrowseCommand}" CommandParameter="FileOrig"/>
+
+        <Label      Grid.Row="1" Grid.Column="0"
+                    Margin="0 0 10 10"
+                    Content="Translated manual"/>
+        <TextBox    Grid.Row="1" Grid.Column="1" 
+                    Margin="0 0 10 10"
+                    Text="{Binding FileTrad, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button     Grid.Row="1" Grid.Column="2" 
+                    Content="..."
+                    Margin="0 0 0 10"
+                    Command="{Binding BrowseCommand}" CommandParameter="FileTrad"/>
+
+        <Label      Grid.Row="2" Grid.Column="0"
+                    Margin="0 0 10 10"
+                    Content="XSL directory"/>
+        <TextBox    Grid.Row="2" Grid.Column="1" 
+                    Margin="0 0 10 10"
+                    Text="{Binding DirXsl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button     Grid.Row="2" Grid.Column="2" 
+                    Content="..."
+                    Margin="0 0 0 10"
+                    Command="{Binding BrowseCommand}" CommandParameter="DirXsl"/>
+
+        <Label      Grid.Row="3" Grid.Column="0"
+                    Margin="0 0 10 0"
+                    Content="Output directory"/>
+        <TextBox    Grid.Row="3" Grid.Column="1" 
+                    Margin="0 0 10 0"
+                    Text="{Binding DirOut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button     Grid.Row="3" Grid.Column="2" 
+                    Content="..."
+                    Command="{Binding BrowseCommand}" CommandParameter="DirOut"/>
+
+        <ProgressBar Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="5 0 0 0" IsIndeterminate="True"/>
+        
+        <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Right" Margin="0 0 0 10">
+            <Button DockPanel.Dock="Right" Content="Cancel" 
+                    Margin="10 0 0 0"
+                    Command="{Binding CancelCommand}"/>
+            <Button DockPanel.Dock="Right" Content="Publish"
+                    Command="{Binding PublishCommand}"/>
+        </DockPanel>
+        
+    </Grid>
+</Mahapps:MetroWindow>
