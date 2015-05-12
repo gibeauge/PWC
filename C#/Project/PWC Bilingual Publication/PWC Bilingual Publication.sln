@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{33CC3E91-048
 		M:\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.ZH.corr.out.xml = M:\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.ZH.corr.out.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EuCA.Pwc.Pub.UI", "..\EuCa\PWC\EuCA.Pwc.Pub.UI\EuCA.Pwc.Pub.UI\EuCA.Pwc.Pub.UI.csproj", "{5676A7B1-ED7B-4709-8142-DB1E753E5C93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EuCA.Pwc.Pub.UI", "EuCA.Pwc.Pub.UI\EuCA.Pwc.Pub.UI.csproj", "{5676A7B1-ED7B-4709-8142-DB1E753E5C93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
