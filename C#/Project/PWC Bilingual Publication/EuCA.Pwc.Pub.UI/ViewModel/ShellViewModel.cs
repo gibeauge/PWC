@@ -1,11 +1,16 @@
-﻿using GalaSoft.MvvmLight;
+﻿using EuCA.Pwc.Pub.UI.Model;
+using EuCA.Pwc.Pub.UI.View;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using log4net;
 using Microsoft.Win32;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EuCA.Pwc.Pub.UI.ViewModel
 {
@@ -19,13 +24,51 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
     {
         #region Members
 
+        private static readonly ILog _logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private Task _publishingTask;
 
         private CancellationTokenSource _tokenSource;
 
+        private IShellView _view;
+
         #endregion
 
         #region Properties
+
+        #region Cursor
+
+        /// <summary>
+        /// The <see cref="ShellCursor" /> property's name.
+        /// </summary>
+        public const string CursorPropertyName = "ShellCursor";
+
+        private Cursor _shellCursor = Cursors.Arrow;
+
+        /// <summary>
+        /// Sets and gets the Cursor property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public Cursor ShellCursor
+        {
+            get
+            {
+                return _shellCursor;
+            }
+
+            set
+            {
+                if (_shellCursor == value)
+                {
+                    return;
+                }
+
+                _shellCursor = value;
+                RaisePropertyChanged(CursorPropertyName);
+            }
+        }
+
+        #endregion
 
         #region Title
 
@@ -197,6 +240,74 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
 
         #endregion
 
+        #region DeleteTempFile
+
+        /// <summary>
+        /// The <see cref="DeleteTempFile" /> property's name.
+        /// </summary>
+        public const string IsDeleteTempFileCheckedPropertyName = "DeleteTempFile";
+
+        private bool _deleteTempFile = true;
+
+        /// <summary>
+        /// Sets and gets the IsDeleteTempFileChecked property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool DeleteTempFile
+        {
+            get
+            {
+                return _deleteTempFile;
+            }
+
+            set
+            {
+                if (_deleteTempFile == value)
+                {
+                    return;
+                }
+
+                _deleteTempFile = value;
+                RaisePropertyChanged(IsDeleteTempFileCheckedPropertyName);
+            }
+        }
+
+        #endregion
+
+        #region Enabled
+
+        /// <summary>
+        /// The <see cref="Enabled" /> property's name.
+        /// </summary>
+        public const string EnabledPropertyName = "Enabled";
+
+        private bool _enabled = true;
+
+        /// <summary>
+        /// Sets and gets the Enabled property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool Enabled
+        {
+            get
+            {
+                return _enabled;
+            }
+
+            set
+            {
+                if (_enabled == value)
+                {
+                    return;
+                }
+
+                _enabled = value;
+                RaisePropertyChanged(EnabledPropertyName);
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Constructor
@@ -204,9 +315,11 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
         /// <summary>
         /// Initializes a new instance of the ShellViewModel class.
         /// </summary>
-        public ShellViewModel()
+        public ShellViewModel(IShellView view)
         {
-            Title = "PW&C Bilingual publishing tool";
+            _view = view;
+
+            Title = "Pratt & Whitney Canada - Bilingual publishing tool";
 
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindowClosing);
         }
@@ -291,31 +404,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 return;
             }
 
-            _tokenSource = new CancellationTokenSource();
-            var cancellationToken = _tokenSource.Token;
-            _publishingTask = Task.Run(() =>
-                {
-                    while (true)
-                    {
-                        cancellationToken.ThrowIfCancellationRequested();
-                    }
-                }, cancellationToken);
-
-            _publishingTask.ContinueWith((task) =>
-                {
-                    if (task.Exception != null)
-                    {
-                        MessageBox.Show("Exception.");
-                    }
-                    else if (task.IsCanceled)
-                    {
-                        MessageBox.Show("Cancelled.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Done.");
-                    }
-                });
+            Run();
         }
 
         private bool CanExecutePublishCommand()
@@ -373,6 +462,12 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             e.Cancel = (_publishingTask != null && !_publishingTask.IsCompleted);
         }
 
+        private static void OnProgress(object p)
+        {
+            // TODO! Report progress
+            Console.WriteLine(p.ToString());
+        }
+
         #endregion
 
         #region Methods
@@ -393,6 +488,56 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             dlg.DefaultExt = filter;
             dlg.Filter = "Documents (" + filter + ")|" + filter;
             return (dlg.ShowDialog() == true) ? dlg.FileName : string.Empty;
+        }
+
+        private void Run()
+        {
+            // Disable the controls.
+            Enabled = false;
+            ShellCursor = Cursors.Wait;
+
+            // Publication parameters
+            var pubParams = new ProcessParameters
+            {
+                FileOrig = FileOrig,
+                FileTrad = FileTrad,
+                DirOut = DirOut,
+                DirXsl = DirXsl,
+                DeleteTempFile = DeleteTempFile
+            };
+
+            // Progress monitoring
+            var progress = new Progress<object>(OnProgress);
+            
+            // Cancellation token, used to interrupt the publication process
+            _tokenSource = new CancellationTokenSource();
+            var cancellationToken = _tokenSource.Token;
+
+            // Run the publication process
+            _publishingTask = Task.Run(() => PublicationManager.Instance.Run(pubParams, progress, cancellationToken), cancellationToken);
+
+            // Handles the publication process result
+            _publishingTask.ContinueWith((task) =>
+            {
+                Enabled = true;
+                ShellCursor = Cursors.Arrow;
+
+                if (task.Exception != null)
+                {
+                    _view.ShowDialogAsync(new DialogMessage { Title = "Exception", Message = task.Exception.InnerException.Message });
+                    _logger.Error(task.Exception.Message, task.Exception);
+                }
+                else if (task.IsCanceled)
+                {
+                    _view.ShowDialogAsync(new DialogMessage { Title = "Cancelled", Message = "Publication was cancelled." });
+                    _logger.Debug("Publication was cancelled.");
+                }
+                else
+                {
+                    _view.ShowDialogAsync(new DialogMessage { Title = "Success", Message = "Publication was successful." });
+                    _logger.Debug("Publication was successfull.");
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         #endregion

@@ -16,8 +16,8 @@ namespace EuCA.Pwc.Pub.CLI
             var param = new ProcessParameters{
                 FileOrig = @"M:\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.EN.corr.out.xml",
                 FileTrad = @"M:\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.ZH.corr.out.xml",
-                OutDir = @"C:\temp\out",
-                XslDir = @"C:\Data\02_Projects\13_P&WC\02_Dev\GitHub\PWC"
+                DirOut = @"C:\temp\out",
+                DirXsl = @"C:\Data\02_Projects\13_P&WC\02_Dev\GitHub\PWC"
             };
 
             var cancellationTokenSource = new CancellationTokenSource();
