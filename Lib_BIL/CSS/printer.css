@@ -10,7 +10,7 @@
         padding-top: 10px;
     }
     
-    .print_header {
+    .print_header, .print_disclaimer {
         display: none;
     }
  } 
@@ -39,7 +39,7 @@
         overflow:   visible     !important;
     }
 
-    #pane_print_content { 
+    #pane_print_content_src, #pane_print_content_trad { 
         width: 95%;
     }
     
@@ -65,14 +65,28 @@
         display: table-footer-group;
     }
     
-    #pane_print_content {
+    #pane_print_content_src, #pane_print_content_trad {
         display: table-row-group;
+    }
+    
+    #pane_print_content_trad {
+    	page-break-before: always;
     }
     
     .print_header {
         font-size: 1.1em;
         margin: 0px;
         padding: 0px;
+    }
+    
+    .print_disclaimer {
+    	display: block;
+    	font-size: 0.8em;
+    	margin: 0px;
+    	padding: 0px;
+    	padding-bottom: 5px;
+		margin-bottom: 5px;
+    	border-bottom: 1px solid black;
     }
     
     .footer {

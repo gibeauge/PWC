@@ -1,4 +1,30 @@
 
+function browser_support() {
+	var browser_ok = 0;
+    if ($.browser.chrome && $.browser.version > 7) {
+    	browser_ok = 1;
+    } else if ($.browser.mozilla && $.browser.version > 4) {
+    	browser_ok = 1;
+    } else if ($.browser.msie && $.browser.version > 8) {
+    	browser_ok = 1;
+    }
+    
+    if (browser_ok == 0) {
+    	$("body").append("<div id='msg-browser'></div>");
+    	var lbl = 'Your browser is not fully supported.<br/>Please use one of the following browsers:<br/> - Internet Explorer 8+<br/> - Firefox 4+<br/> - Chrome 7+';
+    	$("#msg-browser").dialog({
+    		resizable: false,
+    		modal: true,
+    		title: "Browser not supported",
+    		height: 150,
+    		width: 400,
+    		create: function (e, ui) {
+    			$("#msg-browser").append("<div>" + lbl + "</div>");
+    		},
+    	});
+    }
+}
+
 /* Custom print function */
 function bil_print_dialog() {
 	$("body").append("<div id='dialog-print'></div>");
@@ -18,8 +44,8 @@ function bil_print_dialog() {
         width: 500,
         create: function (e, ui) {
         	$("#dialog-print").append("<div>" + lbl_browser + "</div>");
-            $("#dialog-print").append("<div><br/><input type='radio' name='opt_lang' id='opt_lang' value='src' checked='1'/>Source language     " + 
-                                                "<input type='radio' name='opt_lang' id='opt_lang' value='trans'/>Translated language</div>");
+            //$("#dialog-print").append("<div><br/><input type='radio' name='opt_lang' id='opt_lang' value='src' checked='1'/>Source language     " + 
+            //                                    "<input type='radio' name='opt_lang' id='opt_lang' value='trans'/>Translated language</div>");
             $("#dialog-print").append("<div><br/><input id='ck_figures' type='checkbox'/> Print images</div>");
         },
         buttons: {
@@ -37,33 +63,45 @@ function bil_print_dialog() {
 
 function bil_print_proc(value) {
 	if (value) {
-        var src_lang = true;
+        //var src_lang = true;
         var print_images = false;
-        if ($('input[name="opt_lang"][value="src"]').prop("checked")==false) {
-            src_lang = false;
-        }
+        //if ($('input[name="opt_lang"][value="src"]').prop("checked")==false) {
+        //    src_lang = false;
+        //}
         if ($("#ck_figures").is(':checked')) {
             print_images = true;
         }
-        bil_print(src_lang, print_images);
+        //bil_print(src_lang, print_images);
+        bil_print(print_images);
     }
     $("#dialog-print").remove();
 }
 
-function bil_print(src_lang, print_images) {
+//function bil_print(src_lang, print_images) {
+function bil_print(print_images) {
 	
 	// Build print page
 	$("body").append("<div id='pane_print'></div>");
     $("#pane_print").append("<div id='pane_print_header'>" + $("#banner").html() + "</div>");
-    $("#pane_print").append("<div id='pane_print_content'>" + $("#pane_content .x-body").wrap('<p/>').parent().html() + "</div>");
-    if (src_lang) {
-        $("#pane_print_content .merge-c2").remove();
-        $("#pane_print_content .graphic-title-trans").remove();
-    }
-    else {
-        $("#pane_print_content .merge-c1").remove();
-    }
-    $("#pane_print_content .merge > tbody > tr > td").children().unwrap().unwrap().unwrap().unwrap();
+    $("#pane_print").append("<div id='pane_print_content_src'>" + $("#pane_content .x-body").wrap('<p/>').parent().html() + "</div>");
+    $("#pane_print").append("<div id='pane_print_content_trad'>" + $("#pane_content .x-body").wrap('<p/>').parent().html() + "</div>");
+    
+    $("#pane_print_content_src .merge-c2").remove();
+    $("#pane_print_content_src .graphic-title-trans").remove();
+    $("#pane_print_content_trad .merge-c1").remove();
+    
+    $("#pane_print_content_src .merge > tbody > tr > td").children().unwrap().unwrap().unwrap().unwrap();
+    $("#pane_print_content_trad .merge > tbody > tr > td").children().unwrap().unwrap().unwrap().unwrap();
+    
+    //if (src_lang) {
+    //    $("#pane_print_content .merge-c2").remove();
+    //    $("#pane_print_content .graphic-title-trans").remove();
+    //}
+    //else {
+    //    $("#pane_print_content .merge-c1").remove();
+    //}
+    //$("#pane_print_content .merge > tbody > tr > td").children().unwrap().unwrap().unwrap().unwrap();
+    
     //$("#pane_print").append("<div id='pane_print_footer'>" + $(".footer").wrap('<p/>').parent().html() + "</div>");
 
 	resizeTables();

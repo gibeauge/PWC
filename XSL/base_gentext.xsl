@@ -2174,8 +2174,10 @@
       <xsl:with-param name="content">
         <_sfe:ExternalLink>
           <xsl:if test="concat('http://', string(./@url))">
+          <!--xsl:if test="string(./@url)"-->
             <xsl:attribute name="href">
               <xsl:value-of select="concat('http://', string(./@url))"/>
+              <!--xsl:value-of select="string(./@url)"/-->
             </xsl:attribute>
           </xsl:if>
           <xsl:value-of select="@url"/>

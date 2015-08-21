@@ -66,6 +66,9 @@
       </script>
     </head>
     <body>
+      <script type="text/javascript">
+        browser_support();
+      </script>
       <xsl:apply-templates/>
     </body>
   </html>

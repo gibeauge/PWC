@@ -134,6 +134,7 @@
   <a class="x--sfe-ExternalLink-1-0">
      <xsl:if test="@href">
         <xsl:attribute name="href"><xsl:value-of select="@href"/></xsl:attribute>
+        <xsl:attribute name="target">_blank</xsl:attribute>
      </xsl:if>
      <xsl:call-template name="t-base-div-basic"/>
   </a>
@@ -4152,7 +4153,7 @@
           </xsl:variable>
           <xsl:choose>
             <xsl:when test="$l-dest-name='figure'">
-              <span style="display:none" class="x-xref-1-0">
+              <span class="x-xref-1-0">
                 <xsl:copy-of select="@ch:*"/>
                 <xsl:call-template name="maybe-set-id"/>
                 <a href="#none" onclick="displayGraphicsNav('{$l-file}','{$l-dest-id}');">
@@ -4444,16 +4445,20 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="frontmatter//*" mode="set-id">
+<xsl:template match="frontmatter//*" mode="set-id" priority="3">
   <xsl:text>f</xsl:text><xsl:number level="multiple" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
 </xsl:template>
 
-<xsl:template match="num-index//*" mode="set-id">
+<xsl:template match="num-index//*" mode="set-id" priority="3">
   <xsl:text>n</xsl:text><xsl:number level="multiple" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
 </xsl:template>
 
-<xsl:template match="chapter//*" mode="set-id">
+<xsl:template match="chapter//*" mode="set-id" priority="3">
   <xsl:text>c</xsl:text><xsl:number count="chapter"/>.<xsl:number level="multiple" from="chapter" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
+</xsl:template>
+
+<xsl:template match="*" mode="set-id">
+  <xsl:number level="multiple" count="*[not( (namespace-uri(.)='http://www.w3.org/1999/XSL/Format') or (namespace-uri(.)='http://www.arbortext.com/namespace/XslFoExtensions') or (starts-with(namespace-uri(.),'http://www.arbortext.com/namespace/Styler/')) )]"/>
 </xsl:template>
 
 <xsl:template name="length-to-pixels">

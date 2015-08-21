@@ -8,15 +8,18 @@
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:exslt="http://exslt.org/common"
                 version="2.0">
 
-<xsl:output method="html" indent="no"/>
+<xsl:output method="xhtml" indent="yes" omit-xml-declaration="yes"/>
 
 <xsl:key name="k-id" match="*" use="@id"/>
 
 <xsl:variable name="lang-orig" select="subsequence(tokenize(/html/@lang,'-'),1,1)"/>
 <xsl:variable name="lang-trad" select="subsequence(tokenize(/html/@lang,'-'),2,1)"/>
 <xsl:variable name="prefix" select="concat($lang-trad,'_')"/>
+
+<xsl:param name="output-as" select="'table'"/> <!-- table or div -->
 
 <xsl:template match="/">
   <xsl:apply-templates/>
@@ -49,29 +52,54 @@
     <xsl:if test="@id and key('k-id',concat($prefix,@id))">
       <span id="{concat($prefix,@id)}"/>
     </xsl:if>
-    <table class="merge">
-      <colgroup>
-        <col style="width:53%"/>
-        <col style="width:47%"/>
-      </colgroup>
-      <tbody>
-        <xsl:apply-templates select="node()"/>
-      </tbody>
-    </table>
+    <xsl:choose>
+      <xsl:when test="$output-as='table'">
+        <table class="merge">
+          <colgroup>
+            <col style="width:53%"/>
+            <col style="width:47%"/>
+          </colgroup>
+          <tbody>
+            <xsl:apply-templates select="node()"/>
+          </tbody>
+        </table>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="merge">
+          <xsl:apply-templates select="node()"/>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
   </div>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-title')]" priority="5">
-  <tr>
-    <td class="merge-c1">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-    <td class="merge-c2">
-      <xsl:call-template name="get-translated-object"/>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+        <td class="merge-c2">
+          <xsl:call-template name="get-translated-object"/>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      <div class="merge-d2">
+        <xsl:call-template name="get-translated-object"/>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-list1-')]" priority="5">
@@ -80,24 +108,48 @@
 
 <xsl:template match="div[contains(@class,'x-pbfmatr-')]/div[contains(@class,'x-list1-')]/table[contains(@class,'x-l1item')]" priority="5">
   <xsl:variable name="class" select="@class"/>
-  <tr>
-    <td class="merge-c1">
-      <div class="{../@class}">
-        <xsl:copy>
-          <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <div class="{../@class}">
+            <xsl:copy>
+              <xsl:apply-templates select="@*|node()"/>
+            </xsl:copy>
+          </div>
+        </td>
+        <td class="merge-c2">
+          <div class="{../@class}">
+            <xsl:call-template name="get-translated-object">
+              <xsl:with-param name="from-parent" select="'1'"/>
+              <xsl:with-param name="class" select="@class"/>
+              <xsl:with-param name="pos" select="count(preceding-sibling::*[contains(@class,$class)])+1"/>
+            </xsl:call-template>
+          </div>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <div class="{../@class}">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </div>
       </div>
-    </td>
-    <td class="merge-c2">
-      <div class="{../@class}">
-        <xsl:call-template name="get-translated-object">
-          <xsl:with-param name="from-parent" select="'1'"/>
-          <xsl:with-param name="class" select="@class"/>
-          <xsl:with-param name="pos" select="count(preceding-sibling::*[contains(@class,$class)])+1"/>
-        </xsl:call-template>
+      <div class="merge-d2">
+        <div class="{../@class}">
+          <xsl:call-template name="get-translated-object">
+            <xsl:with-param name="from-parent" select="'1'"/>
+            <xsl:with-param name="class" select="@class"/>
+            <xsl:with-param name="pos" select="count(preceding-sibling::*[contains(@class,$class)])+1"/>
+          </xsl:call-template>
+        </div>
       </div>
-    </td>
-  </tr>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class, 'x-task-')]">
@@ -106,76 +158,156 @@
     <xsl:if test="@id and key('k-id',concat($prefix,@id))">
       <span id="{concat($prefix,@id)}"/>
     </xsl:if>
-    <table class="merge">
-      <colgroup>
-        <col style="width:53%"/>
-        <col style="width:47%"/>
-      </colgroup>
-      <tbody>
-        <xsl:apply-templates select="node()"/>
-      </tbody>
-    </table>
+    <xsl:choose>
+      <xsl:when test="$output-as='table'">
+        <table class="merge">
+          <colgroup>
+            <col style="width:53%"/>
+            <col style="width:47%"/>
+          </colgroup>
+          <tbody>
+            <xsl:apply-templates select="node()"/>
+          </tbody>
+        </table>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="merge">
+          <xsl:apply-templates select="node()"/>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
   </div>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'task-postspace')]" priority="5">
-  <tr>
-    <td class="merge-c1">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-    <td class="merge-c2">
-      <xsl:call-template name="get-translated-object">
-        <xsl:with-param name="from-parent" select="'1'"/>
-        <xsl:with-param name="class" select="@class"/>
-      </xsl:call-template>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+        <td class="merge-c2">
+          <xsl:call-template name="get-translated-object">
+            <xsl:with-param name="from-parent" select="'1'"/>
+            <xsl:with-param name="class" select="@class"/>
+          </xsl:call-template>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      <div class="merge-d2">
+        <xsl:call-template name="get-translated-object">
+          <xsl:with-param name="from-parent" select="'1'"/>
+          <xsl:with-param name="class" select="@class"/>
+        </xsl:call-template>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-title')]" priority="5">
-  <tr>
-    <td class="merge-c1">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-    <td class="merge-c2">
-      <xsl:call-template name="get-translated-object"/>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+        <td class="merge-c2">
+          <xsl:call-template name="get-translated-object"/>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      <div class="merge-d2">
+        <xsl:call-template name="get-translated-object"/>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-warning-wrapper') or contains(@class,'x-caution-wrapper')]" priority="5">
   <xsl:variable name="class" select="@class"/>
-  <tr>
-    <td class="merge-c1">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-    <td class="merge-c2">
-      <xsl:call-template name="get-translated-object">
-        <xsl:with-param name="from-parent" select="'1'"/>
-        <xsl:with-param name="class" select="@class"/>
-        <xsl:with-param name="pos" select="count(preceding-sibling::*[contains(@class,$class)])+1"/>
-      </xsl:call-template>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+        <td class="merge-c2">
+          <xsl:call-template name="get-translated-object">
+            <xsl:with-param name="from-parent" select="'1'"/>
+            <xsl:with-param name="class" select="@class"/>
+            <xsl:with-param name="pos" select="count(preceding-sibling::*[contains(@class,$class)])+1"/>
+          </xsl:call-template>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      <div class="merge-d2">
+        <xsl:call-template name="get-translated-object">
+          <xsl:with-param name="from-parent" select="'1'"/>
+          <xsl:with-param name="class" select="@class"/>
+          <xsl:with-param name="pos" select="count(preceding-sibling::*[contains(@class,$class)])+1"/>
+        </xsl:call-template>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-subtask-')]" priority="5">
-  <tr>
-    <td class="merge-c1">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-    <td class="merge-c2">
-      <xsl:call-template name="get-translated-object"/>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+        <td class="merge-c2">
+          <xsl:call-template name="get-translated-object"/>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      <div class="merge-d2">
+        <xsl:call-template name="get-translated-object"/>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-tfmatr')]" priority="5">
@@ -183,43 +315,92 @@
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-tfmatr')]/div[contains(@class,'x-tprereq')]" priority="5">
-  <tr>
-    <td class="merge-c1">
-      <div class="{../@class}">
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <div class="{../@class}">
+            <xsl:copy>
+              <xsl:apply-templates select="@*|node()"/>
+            </xsl:copy>
+          </div>
+        </td>
+        <td class="merge-c2">
+          <div class="{../@class}">
+            <xsl:call-template name="get-translated-object"/>
+          </div>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <div class="{../@class}">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </div>
+      </div>
+      <div class="merge-d2">
+        <div class="{../@class}">
+          <xsl:call-template name="get-translated-object"/>
+        </div>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-taskproc')]" priority="5">
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+        <td class="merge-c2">
+          <xsl:call-template name="get-translated-object"/>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
         <xsl:copy>
           <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
       </div>
-    </td>
-    <td class="merge-c2">
-      <div class="{../@class}">
+      <div class="merge-d2">
         <xsl:call-template name="get-translated-object"/>
       </div>
-    </td>
-  </tr>
-</xsl:template>
-
-<xsl:template match="div[contains(@class,'x-task-')]/div[contains(@class,'x-taskproc')]" priority="5">
-  <tr>
-    <td class="merge-c1">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-    <td class="merge-c2">
-      <xsl:call-template name="get-translated-object"/>
-    </td>
-  </tr>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class, 'x-task-')]/*" priority="1">
-  <tr>
-    <td colspan="2" class="merge-c">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td colspan="2" class="merge-c">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class, 'x-graphic-')]/*/div[contains(@class, 'x-title-')]" priority="5">
@@ -261,52 +442,107 @@
     <xsl:if test="@id and key('k-id',concat($prefix,@id))">
       <span id="{concat($prefix,@id)}"/>
     </xsl:if>
-    <table class="merge">
-      <colgroup>
-        <col  style="width:53%"/>
-        <col  style="width:47%"/>
-      </colgroup>
-      <tbody>
-        <xsl:apply-templates select="node()"/>
-      </tbody>
-    </table>
+    <xsl:choose>
+      <xsl:when test="$output-as='table'">
+        <table class="merge">
+          <colgroup>
+            <col  style="width:53%"/>
+            <col  style="width:47%"/>
+          </colgroup>
+          <tbody>
+            <xsl:apply-templates select="node()"/>
+          </tbody>
+        </table>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="merge">
+          <xsl:apply-templates select="node()"/>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
   </div>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-lof-1')]/div[contains(@class,'x-lof-item')]" priority="5">
-  <tr>
-    <td class="merge-c1">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-    <td class="merge-c2">
-      <xsl:call-template name="get-translated-object"/>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+        <td class="merge-c2">
+          <xsl:call-template name="get-translated-object"/>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      <div class="merge-d2">
+        <xsl:call-template name="get-translated-object"/>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="div[contains(@class,'x-lof-1')]/div[contains(@class,'x-title')]" priority="5">
-  <tr>
-    <td class="merge-c1">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-    <td class="merge-c2">
-      <xsl:call-template name="get-translated-object"/>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td class="merge-c1">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+        <td class="merge-c2">
+          <xsl:call-template name="get-translated-object"/>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d1">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      <div class="merge-d2">
+        <xsl:call-template name="get-translated-object"/>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
+  
 </xsl:template>
 
 <xsl:template match="div[contains(@class, 'x-lof-1')]/*" priority="1">
-  <tr>
-    <td colspan="2" class="merge-c">
-      <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-      </xsl:copy>
-    </td>
-  </tr>
+  <xsl:choose>
+    <xsl:when test="$output-as='table'">
+      <tr>
+        <td colspan="2" class="merge-c">
+          <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+          </xsl:copy>
+        </td>
+      </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <div class="merge-dr">
+      <div class="merge-d">
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+      </div>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- Remove translated content from file -->

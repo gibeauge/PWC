@@ -19,6 +19,8 @@
   <xsl:value-of select="concat(substring($g-pwc-date,1,4) , '-' , substring($g-pwc-date,5,2) , '-' , substring($g-pwc-date,7,2))"/>
 </xsl:variable> 
 
+<xsl:variable name="texts"       select="document('bil_texts.xml')//texts[@language='EN']"/>
+
 <xsl:template match="/">
   <xsl:apply-templates/>
 </xsl:template>
@@ -30,6 +32,11 @@
       <div class="print_header">PRATT &amp; WHITNEY CANADA</div>
       <xsl:apply-templates select="Title"/><br />MODEL(S) <xsl:value-of select="upper-case(EngineModels)" /><br />
       <div class="manual-pt-no">Manual Part No. <xsl:apply-templates select="PartNo" />, Revision No. <xsl:apply-templates select="RevisionNo"/>, Dated <xsl:value-of select="format-date(xs:date($g-date),'[MN,*-3] [D01]/[Y0001]', 'en', (), ())"/></div>
+    </div>
+    <div class="print_disclaimer">
+      <xsl:value-of select="$texts//text[@name='bil_statement_1']"/>
+      <xsl:value-of select="concat(upper-case(EngineModels), '. ')"/>
+      <xsl:value-of select="$texts//text[@name='bil_statement_2']"/>
     </div>
   </div>
 </xsl:template>

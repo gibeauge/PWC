@@ -116,7 +116,7 @@ function setGlobalsFromMeta(inHTML) {
     for (var i=0; i < metaRef.childNodes.length; i++) {
         if (metaRef.childNodes[i].nodeType == 1) { // only get attributes from element            
             name = metaRef.childNodes[i].getAttribute("id");
-            value = metaRef.childNodes[i].innerHTML;
+            value = metaRef.childNodes[i].textContent;
             switch (name) {
                 case "chapter":
                   metaChapter = value;

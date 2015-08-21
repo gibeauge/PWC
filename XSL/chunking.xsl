@@ -64,6 +64,10 @@
     <xsl:apply-templates select="." mode="output-content-pi"/>
   </xsl:template>
   
+  <xsl:template match="*[local-name()='a' and contains(@class, 'sfe-ExternalLink')]/@href" mode="output-content" priority="5">
+    <xsl:copy/>
+  </xsl:template>
+  
   <xsl:template match="*[local-name()='a']/@href" mode="output-content">
     <xsl:variable name="refid" select="substring-after(., '#')"/>
     <xsl:variable name="current-chunk" select="ancestor::*[@ch:chunk and @ch:filename][1]"/>
