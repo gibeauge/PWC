@@ -339,6 +339,7 @@
           <xsl:value-of select="@model"/>
           <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='pwcem-title-2']"/>
         </_ufe:title-block>
+        <!--
         <span style="font-size: 11pt; font-weight: normal; ">
           <xsl:if test="(ancestor-or-self::pwcem-title[1]//statement)[1]/*|(ancestor-or-self::pwcem-title[1]//statement)[1]/text()|(ancestor-or-self::pwcem-title[1]//statement)[1]/processing-instruction()">
             <_gte:Gentexted-Content-Wrapper>
@@ -348,6 +349,12 @@
             </_gte:Gentexted-Content-Wrapper>
           </xsl:if>
         </span>
+        -->
+        <xsl:if test="(ancestor-or-self::pwcem-title[1]//statement)[1]/*|(ancestor-or-self::pwcem-title[1]//statement)[1]/text()|(ancestor-or-self::pwcem-title[1]//statement)[1]/processing-instruction()">
+          <xsl:copy-of select="ancestor-or-self::pwcem-title[1]/*[self::revst[following-sibling::statement]]"/>
+          <_ufe:statement><xsl:apply-templates select="ancestor-or-self::pwcem-title[1]/statement/node()" mode="gentext"/></_ufe:statement>
+          <xsl:copy-of select="ancestor-or-self::pwcem-title[1]/*[self::revend[preceding-sibling::*[1][self::statement]]]"/>
+        </xsl:if>
         <_ufe:title-block>
           <xsl:value-of select="$gen-texts//text[@name='pwcem-title-3']"/>
           <xsl:value-of select="@docnbr"/>
@@ -366,6 +373,9 @@
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="revst[following-sibling::statement]" mode="gentext" priority="3"/>
+  <xsl:template match="revend[preceding-sibling::*[1][self::statement]]" mode="gentext" priority="3"/>
+
   <xsl:template match="pwclmm-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext3">
       <xsl:with-param name="content-before">
@@ -383,6 +393,7 @@
           <xsl:value-of select="@model"/>
           <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='pwcem-title-2']"/>
         </_ufe:title-block>
+        <!--
         <span style="font-size: 11pt; font-weight: normal; ">
           <xsl:if test="(ancestor-or-self::pwclmm-title[1]//statement)[1]/*|(ancestor-or-self::pwclmm-title[1]//statement)[1]/text()|(ancestor-or-self::pwclmm-title[1]//statement)[1]/processing-instruction()">
             <_gte:Gentexted-Content-Wrapper>
@@ -392,6 +403,12 @@
             </_gte:Gentexted-Content-Wrapper>
           </xsl:if>
         </span>
+        -->
+        <xsl:if test="(ancestor-or-self::pwclmm-title[1]//statement)[1]/*|(ancestor-or-self::pwclmm-title[1]//statement)[1]/text()|(ancestor-or-self::pwclmm-title[1]//statement)[1]/processing-instruction()">
+          <xsl:copy-of select="ancestor-or-self::pwclmm-title[1]/*[self::revst[following-sibling::statement]]"/>
+          <_ufe:statement><xsl:apply-templates select="ancestor-or-self::pwclmm-title[1]/statement/node()" mode="gentext"/></_ufe:statement>
+          <xsl:copy-of select="ancestor-or-self::pwclmm-title[1]/*[self::revend[preceding-sibling::*[1][self::statement]]]"/>
+        </xsl:if>
         <_ufe:title-block>
           <xsl:value-of select="$gen-texts//text[@name='pwcem-title-3']"/>
           <xsl:value-of select="@docnbr"/>

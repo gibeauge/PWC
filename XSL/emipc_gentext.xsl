@@ -265,8 +265,7 @@
             </xsl:attribute>
           </xsl:if>
         </_ufe:engine-type>
-        <xsl:value-of select="$gen-texts//text[@name='sep0']"/>
-        <xsl:text> </xsl:text>
+        <xsl:value-of select="$gen-texts//text[@name='model']"/>
       </xsl:with-param>
       <xsl:with-param name="content-after">
         <span style="color: #666666; ">

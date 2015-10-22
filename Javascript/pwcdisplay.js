@@ -95,6 +95,9 @@ function pwcCurrentDate() {
     return today.getDate() + ' ' + enMonths[today.getMonth()] + '/' + fullYear.substring(2);
 }
 
+
+/* Sept 14, 2015. JS These methods are moved to eChannel_pwcdisplay.js.
+
 function countSheets(htmlString) {
     var cSheet = "(SHEET X OF Y)";
     var idx = 0;
@@ -125,6 +128,9 @@ function countSheets(htmlString) {
     return newBlock;
     
 }
+
+*/
+
 function setGlobalsFromMeta(inHTML) {
     var name;
     var value;
@@ -217,6 +223,9 @@ function displayGraphics(figureElementId) {
     invokeGraphic(figRef);
 }
 
+
+/* Sept 14, 2015. JS These methods are moved to eChannel_pwcdisplay.js.
+
 // display a Graphic from the navigation
 function displayGraphicsNav(figureURL, figureElementId) {
     var figDoc; // XML DOM object of the figure's document
@@ -254,13 +263,19 @@ function displayGraphicsNav(figureURL, figureElementId) {
     }
 }
 
+ */
+
+
+
+/* Sept 14, 2015. JS These methods are moved to eChannel_pwcdisplay.js.
+
 // invokeGraphic creates a displayed graphic window given a figure reference object
 function invokeGraphic(figRef) {
     // Check if there is an online disclaimer to load. If there is one available,
     // load it as the official disclaimer, otherwise, just use the default.
     var xmlhttp;
     var inHTML;
-/*    if (!haveGraphicDisclaimer) {
+    if (!haveGraphicDisclaimer) {
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();
         }
@@ -275,7 +290,7 @@ function invokeGraphic(figRef) {
        
         haveGraphicDisclaimer = true;
     }
-    */    
+    
     inHTML = countSheets(figRef.innerHTML);
     if (metaChapter == "frontmatter") {
         docTitle = "";
@@ -325,6 +340,8 @@ function invokeGraphic(figRef) {
     
     winRef.document.close();
 }
+
+*/
 
 
 function displayConsumables(consumableElementId) {
@@ -690,6 +707,8 @@ function getSBNumberFromContent(inContent)
     return "";
 }
 
+/* Sept 14, 2015. JS These methods are moved to eChannel_pwcdisplay.js.
+
 function sbLink(linkValue) {
     var startTag = document.getElementsByTagName("body")[0];
     setGlobalsFromMeta(startTag.innerHTML);
@@ -709,6 +728,8 @@ function spbLink(linkValue) {
     winRef = window.open(linkUrl,"_blank",
         "scrollbars=yes, status=no, toolbar=no, location=no, resizable=1, menubar=1, width=800, height=400");
 }
+
+*/
 
 //Determines if the width of the columns are too big
 function isWidthTooBig(colgroup) {
@@ -861,15 +882,15 @@ function euCAPrintPopup(paraIds, tableIds, figureIds, handler) {
                         'document.idform.selectedFigureIds.options.length=0;';
     var cpt = 0;
     for (var i in paraIds) {
-        html += 'document.idform.selectedParaIds.options[' + (cpt++) + '] = new Option("' + paraIds[i] + '","' + i + '",false, false);';
+        html += 'document.idform.selectedParaIds.options[' + (cpt++) + '] = new Option("' + paraIds[i].replace(/['"]+/g, '') + '","' + i + '",false, false);';
     }
     cpt = 0;
     for (var i in tableIds) {
-        html += 'document.idform.selectedTableIds.options[' + (cpt++) + '] = new Option("' + tableIds[i] + '","' + i + '",false, false);';
+        html += 'document.idform.selectedTableIds.options[' + (cpt++) + '] = new Option("' + tableIds[i].replace(/['"]+/g, '') + '","' + i + '",false, false);';
     }
     cpt = 0;
     for (var i in figureIds) {
-        html += 'document.idform.selectedFigureIds.options[' + (cpt++) + '] = new Option("' + figureIds[i] + '","' + i + '",false, false);';
+        html += 'document.idform.selectedFigureIds.options[' + (cpt++) + '] = new Option("' + figureIds[i].replace(/['"]+/g, '') + '","' + i + '",false, false);';
     }
     html +=
                 '}' +
@@ -1129,3 +1150,12 @@ function euCABlockSetup() {
         }
     }
 }
+
+
+/* Code to suppress SIN hyperlinks */
+
+$(window).load(function () {
+    //$("a[href='#'] > span.x-part-sin").parent().children().unwrap();
+    //$("a[href!='#'] > span.x-part-sin").parent().removeAttr('onclick');
+    $("a[href='#'][onclick*='openIPC']").contents().unwrap();
+});

@@ -1235,12 +1235,20 @@
   </dt>
 </xsl:template>
 
+<xsl:template match="_ufe:statement" priority="0">
+  <div class="x-statement-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </div>
+</xsl:template>
+
 <xsl:template match="statement" priority="0">
   <xsl:param name="hidden" select="'yes'"/>
   
   <xsl:if test="$hidden='no'">
     <div class="x-statement-1-0">
-      <xsl:call-template name="t-base-div-basic"/>
+       <xsl:call-template name="t-base-div-basic-h">
+         <xsl:with-param name="hidden" select="$hidden"/>
+       </xsl:call-template>
     </div>
   </xsl:if>
 </xsl:template>

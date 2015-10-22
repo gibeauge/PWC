@@ -2263,6 +2263,7 @@
   </div>
 </xsl:template>
 
+<!--
 <xsl:template match="partname" priority="0">
   <a href="#">
     <xsl:attribute name="onclick">
@@ -2279,6 +2280,11 @@
     </xsl:attribute>
     <xsl:apply-templates/>
   </a>
+</xsl:template>
+-->
+
+<xsl:template match="partname" priority="0">
+  <xsl:apply-templates/>
 </xsl:template>
 
 <xsl:template match="pcextract" priority="0">
@@ -4671,7 +4677,15 @@
     <div id="pointRev"   ><xsl:value-of select="ancestor::book/@point-revnbr"/></div>
     <div id="revision"   ><xsl:value-of select="ancestor::book/@revnbr"/></div>
     <div id="revDate"    ><xsl:value-of select="ancestor::book/@revdate"/></div>
+    <div id="csu"        >
+      <xsl:if test="contains(name(),'page-block') and translate(concat(@chapter,@section,@subject),'0','')!=''">
+        <xsl:value-of select="concat(@chapter, '-', @section, '-', @subject)"/>
+      </xsl:if>
+    </div>
   </div>
+  <xsl:if test="contains(name(),'page-block') and translate(concat(@chapter,@section,@subject),'0','')!=''">
+    <xsl:value-of select="concat(@chapter, '-', @section, '-', @subject)"/><br/>
+  </xsl:if>
   <xsl:apply-templates/>
   <script language="JavaScript" type="text/javascript">addTableChangebars();</script>
   <script language="JavaScript" type="text/javascript">addChangebars();</script>
@@ -4681,6 +4695,9 @@
   <xsl:call-template name="t-base-div-chunk"/>
   <xsl:call-template name="t-base-pwcmetainfo"/>
   <xsl:call-template name="t-base-pwcbannerinfo"/>
+  <xsl:if test="contains(name(),'page-block') and translate(concat(@chapter,@section,@subject),'0','')!=''">
+    <xsl:value-of select="concat(@chapter, '-', @section, '-', @subject)"/><br/>
+  </xsl:if>
   <xsl:apply-templates/>
   <script language="JavaScript" type="text/javascript">addTableChangebars();</script>
   <script language="JavaScript" type="text/javascript">addChangebars();</script>
@@ -4845,6 +4862,11 @@
     <div id="pointRev"><xsl:value-of select="ancestor::book/@point-revnbr"/></div>
     <div id="revision"><xsl:value-of select="ancestor::book/@revnbr"/></div>
     <div id="revDate" ><xsl:value-of select="ancestor::book/@revdate"/></div>
+    <div id="csu"     >
+      <xsl:if test="contains(name(),'page-block') and translate(concat(@chapter,@section,@subject),'0','')!=''">
+        <xsl:value-of select="concat(@chapter, '-', @section, '-', @subject)"/>
+      </xsl:if>
+    </div>
   </div>
 </xsl:template>
 
