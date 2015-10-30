@@ -130,13 +130,13 @@
     <value>ZOfgndukBSTvnrSm1vqtidvqs8v1nun3+hrtdpm6v9uhWabCnrWfWZekzdrgpePzCOmMQ5ekscu7qOno9h3Ip93zsQ/grdzBs9yvaK+zw9uwbZmkBxDxrODz/+ihb5mkwOmMQ5ekscu7rODr/wzzrunpz+K3mrDF5v/ksqu6/gKqn6jUAeLlabjBzueurODr/wzzrunpz7iJdabw+g7kp+rpz7iJdePt9BDtrNzCnrWfWZekzRfonNzyBBDInbXH4fHQarDVxt6xcqnAwBfonNzyBBDInbWRm8ufWZfA/RTinuX39hC9dabw+g7kp+rp9umMQ5ekscu7muPwACK9RoGkscufWZeksQ==</value>
   </data>
   <data name="EXPORT_CLASSIFICATION_DEFAULT" xml:space="preserve">
-    <value>No technical data</value>
+    <value />
   </data>
   <data name="EXPORT_CONTROL_DEFAULT" xml:space="preserve">
-    <value>ECL is N/A</value>
+    <value />
   </data>
   <data name="FOOTER" xml:space="preserve">
-    <value>&lt;div style="font-family:Arial; background-color:#ffffff; color:black; text-align:left; margin-top:5mm; border-top: 1px solid black"&gt;&lt;div style="display:table; width:100%; margin-top:1mm;"&gt;&lt;div style="display:table-row;"&gt;&lt;div style="display:table-cell; font-size:14px;"&gt;Export Classification: {0}; {1}&lt;/div&gt;&lt;div style="display:table-cell; text-align:right; font-size:14px;"&gt;Page {3}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="text-align:center; font-size:14px; margin-top:1mm;"&gt;Printed on {2} P&amp;WC Proprietary – subject to restrictions in Technical Data Agreement&lt;/div&gt;&lt;/div&gt;</value>
+    <value>&lt;div style="font-family:Arial; background-color:#ffffff; color:black; text-align:left; margin-top:5mm; border-top: 1px solid black"&gt;&lt;div style="display:table; width:100%; margin-top:1mm;"&gt;&lt;div style="display:table-row;"&gt;&lt;div style="display:table-cell; font-size:14px;"&gt;Export Classification: {0} {1}&lt;/div&gt;&lt;div style="display:table-cell; text-align:right; font-size:14px;"&gt;Page {3}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="text-align:center; font-size:14px; margin-top:1mm;"&gt;Printed on {2} P&amp;WC Proprietary – subject to restrictions in Technical Data Agreement&lt;/div&gt;&lt;/div&gt;</value>
   </data>
   <data name="HEADER" xml:space="preserve">
     <value>&lt;div style="font-family:Arial; background-color:#ffffff; margin-top:5mm; margin-left:0mm; margin-right:0mm; border-bottom: 1px solid black;"&gt;&lt;div style="display:table; width: 100%; margin-bottom:1mm"&gt;&lt;div style="display:table-row;"&gt;&lt;div style="display:table-cell; font-size:14px;"&gt;{0}&lt;/div&gt;&lt;div style="display:table-cell; font-size:14px; text-align:right;"&gt;{1}&lt;/div&gt;&lt;/div&gt;&lt;div style="display:table-row;"&gt;&lt;div style="display:table-cell; font-size:14px; padding-top:1mm;"&gt;{2}&lt;/div&gt;&lt;div style="display:table-cell; font-size:14px; text-align:right; padding-top:1mm;"&gt;Rev. {3}.{4} - {5} &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</value>
@@ -146,6 +146,9 @@
   </data>
   <data name="MANUALTITLE" xml:space="preserve">
     <value>manualTitle</value>
+  </data>
+  <data name="CSU" xml:space="preserve">
+    <value>csu</value>
   </data>
   <data name="PAGE_NUMBER" xml:space="preserve">
     <value>{page_number}</value>
@@ -173,5 +176,8 @@
   </data>
   <data name="TAG_ID" xml:space="preserve">
     <value>id</value>
+  </data>
+  <data name="PBNAME" xml:space="preserve">
+    <value>pb-name</value>
   </data>
 </root>

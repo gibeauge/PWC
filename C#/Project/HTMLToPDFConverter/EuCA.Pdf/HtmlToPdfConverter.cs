@@ -46,6 +46,8 @@ namespace EuCA.Pdf
         /// </summary>
         private static bool IsLicensed = false;
 
+        private static string log = "";
+
         #endregion
 
         #region Properties
@@ -98,22 +100,52 @@ namespace EuCA.Pdf
         /// <param name="options">The options to use for the conversion.</param>
         public static void Convert(string html, Stream output, HtmlToPdfConverterOptions options)
         {
+            log = "Start Convert()<br/>";
+#if DEBUG
+            /*
+            var logPath = System.IO.Path.GetTempPath() + "logs_print_dll";
+            if (!Directory.Exists(logPath))
+            {
+                Directory.CreateDirectory(logPath);
+            }
+            using (var f = File.CreateText(logPath + "\\html_string.txt"))
+            {
+                f.Write(html);
+                f.Close();
+            }
+            using (var fw = File.CreateText(logPath + "\\debug_trace_EO.txt")) 
+            {
+                HtmlToPdf.DebugConsole = fw;
+            }
+            */
+#endif
+
             // Sets the license
             SetLicense();
 
             // Initialize parameters
             var opts = InitParameters(html, options);
+
+            log += "End Convert() (before rendering PDF)<br/>";
 #if DEBUG
-            using (var fw = File.CreateText(@"C:\temp\js_out.txt")) 
+            String logs = "<div style='page-break-before:always;margin-bottom:5mm'> -- FOR DEBUGGING ONLY -- </div>" +
+                            "<div style='font-size:12pt'>Logs:</div>" +
+                            "<div style='font-size:11pt'>" + log + "</div>" +
+                            "<div style='font-size:12pt;margin-top:5mm'>Source stream:</div>" +
+                            "<div style='font-family:Courier; font-size:10pt'>" + html.Replace("\u003C", "&lt;") + "</div>";
+            var idx = html.LastIndexOf("</body>");
+            if (idx != -1)
             {
-                HtmlToPdf.DebugConsole = fw;
-                HtmlToPdf.ConvertHtml(html, output, opts);
+                html = html.Insert(idx, logs);
             }
-#else
+            else
+            {
+                html = html + logs;
+            }
+#endif
             // Convert HTMl to PDF
             HtmlToPdf.ConvertHtml(html, output, opts);
-#endif
-        }   
+        }
 
         /// <summary>
         /// Converts an HTML stream to PDF using the default options.
@@ -136,13 +168,14 @@ namespace EuCA.Pdf
             using (var sr = new StreamReader(input))
             {
                 var html = sr.ReadToEnd();
+                sr.Close();
                 Convert(html, output, options);
             }
         }
 
-        #endregion
+#endregion
 
-        #region private static Methods
+#region private static Methods
 
         /// <summary>
         /// Sets the EO PDf license
@@ -164,6 +197,7 @@ namespace EuCA.Pdf
         /// <returns>An HtmlToPdfOptions object</returns>
         private static HtmlToPdfOptions InitParameters(string html, HtmlToPdfConverterOptions options)
         {
+            log += "Start InitParameters()<br/>";
             var parameters = (HtmlToPdfConverterOptions)Options.Clone();
             if (options != null) 
             {
@@ -183,7 +217,10 @@ namespace EuCA.Pdf
             try
             {
                 doc = XDocument.Parse(html);
-            }  catch (Exception) { }
+            }  catch (Exception e) {
+                log += " Parsing error in InitParameters()<br/>";
+                log += e.ToString() + "<br/>";
+            }
 
             // Build the HTML header if the source HTML could be parsed as XML.
             var header = (doc != null) ? BuildHeader(doc) : string.Empty;
@@ -211,7 +248,8 @@ namespace EuCA.Pdf
 
             // Handling of the invisible ids list
             if (parameters.InvisibleElementIds != null && parameters.InvisibleElementIds.Length > 0) { opts.InvisibleElementIds = string.Join(";", parameters.InvisibleElementIds); }
-            
+
+            log += "End InitParameters()<br/>";
             return opts;
         }
 
@@ -223,6 +261,7 @@ namespace EuCA.Pdf
         /// <returns>A string containing the HTML header for the PDF publication.</returns>
         private static string BuildHeader(XDocument doc)
         {
+            log += "Start BuildHeader()<br/>";
             var header = string.Empty;
             try
             {
@@ -230,7 +269,6 @@ namespace EuCA.Pdf
                 var metadatas = doc
                     .Root
                     .Element(_htmlNamespace + Resources.TAG_BODY)
-                    .Element(_htmlNamespace + Resources.TAG_DIV)
                     .Descendants()
                     .Where(n =>
                         n.Name.LocalName.Equals(Resources.TAG_DIV, StringComparison.InvariantCultureIgnoreCase) &&
@@ -251,11 +289,18 @@ namespace EuCA.Pdf
                 // Extract the informations from the metadatas
                 if (metadatas.Count > 0)
                 {
+                    log += " Found metadatas in BuildHeader()<br/>";
                     var manualTitle = metadatas.ContainsKey(Resources.MANUALTITLE) ? metadatas[Resources.MANUALTITLE] : string.Empty;
                     var engine = metadatas.ContainsKey(Resources.ENGINE) ? metadatas[Resources.ENGINE] : string.Empty;
                     var manualPn = metadatas.ContainsKey(Resources.MANUALPN) ? metadatas[Resources.MANUALPN] : string.Empty;
                     var pointRev = metadatas.ContainsKey(Resources.POINTREV) ? metadatas[Resources.POINTREV] : string.Empty;
                     var revision = metadatas.ContainsKey(Resources.REVISION) ? metadatas[Resources.REVISION] : string.Empty;
+                    var csu = metadatas.ContainsKey(Resources.CSU) ? metadatas[Resources.CSU] : string.Empty;
+                    if (!csu.Equals(string.Empty))
+                    {
+                        csu += " - ";
+                    }
+                    var pbName = metadatas.ContainsKey(Resources.PBNAME) ? metadatas[Resources.PBNAME] : string.Empty;
 
                     // Revision date needs to be processed differently, being a date.
                     var revDate = string.Empty;
@@ -267,12 +312,16 @@ namespace EuCA.Pdf
                         revDate = parsedDate.ToString(Resources.DATE_FORMAT, new CultureInfo(Resources.CULTURE_EN_US)).ToUpper();
                     }
 
-                    header = string.Format(Resources.HEADER, engine, manualTitle, manualPn, revision, pointRev, revDate);
+                    header = string.Format(Resources.HEADER, manualTitle, csu + pbName, manualPn, revision, pointRev, revDate);
                 }
             }
-            catch (Exception) { }
-            
+            catch (Exception e) {
+                log += " Error in BuildHeader()<br/>";
+                log += e.ToString() + "<br/>";
+            }
 
+            log += " Header contents:<br/>" + header.Replace("\u003C", "&lt;") + "<br/>";
+            log += "End BuildHeader()<br/>";
             return header; 
         }
 
@@ -284,12 +333,14 @@ namespace EuCA.Pdf
         /// <returns>A string containing the HTML footer for the PDF publication.</returns>
         private static string BuildFooter(HtmlToPdfConverterOptions parameters)
         {
+            log += "Start BuildFooter()<br/>";
             var date = DateTime.Now.ToString(Resources.DATE_FORMAT, new CultureInfo(Resources.CULTURE_EN_US)).ToUpper();
             var footer = string.Format(Resources.FOOTER, parameters.ExportClassification, parameters.ExportControl, date, Resources.PAGE_NUMBER);
-
+            log += " Footer contents:<br/>" + footer.Replace("\u003C", "&lt;") + "<br/>";
+            log += "End BuildFooter()<br/>";
             return footer;
         }
 
-        #endregion
+#endregion
     }
 }

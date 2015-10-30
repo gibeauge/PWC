@@ -209,7 +209,9 @@
      <xsl:copy-of select="@ch:*"/>
      <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
      <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
+     <div class="pr-figure">
      <xsl:apply-templates/>
+     </div>
   </div>
   <span class="pr-figure-min">
     <xsl:for-each select="descendant::sheet[@size='thm'][1]">

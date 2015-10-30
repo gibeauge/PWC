@@ -3348,13 +3348,13 @@
 </xsl:template>
 
 <xsl:template match="page-block//mm-fits/title" priority="47">
-  <div ch:title="toc" class="x-title-23-0">
+  <div ch:title="toc" class="x-title-25-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
 
 <xsl:template match="ata-page-block//mm-fits/title" priority="46">
-  <div ch:title="toc" class="x-title-24-0">
+  <div ch:title="toc" class="x-title-26-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -4662,7 +4662,7 @@
 </xsl:template>
 
 <xsl:template name="t-base-page-block-spec">
-  <xsl:param name="manual-title"/>
+  <xsl:param name="manual-title" select="''"/>
   <xsl:param name="engine"/>
   <xsl:param name="manual-pn"/>
 
@@ -4681,6 +4681,11 @@
       <xsl:if test="contains(name(),'page-block') and translate(concat(@chapter,@section,@subject),'0','')!=''">
         <xsl:value-of select="concat(@chapter, '-', @section, '-', @subject)"/>
       </xsl:if>
+    </div>
+    <div id="pb-name"    >
+      <xsl:call-template name="t-base-pwcbannerinfo-pbname">
+        <xsl:with-param name="manual-title" select="$manual-title"/>
+      </xsl:call-template>
     </div>
   </div>
   <xsl:if test="contains(name(),'page-block') and translate(concat(@chapter,@section,@subject),'0','')!=''">
@@ -4867,6 +4872,9 @@
         <xsl:value-of select="concat(@chapter, '-', @section, '-', @subject)"/>
       </xsl:if>
     </div>
+    <div id="pb-name" >
+      <xsl:call-template name="t-base-pwcbannerinfo-pbname"/>
+    </div>
   </div>
 </xsl:template>
 
@@ -4893,6 +4901,36 @@
     <xsl:otherwise>
        <xsl:value-of select="//page-block[@pb-name='title-page'][1]/module/title-page/manual-title"/>
     </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="t-base-pwcbannerinfo-pbname">
+  <xsl:param name="manual-title" select="''"/>
+  
+  <xsl:choose>
+    <xsl:when test="parent::frontmatter">
+      <xsl:choose>
+        <xsl:when test="self::highlights or self::lot"><xsl:value-of select="title"/></xsl:when>
+        <xsl:when test="@pb-name='title-page'" ><!--xsl:value-of select="$manual-title"/--></xsl:when>
+        <xsl:when test="@pb-name='howtouse'"   ><xsl:value-of select="$gen-texts//text[@name='howtouse-title']"/></xsl:when>
+        <xsl:when test="@pb-name='intro'"      ><xsl:value-of select="$gen-texts//text[@name='intro-title']"/></xsl:when>
+        <xsl:when test="@pb-name='supp_list'"  ><xsl:value-of select="$gen-texts//text[@name='supplier-list-title']"/></xsl:when>
+        <xsl:when test="@pb-name='glossary'"   ><xsl:value-of select="$gen-texts//text[@name='glossary-title']"/></xsl:when>
+        <xsl:when test="@pb-name='nut_option'" ><xsl:value-of select="$gen-texts//text[@name='nut-option-title']"/></xsl:when>
+        <xsl:when test="&anc-pdlist-no-title;" ><xsl:value-of select="$gen-texts//text[@name='pdlist-title']"/></xsl:when> <!-- could use @pb-name='pdlist' ? -->
+        <xsl:when test="&anc-spblist-no-title;"><xsl:value-of select="$gen-texts//text[@name='spblist-title']"/></xsl:when> <!-- could use @pb-name='spblist' ? -->
+        <xsl:when test="&anc-sblist-no-title;" ><xsl:value-of select="$gen-texts//text[@name='sblist-title']"/></xsl:when> <!-- could use @pb-name='sblist' ? -->
+        <xsl:when test="&anc-trlist-no-title;" ><xsl:value-of select="$gen-texts//text[@name='temp-rev-title']"/></xsl:when> <!-- could use @pb-name='trlist' ? -->
+        <xsl:when test=".//pwcchapsect-list or .//chapsect-list"><xsl:value-of select="$gen-texts//text[@name='chapsect-title']"/></xsl:when> <!-- could use @pb-name='chapsect' ? -->
+        <xsl:when test="pageblock-title"><xsl:value-of select="pageblock-title"/></xsl:when>
+        <xsl:otherwise><xsl:value-of select=".//title[1]"/></xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:when test="self::num-index"><xsl:value-of select="$gen-texts//text[@name='num-index-title']"/></xsl:when>
+    <xsl:when test="pageblock-title"><xsl:value-of select="pageblock-title"/></xsl:when>
+    <xsl:when test="$doctype='emipc' and figure"><xsl:value-of select="concat($gen-texts//text[@name='figure'], ' ', figure[1]/@fignbr)"/></xsl:when>
+    <xsl:when test="$doctype='ipc' and ipc-fig"><xsl:value-of select="concat($gen-texts//text[@name='figure'], ' ', ipc-fig[1]/figure[1]/figno)"/></xsl:when>
+    <xsl:otherwise><xsl:value-of select=".//title[1]"/></xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 

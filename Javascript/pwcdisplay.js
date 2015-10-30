@@ -1070,7 +1070,7 @@ function euCAGetIDs(paraIds, tableIds, figureIds) {
         })
     });
 
-    $('div[class^="x-n-para"], div[class^="x-task"]').each(function () {
+    $('div[class^="x-n-para"], div[class^="x-task"], div[class^="x-pbfmatr"], div[class^="x-tprereq"]').each(function () {
         var txt = $.trim($(this).children(':first').text());
         if (txt.length != 0) {
             paraIds[$(this).attr('id')] = txt;
@@ -1155,7 +1155,5 @@ function euCABlockSetup() {
 /* Code to suppress SIN hyperlinks */
 
 $(window).load(function () {
-    //$("a[href='#'] > span.x-part-sin").parent().children().unwrap();
-    //$("a[href!='#'] > span.x-part-sin").parent().removeAttr('onclick');
     $("a[href='#'][onclick*='openIPC']").contents().unwrap();
 });
