@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generated-text>
 <texts language="en">
+<!-- Title page -->
+<text name="tp-manual-mm">MAINTENANCE MANUAL</text>
+<text name="tp-manual-epc">ILLUSTRATED PARTS CATALOG</text>
+<text name="tp-manual-tmm">MAINTENANCE MANUAL</text>
+<text name="tp-manual-lmm">LINE MAINTENANCE MANUAL</text>
+<text name="tp-manual-em">OVERHAUL MANUAL</text>
+<text name="tp-manual-cir">CLEANING INSPECTION REPAIR (CIR) MANUAL</text>
+
+<text name="tp-engine-type">Engine Type</text>
+<text name="tp-models">MODEL(S)</text>
+<text name="tp-manual-pno">Manual Part No.</text>
+<text name="tp-issue">Original Issue Date</text>
+<text name="tp-issued">Issued</text>
+<text name="tp-export-ctl">Export Control</text>
+<text name="tp-approval">Approval</text>
+<text name="tp-warnings">WARNING - PROPRIETARY RIGHTS</text>
+
 <!-- Metadata -->
 <text name="meta-dmc">DMC</text>
 <text name="meta-language">Language</text>

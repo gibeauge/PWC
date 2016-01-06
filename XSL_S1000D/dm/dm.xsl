@@ -22,6 +22,7 @@
 <xsl:include href="../common/prelreqs.xsl"/>
 <xsl:include href="../common/references.xsl"/>
 <xsl:include href="../common/table.xsl"/>
+<xsl:include href="../common/title-page.xsl"/>
 <xsl:include href="../common/utils.xsl"/>
 
 
@@ -39,10 +40,15 @@
       <body class="{concat($css-pfx, '-body')}">
         <div class="s-dmodule">
           <xsl:call-template name="pwcmetainfo"/>
-          <xsl:if test="ancestor::dmInclusion/@is-tp='false'">
-            <xsl:call-template name="metadata"/>
-          </xsl:if>
-          <xsl:apply-templates/>
+          <xsl:choose>
+            <xsl:when test="ancestor::dmInclusion/@is-tp='false'">
+              <xsl:call-template name="metadata"/>
+              <xsl:apply-templates/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:call-template name="build-dm-tp"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </div>
       </body>
     </html>
@@ -100,7 +106,7 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="{$css-path}/content_s1000d.css" rel="stylesheet" type="text/css"/>
+    <link href="{$css-path}/content.css" rel="stylesheet" type="text/css"/>
     <script src="{$js-path}/pwcdisplay.js" type="text/javascript"><![CDATA[ // JS ]]></script>
     <script src="{$js-path}/pwcdisplay_common.js" type="text/javascript"><![CDATA[ // JS ]]></script>
     <title>
