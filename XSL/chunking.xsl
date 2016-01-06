@@ -27,8 +27,8 @@
               <xsl:value-of select="descendant::*[@ch:title][1]"/>
             </xsl:with-param>
           </xsl:call-template>
-          <body class="x-body x-body-{$doctype}">
-            <xsl:apply-templates select="." mode="output-content"/>
+          <body class="x-body">
+            <xsl:apply-templates select="." mode="output-content-first"/>
           </body>
         </html>
       </xsl:result-document>
@@ -44,6 +44,15 @@
       <script src="{$js-path}/pwcdisplay_common.js" type="text/javascript"><![CDATA[ // JS ]]></script>
       <title><xsl:value-of select="$title"/></title>
     </head>
+  </xsl:template>
+  
+  <xsl:template match="*" mode="output-content-first">
+    <xsl:element name="{local-name(.)}">
+      <xsl:attribute name="class">
+        <xsl:value-of select="if (@class) then concat(@class, ' x-body-', $doctype) else concat(' x-body-', $doctype)"/>
+      </xsl:attribute>
+      <xsl:apply-templates select="@*[not(local-name()='class')]|node()[not(@ch:chunk)]" mode="output-content"/>
+    </xsl:element>
   </xsl:template>
   
   <xsl:template match="*" mode="output-content">

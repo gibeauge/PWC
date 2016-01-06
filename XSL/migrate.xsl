@@ -463,6 +463,12 @@
   <xsl:apply-templates/>
 </xsl:template>
 
+<xsl:template match="statement" priority="0">
+  <div class="x-statement-2-0">
+    <xsl:call-template name="t-base-div-basic"/>
+  </div>
+</xsl:template>
+
 <xsl:template match="numlist/step" priority="3">
   <table border="0" cellpadding="0" cellspacing="0" class="x-step-1-0 x--zero-left-margins x-tab-fixed">
     <xsl:call-template name="t-base-step-table">
@@ -832,7 +838,7 @@
 </xsl:template>
 
 <xsl:template match="pgblk/title" priority="29">
-  <div ch:title="notoc" class="x-title-44-0">
+  <div ch:title="notoc" class="x-pageblock-title-2-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>

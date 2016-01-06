@@ -1079,7 +1079,7 @@
 </xsl:template>
 
 <xsl:template match="pgblk/title" priority="29">
-  <div ch:title="notoc" class="x-title-44-0">
+  <div ch:title="notoc" class="x-pageblock-title-2-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
