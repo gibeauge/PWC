@@ -1,0 +1,473 @@
+#------------------------------------------------------------------------------
+# File         : pwc_ape_s1000d.acl
+# Description  : Custom support for the PE s1000d publication.
+#                If PE is updated to a newer version, changes to this
+#                packages should be monitored.
+#
+# Author(s)    : Gilles Beaugeais
+# Company      : Amplexor Canada for Pratt & Whitney Canada
+# Date         : December 2015
+#------------------------------------------------------------------------------
+
+# If this process is not running as a PE sub-process then stop now because
+# this references packages that will only be present in a PE environment.
+# (this must be all on one line)
+if (!$main::is_e3 && !$main::is_e3_interactive) { return; }
+
+package pwc_ape_s1000d;
+
+# required packages
+autoload compose::compose_using_xsl comp_usingxsl;
+
+require e3;
+require _e3;
+require PEAppRequest;
+require compose;
+
+global PUBLICATIONTYPE_PARAM    = 'publication-type';
+global OUTPUTTYPE_PARAM         = "type";
+global STYLESHEET_PARAM         = "stylesheet";
+global TRANSFORMERPARAMS_PARAM  = "transformerParams";
+global OUTFILE_PARAM            = "outputFile";
+global OUTDIR_PARAM             = "output-dir";
+global DEFAULT_PARAM            = "--default--";
+
+global XML_TYPE                 = 'xml';
+
+global XSL_TEMP_DIR             = "xsl_out";
+global GRAPHICS_DIR             = "graphics";
+
+global CUSTOM_INFO_ID = 1;
+global XSL_DIR                  = get_custom_dir() . $main::PCS . "stylesheets_s1000d";
+
+global ZIP_EXTRACT_DIR          = "";
+
+global DEBUG_LOG = get_custom_dir() . $main::PCS . "acl_log.txt";
+
+# forward declarations
+function convert()              {}
+function s1000d_preprocess()    {}
+function s1000d_postprocess()   {}
+function pub_preprocess_xsl()   {}
+function pub_xsl()              {}
+
+function compFrameHook()            {}
+function setXSLParameters()         {}
+function copyGraphics()             {}
+function copyGraphics2()            {}
+
+function main::debug(msg) {
+     eval time_date() . " " . $msg output=>$DEBUG_LOG
+}
+
+function main::debug_array(array[], array_name) {
+    local i;
+
+    debug(" Values in array: $array_name:")
+    for (i in $array) {
+        debug(" [$i] = " . array[i])
+    }
+}
+
+#---------------------------------------------------------------------------
+# Function  : convert
+# Desc      : Method to publish s1000d data (as a zip file).
+# Returns   : the result of the conversion
+#---------------------------------------------------------------------------
+
+function convert() {
+    # Retrieve HTTP query parameters.
+    local i;
+    local parameterArray[];
+    local parameterName[];
+    local parameterCount = PEAppRequest::getParameterNames(parameterName);
+
+    for (i = 1; i <= parameterCount; i += 1) {
+        local parameterValue = PEAppRequest::getParameter(parameterName[i]);
+        if (parameterValue != "") {
+            parameterArray[parameterName[i]] = parameterValue;
+        }
+    }
+
+    # These parameters are required.
+    local inFile    = parameterArray['file'];
+    local outFile   = parameterArray['output-file'];
+    local outFileHtml = outFile . ".html";
+
+    local errorMessage = "";
+
+    # Pre-process
+    local newInFile = "";
+    local rc = s1000d_preprocess(inFile, outFile, parameterArray, newInFile);
+    if (rc != "ok") {
+        errorMessage = rc;
+    }
+
+    # Main process
+    if (errorMessage == "") {
+        inFile = newInFile;
+
+        # set parameters
+        parameterArray[$STYLESHEET_PARAM] = $XSL_DIR . $main::PCS . "pm" . $main::PCS . "pm.xsl";
+        parameterArray[$OUTPUTTYPE_PARAM] = $XML_TYPE;
+        parameterArray['file'] = $inFile;
+        parameterArray['file-type'] = "xml";
+
+        result = e3::convert2(inFile, outFileHtml, parameterArray);
+
+        # Decode 'e3::convert2' return array
+        local convertResult[];
+        e3::string_to_array(convertRc, convertResult);
+        # If conversion succeeded, we're done
+        if (convertResult["result"] != "ok") {
+            return result;
+        }
+    }
+
+    # Post-process
+    if (errorMessage == "") {
+        local rc = s1000d_postprocess(inFile, outFile, parameterArray);
+        if (rc != "ok") {
+            errorMessage = rc;
+        }
+    }
+
+    # Remove temporary files
+    if ($ZIP_EXTRACT_DIR != "") {
+#        execute("remove_file -r -f " . ZIP_EXTRACT_DIR);
+    }
+    if (access($outFileHtml, "r")) {
+        remove_file "$outFileHtml";
+    }
+
+    if (errorMessage == "") {
+        result = _e3::Convert2Result("ok");
+    }
+    else {
+        result = _e3::Convert2Result("error", errorMessage);
+    }
+
+    return result;
+}
+
+#---------------------------------------------------------------------------
+# Function  : s1000d_preprocess
+# Desc      : Preprocessing tasks for S1000d publications
+# Params    : inFile : the file to convert
+#             outFile : the output file of the conversion
+#             parameterArray[] : the parameters of the conversion
+# Returns   : 'ok' if no problem is encountered, error message otherwise
+#---------------------------------------------------------------------------
+function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
+    local result = "ok";
+
+    # unzip source file
+    ZIP_EXTRACT_DIR = "";
+    if (!access(inFile, "r" )) {
+        result = "Input zip archive '" . inFile . "' does not exist or is not readable.";
+        return result;
+    }
+
+    local extractedZipDirectory = dirname(inFile) . $main::PCS . "zip-out";
+    epicutil::mkdir_recursive(extractedZipDirectory);
+
+    if (!file_directory(extractedZipDirectory)) {
+        result = "Failed to create temporary directory '" . extractedZipDirectory . "' to extract input zip archive.";
+        return result;
+    }
+
+    result = java_static("com.arbortext.util.Azip", "restoreArchive", inFile, extractedZipDirectory);
+    if (result != "ok") {
+        return result;
+    }
+
+    # find xml file in extracted archive
+    ZIP_EXTRACT_DIR = $extractedZipDirectory;
+    local f[];
+    glob(extractedZipDirectory . $main::PCS . "PM*.xml", $f);
+    if (count($f) == 0) {
+        result = "Cannot find PM XML file in zip archive '" . inFile . "'.";
+        return result;
+    }
+    local xmlFile = $f[1];
+
+    # first pre-process
+    local new_xmlFile = "";
+    local doc = doc_open(xmlFile, 0x001+0x010+0x020+0x200+0x400+0x80000);
+    local xsl_path = $XSL_DIR . $main::PCS . "pm" . $main::PCS . "pm_preprocess.xsl";
+    local out_path = substr($xmlFile, 1, match($xmlFile, "\.xml")-1) . "_pre.xml";
+    result = pub_preprocess_xsl($doc, $xsl_path, $out_path, $new_xmlFile);
+    doc_close($doc);
+    if (result != "ok") {
+        result = "First XSL preprocess has failed." . "\n" . result;
+        return result;
+    }
+
+    # second pre-process
+    doc = doc_open(new_xmlFile, 0x001+0x010+0x020+0x200+0x400+0x80000);
+    xsl_path = $XSL_DIR . $main::PCS . "pm" . $main::PCS . "pm_preprocess2.xsl";
+    out_path = substr($xmlFile, 1, match($xmlFile, "\.xml")-1) . "_pre_fm.xml";
+    result = pub_preprocess_xsl($doc, $xsl_path, $out_path, $new_xmlFile);
+    doc_close($doc);
+    if (result != "ok") {
+        result = "Second XSL preprocess has failed." . "\n" . result;
+        return result;
+    }
+    newInFile = new_xmlFile;
+
+    return result;
+}
+
+function pub_preprocess_xsl(doc, xsl_path, out_path, &new_in_path) {
+    local result;
+    if (access($xsl_path, "e")) {
+        result = pub_xsl($doc, $xsl_path, $out_path, "");
+        if ($result != 1) {
+            result = "Error while processing XSL stylesheet: " . $xsl_path;
+        }
+        else {
+            result = "ok";
+            new_in_path = out_path;
+        }
+    }
+    else {
+        result = "Unable to find XSL stylesheet: " . $xsl_path;
+    }
+    return result;
+}
+
+function pub_xsl(doc, xsl_path, out_path, out_dir) {
+    # set parameters
+    local params[];
+    params["outputFile"] = $out_path;
+    params["stylesheet"] = $xsl_path;
+    if ($out_dir!="") {
+        params["transformerParams"] = "output-dir=" . $out_dir . "";
+    }
+
+    # transform
+    clear_stylesheet($xsl_path);
+
+    return compose::compose_using_xsl($doc, $params, "xsl");
+}
+
+#---------------------------------------------------------------------------
+# Function  : htmlonline_postprocess
+# Desc      : Postprocessing tasks for HTML online publications
+# Params    : inFile : the file to convert
+#             outFile : the output file of the conversion
+#             parameterArray[] : the parameters of the conversion
+# Returns   : 'ok' if no problem is encounterred, an error message otherwise
+#---------------------------------------------------------------------------
+function s1000d_postprocess(inFile, outFile, parameterArray[]) {
+    local result = "ok";
+
+    local folderDir = get_e3_temp_dir() . $main::PCS . XSL_TEMP_DIR;
+    local rc = _e3::ZipDirectory(outFile, folderDir);
+    if (rc != "ok") {
+        result = "An error occured while creating the output zip: $rc";
+    }
+
+    # Delete temporary files
+    execute("remove_file -r -f " . dirFolder);
+
+    return result;
+}
+
+#---------------------------------------------------------------------------
+# Function  : compFrameHook
+# Desc      : Composition Framework Hook used to execute our custom code
+#             during the differents steps of the conversion process.
+#             If an error occurs in this function, the publication process
+#             will be stopped.
+# Params    : doc   : the doc begin composed.
+#             type  : the type of composition.
+#             where : which step of the composition we are at.
+#             parameterArray[] : the parameters of the composition.
+# Returns   : 0 if everything worked out, -1 otherwise.
+#---------------------------------------------------------------------------
+function compFrameHook(doc, type, where, parameterArray[]) {
+    local rc = 0;
+
+    local isS1000DPub = 0;
+    if (parameterArray['compose.compositionType'] == 'xsl' && defined(parameterArray[$STYLESHEET_PARAM])) {
+        local xslFile = parameterArray[$STYLESHEET_PARAM];
+        if (index(xslFile, "pm\.xsl") > 0) {
+            isS1000DPub = 1;
+        }
+    }
+
+    if (isS1000DPub) {
+        if (where == $compose::HK_CFTI_INITIAL)  {
+            rc = setXSLParameters(doc, parameterArray);
+        }
+        else if (where == $compose::HK_CFTI_POSTPROC) {
+            local graphDir = get_e3_temp_dir() . $main::PCS . $XSL_TEMP_DIR . $main::PCS . "Pages" . $main::PCS . $GRAPHICS_DIR;
+            rc = copyGraphics(doc, graphDir);
+        }
+    }
+
+    return rc;
+}
+
+#---------------------------------------------------------------------------
+# Function  : setXSLParameters
+# Desc      : Sets the XSL transformation parameters that couldn't be set
+#             in the top layers of the conversion.
+# Params    : doc : the document being composed.
+#             parameterArray[] : the parameters of the composition.
+#---------------------------------------------------------------------------
+function setXSLParameters(doc, parameterArray[]) {
+    # Retrieve the existing transformation parameters that will be passed to
+    # the XSL at the start of the transformation.
+    local transformerParams = parameterArray[$TRANSFORMERPARAMS_PARAM];
+
+    # Determine the output directory the XSL should for the
+    # different XML outputs.
+    local rootFolder = get_e3_temp_dir();
+    gsub("[\\]", "/", $rootFolder);
+    local outFolder = "file:///" . rootFolder . "/" . $XSL_TEMP_DIR;
+
+    # If there already was some parameters in the transformation
+    # parameters parameter
+    if (length(transformerParams) > 0) {
+        transformerParams .= "||";
+    }
+    else {
+        transformerParams = "";
+    }
+    # Sets the output-dir parameter of the transformation
+    transformerParams .= "output-dir=$outFolder||graphics-path=$GRAPHICS_DIR";
+
+    # Updates the transformation parameter
+    parameterArray[$TRANSFORMERPARAMS_PARAM] = $transformerParams;
+    # Remember the output directory (used later in the composition process)
+    parameterArray[$OUTDIR_PARAM] = outFolder;
+
+    return 0;
+}
+
+#---------------------------------------------------------------------------
+# Function  : copyGraphics
+# Desc      : Copies all of the graphics in the current document
+#             to a specified directory.
+# Params    : doc : the document being composed.
+#             graphDir : the directory where to copy the graphics.
+# Returns   : 0 if no error occured, -1 otherwise.
+#---------------------------------------------------------------------------
+function copyGraphics(doc, graphDir) {
+    local result = 0;
+
+    local l_graphicProcessingRC = copyGraphics2(doc, graphDir);
+    if (l_graphicProcessingRC != "ok") {
+        result = -1;
+    }
+
+    return result;
+}
+
+#---------------------------------------------------------------------------
+# Function  : copyGraphics2
+# Desc      : Rerieve the graphcis of a document from Windchill and copies
+#             them to the given directory.
+# Params    : doc : the document being composed.
+#             graphDir : the directory where to copy the graphcis.
+# Returns   : "ok" if no error, an error message otherwise.
+#---------------------------------------------------------------------------
+function copyGraphics2(doc, graphDir) {
+
+    # Results of this function.
+    local result;
+    # Directory containing the document being processed.
+    local docDir = doc_dir(doc);
+    # Table of file-reference/output name correspondences.
+    local fileIndex[];
+
+    # Try to create the output directory for the graphics.
+    # If it fails, returns an error.
+
+    execute("mkdir -p " . graphDir);
+    if (!access(graphDir, 'w')) {
+        local l_rc = "copyGraphics:  failed to create directory '" . graphDir . "'.";
+        _publow_util::Trace(e3::g_debug, l_rc);
+        return l_rc;
+    }
+
+    # Make sure current document is not read-only.
+    doc_read_only(doc, 0);
+
+    # Root of the document.
+    local root = oid_root(doc);
+    # Array that will contain the oids of the different graphic elements.
+    local graphics[];
+    oid_xpath_nodeset(root, graphics, "//*[@infoEntityIdent and @entityPath]");
+
+    local g;
+    for ($g in $graphics) {
+        # Graphic tag oid.
+        local graphicOid    = $graphics[$g];
+        local graphicName   = oid_name(graphicOid);
+        local fileRef       = oid_attr(graphicOid, "entityPath");
+        # Directory that should contain this graphic.
+        local graphBase     = GRAPHICS_DIR . "/";
+
+        # Name of the graphic file after the publication.
+        local fileNewName   = fileRef;
+
+        _publow_util::Trace( e3::g_debug,                                  \
+               "copyGraphics:  graphicOid    = '" . graphicOid    . "'\n"  \
+             . "               graphicName   = '" . graphicName   . "'\n"  \
+             . "               fileRef       = '" . fileRef       . "'\n"  \
+               );
+
+        # If it's a repository (willow) object, resolve its POID into a pathname
+        if (path_session(fileRef)) {
+            fileRef = sess_get_file(fileRef, 0);
+            _publow_util::Trace(e3::g_debug, "copyGraphics:  fileRef (2)    = '" . fileRef . "'\n");
+        }
+
+        # We only process the graphic file once.
+        # If a mapping of the fileRef is found, we do not need to process the file.
+        if (fileIndex[fileRef] == "") {
+
+            # Compute absolute path equivalent to fileRef
+            local absRef = absolute_file_name(fileRef, docDir);
+            _publow_util::Trace( e3::g_debug, "copyGraphics:  absRef    = '" . absRef . "'\n");
+
+            # If no mapping for absolute pathname either, create one.
+            if (fileIndex[absRef] == "") {
+                local outputName; local rc;
+
+                # If the file does not exists : error
+                if (!access(absRef, "r")) {
+                    rc = "copyGraphics:  graphic file '" . absRef . "' not found.";
+                }
+                else {
+                    rc = _e3::CopyGraphicFile(graphDir, absRef, outputName);
+                }
+
+                if (rc != "ok") {
+                    _publow_util::Trace(e3::g_debug, rc);
+                    continue; # Ignore errors and missing images.
+                }
+                else {
+                    # Move the graphic file
+                    local filePath = graphDir . $main::PCS . fileNewName;
+                    execute("mv " . outputName . " " . filePath);
+
+                    # Mapping of the file in the output files.
+                    fileIndex[absRef] = graphBase . "/" . fileNewName;
+                }
+            }
+
+            # We now have a mapping for the absolute pathname. If fileRef isn't
+            # absolute, make an entry for it, too
+            if (fileRef != absRef) {
+                fileIndex[fileRef] = fileIndex[absRef];
+            }
+        }
+
+    } # End fo loop, process the next graphic tag
+
+    return "ok";
+}

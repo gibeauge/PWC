@@ -1,0 +1,37 @@
+# File: init.acl
+# Author: rlubben
+# Date: Thu Jan 06 10:14:28 CST 2011
+#
+# Init file for the PWC IETM custom directory.
+
+require pwc_bursting;
+
+# Added by DBE euroscript 20140926
+require pwc_ape_wc;
+
+function edit_init() {}
+
+set dialogdisplay=off;
+set modified=off;
+
+if (!java_init() && (main::is_e3 || main::is_e3_interactive)) {
+	set javavmmemory=4096;
+	set javavmargs="-Xms2048m -Xmx4096m -Xmn1g -Xss128k -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:SurvivorRatio=8 -XX:TargetSurvivorRatio=90 -XX:MaxTenuringThreshold=31 -XX:+AggressiveOpts";
+}
+
+require comp_dmp;
+$comp_dmp::patchJvmSize=1024;
+
+add_hook('editfilehook', 'edit_init');
+
+# Added by DBE euroscript 20140926
+add_hook("compositionframeworkhook", "pwc_ape_wc::compFrameHook");
+
+function edit_init()
+{	
+	set contextwarnings=off;
+	set documenttypewarnings=off;
+}
+
+# Added by DBE euroscript 20140926
+source pwc_ape_wc;
