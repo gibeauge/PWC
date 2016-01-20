@@ -38,7 +38,7 @@
     <html lang="{$g_lang}">
       <xsl:call-template name="build-header"/>
       <body class="{concat($css-pfx, '-body')}">
-        <div class="s-dmodule">
+        <div class="s-dmodule" id="{generate-id(.)}">
           <xsl:call-template name="pwcmetainfo"/>
           <xsl:choose>
             <xsl:when test="ancestor::dmInclusion/@is-tp='false'">
@@ -132,7 +132,7 @@
         <xsl:with-param name="title" select="fn:getGenText('lof-title')"/>
       </xsl:call-template>
       <body class="{concat($css-pfx, '-body')}">
-        <div class="s-dmodule">
+        <div class="s-dmodule" id="{generate-id(.)}_f">
           <xsl:if test="ancestor::dmInclusion/@is-tp='false'">
             <xsl:call-template name="metadata">
               <xsl:with-param name="additional-title" select="fn:getGenText('lof-title')"/>
@@ -172,7 +172,7 @@
         <xsl:with-param name="title" select="fn:getGenText('lot-title')"/>
       </xsl:call-template>
       <body class="{concat($css-pfx, '-body')}">
-        <div class="s-dmodule">
+        <div class="s-dmodule" id="{generate-id(.)}_t">
           <xsl:if test="ancestor::dmInclusion/@is-tp='false'">
             <xsl:call-template name="metadata">
               <xsl:with-param name="additional-title" select="fn:getGenText('lot-title')"/>

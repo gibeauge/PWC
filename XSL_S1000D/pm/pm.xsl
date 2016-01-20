@@ -151,10 +151,11 @@
 </xsl:template>
 
 <xsl:template match="pmEntry/dmInclusion" priority="10" mode="toc">
-  <xsl:variable name="dmc"        select="@file"/>
-  <xsl:variable name="out-file"   select="concat($dmc, '.html')"/>
+  <xsl:variable name="dmc"         select="@file"/>
+  <xsl:variable name="out-file"    select="concat($dmc, '.html')"/>
+  <xsl:variable name="out-file-id" select="dmodule/generate-id()"/>
 
-  <Page FileType="FILE" MIMEType="text/html" URL="{$out-file}">
+  <Page FileType="FILE" MIMEType="text/html" URL="{$out-file}#{$out-file-id}">
     <xsl:attribute name="ID"><xsl:call-template name="genTocID"/></xsl:attribute>
     <xsl:attribute name="Title">
       <xsl:apply-templates select=".//identAndStatusSection/dmAddress//dmTitle" mode="toc"/>
@@ -174,11 +175,12 @@
 <xsl:template match="dmInclusion/dmodule/content" mode="toc">
   <xsl:apply-templates mode="toc"/>
   <xsl:if test=".//figure[title]">
-    <xsl:variable name="dmc"        select="ancestor::dmInclusion/@file"/>
-    <xsl:variable name="out-file"   select="concat($dmc, '.lof.html')"/>  
-    <xsl:variable name="title"      select="fn:getGenText('lof-title')"/>
+    <xsl:variable name="dmc"         select="ancestor::dmInclusion/@file"/>
+    <xsl:variable name="out-file"    select="concat($dmc, '.lof.html')"/>  
+    <xsl:variable name="out-file-id" select="concat(../generate-id(),'_f')"/>
+    <xsl:variable name="title"       select="fn:getGenText('lof-title')"/>
     
-    <Page URL="{$out-file}" FileType="FILE" MIMEType="text/html" Title="{$title}">
+    <Page URL="{$out-file}#{$out-file-id}" FileType="FILE" MIMEType="text/html" Title="{$title}">
       <xsl:attribute name="ID"><xsl:call-template name="genTocID"/>_lof</xsl:attribute>
       <xsl:apply-templates select=".//figure[title]" mode="toc"/>
     </Page>
@@ -187,9 +189,10 @@
   <xsl:if test=".//table[title]">
     <xsl:variable name="dmc"        select="ancestor::dmInclusion/@file"/>
     <xsl:variable name="out-file"   select="concat($dmc, '.lot.html')"/>  
+    <xsl:variable name="out-file-id" select="concat(../generate-id(),'_t')"/>
     <xsl:variable name="title"      select="fn:getGenText('lot-title')"/>
     
-    <Page URL="{$out-file}" FileType="FILE" MIMEType="text/html" Title="{$title}">
+    <Page URL="{$out-file}#{$out-file-id}" FileType="FILE" MIMEType="text/html" Title="{$title}">
       <xsl:attribute name="ID"><xsl:call-template name="genTocID"/>_lot</xsl:attribute>
     </Page>
   </xsl:if>
