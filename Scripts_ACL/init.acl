@@ -8,6 +8,8 @@ require pwc_bursting;
 
 # Added by DBE euroscript 20140926
 require pwc_ape_wc;
+# Added by GBE amplexor 201512
+require pwc_ape_s1000d;
 
 function edit_init() {}
 
@@ -15,8 +17,8 @@ set dialogdisplay=off;
 set modified=off;
 
 if (!java_init() && (main::is_e3 || main::is_e3_interactive)) {
-	set javavmmemory=4096;
-	set javavmargs="-Xms2048m -Xmx4096m -Xmn1g -Xss128k -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:SurvivorRatio=8 -XX:TargetSurvivorRatio=90 -XX:MaxTenuringThreshold=31 -XX:+AggressiveOpts";
+    set javavmmemory=4096;
+    set javavmargs="-Xms2048m -Xmx4096m -Xmn1g -Xss128k -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:SurvivorRatio=8 -XX:TargetSurvivorRatio=90 -XX:MaxTenuringThreshold=31 -XX:+AggressiveOpts";
 }
 
 require comp_dmp;
@@ -26,12 +28,16 @@ add_hook('editfilehook', 'edit_init');
 
 # Added by DBE euroscript 20140926
 add_hook("compositionframeworkhook", "pwc_ape_wc::compFrameHook");
+# Added by GBE amplexor 201512
+add_hook("compositionframeworkhook", "pwc_ape_s1000d::compFrameHook");
 
 function edit_init()
-{	
-	set contextwarnings=off;
-	set documenttypewarnings=off;
+{
+    set contextwarnings=off;
+    set documenttypewarnings=off;
 }
 
 # Added by DBE euroscript 20140926
 source pwc_ape_wc;
+# Added by GBE amplexor 201512
+source pwc_ape_s1000d;
