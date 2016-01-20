@@ -57,7 +57,7 @@ namespace EuCA.Pdf
         /// </summary>
         //public static string License { get; set; }
 
-        private static readonly HtmlToPdfConverterOptions _options = 
+        private static readonly HtmlToPdfConverterOptions _options =
             new HtmlToPdfConverterOptions
             {
                 PageSize = PdfPageSizes.Letter,
@@ -225,7 +225,7 @@ namespace EuCA.Pdf
             // Build the HTML header if the source HTML could be parsed as XML.
             var header = (doc != null) ? BuildHeader(doc) : string.Empty;
             // Build the HTML footer.
-            var footer = BuildFooter(parameters);               
+            var footer = BuildFooter(parameters);
 
             // Options that are always set
             var opts = new HtmlToPdfOptions
@@ -238,6 +238,7 @@ namespace EuCA.Pdf
                 FooterHtmlFormat = footer,
                 HeaderHtmlPosition = 0F,
                 HeaderHtmlFormat = header,
+                NoCache = true
             };
 
             // BaseUrl
