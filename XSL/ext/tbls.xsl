@@ -229,7 +229,7 @@
         <xsl:value-of select="lower-case(@valign)"/>
       </xsl:attribute>
     </xsl:if>
-
+    <xsl:call-template name="maybe-set-id"/>
     <xsl:apply-templates mode="cals-table"/>
   </tr>
 </xsl:template>

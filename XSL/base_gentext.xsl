@@ -1568,7 +1568,7 @@
     <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
-  <xsl:template match="table[@tabstyle='frac' and parent::item]" mode="gentext" priority="3">
+  <xsl:template match="table[@tabstyle='frac' and parent::item]" mode="gentext" priority="4">
     <xsl:call-template name="expand-gentext-default"/>
   </xsl:template>
   
@@ -2173,11 +2173,17 @@
     <xsl:call-template name="expand-gentext-ufe">
       <xsl:with-param name="content">
         <_sfe:ExternalLink>
-          <xsl:if test="concat('http://', string(./@url))">
-          <!--xsl:if test="string(./@url)"-->
+          <!--xsl:if test="concat('http://', string(./@url))"-->
+          <xsl:if test="string(@url)">
             <xsl:attribute name="href">
-              <xsl:value-of select="concat('http://', string(./@url))"/>
-              <!--xsl:value-of select="string(./@url)"/-->
+              <xsl:choose>
+                <xsl:when test="starts-with(@url,'http://') or starts-with(@url,'https://') or starts-with(@url,'ftp://')">
+                  <xsl:value-of select="string(@url)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="concat('http://', string(@url))"/>
+                </xsl:otherwise>
+              </xsl:choose>
             </xsl:attribute>
           </xsl:if>
           <xsl:value-of select="@url"/>
