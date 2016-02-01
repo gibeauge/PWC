@@ -49,17 +49,18 @@
               <xsl:call-template name="build-dm-tp"/>
             </xsl:otherwise>
           </xsl:choose>
+          <div id="s1000d_print_marker"/>
         </div>
       </body>
     </html>
   </xsl:result-document>
   
   <!-- create lot and lof files -->
-  <xsl:if test=".//figure[title]">
+  <xsl:if test=".//figure[title] and ancestor::dmInclusion/@is-tp='false'">
     <xsl:call-template name="build-dm-lof"/>
   </xsl:if>
   
-  <xsl:if test=".//table[title]">
+  <xsl:if test=".//table[title] and ancestor::dmInclusion/@is-tp='false'">
     <xsl:call-template name="build-dm-lot"/>
   </xsl:if>
 </xsl:template>

@@ -229,7 +229,36 @@
     </xsl:choose>
   </span>
 </xsl:template>
-    
+
+<!-- display graphic only for title page -->
+<xsl:template match="figure[ancestor::dmInclusion/@is-tp='true']" priority="25">
+  <div>
+    <xsl:call-template name="setID"/>
+    <xsl:call-template name="change"/>  
+    <div id="{generate-id(.)}">
+      <xsl:apply-templates select="graphic"/>
+    </div>
+  </div>
+</xsl:template>
+
+<xsl:template match="graphic[ancestor::dmInclusion/@is-tp='true']" priority="25">
+  <div class="s-tp-graphic">
+    <xsl:call-template name="setID"/>
+    <img alt="Graphic" src="{concat($graphics-path, '/', @entityPath)}" style="max-width: 100%;">
+      <xsl:if test="@xlink:title">
+        <xsl:attribute name="alt" select="@xlink:title"/>
+      </xsl:if>
+      <xsl:if test="@reproductionWidth">
+        <xsl:attribute name="width" select="@reproductionWidth"/>
+      </xsl:if>
+      <xsl:if test="@reproductionHeight">
+        <xsl:attribute name="height" select="@reproductionHeight"/>
+      </xsl:if>
+    </img>
+  </div>
+  <xsl:apply-templates select="hotspot"/>
+</xsl:template>
+
 <xsl:template match="figure" priority="20">
   <div class="pr-brk"></div>
   <div style="display:none;">

@@ -158,7 +158,14 @@
   <Page FileType="FILE" MIMEType="text/html" URL="{$out-file}#{$out-file-id}">
     <xsl:attribute name="ID"><xsl:call-template name="genTocID"/></xsl:attribute>
     <xsl:attribute name="Title">
-      <xsl:apply-templates select=".//identAndStatusSection/dmAddress//dmTitle" mode="toc"/>
+      <xsl:choose>
+        <xsl:when test="tocTitle">
+          <xsl:apply-templates select="tocTitle/dmTitle" mode="toc"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select=".//identAndStatusSection/dmAddress//dmTitle" mode="toc"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:attribute>
     <xsl:if test="@is-tp='false'">
       <xsl:apply-templates select="dmodule/content" mode="toc"/>

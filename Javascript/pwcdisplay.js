@@ -797,6 +797,12 @@ window.onload = function () {
 /* */
 function euCAPrintPopup(paraIds, tableIds, figureIds, handler) {
 
+    if ($("#s1000d_print_marker")) {
+       var fct = 'window.' + handler + '("", "");';
+       eval(fct);
+       return;
+    }
+
     var w = 600; // width
     var h = 580; // height
 
@@ -1083,6 +1089,17 @@ function euCAGetIDs(paraIds, tableIds, figureIds) {
             figureIds[$(this).parent().attr('id')] = txt;
         }
     });
+    
+    /* for s1000d */
+    /*
+    $('div[class="s-pStep"], div[class="s-lPara"]').each(function () {
+        var txt = $.trim($(this).children(':first').text());
+        alert(txt);
+        if (txt.length != 0) {
+            paraIds[$(this).attr('id')] = '"' + txt + '"';
+        }
+    });
+    */
 }
 
 
@@ -1108,6 +1125,10 @@ function euCABlockSetup() {
             ((nClass.indexOf('x-table') >= 0) || (nClass.indexOf('x-figure') >= 0) ||
              (nClass.indexOf('x-key') >= 0) || (nClass.indexOf('x-graphic') >= 0))) {
             node.style.display = "block";
+        }
+
+        if (nClass == 's-dmstatus') {
+            node.style.display = "none";
         }
 
         /* Handles page-breaks for the figures. */

@@ -40,7 +40,7 @@
 .s-tp-export-ctl                { text-align: center; padding-top: 0.8em; }
 .s-tp-approval                  { padding-top: 1em; }
 .s-tp-warnings                  { text-align: center; text-decoration: underline; padding-top: 1em; padding-bottom: 0.5em; }
-
+.s-tp-graphic                   { text-align: center; padding-top: 0.8em; }
 
 /** FRONTMATTER **/
 
@@ -113,20 +113,20 @@
 .s-caption-grey                 { color: #C0C0C0; }
 .s-caption-red                  { color: #FFF; background-color: #F00; }
 
-.x-caution-wrapper-sd           { margin-top: 8pt; padding: 2pt; border: 1px solid #9F6000; background-color: #FEEFB3; display:table; }
-.x-caution-sd                   { font-weight: bold; color: #222222; display:table-row; }
-.x-caution-label-sd             { color: #9F6000; display: table-cell; }
+.x-caution-wrapper-sd           { display:table; margin-top: 4pt; margin-bottom: 6pt; padding: 2pt; border: 1px solid #9F6000; background-color: #FEEFB3; }
+.x-caution-sd                   { display:table-row; font-weight: bold; color: #222222; }
+.x-caution-label-sd             { display: table-cell; color: #9F6000; }
 .x-caution-c-sd                 { display: table-cell; padding-left: 5px; width: 100%; }
 
-.x-warning-wrapper-sd           { margin-top: 8pt; padding: 2pt; border: 1px solid #D8000C; background-color: #FFBABA; display:table; }
-.x-warning-sd                   { font-weight: bold; color: #222222; display:table-row; }
-.x-warning-label-sd             { color: #D8000C; display: table-cell; }
+.x-warning-wrapper-sd           { display:table; margin-top: 4pt; margin-bottom: 6pt; padding: 2pt; border: 1px solid #D8000C; background-color: #FFBABA; }
+.x-warning-sd                   { display:table-row; font-weight: bold; color: #222222; }
+.x-warning-label-sd             { display: table-cell; color: #D8000C; }
 .x-warning-c-sd                 { display: table-cell; padding-left: 5px; width: 100%; }
 
-.x-note-wrapper-sd              { margin-top: 8pt; padding: 2pt; display:table; }
+.x-note-wrapper-sd              { display:table; margin-top: 4pt; margin-bottom: 6pt; padding: 2pt; }
 .x-note-sd                      { display:table-row; }
-.x-note-label-sd                { font-weight: bold; text-decoration: underline; display: table-cell; width: 60px; min-width: 60px; }
-.x-note-c-sd                    { display: table-cell; padding-left: 5px; width: 100%; }
+.x-note-label-sd                { display: table-cell; font-weight: bold; text-decoration: underline; width: 60px; min-width: 60px; }
+.x-note-c-sd                    { display: table-cell; width: 100%; }
 
 .s-note-para                    { margin-bottom: 0.7em; }
 
@@ -200,13 +200,14 @@ img.s-symbol                    { border: none;}
 
 .s-descript                     {}
 
-.s-lPara, 
-.s-lPara .s-lPara               { margin-top: 25px; margin-left: 0px; clear: both; }
-.s-lPara-c > div                { /*margin-left: 95px;*/ }
-.s-lPara-nb                     { /*width: 95px;*/ float: left; font-weight: bold; margin-right: 15px; }
+.s-lPara                        { overflow: hidden;  margin-top: 15px; margin-left: 0px; }
+.s-lPara .s-lPara               { overflow: hidden;  margin-top: 10px; }
+.s-lPara-nb                     { float: left; width: 40px; font-weight: bold; }
+.s-lPara-c                      { overflow: hidden;  }
+.s-lPara-c > div                { }
 .s-lPara-title                  { font-weight: bold; margin-bottom: 10px; }
 
-.s-para-lPara-first             { /*padding-top: 7pt;*/ }
+.s-para-lPara-first             { }
 
 
 /** PROCEDURE **/
@@ -221,14 +222,15 @@ img.s-symbol                    { border: none;}
 .s-proced h2                    { font-weight: bold; }
 .s-mainproc                     { margin-top: 4em; }
 
-.s-pStep                        { margin-top: 10px; margin-left: 0px; }
-.s-pStep .s-pStep               { margin-top: 10px; margin-left: 35px; }
-.s-pStep-c > div                { /*margin-left: 95px;*/ }
-.s-pStep-nb                     { /*width: 95px;*/ float: left; font-weight: bold; /*font-size: 16pt;*/ margin-right: 15px; }
-.s-pStep-title                  { font-weight: bold; /*font-size: 16pt;*/ margin-bottom: 10px; }
+.s-pStep                        { overflow: hidden;  margin-top: 15px; margin-left: 0px; }
+.s-pStep .s-pStep               { overflow: hidden;  margin-top: 10px; }
+.s-pStep-nb                     { float: left; width: 40px; font-weight: bold; }
+.s-pStep-c                      { overflow: hidden;  }
+.s-pStep-c > div                { }
+.s-pStep-title                  { font-weight: bold; margin-bottom: 10px; }
 .s-pStep-c .s-para              { margin-bottom: 0px; }
 
-.s-para-pStep-first             { /*padding-top: 7pt;*/ }
+.s-para-pStep-first             { }
 
 .s-pStep-c > .x-table-sd        { margin-top: 20px; margin-bottom: 20px; margin-left: 0px; }
 

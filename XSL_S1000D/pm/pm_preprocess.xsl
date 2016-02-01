@@ -71,6 +71,9 @@
     
     <dmInclusion ref="{$dmc}" file="{if ($is-tp) then 'title-page' else $dmc}" inc="{$infocode}" is-tp="{$is-tp}" is-fm="{$is-fm}">
       <!--dmIds><xsl:for-each select="$doc//@id"><id><xsl:value-of select="."/></id></xsl:for-each></dmIds-->
+      <xsl:if test="dmRefAddressItems/dmTitle">
+        <tocTitle><xsl:copy-of select="dmRefAddressItems/dmTitle"/></tocTitle>
+      </xsl:if>
       <xsl:apply-templates select="$doc/*"/>
     </dmInclusion>
   </xsl:if>

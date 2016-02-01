@@ -102,36 +102,43 @@
 
 <xsl:template match="identAndStatusSection" mode="metadata">
   <xsl:variable name="id" select="'dmstatus-table'"/>
-  <div><a href="#" onclick="toggle('{$id}', '{$id}')">DM status</a></div>
-  <table id="{$id}" style="display:none;">
-    <colgroup>
-      <col width="15%"/>
-      <col width="85%"/>
-    </colgroup>
-    <tbody>
-      <xsl:apply-templates select="dmAddress/dmIdent/dmCode"            mode="metadata"/>
-      <xsl:apply-templates select="dmAddress/dmIdent/language"          mode="metadata"/>
-      <xsl:apply-templates select="dmAddress/dmAddressItems/dmTitle"    mode="metadata"/>
-      <xsl:apply-templates select="dmAddress/dmIdent/issueInfo"         mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/security"                   mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/dataRestrictions"           mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/responsiblePartnerCompany"  mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/originator"                 mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/applicCrossRefTableRef"     mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/applic"                     mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/referencedApplicGroup"      mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/techStandard"               mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/brexDmRef"                  mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/qualityAssurance"           mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/systemBreakdownCode"        mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/functionalItemCode"         mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/functionalItemRef"          mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/skillLevel"                 mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/reasonForUpdate"            mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/productSafety"              mode="metadata"/>
-      <xsl:apply-templates select="dmStatus/remarks"                    mode="metadata"/>
-    </tbody>
-  </table>
+  <div class="s-dmstatus">
+    <div><a href="#" onclick="toggle('{$id}', '{$id}')">DM status</a></div>
+    <table id="{$id}" style="display:none;">
+      <colgroup>
+        <col width="15%"/>
+        <col width="85%"/>
+      </colgroup>
+      <tbody>
+        <xsl:apply-templates select="dmAddress/dmIdent/dmCode"            mode="metadata"/>
+        <!--
+        <xsl:apply-templates select="dmAddress/dmIdent/language"          mode="metadata"/>
+        -->
+        <xsl:apply-templates select="dmAddress/dmAddressItems/dmTitle"    mode="metadata"/>
+        <xsl:apply-templates select="dmAddress/dmIdent/issueInfo"         mode="metadata"/>
+        <xsl:apply-templates select="dmAddress/dmAddressItems/issueDate"  mode="metadata"/>
+        <!--
+        <xsl:apply-templates select="dmStatus/security"                   mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/dataRestrictions"           mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/responsiblePartnerCompany"  mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/originator"                 mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/applicCrossRefTableRef"     mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/applic"                     mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/referencedApplicGroup"      mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/techStandard"               mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/brexDmRef"                  mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/qualityAssurance"           mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/systemBreakdownCode"        mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/functionalItemCode"         mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/functionalItemRef"          mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/skillLevel"                 mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/reasonForUpdate"            mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/productSafety"              mode="metadata"/>
+        <xsl:apply-templates select="dmStatus/remarks"                    mode="metadata"/>
+        -->
+      </tbody>
+    </table>
+  </div>
 </xsl:template>
   
 <xsl:template match="dmIdent/dmCode" mode="metadata">
