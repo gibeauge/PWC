@@ -4620,7 +4620,7 @@ id="Aa6f7d10e-2fb1-431d-9641-dfcaffc70e76"><_gte:Target lang="en"
 </BaseProperties>
 <EditedSource minorVersion="0" productVersion="6.0M011"
 sourceType="xslDmp" stylerVersion="6">&lt;!--Style template for Context: book[contains(@doctype, "tmm")]//page-block[@pb-name="title-page"]-->&lt;xsl:template
-name="__style-for_page-block.11bopack662">       &lt;xsl:text> .x-page-block-2-0
+name="__style-for_page-block.10bopack662">       &lt;xsl:text> .x-page-block-2-0
 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; }&lt;/xsl:text
 >    &lt;/xsl:template>&lt;!--Template for Context: book[contains(@doctype, "tmm")]//page-block[@pb-name="title-page"]-->&lt;xsl:template
 match='book[contains(@doctype, "tmm")]//page-block[@pb-name="title-page"]'
@@ -7150,6 +7150,12 @@ id="A9f60d945-96c1-4f4c-a599-7c1224fb7e9b"><_gte:Target lang="en"
 </Context>
 </Element>
 <Element name="refint" style="inline">
+<Context priority="30" selector="refint[@reftype='dmpno']">
+<BaseProperties>
+<Highlight color="#000000" textUnderlineStyle="none"/>
+<Breaks blockOrInline="inline"/>
+</BaseProperties>
+</Context>
 <Context priority="19"
 selector='table[@tabstyle="parts-list"]//refint[ancestor::book[contains(@doctype, &#x27;epc&#x27;)]]'>
 <BaseProperties>
@@ -10009,20 +10015,20 @@ name="return-lang-applying-language-map">
 &lt;/xsl:call-template>          &lt;!--Process this element's content-->&lt;xsl:apply-templates>
 &lt;/xsl:apply-templates>&lt;/span>&lt;/xsl:template>&lt;!--Gentext template for Context: table[@tabstyle="frac" and parent::item]-->&lt;xsl:template
 match='table[@tabstyle="frac" and parent::item]' mode="expand-gentext"
-priority="3">       &lt;xsl:copy>          &lt;xsl:apply-templates
+priority="4">       &lt;xsl:copy>          &lt;xsl:apply-templates
 mode="expand-gentext" select="@*|node()">&lt;/xsl:apply-templates>  
     &lt;/xsl:copy>    &lt;/xsl:template>&lt;!--Initial pass template for Context: table[@tabstyle="frac" and parent::item]-->&lt;xsl:template
 match='table[@tabstyle="frac" and parent::item]'
-mode="initial-pass-mode" priority="3">       &lt;xsl:copy>          &lt;xsl:call-template
+mode="initial-pass-mode" priority="4">       &lt;xsl:copy>          &lt;xsl:call-template
 name="maybe-set-gte-id">&lt;/xsl:call-template>          &lt;xsl:apply-templates
 mode="initial-pass-mode" select="@*|node()">&lt;/xsl:apply-templates
 >       &lt;/xsl:copy>    &lt;/xsl:template>&lt;!--Set count-as pass template for Context: table[@tabstyle="frac" and parent::item]-->&lt;xsl:template
 match='table[@tabstyle="frac" and parent::item]' mode="set-countas"
-priority="3">       &lt;xsl:copy>          &lt;xsl:apply-templates
+priority="4">       &lt;xsl:copy>          &lt;xsl:apply-templates
 mode="set-countas" select="@*|node()">&lt;/xsl:apply-templates>     
  &lt;/xsl:copy>    &lt;/xsl:template>&lt;!--Set ch:chunk template for Context: table[@tabstyle="frac" and parent::item]-->&lt;xsl:template
 match='table[@tabstyle="frac" and parent::item]' mode="set-ch-chunk"
-priority="3">       &lt;xsl:copy>          &lt;xsl:if
+priority="4">       &lt;xsl:copy>          &lt;xsl:if
 test="not(@_gte:did-set-chunk)">             &lt;xsl:attribute
 name="_gte:did-set-chunk">yes&lt;/xsl:attribute>          &lt;/xsl:if> 
         &lt;xsl:apply-templates mode="set-ch-chunk" select="@*|node()">
@@ -12105,7 +12111,7 @@ id="A447d7bed-b5ca-49d9-8550-dc07a32d323a"><_gte:Target lang="en"
 sourceType="xslDmp" stylerVersion="6">&lt;!--Style template for Context: page-block//mm-fits/title-->&lt;xsl:template
 name="__style-for_title.64pa-ble2517">       &lt;xsl:text> .x-title-23-0
 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight:
-bold; margin-left: 1.5em; text-indent: -1.5em; }&lt;/xsl:text>    &lt;/xsl:template
+bold; margin-left: 1.5em; text-indent: -1.5em; color:black; font-size: 11pt;}&lt;/xsl:text>    &lt;/xsl:template
 >&lt;!--Template for Context: page-block//mm-fits/title-->&lt;xsl:template
 match="page-block//mm-fits/title" priority="47">       &lt;div>     
     &lt;xsl:attribute name="ch:title">toc&lt;/xsl:attribute>          &lt;!--Emit class values to reflect conditions-->&lt;xsl:attribute
@@ -12245,7 +12251,7 @@ id="A98b2d1c4-1bf7-44c3-8c4e-4b7ee27b6d40"><_gte:Target lang="en"
 sourceType="xslDmp" stylerVersion="6">&lt;!--Style template for Context: ata-page-block//mm-fits/title-->&lt;xsl:template
 name="__style-for_title.64atpale2918">       &lt;xsl:text> .x-title-24-0
 {margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; font-weight:
-bold; margin-left: 1.5em; text-indent: -1.5em; }&lt;/xsl:text>    &lt;/xsl:template
+bold; margin-left: 1.5em; text-indent: -1.5em; color:black; font-size: 11pt;}&lt;/xsl:text>    &lt;/xsl:template
 >&lt;!--Template for Context: ata-page-block//mm-fits/title-->&lt;xsl:template
 match="ata-page-block//mm-fits/title" priority="46">       &lt;div> 
         &lt;xsl:attribute name="ch:title">toc&lt;/xsl:attribute>       
@@ -16700,25 +16706,44 @@ include="contentOnly"/></_gte:AttributeModifier></_ufe:url-link></_gte:Target
 </Context>
 </Element>
 <Element name="_ufe:url-link" style="inline">
+<Context priority="6"
+selector="_ufe:url-link[starts-with(@url,'http://') or starts-with(@url,'https://') or starts-with(@url,'ftp://')]">
+<BaseProperties>
+<Hidden hidden="no"/>
+<Breaks blockOrInline="inline"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A3f7ba3b9-9265-4538-967a-5393863c7428"><_gte:Target lang="en"
+><_sfe:ExternalLink><_gte:LinkTarget targetXPath="string(./@url)"
+targetAttrName="href"><_gte:AttributeContent occur="1"
+scope="_ufe:url-link" attr="url"/></_gte:LinkTarget><_gte:LinkContent
+><_gte:AttributeContent occur="1" scope="_ufe:url-link" attr="url"
+/></_gte:LinkContent></_sfe:ExternalLink></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
 <Context priority="0" selector="_ufe:url-link">
 <BaseProperties>
 <Hidden hidden="no"/>
 <Breaks blockOrInline="inline"/>
 <GeneratedText>
-<!-- Modified by GBE - R-004, see below -->
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Ad418c758-e01c-44b4-b994-264207c54e74"><_gte:Target lang="en"
+><_sfe:ExternalLink><_gte:LinkTarget
+targetXPath="concat('http://', string(./@url))" targetAttrName="href"
+>http://<_gte:AttributeContent occur="1" scope="_ufe:url-link"
+attr="url"/></_gte:LinkTarget><_gte:LinkContent><_gte:AttributeContent
+occur="1" scope="_ufe:url-link" attr="url"/></_gte:LinkContent></_sfe:ExternalLink
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+<!-- Modified by GBE - R-004 and R-024, see above -->
 <!--
+<GeneratedText>
 <_gte:LinkTarget targetXPath="concat('http://', string(./@url))" targetAttrName="href">http://<_gte:AttributeContent occur="1" scope="_ufe:url-link"attr="url"/></_gte:LinkTarget>
+</GeneratedText>
 -->
 <!-- End modified by GBE - R-004 -->
-<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
-id="A3c19d8f5-33c1-47af-9206-214572566399">
-<_gte:Target lang="en">
-<_sfe:ExternalLink>
-<_gte:LinkTarget targetXPath="string(./@url)" targetAttrName="href">http://<_gte:AttributeContent occur="1" scope="_ufe:url-link"attr="url"/></_gte:LinkTarget>
-<_gte:LinkContent><_gte:AttributeContent occur="1" scope="_ufe:url-link" attr="url"/></_gte:LinkContent>
-</_sfe:ExternalLink>
-</_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
-</GeneratedText>
 </BaseProperties>
 </Context>
 </Element>

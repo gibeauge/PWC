@@ -1309,6 +1309,17 @@
           <xsl:apply-templates/>
         </span>
       </xsl:when>
+      <xsl:when test="$target[ancestor::table]">
+        <xsl:call-template name="expand-gentext2">
+          <xsl:with-param name="content">
+            <_sfe:CrossReference>
+              <_gte:Link linkRef="{$l-ref}" onclick="showTable('{$target/ancestor::table/@id}')">
+                <xsl:value-of select="."/>
+              </_gte:Link>
+            </_sfe:CrossReference>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
       <xsl:when test="@refid and $target[self::table]">
         <xsl:call-template name="expand-gentext2">
           <xsl:with-param name="content">
