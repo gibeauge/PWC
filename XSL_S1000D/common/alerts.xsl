@@ -6,6 +6,14 @@
     exclude-result-prefixes="xs fn #default"
     version="2.0">
     
+<xsl:template match="warningsAndCautions">
+  <div>
+    <xsl:call-template name="setID"/>
+    <xsl:call-template name="change"/>
+    <xsl:apply-templates/>
+  </div>
+</xsl:template>
+
 <xsl:template match="warning|caution" priority="20">
   <!--
   <div>

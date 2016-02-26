@@ -383,7 +383,7 @@
     <xsl:call-template name="change"/>
     <xsl:value-of select="fn:getGenText('identNumber')"/>
     <xsl:apply-templates/>
-  </span>        
+  </span>
 </xsl:template>
 
 <xsl:template match="indexFlag">

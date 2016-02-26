@@ -179,7 +179,7 @@
       <para><xsl:apply-templates select="identAndStatusSection/dmAddress//dmTitle" mode="loedm"/></para>
     </entry>
     <entry colsep="0" rowsep="0">
-      <para><xsl:value-of select="../@ref"/></para>
+      <para><xsl:value-of select="fn:getDMCBasic(../@ref)"/></para>
     </entry>
     <entry colsep="0" rowsep="0">
       <xsl:variable name="issue">
@@ -245,12 +245,16 @@
 
         <table id="highlights-table" frame="topbot">
           <tgroup cols="2">
-            <colspec colname="col1" colwidth="30%"/>
-            <colspec colname="col2" colwidth="70%"/>
+            <colspec colname="col1" colwidth="20%"/>
+            <colspec colname="col2" colwidth="40%"/>
+            <colspec colname="col3" colwidth="40%"/>
             <thead>
               <row>
                 <entry colsep="0" rowsep="1">
                   <para><xsl:value-of select="fn:getGenText('highlights-data-module')"/></para>
+                </entry>
+                <entry colsep="0" rowsep="1">
+                  <para><xsl:value-of select="fn:getGenText('highlights-dm-title')"/></para>
                 </entry>
                 <entry colsep="0" rowsep="1">
                   <para><xsl:value-of select="fn:getGenText('highlights-rfu')"/></para>
@@ -304,6 +308,11 @@
     <row>
       <entry colsep="0" rowsep="0">
         <para>
+          <xsl:value-of select="fn:getDMCBasic(ancestor::dmInclusion/@ref)"/>
+        </para>
+      </entry>
+      <entry colsep="0" rowsep="0">
+        <para>
           <dmRef>
             <dmRefIdent>
               <xsl:copy-of select="identAndStatusSection/dmAddress/dmIdent/*"/>
@@ -311,6 +320,7 @@
             <dmRefAddressItems>
               <dmTitle>
                 <xsl:copy-of select="identAndStatusSection/dmAddress//dmTitle/techName"/>
+                <xsl:copy-of select="identAndStatusSection/dmAddress//dmTitle/infoName"/>
               </dmTitle>
             </dmRefAddressItems>
           </dmRef>

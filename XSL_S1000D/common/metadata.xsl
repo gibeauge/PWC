@@ -30,9 +30,6 @@
     </xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates select="techName" mode="dm-title"/>
-      <xsl:if test="ancestor::dmodule/content/procedure/commonInfo">
-        <xsl:apply-templates select="ancestor::dmodule/content/procedure/commonInfo" mode="dm-title"/>
-      </xsl:if>
       <xsl:apply-templates select="infoName" mode="dm-title"/>
     </xsl:otherwise>
   </xsl:choose>
@@ -45,19 +42,7 @@
 <xsl:template match="infoName" mode="dm-title">
   <h2><xsl:apply-templates/></h2>
 </xsl:template>
-    
-<xsl:template match="commonInfo" mode="dm-title">
-  <div class="s-commonInfo">
-    <xsl:apply-templates/>
-  </div>
-</xsl:template>
-
-<xsl:template match="commonInfoDescrPara">
-  <div class="s-commonInfoSection">
-    <xsl:apply-templates/>
-  </div>
-</xsl:template>
-    
+        
 <xsl:template match="techName" mode="dm-title-fm">
   <h1>
     <xsl:apply-templates/>
@@ -113,8 +98,8 @@
         <xsl:apply-templates select="dmAddress/dmIdent/dmCode"            mode="metadata"/>
         <!--
         <xsl:apply-templates select="dmAddress/dmIdent/language"          mode="metadata"/>
-        -->
         <xsl:apply-templates select="dmAddress/dmAddressItems/dmTitle"    mode="metadata"/>
+        -->
         <xsl:apply-templates select="dmAddress/dmIdent/issueInfo"         mode="metadata"/>
         <xsl:apply-templates select="dmAddress/dmAddressItems/issueDate"  mode="metadata"/>
         <!--
@@ -123,7 +108,9 @@
         <xsl:apply-templates select="dmStatus/responsiblePartnerCompany"  mode="metadata"/>
         <xsl:apply-templates select="dmStatus/originator"                 mode="metadata"/>
         <xsl:apply-templates select="dmStatus/applicCrossRefTableRef"     mode="metadata"/>
+        -->
         <xsl:apply-templates select="dmStatus/applic"                     mode="metadata"/>
+        <!--
         <xsl:apply-templates select="dmStatus/referencedApplicGroup"      mode="metadata"/>
         <xsl:apply-templates select="dmStatus/techStandard"               mode="metadata"/>
         <xsl:apply-templates select="dmStatus/brexDmRef"                  mode="metadata"/>
@@ -145,9 +132,10 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-dmc')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
-      <xsl:value-of select="fn:getDMC(.)"/>
+      <xsl:value-of select="fn:getDMCBasic(fn:getDMC(.))"/>
     </td>
   </tr>
 </xsl:template>    
@@ -156,6 +144,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-language')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:value-of select="concat(@languageIsoCode, '/', @countryIsoCode)"/>
@@ -167,6 +156,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-title')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:value-of select="concat(techName, ' - ', infoName)"/>
@@ -178,6 +168,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-issue')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:value-of select="@issueNumber"/>
@@ -189,6 +180,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-issue-date')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:value-of select="concat(@year, '/', @month, '/', @day)"/>
@@ -200,6 +192,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-security')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:value-of select="fn:getGenText(concat('security-',@securityClassification))"/>
@@ -211,6 +204,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-dataRestrictions')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <table>
@@ -236,6 +230,7 @@
     <xsl:call-template name="brex-disabled-tooltip"/>
     <td>
       <xsl:value-of select="fn:getGenText(concat('meta-', name()))"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td>
       <xsl:apply-templates/>
@@ -247,6 +242,7 @@
   <tr>
     <td>
       <xsl:value-of select="fn:getGenText(concat('meta-', name()))"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td>
       <xsl:apply-templates/>
@@ -258,6 +254,7 @@
   <tr>
     <td>
       <xsl:value-of select="fn:getGenText('meta-exportControl')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td>
       <xsl:apply-templates select="exportRegistrationCode" mode="metadata"/>
@@ -271,13 +268,14 @@
 </xsl:template>
 
 <xsl:template match="exportRegistrationCode" mode="metadata">
-    <xsl:value-of select="concat('[', @exportRegulationCodeType, '] ')"/>
+  <xsl:value-of select="concat('[', @exportRegulationCodeType, '] ')"/>
 </xsl:template>
 
 <xsl:template match="copyright" mode="metadata">
   <tr>
     <td>
       <xsl:value-of select="fn:getGenText('meta-copyright')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td>
       <xsl:apply-templates mode="metadata"/>
@@ -295,6 +293,7 @@
   <tr>
     <td>
       <xsl:value-of select="fn:getGenText(concat('meta-', name()))"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td>
       <xsl:apply-templates mode="metadata"/>
@@ -306,6 +305,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText(concat('meta-', name()))"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates select="enterpriseName" mode="metadata"/>
@@ -326,6 +326,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-applicCrossRefTableRef')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:value-of select="ancestor::dmInclusion/@ref"/>
@@ -337,6 +338,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-applicability')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates select="displayText" mode="metadata"/>
@@ -348,6 +350,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-referencedApplicGroup')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates select="applic/child::*" mode="metadata"/>
@@ -369,6 +372,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-techStandard')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <table>
@@ -387,6 +391,7 @@
   <tr>
     <td>
       <xsl:value-of select="fn:getGenText('meta-authorityInfo')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td>
       <xsl:apply-templates mode="metadata"/>
@@ -398,6 +403,7 @@
   <tr>
     <td>
       <xsl:value-of select="fn:getGenText('meta-authorityExceptions')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td></td>
   </tr>
@@ -413,6 +419,7 @@
 <xsl:template match="productConfiguration" mode="metadata">
   <div class="s-metadata-ts">
     <xsl:value-of select="fn:getGenText('meta-productConfiguration')"/>
+    <xsl:value-of select="fn:getGenText('sep1')"/>
   </div>
   <table>
     <tbody>
@@ -425,6 +432,7 @@
   <tr>
     <td>
       <xsl:value-of select="fn:getGenText('meta-excludedModification')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td>
       <xsl:apply-templates/>
@@ -436,6 +444,7 @@
   <tr>
     <td>
       <xsl:value-of select="fn:getGenText('meta-additionalModification')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td>
       <xsl:apply-templates/>
@@ -452,6 +461,7 @@
       <tr>
         <td>
           <xsl:value-of select="fn:getGenText('meta-modification')"/>
+          <xsl:value-of select="fn:getGenText('sep1')"/>
         </td>
         <td>
           <xsl:apply-templates mode="metadata"/>
@@ -463,7 +473,7 @@
     
 <xsl:template match="modification" mode="metadata">
   <xsl:value-of select="fn:getGenText('meta-authorization')"/>
-  <xsl:value-of select="@authorizationIdent"/>        
+  <xsl:value-of select="@authorizationIdent"/>
   <xsl:apply-templates mode="metadata"/>
 </xsl:template>
 
@@ -489,6 +499,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-brex')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:value-of select="fn:getDMC(dmRef/dmRefIdent/dmCode)"/>
@@ -500,6 +511,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-quality')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates mode="metadata"/>
@@ -531,6 +543,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-skillLevel')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:choose>
@@ -549,6 +562,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-reasonForUpdate')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates mode="metadata"/>
@@ -560,6 +574,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-functionalItemCode')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates/>
@@ -571,6 +586,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-functionalItemRef')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates/>
@@ -582,6 +598,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-systemBreakdownCode')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates/>
@@ -593,6 +610,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-productSafety')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates mode="metadata"/>
@@ -604,6 +622,7 @@
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
       <xsl:value-of select="fn:getGenText('meta-remarks')"/>
+      <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
       <xsl:apply-templates mode="metadata"/>

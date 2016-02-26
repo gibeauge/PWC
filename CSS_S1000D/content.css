@@ -1,5 +1,5 @@
 
-/** GENERIC 
+/** GENERIC */
 
 .s-dmodule h1, .s-dmodule h2, 
 .s-dmodule h3, .s-dmodule h4, 
@@ -28,7 +28,7 @@
 
 .s-dmodule div sub              { vertical-align: sub; font-size: smaller; }
 .s-dmodule div sup              { vertical-align: super; font-size: smaller; }
-**/
+/**/
 
 /** TITLE PAGE **/
 
@@ -44,11 +44,10 @@
 
 /** FRONTMATTER **/
 
-.s-loedm-table { border-collapse: collapse; border-top: 1px solid black; border-bottom: 1px solid black; }
-
-.s-loedm-table table > thead > tr:first-child > td:first-child + td {
-    min-width: 265px;
-}
+#loedm-table                    { border-collapse: collapse; }
+#loedm-table td + td + td       { padding-right: 3px; }
+#highlights-table               { border-collapse: collapse; }
+#highlights-table td + td       { padding-left: 10px; }
 
 /** METADATA **/
 
@@ -61,7 +60,7 @@
 
 .s-metadata table               { border-collapse: collapse; border: none; margin-top: 1em; margin-bottom: 1em; margin-left: 5em; margin-right: 5em; table-layout: fixed; }
 .s-metadata table table         { margin: 0; }
-.s-metadata-def                 { vertical-align: top; padding: 2px; border-right: 1px solid #CCCCCC; }
+.s-metadata-def                 { vertical-align: top; padding: 2px; /*border-right: 1px solid #CCCCCC;*/ }
 .s-metadata-term                { vertical-align: top; padding: 2px; }
 .s-metadata table table tr td:first-child       { width: 10em; }
 .s-metadata table table table tr td:first-child { width: 11em; }
@@ -212,12 +211,14 @@ img.s-symbol                    { border: none;}
 
 /** PROCEDURE **/
 
+/*
 .s-commonInfo                   { margin-left: 5em; margin-right: 5em; margin-top: 0.2em; padding-bottom: 0.2em; 
                                   border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; }
 .s-commonInfo .s-para           { margin-bottom: 0; }
 .s-commonInfoSection            { margin-top: 0.2em; }
+*/
 
-.s-proced                       {}
+.s-proced                       { }
 
 .s-proced h2                    { font-weight: bold; }
 .s-mainproc                     { margin-top: 4em; }
@@ -239,6 +240,8 @@ img.s-symbol                    { border: none;}
 
 
 /** PREL. and CLOS. REQS **/
+
+.s-commonInfo                   { margin-top: 2em; }
 
 .s-prelreqs                     { margin-top: 2em; }
 .s-reqgroup-title               { margin-top: 5px; font-weight: bold; margin-bottom: 8px; text-align: left; font-size: 1.1em !important; }

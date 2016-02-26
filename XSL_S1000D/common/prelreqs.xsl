@@ -16,8 +16,22 @@
   </div>
 </xsl:template>
    
-<!-- done in metadatas.xsl -->
-<xsl:template match="commonInfo"/>
+<xsl:template match="commonInfo">
+  <div class="s-commonInfo">
+    <h2><xsl:value-of select="fn:getGenText('commonInfo')"/></h2>
+    <xsl:apply-templates/>
+  </div>
+</xsl:template>
+
+<xsl:template match="commonInfo/title">
+  <div style="width: 100%" class="s-reqgroup-title"><xsl:apply-templates/></div>
+</xsl:template>
+
+<xsl:template match="commonInfoDescrPara">
+  <div class="s-commonInfoSection">
+    <xsl:apply-templates/>
+  </div>
+</xsl:template>
 
 <!-- ************************************************************** -->
 
@@ -96,6 +110,7 @@
 
 <!-- ************************************************************** -->
 <!-- Required conditions -->
+
 <xsl:template match="reqCondGroup">
   <div class="s-reqgroup">
     <table width="100%">
@@ -309,6 +324,7 @@
 
 <!-- ************************************************************** -->
 <!-- Required tech. info. group -->
+
 <xsl:template match="reqTechInfoGroup">
   <div class="s-reqgroup">
     <table width="100%">
@@ -364,8 +380,8 @@
 </xsl:template>
 
 <!-- ************************************************************** -->
-
 <!-- Required persons -->
+
 <xsl:template match="reqPersons[not(preceding-sibling::reqPersons)]" priority="20">
   <div class="s-reqgroup">
     <xsl:call-template name="brex-disabled-tooltip"/>
@@ -529,6 +545,7 @@
 
 <!-- ************************************************************** -->
 <!-- Support equipment -->
+
 <xsl:template match="reqSupportEquips">
   <xsl:call-template name="equip-table">
     <xsl:with-param name="label-id" select="'reqsupequip'"/>
@@ -614,7 +631,8 @@
     
 <xsl:template match="preliminaryRqmts//identNumber" priority="5">
   <xsl:call-template name="change"/>
-  <xsl:next-match/>
+  <!--xsl:next-match/-->
+  <xsl:apply-templates/>
 </xsl:template>
     
 <xsl:template match="preliminaryRqmts//partNumber" priority="3">

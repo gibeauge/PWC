@@ -7,7 +7,7 @@
     version="2.0">
     
 <xsl:template match="levelledPara" mode="numbering">
-  <xsl:number from="dmodule" count="levelledPara"  level="multiple" format="1.1.1.1.1"/>
+  <xsl:number from="dmodule" count="levelledPara[title]"  level="multiple" format="1.1.1.1.1"/>
 </xsl:template>
     
 <xsl:template match="figure" mode="numbering">

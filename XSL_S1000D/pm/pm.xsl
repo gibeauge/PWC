@@ -168,7 +168,7 @@
       </xsl:choose>
     </xsl:attribute>
     <xsl:if test="@is-tp='false'">
-      <xsl:apply-templates select="dmodule/content" mode="toc"/>
+      <!--xsl:apply-templates select="dmodule/content" mode="toc"/-->
     </xsl:if>
   </Page>
 </xsl:template>

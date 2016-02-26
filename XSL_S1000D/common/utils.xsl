@@ -36,7 +36,12 @@
     <xsl:otherwise>Invalid node.</xsl:otherwise>
   </xsl:choose>
 </xsl:function>
-    
+
+<xsl:function name="fn:getDMCBasic">
+  <xsl:param name="dmc"/>
+  <xsl:value-of select="replace(substring-after($dmc, 'DMC-'), '-', '&#x2011;')"/>
+</xsl:function>
+
 <xsl:function name="fn:getPMC">
   <xsl:param name="node" as="node()"/>
   
@@ -58,62 +63,64 @@
   <xsl:value-of select="$gen-texts//texts[@language=$g_lang]/text[@name=$key]"/>
 </xsl:function>
     
-    <xsl:function name="fn:capitalize">
-        <xsl:param name="str" as="xs:string"/>
-        <xsl:sequence select="concat(upper-case(substring($str,1,1)), substring($str, 2), ' '[not(last())])"/>
-    </xsl:function>
+<xsl:function name="fn:capitalize">
+  <xsl:param name="str" as="xs:string"/>
+  <xsl:sequence select="concat(upper-case(substring($str,1,1)), substring($str, 2), ' '[not(last())])"/>
+</xsl:function>
     
-    <xsl:function name="fn:getDMCFM">
-        <xsl:param name="mi"/>
-        <xsl:param name="key"/>
-        
-        <xsl:variable name="incode">
-            <xsl:choose>
-                <xsl:when test="$key = 'title-page'">001</xsl:when>
-                <xsl:when test="$key = 'loedm'">00S</xsl:when>
-                <xsl:when test="$key = 'highlights'">00U</xsl:when>
-                <xsl:when test="$key = 'warnings'">012</xsl:when>
-                <xsl:when test="$key = 'loab'">005</xsl:when>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:value-of select="concat('DMC-', $mi, '-A-00-00-00-00A-', $incode, 'A-A')"/>
-    </xsl:function>
-    <xsl:function name="fn:getDMCEntry">
-        <xsl:param name="mi"/>
-        <xsl:param name="chapter"/>
-        <xsl:param name="key"/>
-        
-        <xsl:variable name="incode">
-            <xsl:choose>
-                <xsl:when test="$key = 'title-page'">001</xsl:when>
-                <xsl:when test="$key = 'loedm'">00S</xsl:when>
-                <xsl:when test="$key = 'highlights'">00U</xsl:when>
-                <xsl:when test="$key = 'warnings'">012</xsl:when>
-                <xsl:when test="$key = 'loab'">005</xsl:when>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:value-of select="concat('DMC-', $mi, '-A-', $chapter, '-00-00-00A-', $incode, 'A-A')"/>
-    </xsl:function>
-    <xsl:function name="fn:getCompleteDMCEntry">
-        <xsl:param name="mi"/>
-        <xsl:param name="chapter"/>
-        <xsl:param name="subsystem"/>
-        <xsl:param name="subsubsystem"/>
-    <xsl:param name="assy"/>
-    <xsl:param name="disassy"/>
-        <xsl:param name="key"/>
-        
-        <xsl:variable name="incode">
-            <xsl:choose>
-                <xsl:when test="$key = 'title-page'">001</xsl:when>
-                <xsl:when test="$key = 'loedm'">00S</xsl:when>
-                <xsl:when test="$key = 'highlights'">00U</xsl:when>
-                <xsl:when test="$key = 'warnings'">012</xsl:when>
-                <xsl:when test="$key = 'loab'">005</xsl:when>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:value-of select="concat('DMC-', $mi, '-A-', $chapter, '-', $subsystem, $subsubsystem, '-', $assy, '-', $disassy ,'A-', $incode, 'A-A')"/>
-    </xsl:function>
+<xsl:function name="fn:getDMCFM">
+  <xsl:param name="mi"/>
+  <xsl:param name="key"/>
+
+  <xsl:variable name="incode">
+    <xsl:choose>
+      <xsl:when test="$key = 'title-page'">001</xsl:when>
+      <xsl:when test="$key = 'loedm'">00S</xsl:when>
+      <xsl:when test="$key = 'highlights'">00U</xsl:when>
+      <xsl:when test="$key = 'warnings'">012</xsl:when>
+      <xsl:when test="$key = 'loab'">005</xsl:when>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:value-of select="concat('DMC-', $mi, '-A-00-00-00-00A-', $incode, 'A-A')"/>
+</xsl:function>
+
+<xsl:function name="fn:getDMCEntry">
+  <xsl:param name="mi"/>
+  <xsl:param name="chapter"/>
+  <xsl:param name="key"/>
+
+  <xsl:variable name="incode">
+    <xsl:choose>
+      <xsl:when test="$key = 'title-page'">001</xsl:when>
+      <xsl:when test="$key = 'loedm'">00S</xsl:when>
+      <xsl:when test="$key = 'highlights'">00U</xsl:when>
+      <xsl:when test="$key = 'warnings'">012</xsl:when>
+      <xsl:when test="$key = 'loab'">005</xsl:when>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:value-of select="concat('DMC-', $mi, '-A-', $chapter, '-00-00-00A-', $incode, 'A-A')"/>
+</xsl:function>
+
+<xsl:function name="fn:getCompleteDMCEntry">
+  <xsl:param name="mi"/>
+  <xsl:param name="chapter"/>
+  <xsl:param name="subsystem"/>
+  <xsl:param name="subsubsystem"/>
+  <xsl:param name="assy"/>
+  <xsl:param name="disassy"/>
+  <xsl:param name="key"/>
+
+  <xsl:variable name="incode">
+    <xsl:choose>
+      <xsl:when test="$key = 'title-page'">001</xsl:when>
+      <xsl:when test="$key = 'loedm'">00S</xsl:when>
+      <xsl:when test="$key = 'highlights'">00U</xsl:when>
+      <xsl:when test="$key = 'warnings'">012</xsl:when>
+      <xsl:when test="$key = 'loab'">005</xsl:when>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:value-of select="concat('DMC-', $mi, '-A-', $chapter, '-', $subsystem, $subsubsystem, '-', $assy, '-', $disassy ,'A-', $incode, 'A-A')"/>
+</xsl:function>
 
 <xsl:template name="setID">
   <xsl:if test="@id"><xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute></xsl:if>

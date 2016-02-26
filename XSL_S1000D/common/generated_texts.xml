@@ -22,14 +22,14 @@
 <text name="meta-dmc">DMC</text>
 <text name="meta-language">Language</text>
 <text name="meta-title">Title</text>
-<text name="meta-issue">Issue</text>
-<text name="meta-issue-date">Issue date</text>
+<text name="meta-issue">Issue&#xa0;Number</text>
+<text name="meta-issue-date">Issue&#xa0;Date</text>
 <text name="meta-issue-type">Issue type</text>
 <text name="meta-security">Security</text>
 <text name="meta-dataRestrictions">Data restrictions</text>
 <text name="meta-originator">Originator</text>
 <text name="meta-responsiblePartnerCompany">Responsible partner company</text>
-<text name="meta-applicability">Applicability</text>
+<text name="meta-applicability">Applicabe to</text>
 <text name="meta-inline-applicability">Inline applicability</text>
 <text name="meta-techStandard">Technical standard</text>
 <text name="meta-brex">Brex data module reference</text>
@@ -60,8 +60,8 @@
 <text name="meta-additionalModification">Additional modifications</text>
 <text name="meta-excludedModification">Excluded modifications</text>
 <text name="meta-modification">Modifications</text>
-<text name="meta-authorization">Authorization:&#032;</text>
-<text name="meta-modificationTitle">Title:&#032;</text>
+<text name="meta-authorization">Authorization:&#x20;</text>
+<text name="meta-modificationTitle">Title:&#x20;</text>
 <text name="meta-unverified">Unverified</text>
 <text name="meta-firstVerification">First verification: </text>
 <text name="meta-secondVerification">Second verification: </text>
@@ -75,10 +75,10 @@
 <text name="meta-section">Section </text>
 
 <!-- Circuit Breaker -->
-<text name="cb-open">Open&#032;</text>
-<text name="cb-close">Close&#032;</text>
-<text name="cb-verif-open">Check opened&#032;</text>
-<text name="cb-verif-close">Check closed&#032;</text>
+<text name="cb-open">Open&#x20;</text>
+<text name="cb-close">Close&#x20;</text>
+<text name="cb-verif-open">Check opened&#x20;</text>
+<text name="cb-verif-close">Check closed&#x20;</text>
 
 <!-- Titles -->
 <text name="title-step">Step</text>
@@ -87,7 +87,7 @@
 <text name="title-sheet">Sheet</text>
 <text name="title-references">References</text>
 <text name="title-note">Note</text>
-<text name="title-legend">Legend to Fig&#032;</text>
+<text name="title-legend">Legend to Fig&#x20;</text>
 <text name="title-multimedia">Multimedia</text>
 <text name="title-multimedia-3D">3D model</text>
 <text name="title-multimedia-audio">Audio</text>
@@ -125,17 +125,17 @@
 <text name="zoneRef">Zone:&#xa0;</text>
 <text name="accessPointRef">APT:&#xa0;</text>
 <text name="duration">Duration:&#xa0;</text>
-<text name="identNumber">Part&#032;</text>
-<text name="serialNumber">Serial No.&#032;</text>
-<text name="qty_max">&#032;to&#032;</text>
-<text name="qty_min">from&#032;</text>
+<text name="identNumber">Part&#x20;</text>
+<text name="serialNumber">Serial No.&#x20;</text>
+<text name="qty_max">&#x20;to&#x20;</text>
+<text name="qty_min">from&#x20;</text>
 <text name="qty_footPound">foot-pounds</text>
 <text name="qty_inchPound">inch-pounds</text>
 <text name="qty_inch">inches</text>
 <text name="qty_pound">pounds</text>
 <text name="qty_gram">grams</text>
-<text name="warning">WARNING:&#032;</text>
-<text name="caution">CAUTION:&#032;</text>
+<text name="warning">WARNING:&#x20;</text>
+<text name="caution">CAUTION:&#x20;</text>
 <text name="note">NOTE</text>
 <text name="delete">Deleted</text>
 <text name="commonInfo">Common information</text>
@@ -194,6 +194,7 @@
 <text name="highlights-intro-2">, dated </text>
 <text name="highlights-intro-3">, of this publication.</text>
 <text name="highlights-data-module">Data module</text>
+<text name="highlights-dm-title">Title</text>
 <text name="highlights-rfu">Reason for update</text>
 
 <!-- Prod. main data -->
@@ -264,7 +265,7 @@
 <text name="reqtech-ti06">Safety sheet</text>
 <text name="reqsupequip">Support equipment</text>
 <text name="reqequip-header-1">Name</text>
-<text name="reqequip-header-2">Identification/References</text>
+<text name="reqequip-header-2">Manufacturer/Identification</text>
 <text name="reqequip-header-3">Quantity</text>
 <text name="reqequip-header-4">Remark</text>
 <text name="reqsupplies">Consumables, materials and expendables</text>

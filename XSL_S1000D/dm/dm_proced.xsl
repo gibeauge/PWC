@@ -42,7 +42,7 @@
     </xsl:call-template>
     <xsl:apply-templates select="warning"/>
     <xsl:apply-templates select="caution"/>
-    <xsl:apply-templates select="note"/>
+    <!--xsl:apply-templates select="note"/-->
     <div class="s-pStep-nb">
       <xsl:if test="ancestor::dmInclusion/@is-fm='false'">
         <xsl:apply-templates select="." mode="numbering"/>
@@ -55,7 +55,8 @@
 </xsl:template>
     
 <xsl:template match="proceduralStep">
-  <xsl:apply-templates select="./*[not(self::note or self::warning or self::caution)]"/>
+  <!--xsl:apply-templates select="./*[not(self::note or self::warning or self::caution)]"/-->
+  <xsl:apply-templates select="./*[not(self::warning or self::caution)]"/>
 </xsl:template>
     
 <xsl:template match="proceduralStep" mode="chg-del">

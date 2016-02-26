@@ -110,6 +110,7 @@
     <link href="{$css-path}/content.css" rel="stylesheet" type="text/css"/>
     <script src="{$js-path}/pwcdisplay.js" type="text/javascript"><![CDATA[ // JS ]]></script>
     <script src="{$js-path}/pwcdisplay_common.js" type="text/javascript"><![CDATA[ // JS ]]></script>
+    <script src="{$js-path}/jquery-1.11.2.min.js" type="text/javascript"><![CDATA[ // JS ]]></script>
     <title>
       <xsl:choose>
         <xsl:when test="$title!=''"><xsl:value-of select="$title"/></xsl:when>
@@ -134,6 +135,7 @@
       </xsl:call-template>
       <body class="{concat($css-pfx, '-body')}">
         <div class="s-dmodule" id="{generate-id(.)}_f">
+          <xsl:call-template name="pwcmetainfo"/>
           <xsl:if test="ancestor::dmInclusion/@is-tp='false'">
             <xsl:call-template name="metadata">
               <xsl:with-param name="additional-title" select="fn:getGenText('lof-title')"/>
@@ -142,6 +144,7 @@
           <div class="{concat($css-pfx, 'lof', $css-sfx)}">
             <xsl:apply-templates select=".//figure[title]" mode="lof"/>
           </div>
+          <div id="s1000d_print_marker"/>
         </div>
       </body>
     </html>
@@ -174,6 +177,7 @@
       </xsl:call-template>
       <body class="{concat($css-pfx, '-body')}">
         <div class="s-dmodule" id="{generate-id(.)}_t">
+          <xsl:call-template name="pwcmetainfo"/>
           <xsl:if test="ancestor::dmInclusion/@is-tp='false'">
             <xsl:call-template name="metadata">
               <xsl:with-param name="additional-title" select="fn:getGenText('lot-title')"/>
@@ -182,6 +186,7 @@
           <div class="{concat($css-pfx, 'lot', $css-sfx)}">
             <xsl:apply-templates select=".//table[title]" mode="lot"/>
           </div>
+          <div id="s1000d_print_marker"/>
         </div>
       </body>
     </html>

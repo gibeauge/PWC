@@ -17,9 +17,10 @@
   <div class="s-lPara">
     <xsl:call-template name="setID"/>
     <div class="s-lPara-nb" id="{generate-id(.)}">
-      <xsl:if test="ancestor::dmInclusion/@is-fm='false'">
+      <xsl:if test="title and ancestor::dmInclusion/@is-fm='false'">
         <xsl:apply-templates select="." mode="numbering"/>
       </xsl:if>
+      <xsl:text> </xsl:text>
     </div>
     <div class="s-lPara-c">
       <xsl:apply-templates/>

@@ -44,7 +44,7 @@
   <tr>
     <td>
       <a class="s-refs-link" href="{$dmc}.html">
-        <xsl:value-of select="$dmc"/>
+        <xsl:value-of select="fn:getDMCBasic($dmc)"/>
       </a>
     </td>
     <td>
@@ -135,7 +135,7 @@
     <xsl:otherwise>
       <a class="s-link" href="{$dmc}.html#{$refid}">
         <xsl:call-template name="change"/>
-        <xsl:call-template name="get-dmref-title">
+        <xsl:call-template name="get-dmref-value">
           <xsl:with-param name="dmc" select="$dmc"/>
         </xsl:call-template>
         <xsl:value-of select="fn:getGenText('sep3')"/>
@@ -149,11 +149,28 @@
   <xsl:variable name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
   <a class="s-link" href="{$dmc}.html">
     <xsl:call-template name="change"/>
-    <xsl:call-template name="get-dmref-title">
+    <xsl:call-template name="get-dmref-value">
       <xsl:with-param name="dmc" select="$dmc"/>
     </xsl:call-template>
   </a>
 </xsl:template>
+
+<xsl:template name="get-dmref-value">
+  <xsl:param name="dmc"/>
+  
+  <xsl:choose>
+    <!-- show DM code in some preliminary requirements -->
+    <xsl:when test="ancestor::reqCondGroup or ancestor::closeRqmts">
+      <xsl:value-of select="fn:getDMCBasic($dmc)"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:call-template name="get-dmref-title">
+        <xsl:with-param name="dmc" select="$dmc"/>
+      </xsl:call-template>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 
 <xsl:template name="get-dmref-title">
   <xsl:param name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
@@ -169,14 +186,14 @@
 </xsl:template>
 
 <xsl:template match="dmTitle" mode="dmref">
-  <xsl:choose>
-    <xsl:when test="ancestor::dmInclusion/@inc='00S'">
+  <!--xsl:choose>
+    <xsl:when test="ancestor::dmInclusion[@inc='00S' or @inc='00U']"-->
       <xsl:apply-templates mode="dmref"/>
-    </xsl:when>
+    <!--/xsl:when>
     <xsl:otherwise>
       <xsl:apply-templates select="techName" mode="dmref"/>
     </xsl:otherwise>
-  </xsl:choose>
+  </xsl:choose-->
 </xsl:template>
 
 <xsl:template match="techName" mode="dmref">
@@ -184,7 +201,7 @@
 </xsl:template>
 
 <xsl:template match="infoName" mode="dmref">
-  <xsl:text>&#xa0;-&#032;</xsl:text>
+  <xsl:text>&#xa0;-&#x20;</xsl:text>
   <xsl:apply-templates/>
 </xsl:template>
     
@@ -212,7 +229,7 @@
 </xsl:template>
 
 <xsl:template match="pmRefAddressItems/issueDate">
-  <xsl:text>&#032;(</xsl:text>
+  <xsl:text>&#x20;(</xsl:text>
   <xsl:value-of select="@year"/>
   <xsl:text>-</xsl:text>
   <xsl:value-of select="@month"/>
@@ -324,10 +341,12 @@
             </a>
           </xsl:when>
           <xsl:when test="$reftype='hotspot'">
-            <a class="s-anchor">
+            <xsl:variable name="id" select="$target-node/ancestor::figure/@id"/>
+            <!--a class="s-anchor" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, '); go(', $quot, $refid, $quot, ')')}"-->
+            <a class="s-anchor" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, ')')}">
               <xsl:call-template name="link-tooltip"/>
               <xsl:apply-templates select="$target-node" mode="internalRef"/>
-              <xsl:text> </xsl:text>
+              <!--xsl:text> </xsl:text-->
               <xsl:apply-templates/>
             </a>
           </xsl:when>
@@ -397,9 +416,9 @@
 </xsl:template>
     
 <xsl:template match="hotspot" mode="internalRef">
-  <xsl:attribute name="href" select="concat('#', @id, '_', @applicationStructureName)"/>
+  <!--xsl:attribute name="href" select="concat('#', @id, '_', @applicationStructureName)"/>
   
-  <xsl:apply-templates select="ancestor::figure" mode="internalRef"/>
+  <xsl:apply-templates select="ancestor::figure" mode="internalRef"/-->
   <!--
   <xsl:text> [</xsl:text>
   <xsl:apply-templates select="." mode="numbering"/>
