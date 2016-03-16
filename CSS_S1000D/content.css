@@ -1,5 +1,5 @@
 
-/** GENERIC */
+/** GENERIC 
 
 .s-dmodule h1, .s-dmodule h2, 
 .s-dmodule h3, .s-dmodule h4, 
@@ -28,7 +28,7 @@
 
 .s-dmodule div sub              { vertical-align: sub; font-size: smaller; }
 .s-dmodule div sup              { vertical-align: super; font-size: smaller; }
-/**/
+*/
 
 /** TITLE PAGE **/
 
@@ -41,6 +41,9 @@
 .s-tp-approval                  { padding-top: 1em; }
 .s-tp-warnings                  { text-align: center; text-decoration: underline; padding-top: 1em; padding-bottom: 0.5em; }
 .s-tp-graphic                   { text-align: center; padding-top: 0.8em; }
+
+.s-tp-div                       { padding-bottom: 10px; }
+.s-tp-div > div:first-child     { font-weight: bold; font-size: 1.1em; }
 
 /** FRONTMATTER **/
 
@@ -202,6 +205,8 @@ img.s-symbol                    { border: none;}
 .s-lPara                        { overflow: hidden;  margin-top: 15px; margin-left: 0px; }
 .s-lPara .s-lPara               { overflow: hidden;  margin-top: 10px; }
 .s-lPara-nb                     { float: left; width: 40px; font-weight: bold; }
+.s-lPara .s-lPara .s-lPara-nb   { float: left; width: 40px; font-weight: bold; }
+.s-lPara .s-lPara .s-lPara .s-lPara-nb   { float: left; width: 60px; font-weight: bold; }
 .s-lPara-c                      { overflow: hidden;  }
 .s-lPara-c > div                { }
 .s-lPara-title                  { font-weight: bold; margin-bottom: 10px; }
@@ -226,6 +231,8 @@ img.s-symbol                    { border: none;}
 .s-pStep                        { overflow: hidden;  margin-top: 15px; margin-left: 0px; }
 .s-pStep .s-pStep               { overflow: hidden;  margin-top: 10px; }
 .s-pStep-nb                     { float: left; width: 40px; font-weight: bold; }
+.s-pStep .s-pStep .s-pStep-nb   { float: left; width: 40px; font-weight: bold; }
+.s-pStep .s-pStep .s-pStep .s-pStep-nb   { float: left; width: 60px; font-weight: bold; }
 .s-pStep-c                      { overflow: hidden;  }
 .s-pStep-c > div                { }
 .s-pStep-title                  { font-weight: bold; margin-bottom: 10px; }

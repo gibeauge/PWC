@@ -6,7 +6,7 @@
     exclude-result-prefixes="xs fn #default"
     version="2.0">
     
-<xsl:template name="build-dm-tp">
+<xsl:template name="build-dm-tp_old">
   <xsl:for-each select="content/description">
     <!-- manual type -->
     <xsl:variable name="man-type" select="tokenize(/pm/@id, '-')[1]"/>
@@ -55,6 +55,53 @@
     </div>
     <xsl:apply-templates select="levelledPara/title[starts-with(.,fn:getGenText('tp-warnings'))]/following-sibling::node()"/>
     
+  </xsl:for-each>
+</xsl:template>
+
+<xsl:template name="build-dm-tp">
+  <xsl:for-each select="content/description">
+  
+    <!-- publication -->
+    <div class="s-tp-div">
+      <div><xsl:value-of select="fn:getGenText('tp-publication')"/></div>
+      <div><xsl:value-of select="concat($g_mi, '-', $g_issuer, '-', $g_pm_num, '-', $g_pm_vol)"/></div>
+      <div><xsl:value-of select="concat(fn:getGenText('tp-issue-no'), ' ', $g_issue)"/></div>
+    </div>
+    
+    <!-- engine models -->
+    <div class="s-tp-div">
+      <div><xsl:value-of select="fn:getGenText('tp-models')"/></div>
+      <div><xsl:value-of select="/pm/identAndStatusSection/pmStatus/applic/displayText"/></div>
+    </div>
+    
+    <!-- issue date -->
+    <div class="s-tp-div">
+      <!--div><xsl:value-of select="fn:getGenText('tp-issue')"/></div>
+      <div><xsl:value-of select="fn:formatDate($g_issue_date, 'long')"/></div-->
+      <div><xsl:value-of select="fn:getGenText('tp-issue')"/></div>
+      <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-issue')]/para/node()"/></div>
+    </div>
+
+    <!-- engine type -->
+    <div class="s-tp-div">
+      <div><xsl:value-of select="fn:getGenText('tp-engine-type')"/></div>
+      <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-engine-type')]/para/node()"/></div>
+    </div>
+
+    <!-- manual part no -->
+    <div class="s-tp-div">
+      <div><xsl:value-of select="fn:getGenText('tp-manual-pno')"/></div>
+      <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-manual-pno')]/para/node()"/></div>
+    </div>
+
+    <!-- warnings, ... -->
+    <xsl:for-each select="levelledPara[title=fn:getGenText('tp-issue')]/following-sibling::levelledPara">
+      <div class="s-tp-div">
+        <div><xsl:apply-templates select="title/node()"/></div>
+        <div><xsl:apply-templates select="*[not(self::title)]"/></div>
+      </div>
+    </xsl:for-each>
+
   </xsl:for-each>
 </xsl:template>
 

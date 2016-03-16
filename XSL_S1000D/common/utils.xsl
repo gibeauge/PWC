@@ -122,6 +122,39 @@
   <xsl:value-of select="concat('DMC-', $mi, '-A-', $chapter, '-', $subsystem, $subsubsystem, '-', $assy, '-', $disassy ,'A-', $incode, 'A-A')"/>
 </xsl:function>
 
+<!-- 
+ returns a well formated date 
+  p-date   : date using YYYYMMDD input format
+  p-format : output format
+              long     : DD Month YYYY
+              short-en : Mon DD/YY
+              long-en  : Month DD, YYYY
+-->
+<xsl:function name="fn:formatDate">
+  <xsl:param name="p-date"/>
+  <xsl:param name="p-format"/>
+  
+  <xsl:variable name="l-year-long"  select="substring($p-date,1,4)"/>
+  <xsl:variable name="l-year-short" select="substring($p-date,3,2)"/>
+  <xsl:variable name="l-month"      select="substring($p-date,5,2)"/>
+  <xsl:variable name="l-day"        select="substring($p-date,7,2)"/>
+  
+  <xsl:variable name="l-month-short" select="fn:getGenText(concat('month-s-',$l-month))"/>
+  <xsl:variable name="l-month-long"  select="fn:getGenText(concat('month-',$l-month))"/>
+  
+  <xsl:choose>
+    <xsl:when test="$p-format='long'">
+      <xsl:value-of select="concat($l-day,' ',$l-month-long,' ',$l-year-long)"/>
+    </xsl:when>
+    <xsl:when test="$p-format='short-en'">
+      <xsl:value-of select="concat($l-month-short,' ',$l-day,'/',$l-year-short)"/>
+    </xsl:when>
+    <xsl:when test="$p-format='long-en'"> 
+      <xsl:value-of select="concat($l-month-long,' ',$l-day,', ',$l-year-long)"/>
+    </xsl:when>    
+  </xsl:choose>
+</xsl:function>
+
 <xsl:template name="setID">
   <xsl:if test="@id"><xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute></xsl:if>
 </xsl:template>
@@ -129,5 +162,5 @@
 <xsl:template name="setGenID">
   <xsl:attribute name="id"><xsl:value-of select="if (@id) then @id else generate-id(.)"/></xsl:attribute>
 </xsl:template>
-    
+
 </xsl:stylesheet>

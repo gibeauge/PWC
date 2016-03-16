@@ -48,13 +48,16 @@
 <xsl:variable name="g_lang"       select="if ($g_langSrc='sx') then 'en' else $g_langSrc"/>
 <xsl:variable name="g_country"    select="lower-case(/pm/identAndStatusSection/pmAddress/pmIdent/language/@countryIsoCode)" />
 <xsl:variable name="g_mi"         select="/pm/identAndStatusSection/pmAddress/pmIdent/pmCode/@modelIdentCode"/>
+<xsl:variable name="g_issuer"     select="/pm/identAndStatusSection/pmAddress/pmIdent/pmCode/@pmIssuer"/>
+<xsl:variable name="g_pm_num"     select="/pm/identAndStatusSection/pmAddress/pmIdent/pmCode/@pmNumber"/>
+<xsl:variable name="g_pm_vol"     select="/pm/identAndStatusSection/pmAddress/pmIdent/pmCode/@pmVolume"/>
 <xsl:variable name="g_issue"      select="/pm/identAndStatusSection/pmAddress/pmIdent/issueInfo/@issueNumber"/>
 <xsl:variable name="g_inwork"     select="/pm/identAndStatusSection/pmAddress/pmIdent/issueInfo/@inWork"/>
 <xsl:variable name="g_issue_type" select="/pm/identAndStatusSection/pmStatus/@issueType"/>
 <xsl:variable name="g_year"       select="/pm/identAndStatusSection/pmAddress/pmAddressItems/issueDate/@year"/>
 <xsl:variable name="g_month"      select="/pm/identAndStatusSection/pmAddress/pmAddressItems/issueDate/@month"/>
 <xsl:variable name="g_day"        select="/pm/identAndStatusSection/pmAddress/pmAddressItems/issueDate/@day"/>
-<xsl:variable name="g_issue_date" select="concat($g_year,'-',$g_month,'-',$g_day)"/>
+<xsl:variable name="g_issue_date" select="concat($g_year,$g_month,$g_day)"/>
 <xsl:variable name="g_cageCode"   select="/pm/identAndStatusSection/pmStatus/responsiblePartnerCompany/@enterpriseCode"/>
 <xsl:variable name="g_security"   select="/pm/identAndStatusSection/pmStatus/security/@securityClassification"/>
 <xsl:variable name="g_pmc"        select="fn:getPMC(/pm/identAndStatusSection/pmAddress/pmIdent/pmCode)"/>

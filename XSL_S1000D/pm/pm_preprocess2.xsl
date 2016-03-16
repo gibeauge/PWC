@@ -58,13 +58,16 @@
 </xsl:template>
 
 <xsl:template match="dmInclusion">
-  <xsl:copy-of select="."/>
+  <!-- do not keep existing LOEDM and Highlights (empty) -->
+  <xsl:if test="not(@inc='00S' or @inc='00U')">
+    <xsl:copy-of select="."/>
+  </xsl:if>
   
-  <!-- Add LOEDM and Highlights after title page -->
-  <xsl:if test="@is-tp='true'">
+  <!-- Add LOEDM and Highlights after title page or change record -->
+  <xsl:if test="(@is-tp='true' and not(//dmInclusion/@inc='00T')) or (@inc='00T')">
     <xsl:variable name="dm-loedm">
       <xsl:call-template name="build-loedm">
-        <xsl:with-param name="dm-tp" select="dmodule"/>
+        <xsl:with-param name="dm-tp" select="if (//dmInclusion[@is-tp='true']) then //dmInclusion[@is-tp='true'][1]/dmodule else dmodule"/>
       </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="dmc-loedm" select="fn:getDMC(exslt:node-set($dm-loedm)//identAndStatusSection/dmAddress/dmIdent/dmCode)"/>    
@@ -75,7 +78,7 @@
     <xsl:if test="number($g_issue) > 1">
       <xsl:variable name="dm-highlights">
         <xsl:call-template name="build-highlights">
-          <xsl:with-param name="dm-tp" select="dmodule"/>
+          <xsl:with-param name="dm-tp" select="if (//dmInclusion[@is-tp='true']) then //dmInclusion[@is-tp='true'][1]/dmodule else dmodule"/>
         </xsl:call-template>
       </xsl:variable>
       <xsl:variable name="dmc-highlights" select="fn:getDMC(exslt:node-set($dm-highlights)//identAndStatusSection/dmAddress/dmIdent/dmCode)"/>    

@@ -94,7 +94,34 @@
 
 <xsl:template match="@infoEntityIdent">
   <xsl:copy-of select="."/>
-  <xsl:attribute name="entityPath"><xsl:value-of select="tokenize(unparsed-entity-uri(.), '/')[last()]"/></xsl:attribute>
+  <xsl:variable name="entity-name">
+    <xsl:choose>
+      <xsl:when test="ends-with(.,'.cgm')">
+        <xsl:value-of select="substring-before(.,'.cgm')"/>
+      </xsl:when>
+      <xsl:when test="ends-with(.,'CGM')">
+        <xsl:value-of select="substring-before(.,'.CGM')"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:variable name="entity-path-res" select="tokenize(unparsed-entity-uri($entity-name), '/')[last()]"/>
+  <xsl:variable name="entity-path">
+    <xsl:choose>
+      <xsl:when test="ends-with($entity-path-res,'.cgm')">
+        <xsl:value-of select="concat(substring-before($entity-path-res,'.cgm'), '.png')"/>
+      </xsl:when>
+      <xsl:when test="ends-with($entity-path-res,'CGM')">
+        <xsl:value-of select="concat(substring-before($entity-path-res,'.CGM'), '.PNG')"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$entity-path-res"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+  <xsl:attribute name="entityPath"><xsl:value-of select="$entity-path"/></xsl:attribute>
 </xsl:template>
 
 </xsl:stylesheet>

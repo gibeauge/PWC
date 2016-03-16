@@ -9,10 +9,12 @@
 <text name="tp-manual-em">OVERHAUL MANUAL</text>
 <text name="tp-manual-cir">CLEANING INSPECTION REPAIR (CIR) MANUAL</text>
 
-<text name="tp-engine-type">Engine Type</text>
-<text name="tp-models">MODEL(S)</text>
-<text name="tp-manual-pno">Manual Part No.</text>
+<text name="tp-publication">Publication</text>
+<text name="tp-issue-no">Issue&#xa0;No.</text>
+<text name="tp-models">Engine Models</text>
 <text name="tp-issue">Original Issue Date</text>
+<text name="tp-engine-type">Engine Type</text>
+<text name="tp-manual-pno">Manual Part No.</text>
 <text name="tp-issued">Issued</text>
 <text name="tp-export-ctl">Export Control</text>
 <text name="tp-approval">Approval</text>
@@ -328,6 +330,32 @@
 <text name="lot-title">List of tables</text>
 <text name="lof-col1">Figure number</text>
 <text name="lof-col2">Figure title</text>
+
+<text name="month-01">January</text>
+<text name="month-02">February</text>
+<text name="month-03">March</text>
+<text name="month-04">April</text>
+<text name="month-05">May</text>
+<text name="month-06">June</text>
+<text name="month-07">July</text>
+<text name="month-08">August</text>
+<text name="month-09">September</text>
+<text name="month-10">October</text>
+<text name="month-11">November</text>
+<text name="month-12">December</text>
+
+<text name="month-s-01">Jan</text>
+<text name="month-s-02">Feb</text>
+<text name="month-s-03">Mar</text>
+<text name="month-s-04">Apr</text>
+<text name="month-s-05">May</text>
+<text name="month-s-06">Jun</text>
+<text name="month-s-07">Jul</text>
+<text name="month-s-08">Aug</text>
+<text name="month-s-09">Sep</text>
+<text name="month-s-10">Oct</text>
+<text name="month-s-11">Nov</text>
+<text name="month-s-12">Dec</text>
 </texts>
 
 </generated-text>

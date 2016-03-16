@@ -797,7 +797,8 @@ window.onload = function () {
 /* */
 function euCAPrintPopup(paraIds, tableIds, figureIds, handler) {
 
-    if ($("#s1000d_print_marker")) {
+    var el = document.getElementById("s1000d_print_marker");
+    if (el != null) {
        var fct = 'window.' + handler + '("", "");';
        eval(fct);
        return;
