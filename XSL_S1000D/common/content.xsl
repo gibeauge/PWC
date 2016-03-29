@@ -135,7 +135,7 @@
     <xsl:apply-templates/>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="captionText">
   <span>
     <xsl:call-template name="change"/>
@@ -172,7 +172,7 @@
     <xsl:text> </xsl:text>
   <xsl:value-of select="@catalogSeqNumberValue"/>
 </xsl:template>
-       
+
 <xsl:template match="changeInline">
   <span>
     <xsl:call-template name="setID"/>
@@ -180,7 +180,7 @@
     <xsl:apply-templates/>
   </span>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerRef">
   <span>
     <xsl:call-template name="setID"/>
@@ -327,7 +327,7 @@
 <xsl:template match="footnote" mode="chg-del">
   <xsl:call-template name="delete"/>
 </xsl:template>
-  
+
 <xsl:template match="functionalItemRef">
   <span>
     <xsl:call-template name="setID"/>
@@ -343,7 +343,7 @@
     <!--xsl:text>)</xsl:text-->
   </span>
 </xsl:template>
-    
+
 <xsl:template match="graphic">
   <div>
     <xsl:call-template name="change">
@@ -365,7 +365,7 @@
   <xsl:apply-templates select="hotspot"/>
   <div class="pr-brk-after"></div>
 </xsl:template>
-    
+
 <xsl:template match="graphic" mode="chg-del">
   <xsl:call-template name="delete-as-div"/>
   <div class="pr-brk-after"></div>
@@ -377,7 +377,7 @@
     <xsl:value-of select="concat(@applicationStructureName, ' ', @hotspotTitle)"/>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="identNumber">
   <span>
     <xsl:call-template name="change"/>
@@ -472,7 +472,7 @@
 </xsl:template>
 
 <xsl:template match="multimediaObject/parameter"></xsl:template>
-    
+
 <xsl:template match="name">
   <span>
     <xsl:call-template name="change"/>
@@ -500,7 +500,7 @@
 <xsl:template match="partAndSerialNumber">
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="partNumber" priority="5">
   <span>
     <xsl:call-template name="change"/>
@@ -615,7 +615,7 @@
     </xsl:choose>
   </span>
 </xsl:template>
-    
+
 <xsl:template match="quantityGroup">
   <xsl:choose>
     <xsl:when test="@quantityGroupType = 'minimum'">
@@ -627,7 +627,7 @@
   </xsl:choose>
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="quantityTolerance">
   <xsl:if test="preceding-sibling::node()[1][self::quantityTolerance]">
     <xsl:text> </xsl:text>
@@ -669,19 +669,19 @@
 
 <!-- reason for amendment in graphics - delete it for now -->
 <xsl:template match="reasonForAmendment"></xsl:template>
-    
+
 <xsl:template match="dmodule//refs">
   <xsl:text>&#032;</xsl:text>
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="serialNumber">
   <xsl:text>&#032;</xsl:text>
   <xsl:value-of select="fn:getGenText('serialNumber')"/>
   <xsl:value-of select="@serialNumberValue"/>
   <xsl:text>&#032;</xsl:text>
 </xsl:template>
-        
+
 <xsl:template match="simplePara">
   <div>
     <xsl:call-template name="setID"/>
@@ -697,7 +697,7 @@
     <xsl:with-param name="class" select="'s-simple-para'"/>
   </xsl:call-template>
 </xsl:template>
-    
+
 <xsl:template match="subScript">
   <sub><xsl:apply-templates/></sub>
 </xsl:template>
@@ -705,12 +705,14 @@
 <xsl:template match="superScript">
   <sup><xsl:apply-templates/></sup>
 </xsl:template>
-    
+
 <xsl:template match="symbol">
   <img src="{concat($graphics-path, '/', @entityPath)}">
-    <xsl:if test="@xlink:title">
-      <xsl:attribute name="alt" select="@xlink:title"/>
-    </xsl:if>
+    <xsl:attribute name="alt">
+      <xsl:if test="@xlink:title">
+        <xsl:value-of select="@xlink:title"/>
+      </xsl:if>
+    </xsl:attribute>
     <xsl:if test="@reproductionWidth">
       <xsl:attribute name="width" select="@reproductionWidth"/>
     </xsl:if>
@@ -720,19 +722,19 @@
     <xsl:attribute name="class" select="'s-symbol'"/>
   </img>
 </xsl:template>
-            
+
 <xsl:template match="title" priority="0">
   <div class="s-title">
     <xsl:apply-templates/>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="verbatimText">
   <span>
     <pre><xsl:call-template name="change"/><xsl:apply-templates/></pre>
   </span>
 </xsl:template>
-        
+
 <xsl:template match="zoneRef">
   <span>
     <xsl:call-template name="setID"/>
@@ -742,5 +744,5 @@
     <xsl:apply-templates/>
   </span>
 </xsl:template>
-        
+
 </xsl:stylesheet>

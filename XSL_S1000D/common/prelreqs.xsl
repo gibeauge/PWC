@@ -133,7 +133,7 @@
     </table>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="reqCondNoRef">
   <tr>
     <xsl:call-template name="setID"/>
@@ -154,11 +154,11 @@
     <xsl:apply-templates/>
   </tr>
 </xsl:template>
-    
+
 <xsl:template match="reqCondDm/dmRef" priority="5">
   <td><xsl:next-match/></td>
 </xsl:template>
-    
+
 <xsl:template match="reqCondPm">
   <tr>
     <xsl:call-template name="setID"/>
@@ -212,17 +212,17 @@
     <xsl:apply-templates select="circuitBreakerDescrGroup"/>
   </tr>
 </xsl:template>
-    
+
 <xsl:template match="reqCondCircuitBreaker/reqCond">
   <td colspan="2"><xsl:apply-templates/></td>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerDescrGroup" mode="chg-del">
   <xsl:call-template name="delete-as-cell">
     <xsl:with-param name="span" select="number(2)"/>
   </xsl:call-template>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerDescrGroup">
   <td colspan="2">
     <xsl:call-template name="setID"/>
@@ -248,7 +248,7 @@
     </table>
   </td>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerDescrSubGroup">
   <xsl:if test="functionalItemRef">
     <tr>
@@ -259,7 +259,7 @@
   </xsl:if>
   <xsl:apply-templates select="circuitBreakerDescr"/>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerDescr">
   <tr>
     <xsl:call-template name="setID"/>
@@ -282,7 +282,7 @@
     <td><xsl:apply-templates select="circuitBreakerLocation"/></td>
   </tr>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerDescrSubGroup|circuitBreakerDescr" mode="chg-del">
   <xsl:call-template name="delete-as-row">
     <xsl:with-param name="span" select="number(4)"/>
@@ -296,12 +296,12 @@
     <xsl:value-of select="@accessPointNumber"/>
   </span>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerDescr/name|supplyDescr/name|supplyDescr/name|spareDescr/name">
   <xsl:call-template name="change"/>
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerLocation">
   <span>
     <xsl:call-template name="setID"/>
@@ -309,7 +309,7 @@
     <xsl:apply-templates/>
   </span>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerDescr/circuitBreakerRef">
   <span>
     <xsl:call-template name="setID"/>
@@ -317,7 +317,7 @@
     <xsl:value-of select="@circuitBreakerNumber"/>
   </span>
 </xsl:template>
-    
+
 <xsl:template match="circuitBreakerDescr/accessPointRef|circuitBreakerDescr/name|circuitBreakerLocation|circuitBreakerDescr/circuitBreakerRef" mode="chg-del">
   <xsl:call-template name="delete-as-span"/>
 </xsl:template>
@@ -412,7 +412,7 @@
     </table>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="reqPersons" mode="chg-del">
   <xsl:call-template name="delete-as-row">
     <xsl:with-param name="span" select="number(5)"/>
@@ -421,13 +421,13 @@
     <xsl:with-param name="process" select="'1'"/>
   </xsl:apply-templates>
 </xsl:template>
-    
+
 <xsl:template match="reqPersons[not(preceding-sibling::reqPersons)]" priority="3">
   <xsl:call-template name="req-persons-process">
     <xsl:with-param name="process" select="'1'"/>
   </xsl:call-template>
 </xsl:template>
-    
+
 <xsl:template match="reqPersons" name="req-persons-process">
   <xsl:param name="process" select="'0'"/>
   <xsl:if test="$process='1'">
@@ -461,7 +461,7 @@
     <xsl:with-param name="span" select="number(5)"/>
   </xsl:call-template>
 </xsl:template>
-    
+
 <xsl:template name="person-row">
   <xsl:call-template name="change">
     <xsl:with-param name="node" select=".."/>
@@ -493,7 +493,7 @@
     <xsl:with-param name="span" select="number(5)"/>
   </xsl:call-template>
 </xsl:template>
-    
+
 <xsl:template name="personnel-row">
   <xsl:call-template name="change">
     <xsl:with-param name="node" select=".."/>
@@ -509,7 +509,7 @@
 <xsl:template name="person-required-man">
   <xsl:value-of select="concat(fn:getGenText('person-man'),' ',@man)"/>
 </xsl:template>
-    
+
 <xsl:template name="person-required-num">
   <xsl:value-of select="if (@numRequired) then @numRequired else fn:getGenText('person-asreq')"/>
 </xsl:template>
@@ -602,7 +602,7 @@
 <xsl:template match="supportEquipDescrGroup|supplyDescrGroup|spareDescrGroup">
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="supportEquipDescr|supplyDescr|spareDescr">
   <tr>
     <xsl:call-template name="setID"/>
@@ -613,13 +613,13 @@
     <td><xsl:apply-templates select="remarks"/></td>
   </tr>
 </xsl:template>
-    
+
 <xsl:template match="supportEquipDescr|supplyDescr|spareDescr" mode="chg-del">
   <xsl:call-template name="delete-as-row">
     <xsl:with-param name="span" select="number(4)"/>
   </xsl:call-template>
 </xsl:template>
-    
+
 <xsl:template name="equip-name">
   <xsl:apply-templates select="if (shortName) then shortName else name"/>
 </xsl:template>
@@ -628,13 +628,13 @@
   <xsl:call-template name="change"/>
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="preliminaryRqmts//identNumber" priority="5">
   <xsl:call-template name="change"/>
   <!--xsl:next-match/-->
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="preliminaryRqmts//partNumber" priority="3">
   <xsl:next-match/>
 </xsl:template>
@@ -660,7 +660,7 @@
     <xsl:apply-templates/>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="safetyRqmts">
   <div>
     <xsl:call-template name="setID"/>
@@ -671,7 +671,7 @@
 <xsl:template match="noSafety">
   <div><xsl:value-of select="fn:getGenText('none')"/></div>
 </xsl:template>
-    
+
 <!-- ************************************************************** -->
 <!-- Closing requirements -->
 

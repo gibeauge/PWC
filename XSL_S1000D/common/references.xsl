@@ -38,7 +38,7 @@
     </table>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="dmRef[dmRefIdent/dmCode]" mode="refs">
   <xsl:variable name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
   <tr>
@@ -56,9 +56,9 @@
     </td>
   </tr>
 </xsl:template>
-    
+
 <xsl:template match="pmRef" mode="refs">
-  <xsl:variable name="pmc" select="fn:getPMC(pmRefIdent/pmCode)"/>    
+  <xsl:variable name="pmc" select="fn:getPMC(pmRefIdent/pmCode)"/>
   <tr>
     <td><xsl:value-of select="$pmc"/></td>
     <td>
@@ -72,12 +72,12 @@
     </td>
   </tr>
 </xsl:template>
-    
+
 <xsl:template match="pmTitle" mode="refs">
   <xsl:apply-templates/>
 </xsl:template>
-    
-<xsl:template match="externalPubRef" mode="refs">  
+
+<xsl:template match="externalPubRef" mode="refs">
   <xsl:variable name="externalPubCode" select="externalPubRefIdent/externalPubCode"/>
   <xsl:choose>
     <xsl:when test="starts-with($externalPubCode, 'http://')">
@@ -95,7 +95,7 @@
   <tr>
     <td>
       <a href="{$externalPubCode}">
-        <xsl:value-of select="$externalPubCode"/>    
+        <xsl:value-of select="$externalPubCode"/>
       </a>
     </td>
     <td>
@@ -103,7 +103,7 @@
     </td>
   </tr> 
 </xsl:template>
-    
+
 <xsl:template name="externalPubRef-other-refs">
   <xsl:param name="externalPubCode" select="externalPubRefIdent/externalPubCode"/>
 
@@ -116,7 +116,7 @@
     </td>
   </tr>  
 </xsl:template>
-    
+
 <xsl:template match="externalPubTitle" mode="refs">
   <xsl:apply-templates/>
 </xsl:template>
@@ -158,8 +158,11 @@
 <xsl:template name="get-dmref-value">
   <xsl:param name="dmc"/>
   
-  <xsl:choose>
-    <!-- show DM code in some preliminary requirements -->
+  <!-- always show DM code -->
+  <xsl:value-of select="fn:getDMCBasic($dmc)"/>
+  
+  <!--xsl:choose>
+    <!-/- show DM code in some preliminary requirements -/->
     <xsl:when test="ancestor::reqCondGroup or ancestor::closeRqmts">
       <xsl:value-of select="fn:getDMCBasic($dmc)"/>
     </xsl:when>
@@ -168,9 +171,8 @@
         <xsl:with-param name="dmc" select="$dmc"/>
       </xsl:call-template>
     </xsl:otherwise>
-  </xsl:choose>
+  </xsl:choose-->
 </xsl:template>
-
 
 <xsl:template name="get-dmref-title">
   <xsl:param name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
@@ -204,9 +206,9 @@
   <xsl:text>&#xa0;-&#x20;</xsl:text>
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <!-- ************************************************************** -->
-    
+
 <xsl:template match="pmRef">
   <xsl:variable name="pmc" select="fn:getPMC(.//pmCode)"/>
   <xsl:variable name="dmc" select="if (@xlink:href) then concat('/', @xlink:href) else ''"/>
@@ -222,7 +224,7 @@
     </xsl:choose>
   </span>
 </xsl:template>
-    
+
 <xsl:template match="pmRefAddressItems">
   <xsl:apply-templates select="pmTitle"/>
   <xsl:apply-templates select="issueDate"/>
@@ -251,7 +253,7 @@
 <xsl:template match="externalPubRef" priority="5"> 
   <xsl:next-match/>
 </xsl:template>
-    
+
 <xsl:template match="externalPubRef[starts-with(externalPubRefIdent/externalPubCode, 'http://')]" priority="3">
   <a>
     <xsl:call-template name="change"/>
@@ -259,7 +261,7 @@
     <xsl:next-match/>
   </a>
 </xsl:template>
-    
+
 <xsl:template match="externalPubRef">
   <xsl:apply-templates/>
 </xsl:template>
@@ -273,7 +275,7 @@
     <xsl:apply-templates/>
   </xsl:if>
 </xsl:template>
-    
+
 <xsl:template match="externalPubTitle">
   <xsl:apply-templates/>
 </xsl:template>
@@ -281,21 +283,21 @@
 <xsl:template match="externalPubIssueInfo">
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="externalPubIssue">
   <xsl:text> (</xsl:text>
   <xsl:apply-templates/>
   <xsl:text>)</xsl:text>
 </xsl:template>
-    
+
 <xsl:template match="externalPubRefAddressItems"/>
 
 <!--
 <xsl:template match="externalPubRefAddressItems/shortExternalPubTitle|externalPubRefAddressItems/pubMedia"/>
--->        
-    
+-->
+
 <!-- ************************************************************** -->
-    
+
 <xsl:template match="internalRef">
     <xsl:variable name="refid"   select="@internalRefId"/>
     <xsl:variable name="reftype" select="if (@internalRefTargetType) then @internalRefTargetType else 'other'"/>
@@ -362,13 +364,13 @@
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
-  
+
 <xsl:template name="link-tooltip">
   <xsl:if test="@targetTitle">
     <xsl:attribute name="title"><xsl:value-of select="@targetTitle"/></xsl:attribute>
   </xsl:if>
 </xsl:template>
-  
+
 <xsl:template match="levelledPara" mode="internalRef">
   <xsl:value-of select="fn:getGenText('internalRef-para')"/>
   <xsl:text>&#xa0;</xsl:text>
@@ -380,7 +382,7 @@
   </xsl:if>
   -->
 </xsl:template>
-    
+
 <xsl:template match="levelledPara/title" mode="internalRef">
   <xsl:apply-templates/>
 </xsl:template>
@@ -390,7 +392,7 @@
   
   <xsl:value-of select="if ($target-title!='') then $target-title else fn:getGenText('internalRef-para')"/>
 </xsl:template>
-    
+
 <xsl:template match="figure" mode="internalRef">
     <xsl:value-of select="fn:getGenText('internalRef-figure')"/>
     <xsl:text>&#xa0;</xsl:text>
@@ -400,11 +402,11 @@
     <xsl:apply-templates select="title" mode="internalRef"/>
     -->
 </xsl:template>
-    
-<xsl:template match="figure/title" mode="internalRef">   
+
+<xsl:template match="figure/title" mode="internalRef">
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="graphic" mode="internalRef">
   <xsl:apply-templates select="ancestor::figure" mode="internalRef"/>
   <!--xsl:if test="count(ancestor::figure/graphic) > 1">
@@ -414,7 +416,7 @@
     <xsl:apply-templates select="." mode="numbering"/>
   </xsl:if-->
 </xsl:template>
-    
+
 <xsl:template match="hotspot" mode="internalRef">
   <!--xsl:attribute name="href" select="concat('#', @id, '_', @applicationStructureName)"/>
   
@@ -425,13 +427,13 @@
   <xsl:text>]</xsl:text>
   -->
 </xsl:template>
-    
+
 <xsl:template match="table" mode="internalRef">
   <xsl:value-of select="fn:getGenText('internalRef-table')"/>
   <xsl:text>&#xa0;</xsl:text>
   <xsl:apply-templates select="." mode="numbering"/>
 </xsl:template>
-    
+
 <xsl:template match="proceduralStep" mode="internalRef">
   <xsl:value-of select="fn:getGenText('internalRef-step')"/>
   <xsl:text>&#xa0;</xsl:text>
@@ -452,7 +454,7 @@
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
-    
+
 <xsl:template match="identNumber" mode="internalRef">
   <xsl:apply-templates select="manufacturerCode" mode="internalRef"/>
   <xsl:apply-templates select="partAndSerialNumber/partNumber" mode="internalRef"/>
@@ -476,7 +478,7 @@
     </a>
   </sup>
 </xsl:template>
-    
+
 <xsl:template match="reasonForUpdate|changeInline|accessRef|zoneRef" mode="internalRef">
   <xsl:apply-templates/>
 </xsl:template>
@@ -496,22 +498,22 @@
   <xsl:param name="target-title" select="''"/>
   
   <xsl:apply-templates select="ancestor::multimedia" mode="internalRef"/>
-  <xsl:value-of select="if ($target-title!='') then concat(fn:getGenText('sep3'), $target-title) else ''"/> 
+  <xsl:value-of select="if ($target-title!='') then concat(fn:getGenText('sep3'), $target-title) else ''"/>
 </xsl:template>
 
 <xsl:template match="parameter" mode="internalRef">
   <xsl:param name="target-title" select="''"/>
   
   <xsl:apply-templates select="ancestor::multimedia" mode="internalRef"/>
-  <xsl:value-of select="if ($target-title!='') then concat(fn:getGenText('sep3'), $target-title) else ''"/> 
+  <xsl:value-of select="if ($target-title!='') then concat(fn:getGenText('sep3'), $target-title) else ''"/>
 </xsl:template>
 
 <xsl:template match="*" mode="internalRef">
   <xsl:apply-templates/>
 </xsl:template>
-    
+
 <xsl:template match="footnoteRef">
   <xsl:apply-templates select="ancestor::table//footnote[@id = current()/@internalRefId]" mode="internalRef"/>
-</xsl:template>    
+</xsl:template>
 
 </xsl:stylesheet>

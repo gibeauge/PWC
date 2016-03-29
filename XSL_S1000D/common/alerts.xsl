@@ -15,23 +15,6 @@
 </xsl:template>
 
 <xsl:template match="warning|caution" priority="20">
-  <!--
-  <div>
-    <xsl:call-template name="setID"/>
-    <xsl:call-template name="change">
-      <xsl:with-param name="class" select="concat('s-', name())"/>
-    </xsl:call-template>
-    <div class="s-wc-title">--><!--<xsl:value-of select="fn:getGenText(name())"/>--><!--</div>
-    <span>
-      <xsl:if test="symbol">
-        <div class="s-wcn-symbol">
-          <xsl:apply-templates select="symbol"/>
-        </div>
-      </xsl:if>
-      <xsl:next-match/>
-    </span>
-  </div>
-  -->
   <div>
     <xsl:call-template name="setID"/>
     <xsl:call-template name="change">
@@ -52,7 +35,7 @@
 </xsl:template>
 
 <xsl:template match="warning|caution">
-    <xsl:apply-templates select="child::*[not(self::symbol)]"/>
+  <xsl:apply-templates select="child::*[not(self::symbol)]"/>
 </xsl:template>
     
 <xsl:template match="warning|caution" mode="chg-del">
@@ -75,26 +58,6 @@
 </xsl:template>
     
 <xsl:template match="note" priority="20">
-  <!--
-  <div class="s-note">
-    <xsl:call-template name="setID"/>
-      <xsl:call-template name="change">
-      <xsl:with-param name="class" select="'s-note'"/>
-      </xsl:call-template>
-    <div class="s-note-title">
-      <xsl:value-of select="fn:getGenText('title-note')"/>
-      <xsl:apply-templates select="." mode="numbering"/>
-    </div>
-    <span>
-      <xsl:if test="symbol">
-        <div class="s-wcn-symbol">
-          <xsl:apply-templates select="symbol"/>
-        </div>
-      </xsl:if>
-      <xsl:next-match/>
-    </span>
-  </div>
-  -->
   <div class="{concat($css-pfx, name(), '-wrapper', $css-sfx)}">
     <div>
       <xsl:call-template name="setID"/>
@@ -126,7 +89,7 @@
 
 <xsl:template match="note" mode="chg-del">
   <xsl:call-template name="delete"/>
-</xsl:template>  
+</xsl:template>
 
 <xsl:template match="notePara">
   <div>
@@ -143,5 +106,5 @@
     <xsl:with-param name="class" select="'s-note-para'"/>
   </xsl:call-template>
 </xsl:template>
-    
+
 </xsl:stylesheet>

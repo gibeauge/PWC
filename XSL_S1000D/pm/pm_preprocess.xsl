@@ -70,7 +70,6 @@
     <xsl:variable name="is-fm"    select="contains('001,002,003,004,005,006,007,008,009,012,022,00A,00B,00C,00D,00E,00F,00G,00H,00J,00K,00L,00M,00N,00P,00Q,00R,00S,00T,00U,00W,00X,00Y,00Z,0A1', $infocode)"/>
     
     <dmInclusion ref="{$dmc}" file="{if ($is-tp) then 'title-page' else $dmc}" inc="{$infocode}" is-tp="{$is-tp}" is-fm="{$is-fm}">
-      <!--dmIds><xsl:for-each select="$doc//@id"><id><xsl:value-of select="."/></id></xsl:for-each></dmIds-->
       <xsl:if test="dmRefAddressItems/dmTitle">
         <tocTitle><xsl:copy-of select="dmRefAddressItems/dmTitle"/></tocTitle>
       </xsl:if>
@@ -81,7 +80,9 @@
 
 <!-- ************************************************************** -->
 <!-- *** DM PROCESSING *** -->
-        
+
+<xsl:template match="text()" priority="2"><xsl:value-of select="replace(.,'&#xa;',' ')"/></xsl:template>
+
 <xsl:template match="@*|node()">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>

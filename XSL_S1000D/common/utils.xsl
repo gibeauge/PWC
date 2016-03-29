@@ -56,18 +56,18 @@
     <xsl:otherwise>Invalid node.</xsl:otherwise>
   </xsl:choose>
 </xsl:function>
-    
+
 <xsl:function name="fn:getGenText">
   <xsl:param name="key"/>
   
   <xsl:value-of select="$gen-texts//texts[@language=$g_lang]/text[@name=$key]"/>
 </xsl:function>
-    
+
 <xsl:function name="fn:capitalize">
   <xsl:param name="str" as="xs:string"/>
   <xsl:sequence select="concat(upper-case(substring($str,1,1)), substring($str, 2), ' '[not(last())])"/>
 </xsl:function>
-    
+
 <xsl:function name="fn:getDMCFM">
   <xsl:param name="mi"/>
   <xsl:param name="key"/>

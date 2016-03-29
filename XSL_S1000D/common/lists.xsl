@@ -39,7 +39,7 @@
 <xsl:template match="definitionListHeader">
   <thead>
     <tr>
-      <xsl:apply-templates/>    
+      <xsl:apply-templates/>
     </tr>
   </thead>
 </xsl:template>
@@ -51,7 +51,7 @@
 <xsl:template match="definitionListItem">
   <tr>
     <xsl:call-template name="change"/>
-    <xsl:apply-templates/>    
+    <xsl:apply-templates/>
   </tr>
 </xsl:template>
 
@@ -94,7 +94,7 @@
     </table>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="legend/definitionList">
   <xsl:call-template name="change">
     <xsl:with-param name="node" select=".."/>
@@ -119,7 +119,7 @@
     </tr>
   </xsl:for-each>
 </xsl:template>
-    
+
 <xsl:template match="legend/definitionList" mode="chg-del">
   <xsl:call-template name="delete-as-row">
     <xsl:with-param name="span" select="number(4)"/>
@@ -157,7 +157,7 @@
     <xsl:apply-templates select="*[not(self::warning or self::caution or self::note)]"/>
   </li>
 </xsl:template>
-    
+
 <xsl:template match="listItem|attentionRandomListItem|attentionSequentialListItem" mode="chg-del">
   <xsl:call-template name="delete-as-li"/>
 </xsl:template>

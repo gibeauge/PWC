@@ -10,7 +10,8 @@
 <!-- PARAMS -->
 
 <xsl:param name="t-default-thead-valign" select="'bottom'"/>
-<xsl:param name="t-thead-tfoot-style">font-weight: bold; </xsl:param>
+<xsl:param name="t-thead-style">font-weight: bold; </xsl:param>
+<xsl:param name="t-tfoot-style"> </xsl:param>
 
 
 <!-- ************************************************************** -->
@@ -241,7 +242,7 @@
 </xsl:template>
 
 <xsl:template match="table/title">
-  <img src="{concat($images-path, '/table.gif')}" title="" style="border-style:none; display:inline;"/>
+  <img src="{concat($images-path, '/table.gif')}" alt="" style="border-style:none; display:inline;"/>
   <xsl:text>&#xa0;</xsl:text>
   <xsl:value-of select="fn:getGenText('title-table')"/>
   <xsl:text>&#xa0;</xsl:text>
@@ -272,7 +273,8 @@
 
 <xsl:template match="colspec">
   <xsl:variable name="l-colcount" select="count(../colspec)"/>
-  <col id="{@colname}" name="{@colname}">
+  <!--col id="{@colname}" name="{@colname}"-->
+  <col>
     <xsl:choose>
       <xsl:when test="@align">
         <xsl:attribute name="align">
@@ -370,7 +372,7 @@
   <xsl:element name="{name()}">
     <xsl:attribute name="style">
       <xsl:value-of select="if (@valign) then concat('vertical-align:',@valign,';') else concat('vertical-align:', $t-default-thead-valign,';')"/>
-      <xsl:value-of select="$t-thead-tfoot-style"/>
+      <xsl:value-of select="if (self::thead) then $t-thead-style else $t-tfoot-style"/>
       <!--
       <xsl:if test="self::thead">
         <xsl:call-template name="border">

@@ -6,7 +6,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     exclude-result-prefixes="xs fn saxon #default"
     version="2.0">
-    
+
 <xsl:template match="description">
   <div class="s-descript">
     <xsl:apply-templates/>
@@ -24,7 +24,7 @@
     </div>
     <div class="s-lPara-c">
       <xsl:apply-templates/>
-    </div>    
+    </div>
   </div>
 </xsl:template>
     
@@ -39,5 +39,5 @@
     <xsl:apply-templates/>
   </div>
 </xsl:template>
-        
+
 </xsl:stylesheet>

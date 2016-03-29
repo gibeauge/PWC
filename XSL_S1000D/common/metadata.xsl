@@ -24,15 +24,15 @@
 </xsl:template>
 
 <xsl:template match="dmTitle" mode="dm-title">
-  <xsl:choose>
+  <!--xsl:choose>
     <xsl:when test="ancestor::dmInclusion/@is-fm='true'">
       <xsl:apply-templates select="techName" mode="dm-title-fm"/>
     </xsl:when>
-    <xsl:otherwise>
+    <xsl:otherwise-->
       <xsl:apply-templates select="techName" mode="dm-title"/>
       <xsl:apply-templates select="infoName" mode="dm-title"/>
-    </xsl:otherwise>
-  </xsl:choose>
+    <!--/xsl:otherwise>
+  </xsl:choose-->
 </xsl:template>
     
 <xsl:template match="techName" mode="dm-title">
@@ -138,7 +138,7 @@
       <xsl:value-of select="fn:getDMCBasic(fn:getDMC(.))"/>
     </td>
   </tr>
-</xsl:template>    
+</xsl:template>
     
 <xsl:template match="language" mode="metadata">
   <tr class="s-metadata-row">
@@ -364,10 +364,10 @@
 
 <xsl:template match="simplePara" mode="metadata">
   <div>
-    <xsl:apply-templates/>    
+    <xsl:apply-templates/>
   </div>
 </xsl:template>
-        
+
 <xsl:template match="techStandard" mode="metadata">
   <tr class="s-metadata-row">
     <td class="s-metadata-def">
@@ -415,7 +415,7 @@
     </td>
   </tr>
 </xsl:template>
-    
+
 <xsl:template match="productConfiguration" mode="metadata">
   <div class="s-metadata-ts">
     <xsl:value-of select="fn:getGenText('meta-productConfiguration')"/>
@@ -470,7 +470,7 @@
     </tbody>
   </table>
 </xsl:template>
-    
+
 <xsl:template match="modification" mode="metadata">
   <xsl:value-of select="fn:getGenText('meta-authorization')"/>
   <xsl:value-of select="@authorizationIdent"/>
@@ -531,14 +531,14 @@
     <xsl:value-of select="fn:getGenText(concat('meta-verification-', @verificationType))"/>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="secondVerification" mode="metadata">
   <div>
     <xsl:value-of select="fn:getGenText('meta-secondVerification')"/>
-    <xsl:value-of select="fn:getGenText(concat('meta-verification-', @verificationType))"/>    
+    <xsl:value-of select="fn:getGenText(concat('meta-verification-', @verificationType))"/>
   </div>
 </xsl:template>
-        
+
 <xsl:template match="skillLevel" mode="metadata">
   <tr class="s-metadata-row">
     <td class="s-metadata-def">

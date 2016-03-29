@@ -42,7 +42,7 @@
 <xsl:template match="*[@changeType='delete']" priority="10">
     <xsl:apply-templates select="." mode="chg-del"/>
 </xsl:template>
-    
+
 <!--
 <xsl:template name="change">
   <xsl:param name="class" select="''"/>
@@ -69,7 +69,7 @@
   </xsl:choose>
 </xsl:template>
 -->
-  
+
 <xsl:variable name="g-css-chg" select="'s-change'"/>
 
 <xsl:template name="change">
@@ -108,7 +108,7 @@
 
 <xsl:template name="delete-as-li">
   <xsl:param name="class" select="''"/>
-  
+
   <li class="{if ($class!='') then concat($class,' ',$g-css-chg) else $g-css-chg}">
     <xsl:call-template name="setID"/>
     <xsl:value-of select="fn:getGenText('delete')"/>
@@ -122,10 +122,10 @@
     <xsl:value-of select="fn:getGenText('delete')"/>
   </div>
 </xsl:template>
-    
+
 <xsl:template name="delete-as-span">
   <xsl:param name="class" select="''"/>
-  
+
   <span class="{if ($class!='') then concat($class,' ',$g-css-chg) else $g-css-chg}">
     <xsl:call-template name="setID"/>
     <xsl:value-of select="fn:getGenText('delete')"/>
@@ -134,7 +134,7 @@
 
 <xsl:template name="delete-as-row">
   <xsl:param name="span"/>
-  
+
   <tr>
     <td colspan="{$span}" class="ietm_change">
       <xsl:call-template name="setID"/>
@@ -145,7 +145,7 @@
 
 <xsl:template name="delete-as-cell">
   <xsl:param name="span"/>
-  
+
   <td colspan="{$span}" class="ietm_change">
     <xsl:call-template name="setID"/>
     <xsl:value-of select="fn:getGenText('delete')"/>

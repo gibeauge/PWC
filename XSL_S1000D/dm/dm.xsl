@@ -37,7 +37,7 @@
                        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
     <html lang="{$g_lang}">
       <xsl:call-template name="build-header"/>
-      <body class="{concat($css-pfx, '-body')}">
+      <body class="{concat($css-pfx, 'body')}">
         <div class="s-dmodule" id="{generate-id(.)}">
           <xsl:call-template name="pwcmetainfo"/>
           <xsl:choose>
@@ -85,7 +85,7 @@
     <div id="manualTitle"><xsl:value-of select="/pm/identAndStatusSection/pmAddress/pmAddressItems/pmTitle//text()"/></div>
     <div id="engine"><xsl:value-of select="$g_mi"/></div>
     <div id="manualPn"><xsl:value-of select="tokenize(/pm/@id, '-')[2]"/></div>
-    <div id="pointRev"><xsl:value-of select="number($g_inwork)"/></div>
+    <div id="pointRev_"><xsl:value-of select="number($g_inwork)"/></div>
     <div id="revision"><xsl:value-of select="number($g_issue)"/></div>
     <div id="revDate"><xsl:value-of select="concat($g_year,$g_month,$g_day)"/></div>
     <div id="csu"><xsl:value-of select="concat($seq[4], '-', $seq[5], '-', $seq[6])"/></div>

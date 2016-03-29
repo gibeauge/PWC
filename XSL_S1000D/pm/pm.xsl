@@ -7,15 +7,15 @@
     xmlns:random="http://exslt.org/random"
     extension-element-prefixes="random"
     version="2.0">
-    
+
 <!-- ************************************************************** -->
 <!-- INCLUDES -->
 
 <xsl:include href="../dm/dm.xsl"/>
-    
+
 <!-- ************************************************************** -->
 <!-- PARAMETERS -->
-    
+
 <xsl:param name="graphics-path" select="'graphics'"/>
 <xsl:param name="images-path"   select="'images'"/>
 <xsl:param name="css-path"      select="'css'"/>
@@ -73,7 +73,7 @@
 
 <xsl:key name="ids" match="dmInclusion//*[@id]" use="concat(ancestor::dmInclusion/@ref,'-',@id)"/>
 <xsl:key name="dms" match="dmInclusion" use="@ref"/>
-    
+
 <!-- ************************************************************** -->
 <!-- *** PM PROCESSING *** -->
 
@@ -108,7 +108,7 @@
       <DocType><xsl:value-of select="tokenize(/pm/@id, '-')[1]"/></DocType>
     </Metadatas>
   </xsl:result-document>
-    
+  
   <!-- parse content -->
   <xsl:apply-templates/>
   <content/>
@@ -121,13 +121,13 @@
     <xsl:apply-templates select="content" mode="toc"/>
   </Structure>
 </xsl:template>
-    
+
 <xsl:template match="pm/content" mode="toc">
   <Pages>
     <xsl:apply-templates select="pmEntry" mode="toc"/>
   </Pages>
 </xsl:template>
-    
+
 <xsl:template match="pmEntry" mode="toc" priority="5">
   <xsl:variable name="title">
     <xsl:apply-templates select="pmEntryTitle" mode="toc"/>
@@ -280,7 +280,7 @@
 <xsl:template match="pm/content">
   <xsl:apply-templates select="pmEntry"/>
 </xsl:template>
-    
+
 <xsl:template match="pmEntry">
   <xsl:apply-templates select="pmEntry|dmInclusion/dmodule"/>
 </xsl:template>

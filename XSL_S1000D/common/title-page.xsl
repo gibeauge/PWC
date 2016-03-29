@@ -38,7 +38,7 @@
       <xsl:text> </xsl:text>
       <xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-issue')]/para/node()"/>
     </div>
-  
+    
     <!-- export control -->
     <div class="s-tp-export-ctl">
       <xsl:apply-templates select="levelledPara/title[.=fn:getGenText('tp-export-ctl')]/following-sibling::node()"/>
@@ -81,19 +81,19 @@
       <div><xsl:value-of select="fn:getGenText('tp-issue')"/></div>
       <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-issue')]/para/node()"/></div>
     </div>
-
+    
     <!-- engine type -->
     <div class="s-tp-div">
       <div><xsl:value-of select="fn:getGenText('tp-engine-type')"/></div>
       <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-engine-type')]/para/node()"/></div>
     </div>
-
+    
     <!-- manual part no -->
     <div class="s-tp-div">
       <div><xsl:value-of select="fn:getGenText('tp-manual-pno')"/></div>
       <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-manual-pno')]/para/node()"/></div>
     </div>
-
+    
     <!-- warnings, ... -->
     <xsl:for-each select="levelledPara[title=fn:getGenText('tp-issue')]/following-sibling::levelledPara">
       <div class="s-tp-div">
@@ -101,7 +101,7 @@
         <div><xsl:apply-templates select="*[not(self::title)]"/></div>
       </div>
     </xsl:for-each>
-
+    
   </xsl:for-each>
 </xsl:template>
 

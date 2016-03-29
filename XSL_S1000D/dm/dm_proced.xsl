@@ -22,18 +22,18 @@
     <xsl:next-match/>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="mainProcedure">
   <div>
     <xsl:call-template name="setID"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="mainProcedure" mode="chg-del">
   <xsl:call-template name="delete-as-div"/>
 </xsl:template>
-    
+
 <xsl:template match="proceduralStep" priority="20">
   <div>
     <xsl:call-template name="setID"/>
@@ -50,7 +50,7 @@
     </div>
     <div class="s-pStep-c">
       <xsl:next-match/>
-    </div>    
+    </div>
   </div>
 </xsl:template>
     
@@ -58,7 +58,7 @@
   <!--xsl:apply-templates select="./*[not(self::note or self::warning or self::caution)]"/-->
   <xsl:apply-templates select="./*[not(self::warning or self::caution)]"/>
 </xsl:template>
-    
+
 <xsl:template match="proceduralStep" mode="chg-del">
   <xsl:call-template name="delete-as-div"/>
 </xsl:template>
