@@ -224,7 +224,7 @@
 </xsl:template>
 
 <xsl:template match="issueDate" mode="loedm">
-  <xsl:value-of select="concat(@year, '-', @month, '-', @day)"/>
+  <xsl:value-of select="concat(@year, '&#x2011;', @month, '&#x2011;', @day)"/>
 </xsl:template>
 
 <!-- ************************************************************** -->

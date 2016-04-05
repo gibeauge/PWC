@@ -157,21 +157,18 @@
 
 <xsl:template name="get-dmref-value">
   <xsl:param name="dmc"/>
-  
-  <!-- always show DM code -->
-  <xsl:value-of select="fn:getDMCBasic($dmc)"/>
-  
-  <!--xsl:choose>
-    <!-/- show DM code in some preliminary requirements -/->
-    <xsl:when test="ancestor::reqCondGroup or ancestor::closeRqmts">
-      <xsl:value-of select="fn:getDMCBasic($dmc)"/>
-    </xsl:when>
-    <xsl:otherwise>
+    
+  <xsl:choose>
+    <!-- show DM title in Highlights -->
+    <xsl:when test="ancestor::dmInclusion[@inc='00U']">
       <xsl:call-template name="get-dmref-title">
         <xsl:with-param name="dmc" select="$dmc"/>
       </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="fn:getDMCBasic($dmc)"/>
     </xsl:otherwise>
-  </xsl:choose-->
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template name="get-dmref-title">

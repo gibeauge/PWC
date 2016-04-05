@@ -707,7 +707,7 @@
 </xsl:template>
 
 <xsl:template match="symbol">
-  <img src="{concat($graphics-path, '/', @entityPath)}">
+  <img src="{concat($graphics-path, '/', @entityPath)}" style="max-width: 100%;">
     <xsl:attribute name="alt">
       <xsl:if test="@xlink:title">
         <xsl:value-of select="@xlink:title"/>
