@@ -88,8 +88,8 @@
 <xsl:template match="identAndStatusSection" mode="metadata">
   <xsl:variable name="id" select="'dmstatus-table'"/>
   <div class="s-dmstatus">
-    <div><a href="#" onclick="toggle('{$id}', '{$id}')">DM status</a></div>
-    <table id="{$id}" style="display:none;">
+    <div><!--a href="#" onclick="toggle('{$id}', '{$id}')"-->DM status<!--/a--></div>
+    <table id="{$id}"><!-- style="display:none;"-->
       <colgroup>
         <col width="15%"/>
         <col width="85%"/>

@@ -74,28 +74,27 @@
       <div><xsl:value-of select="/pm/identAndStatusSection/pmStatus/applic/displayText"/></div>
     </div>
     
-    <!-- issue date -->
+    <!-- issue date -/->
     <div class="s-tp-div">
-      <!--div><xsl:value-of select="fn:getGenText('tp-issue')"/></div>
-      <div><xsl:value-of select="fn:formatDate($g_issue_date, 'long')"/></div-->
       <div><xsl:value-of select="fn:getGenText('tp-issue')"/></div>
       <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-issue')]/para/node()"/></div>
     </div>
     
-    <!-- engine type -->
+    <!-/- engine type -/->
     <div class="s-tp-div">
       <div><xsl:value-of select="fn:getGenText('tp-engine-type')"/></div>
       <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-engine-type')]/para/node()"/></div>
     </div>
     
-    <!-- manual part no -->
+    <!-/- manual part no -/->
     <div class="s-tp-div">
       <div><xsl:value-of select="fn:getGenText('tp-manual-pno')"/></div>
       <div><xsl:apply-templates select="levelledPara[title=fn:getGenText('tp-manual-pno')]/para/node()"/></div>
-    </div>
+    </div-->
     
     <!-- warnings, ... -->
-    <xsl:for-each select="levelledPara[title=fn:getGenText('tp-issue')]/following-sibling::levelledPara">
+    <!--xsl:for-each select="levelledPara[title=fn:getGenText('tp-issue')]/following-sibling::levelledPara"-->
+    <xsl:for-each select="levelledPara">
       <div class="s-tp-div">
         <div><xsl:apply-templates select="title/node()"/></div>
         <div><xsl:apply-templates select="*[not(self::title)]"/></div>
