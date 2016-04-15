@@ -181,7 +181,8 @@
               </row>
             </thead>
             <tbody>
-              <xsl:apply-templates select="//dmodule[../@is-tp='false']" mode="loedm"/>
+              <!--xsl:apply-templates select="//dmodule[../@is-tp='false']" mode="loedm"/-->
+              <xsl:apply-templates select="//dmodule" mode="loedm"/>
             </tbody>
           </tgroup>
         </table>
@@ -197,7 +198,16 @@
 </xsl:template>
 
 <xsl:template match="techName" mode="loedm-metas">
-  <techName><xsl:value-of select="/pm/identAndStatusSection/pmAddress/pmAddressItems/pmTitle"/></techName>
+  <techName>
+    <xsl:choose>
+      <xsl:when test="//dmInclusion/@inc='00S'">
+        <xsl:value-of select="//dmInclusion[@inc='00S']/dmodule/identAndStatusSection//dmAddressItems//dmTitle/techName"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="/pm/identAndStatusSection/pmAddress/pmAddressItems/pmTitle"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </techName>
 </xsl:template>
 
 <xsl:template match="infoName" mode="loedm-metas">
@@ -311,7 +321,8 @@
               </row>
             </thead>
             <tbody>
-              <xsl:apply-templates select="//dmodule[../@is-tp='false']" mode="highlights"/>
+              <!--xsl:apply-templates select="//dmodule[../@is-tp='false']" mode="highlights"/-->
+              <xsl:apply-templates select="//dmodule" mode="highlights"/>
             </tbody>
           </tgroup>
         </table>
@@ -327,7 +338,16 @@
 </xsl:template>
 
 <xsl:template match="techName" mode="highlights-metas">
-  <techName><xsl:value-of select="/pm/identAndStatusSection/pmAddress/pmAddressItems/pmTitle"/></techName>
+  <techName>
+    <xsl:choose>
+      <xsl:when test="//dmInclusion/@inc='00S'">
+        <xsl:value-of select="//dmInclusion[@inc='00U']/dmodule/identAndStatusSection//dmAddressItems//dmTitle/techName"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="/pm/identAndStatusSection/pmAddress/pmAddressItems/pmTitle"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </techName>
 </xsl:template>
 
 <xsl:template match="infoName" mode="highlights-metas">
