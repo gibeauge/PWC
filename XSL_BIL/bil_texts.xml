@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generated-text>
-<texts language="EN">
+<texts language="EN-ZH">
   <text name="bil_statement_1">The Chinese version of our manuals is provided to the Customer for information purposes only. The English version of the P&amp;WC manuals shall be intended as the official and recognized documentation in connection with the Engine Maintenance Manual with regards to the </text>
   <text name="bil_statement_2">For all purposes, including purposes of interpretation, in the event of any discrepancies between the English language and the Chinese translation, the English version shall govern.</text>
+  <text name="print_message">Click "OK" to print with the figures. Otherwise, click "Cancel" to only print the text.</text>
+</texts>
+<texts language="EN-PT">
+  <text name="bil_statement_1">The Portuguese version of our manuals is provided to the Customer for information purposes only. The English version of the P&amp;WC manuals shall be intended as the official and recognized documentation in connection with the Engine Maintenance Manual with regards to the </text>
+  <text name="bil_statement_2">For all purposes, including purposes of interpretation, in the event of any discrepancies between the English language and the Portuguese translation, the English version shall govern.</text>
   <text name="print_message">Click "OK" to print with the figures. Otherwise, click "Cancel" to only print the text.</text>
 </texts>
 </generated-text>

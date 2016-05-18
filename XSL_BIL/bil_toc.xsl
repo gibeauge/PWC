@@ -295,11 +295,11 @@
     if ($(this).attr("onclick") != undefined) {
       // Link to a graphic
       if ($(this).attr("onclick").indexOf("displayGraphics") != -1) {
-      // Table link
       } 
+      // Table toggle
       else if ($(this).attr("onclick").indexOf("toggle") != -1) {
-      // Link to a table
       } 
+      // Link to a table
       else if ($(this).attr("onclick").indexOf("showTable") != -1) {
         //The table is contained into a graphic
         if ($(this).parents(".x-refint-2-0").length <xsl:text disable-output-escaping="yes">&gt;</xsl:text> 0) {
@@ -312,12 +312,16 @@
       }
     }
     // Element contains "class" attribute
-    if($(this).attr("class") != undefined) {
+    else if($(this).attr("class") != undefined) {
       // Link to a task
       if ($(this).attr("class").indexOf("x--sfe-InternalLink-1-0") != -1) {
         var href_url = $(this).attr("href");
         linkTo(href_url);
       }
+    }
+    else {
+      var href_url = $(this).attr("href");
+      linkTo(href_url);
     }
   });
   

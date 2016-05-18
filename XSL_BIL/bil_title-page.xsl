@@ -11,8 +11,10 @@
 
 <xsl:output method="xml"/>
 
-<xsl:variable name="lang-orig"   select="if (/*/@lang) then upper-case(/*/@lang) else 'EN'"/>
-<xsl:variable name="texts"       select="document('bil_texts.xml')//texts[@language=$lang-orig]"/>
+<xsl:param name="lang-orig"/>
+<xsl:param name="lang-trad"/>
+
+<xsl:variable name="texts"    select="document('bil_texts.xml')//texts[@language=upper-case(concat($lang-orig,'-',$lang-trad))]"/>
 
 <!--
 <xsl:template match="/">

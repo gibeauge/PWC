@@ -13,13 +13,15 @@
 <xsl:output method="xml" indent="yes"/>
 
 <xsl:param name="output-dir"/>
-	
+<xsl:param name="lang-orig"/>
+<xsl:param name="lang-trad"/>
+
 <xsl:variable name="g-date">
   <xsl:variable name="g-pwc-date" select="/Metadatas/OriginalIssueDate" />
   <xsl:value-of select="concat(substring($g-pwc-date,1,4) , '-' , substring($g-pwc-date,5,2) , '-' , substring($g-pwc-date,7,2))"/>
 </xsl:variable> 
 
-<xsl:variable name="texts"       select="document('bil_texts.xml')//texts[@language='EN']"/>
+<xsl:variable name="texts"       select="document('bil_texts.xml')//texts[@language=upper-case(concat($lang-orig,'-',$lang-trad))]"/>
 
 <xsl:template match="/">
   <xsl:apply-templates/>

@@ -64,4 +64,36 @@
 <text name="trlist-col3">存档邻近</text>
 <text name="trlist-col4">T.R.状态</text>
 </texts>
+<texts language="PT">
+<text name="attach-parts">PEÇAS REMOVÍVEIS</text>
+<text name="chapsect-list-col1">CAPÍTULO/SEÇÃO/ASSUNTO</text>
+<text name="chapsect-list-col2">TÍTULO</text>
+<text name="eff-code-col1">EFF</text>
+<text name="eff-code-col2">MODELO</text>
+<text name="fignote">Observação</text>
+<text name="highlights">DESTAQUES</text>
+<text name="highlights-col1">Revisão</text>
+<text name="highlights-col2">CAP./SEÇÃO/ASSUNTO</text>
+<text name="highlights-col3">Título da pageblock</text>
+<text name="highlights-col4">Descrição da alteração</text>
+<text name="highlights-front">Frente</text>
+<text name="item-not-illus">ITEM NÃO ILUSTRADO</text>
+<text name="kits">KITS, PEÇAS DE REPOSIÇÃO/SOBRESSALENTES</text>
+<text name="lof">Lista de figuras</text>
+<text name="lot">Lista de tabelas</text>
+<text name="partial-bd">PANE PARCIAL A SEGUIR</text>
+<text name="parts-list-col1">Fig. Item</text>
+<text name="parts-list-col2">Peça N°</text>
+<text name="parts-list-col3">Peça N° da companhia aérea</text>
+<text name="parts-list-col4">Nomenclatura</text>
+<text name="parts-list-col5">Código da ação</text>
+<text name="parts-list-col6">Unidades por montagem</text>
+<text name="spblist-col1">P&#x26;WC SPB N°</text>
+<text name="spblist-col2">Rev. N°</text>
+<text name="spblist-col3">Status de incorporação</text>
+<text name="trlist-col1">T.R. N°</text>
+<text name="trlist-col2">Vigência</text>
+<text name="trlist-col3">Arquivado junto a</text>
+<text name="trlist-col4">T.R. Status</text>
+</texts>
 </generated-text>
