@@ -12,6 +12,7 @@
 
 <xsl:include href="./dm_descript.xsl"/>
 <xsl:include href="./dm_proced.xsl"/>
+<xsl:include href="./dm_ipd.xsl"/>
 <xsl:include href="../common/alerts.xsl"/>
 <xsl:include href="../common/brex-disabled.xsl"/>
 <xsl:include href="../common/change.xsl"/>

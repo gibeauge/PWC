@@ -288,14 +288,23 @@
 <text name="fault-steps-end">Read Requirements after job completion.</text>
 
 <!-- IPD -->
-<text name="ipd-header-1">Fig.</text>
-<text name="ipd-header-2">Item</text>
-<text name="ipd-header-3">Part Number</text>
-<text name="ipd-header-4">Nomenclature</text>
-<text name="ipd-header-5">UPA</text>
-<text name="ipd-header-6">AVAIL</text>
-<text name="ipd-header-7">UOC</text>
-<text name="ipd-header-8">ICY</text>
+<text name="ipd-header-1a">Fig/</text>
+<text name="ipd-header-1b">Item</text>
+<text name="ipd-header-2">ISN</text>
+<text name="ipd-header-3">UPA</text>
+<text name="ipd-header-4">Part Number</text>
+<text name="ipd-header-5">Description</text>
+<text name="ipd-header-6a">*UCA/</text>
+<text name="ipd-header-6b">&#x2022;MV</text>
+<text name="refer-to-attaching">FOR ATTACHING PART, SEE:</text>
+<text name="refer-to-nha">FOR NHA, SEE:</text>
+<text name="refer-to-det">FOR DETAILS, SEE:</text>
+<text name="gen-part-data-pwcnbr">EQUIVALENT TO P&amp;WC P/N:</text>
+<text name="gen-part-data-vendnbr">EQUIVALENT TO VENDOR P/N:</text>
+<text name="gen-part-data-lpln">LATEST PARTS LIST NO:</text>
+<text name="gen-part-data-usewith">USE WITH P/N:</text>
+<text name="gen-part-data-pwcsin"></text>
+
 <text name="ref-des">Reference designator</text>
 <text name="pdn-ext-name">Extended Nomenclature</text>
 <text name="pdn-bulletin">ASB/TB Description</text>

@@ -136,7 +136,7 @@
   <xsl:param name="span"/>
 
   <tr>
-    <td colspan="{$span}" class="ietm_change">
+    <td colspan="{$span}" class="{$g-css-chg}">
       <xsl:call-template name="setID"/>
       <xsl:value-of select="fn:getGenText('delete')"/>
     </td>
@@ -144,9 +144,9 @@
 </xsl:template>
 
 <xsl:template name="delete-as-cell">
-  <xsl:param name="span"/>
+  <xsl:param name="span" select="'1'"/>
 
-  <td colspan="{$span}" class="ietm_change">
+  <td colspan="{$span}" class="{$g-css-chg}">
     <xsl:call-template name="setID"/>
     <xsl:value-of select="fn:getGenText('delete')"/>
   </td>

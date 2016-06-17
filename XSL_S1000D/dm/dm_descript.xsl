@@ -12,7 +12,7 @@
     <xsl:apply-templates/>
   </div>
 </xsl:template>
-    
+
 <xsl:template match="levelledPara">
   <div class="s-lPara">
     <xsl:call-template name="setID"/>

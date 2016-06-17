@@ -60,7 +60,8 @@
 <xsl:function name="fn:getGenText">
   <xsl:param name="key"/>
   
-  <xsl:value-of select="$gen-texts//texts[@language=$g_lang]/text[@name=$key]"/>
+  <!--xsl:value-of select="$gen-texts//texts[@language=$g_lang]/text[@name=$key]"/-->
+  <xsl:value-of select="if ($gen-texts//texts[@language=$g_lang]/text[@name=$key]) then $gen-texts//texts[@language=$g_lang]/text[@name=$key] else ''" />
 </xsl:function>
 
 <xsl:function name="fn:capitalize">

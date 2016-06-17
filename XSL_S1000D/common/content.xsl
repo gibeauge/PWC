@@ -168,8 +168,8 @@
 
 <!-- link to a CSN - simple processing for now -->
 <xsl:template match="catalogSeqNumberRef">
-    <xsl:value-of select="fn:getGenText('refer-to')"/>
-    <xsl:text> </xsl:text>
+  <xsl:value-of select="fn:getGenText('refer-to')"/>
+  <xsl:text> </xsl:text>
   <xsl:value-of select="@catalogSeqNumberValue"/>
 </xsl:template>
 
