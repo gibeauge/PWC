@@ -238,7 +238,20 @@
       <para><xsl:apply-templates select="identAndStatusSection/dmAddress//dmTitle" mode="loedm"/></para>
     </entry>
     <entry colsep="0" rowsep="0">
-      <para><xsl:value-of select="fn:getDMCBasic(../@ref)"/></para>
+      <!--para><xsl:value-of select="fn:getDMCBasic(../@ref)"/></para-->
+      <para>
+        <dmRef>
+          <dmRefIdent>
+            <xsl:copy-of select="identAndStatusSection/dmAddress/dmIdent/*"/>
+          </dmRefIdent>
+          <dmRefAddressItems>
+            <dmTitle>
+              <xsl:copy-of select="identAndStatusSection/dmAddress//dmTitle/techName"/>
+              <xsl:copy-of select="identAndStatusSection/dmAddress//dmTitle/infoName"/>
+            </dmTitle>
+          </dmRefAddressItems>
+        </dmRef>
+      </para>
     </entry>
     <entry colsep="0" rowsep="0">
       <xsl:variable name="issue">
@@ -322,6 +335,7 @@
             </thead>
             <tbody>
               <!--xsl:apply-templates select="//dmodule[../@is-tp='false']" mode="highlights"/-->
+              <xsl:apply-templates select="/pm" mode="highlights"/>
               <xsl:apply-templates select="//dmodule" mode="highlights"/>
             </tbody>
           </tgroup>
@@ -372,15 +386,27 @@
   </dmStatus>
 </xsl:template>
 
+<xsl:template match="pm" mode="highlights">
+  <xsl:if test="identAndStatusSection/pmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]">
+    <row>
+      <entry colsep="0" rowsep="0">
+        <para/>
+      </entry>
+      <entry colsep="0" rowsep="0">
+        <para><xsl:apply-templates select="identAndStatusSection/pmAddress//pmTitle" mode="highlights"/></para>
+      </entry>
+      <entry colsep="0" rowsep="0">
+        <xsl:apply-templates select="identAndStatusSection/pmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]" mode="highlights"/>
+      </entry>
+    </row>
+  </xsl:if>  
+</xsl:template>
+
 <xsl:template match="dmodule" mode="highlights">
   <xsl:if test="identAndStatusSection/dmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]">
     <row>
       <entry colsep="0" rowsep="0">
-        <para>
-          <xsl:value-of select="fn:getDMCBasic(ancestor::dmInclusion/@ref)"/>
-        </para>
-      </entry>
-      <entry colsep="0" rowsep="0">
+        <!--para><xsl:value-of select="fn:getDMCBasic(ancestor::dmInclusion/@ref)"/></para-->
         <para>
           <dmRef>
             <dmRefIdent>
@@ -396,6 +422,9 @@
         </para>
       </entry>
       <entry colsep="0" rowsep="0">
+        <para><xsl:apply-templates select="identAndStatusSection/dmAddress//dmTitle" mode="highlights"/></para>
+      </entry>
+      <entry colsep="0" rowsep="0">
         <xsl:apply-templates select="identAndStatusSection/dmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]" mode="highlights"/>
       </entry>
     </row>
@@ -406,6 +435,22 @@
   <para>
     <xsl:apply-templates/>
   </para>
+</xsl:template>
+
+<xsl:template match="pmTitle" mode="highlights">
+  <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="dmTitle" mode="highlights">
+  <xsl:apply-templates  mode="highlights"/>
+</xsl:template>
+
+<xsl:template match="techName" mode="highlights">
+  <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="infoName" mode="highlights">
+  <xsl:text>&#xa0;- </xsl:text><xsl:apply-templates/>
 </xsl:template>
 
 </xsl:stylesheet>

@@ -41,14 +41,15 @@
 
 <xsl:template match="dmRef[dmRefIdent/dmCode]" mode="refs">
   <xsl:variable name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
+  <xsl:variable name="file" select="key('dms', $dmc)/@file"/>
   <tr>
     <td>
-      <a class="s-refs-link" href="{$dmc}.html">
+      <a class="s-refs-link" href="{$file}.html">
         <xsl:value-of select="fn:getDMCBasic($dmc)"/>
       </a>
     </td>
     <td>
-      <a class="s-refs-link" href="{$dmc}.html">
+      <a class="s-refs-link" href="{$file}.html">
         <xsl:call-template name="get-dmref-title">
           <xsl:with-param name="dmc" select="$dmc"/>
         </xsl:call-template>
@@ -125,6 +126,7 @@
 
 <xsl:template match="dmRef[@referredFragment and dmRefIdent/dmCode]" priority="5">
   <xsl:variable name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
+  <xsl:variable name="file" select="key('dms', $dmc)/@file"/>
   <xsl:variable name="refid" select="@referredFragment"/>
   <xsl:variable name="target-node" select="key('ids', concat($dmc, '-', $refid))"/>
   
@@ -133,7 +135,7 @@
       <xsl:next-match/>
     </xsl:when>
     <xsl:otherwise>
-      <a class="s-link" href="{$dmc}.html#{$refid}">
+      <a class="s-link" href="{$file}.html#{$refid}">
         <xsl:call-template name="change"/>
         <xsl:call-template name="get-dmref-value">
           <xsl:with-param name="dmc" select="$dmc"/>
@@ -147,7 +149,8 @@
 
 <xsl:template match="dmRef[dmRefIdent/dmCode]">
   <xsl:variable name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
-  <a class="s-link" href="{$dmc}.html">
+  <xsl:variable name="file" select="key('dms', $dmc)/@file"/>
+  <a class="s-link" href="{$file}.html">
     <xsl:call-template name="change"/>
     <xsl:call-template name="get-dmref-value">
       <xsl:with-param name="dmc" select="$dmc"/>
@@ -157,9 +160,10 @@
 
 <xsl:template name="get-dmref-value">
   <xsl:param name="dmc"/>
-    
+  
+  <!--
   <xsl:choose>
-    <!-- show DM title in Highlights -->
+    <!-/- show DM title in Highlights -/->
     <xsl:when test="ancestor::dmInclusion[@inc='00U']">
       <xsl:call-template name="get-dmref-title">
         <xsl:with-param name="dmc" select="$dmc"/>
@@ -169,6 +173,8 @@
       <xsl:value-of select="fn:getDMCBasic($dmc)"/>
     </xsl:otherwise>
   </xsl:choose>
+  -->
+  <xsl:value-of select="fn:getDMCBasic($dmc)"/>
 </xsl:template>
 
 <xsl:template name="get-dmref-title">
