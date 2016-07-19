@@ -254,10 +254,13 @@
       </para>
     </entry>
     <entry colsep="0" rowsep="0">
+      <!--
       <xsl:variable name="issue">
         <xsl:apply-templates select="identAndStatusSection/dmStatus/@issueType" mode="loedm"/>
       </xsl:variable>
       <para><xsl:value-of select="if ($issue!='') then $issue else 'N'"/></para>
+      -->
+      <para>N</para>
     </entry>
     <entry colsep="0" rowsep="0">
       <para>

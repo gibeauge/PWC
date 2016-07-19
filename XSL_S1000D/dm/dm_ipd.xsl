@@ -72,7 +72,7 @@
         <xsl:apply-templates select="parent::catalogSeqNumber" mode="item-nb"/>
       </xsl:if>
     </td>
-    <td><xsl:value-of select="@itemSeqNumberValue"/></td>
+    <td><xsl:apply-templates select="." mode="isn"/></td>
     <td><xsl:apply-templates select="quantityPerNextHigherAssy"/></td>
     <td><xsl:apply-templates select="partNumber"/></td>
     <td><xsl:call-template name="nomenclature"/></td>
@@ -90,7 +90,15 @@
   <xsl:if test="itemSequenceNumber/partLocationSegment/notIllustrated">
     <xsl:text>-</xsl:text>
   </xsl:if>
-  <xsl:value-of select="@catalogItemNumber"/>
+  <span id="{concat('ipd-',@catalogItemNumber)}">
+    <xsl:value-of select="@catalogItemNumber"/>
+  </span>
+</xsl:template>
+
+<xsl:template match="itemSequenceNumber" mode="isn">
+  <span id="{concat('ipd-',parent::catalogSeqNumber/@catalogItemNumber,'-',@itemSeqNumberValue)}">
+    <xsl:value-of select="@itemSeqNumberValue"/>
+  </span>
 </xsl:template>
 
 <xsl:template match="quantityPerNextHigherAssy">
@@ -175,13 +183,15 @@
 </xsl:template>
 
 <xsl:template match="referTo/catalogSeqNumberRef" priority="5">
-  <xsl:variable name="csn" select="@catalogSeqNumberValue"/>
+  <xsl:variable name="csnv" select="@catalogSeqNumberValue"/>
+  <xsl:variable name="csn" select="if (string-length($csnv) &gt; 9) then substring($csnv, 10) else $csnv"/>
+  <xsl:variable name="isn" select="if (@itemSeqNumberValue) then @itemSeqNumberValue else ''"/>
+  <xsl:variable name="ref" select="if ($isn='') then concat('ipd-', $csn) else concat('ipd-', $csn, '-', $isn)"/>
   <span>
     <xsl:call-template name="change"/>
-    <xsl:value-of select="if (string-length($csn) &gt; 9) then substring($csn, 10) else $csn"/>
-    <xsl:if test="@itemSeqNumberValue">
-      <xsl:text>/</xsl:text><xsl:value-of select="@itemSeqNumberValue"/>
-    </xsl:if>
+    <a href="#{$ref}">
+      <xsl:value-of select="if ($isn='') then $csn else concat($csn, '/', $isn)"/>
+    </a>
   </span>
 </xsl:template>
 

@@ -19,7 +19,7 @@ namespace EuCA.Pdf
         /// <summary>
         /// Margin-top
         /// </summary>
-        private static readonly float _regionBefore = 0.7F;
+        private static readonly float _regionBefore = 0.8F;
 
         /// <summary>
         /// Margin-bottom
