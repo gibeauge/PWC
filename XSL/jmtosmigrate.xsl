@@ -214,7 +214,7 @@
             <xsl:text> </xsl:text>
             <xsl:apply-templates mode="s_numbering" select="$l-node/title"/>
          </a>
-         <xsl:if test="@sheetnbr!=''">
+         <xsl:if test="@sheetnbr!='' and @sheetnbr!='0'">
             <xsl:value-of select="concat(' Sheet ',@sheetnbr)"/>
          </xsl:if>
          <xsl:value-of select="@post-auto-text"/>

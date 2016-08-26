@@ -173,6 +173,14 @@ function correctInternalLinks(figRef) {
     }
 }
 
+function loadDoc() {
+            
+    var startTag = document.getElementsByTagName("body")[0];
+    setGlobalsFromMeta(startTag.innerHTML);
+    addChangebarsByDocument(document);
+    addTableChangebarsByDocument(document);
+}
+
 //called from the document content window as an onclick event
 function displayGraphics(figureElementId) {
     

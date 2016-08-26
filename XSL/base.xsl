@@ -4368,7 +4368,7 @@
 <xsl:template name="row">
   <xsl:attribute name="class">
      <xsl:text>x-row-1-0</xsl:text>
-     <xsl:if test="(@role='changebar') or (entry[1]/marker)"> x-row-1-1</xsl:if>
+     <xsl:if test="(@role='changebar' or @changebar='yes') or (entry[1]/marker)"> x-row-1-1</xsl:if>
   </xsl:attribute>
 </xsl:template>
 

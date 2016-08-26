@@ -34,7 +34,7 @@
       <script type="text/javascript" src="js/jstree-3.0.9.min.js"> // JS </script>
       <script type="text/javascript" src="js/jquery.ba-bbq.min.js"> // JS </script>
       <script type="text/javascript" src="js/pwcdisplay.js"> // JS </script>
-	  <script type="text/javascript" src="js/printer.js"> // JS </script>
+    <script type="text/javascript" src="js/printer.js"> // JS </script>
       <script type="text/javascript">
       var main_layout;
       $(document).ready(function () {
@@ -109,7 +109,7 @@
   
   // Create a new style node in head section to hide images and Print
   function printWithoutImg () {
-  	// Create style node with attributes id and media
+    // Create style node with attributes id and media
     var style = document.createElement("style");
     style.setAttribute("id","imgHide");
     style.setAttribute("media","print");
@@ -195,6 +195,7 @@
           $.bbq.pushState({ url : href_url, id : data.node.id });
           $("#pane_content").load(href_url);
         }
+        setTimeout(loadDoc, 1000);
         global_anchor="";
       }
     }
