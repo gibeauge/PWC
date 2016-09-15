@@ -339,8 +339,8 @@ namespace EuCA.Pwc.Pub
                 Directory.Delete(p.DirTrad, true);
                 Directory.Delete(p.DirOrig, true);
 
-                File.Delete(Path.GetFileNameWithoutExtension(p.FileOrig) + ".txt");
-                File.Delete(Path.GetFileNameWithoutExtension(p.FileTrad) + ".txt");
+                File.Delete(Path.Combine(Path.GetDirectoryName(p.FileOrig), Path.GetFileNameWithoutExtension(p.FileOrig)) + ".txt");
+                File.Delete(Path.Combine(Path.GetDirectoryName(p.FileTrad), Path.GetFileNameWithoutExtension(p.FileTrad)) + ".txt");
             } 
             catch (Exception) { }
         }
