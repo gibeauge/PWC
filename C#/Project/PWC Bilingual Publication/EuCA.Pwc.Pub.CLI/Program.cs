@@ -14,10 +14,10 @@ namespace EuCA.Pwc.Pub.CLI
             Console.WriteLine("-=== PWC Bilingual Publication CLI ===-");
 
             var param = new ProcessParameters{
-                FileOrig = @"C:\Work\Projets\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.EN.v3.xml",
-                FileTrad = @"C:\Work\Projets\PWC\115M009001 PWC - Bilingual\2 - Dossier technique\22 - Prestation\223 - Developpement & Configuration\poc_compl_zh\tmm_pt6a_pt6a140_303ABCD.ZH.v3.xml",
-                DirOut = @"C:\Work\Projets\PWC\chunks",
-                DirXsl = @"C:\Work\eclipse2\workspace\GitHub\PWC\XSL"
+                FileOrig = @"C:\Work\Project\_old\PWC\Work\xml\tmm_pt6a_pt6a140_3075742_5.EN.v4.xml",
+                FileTrad = @"C:\Work\Project\_old\PWC\Work\xml\tmm_pt6a_pt6a140_3075742_5.ZH.v4.xml",
+                DirOut = @"C:\Work\Project\_old\PWC\Work\chunks",
+                DirXsl = @"C:\Work\Github\PWC\XSL"
             };
 
             var cancellationTokenSource = new CancellationTokenSource();

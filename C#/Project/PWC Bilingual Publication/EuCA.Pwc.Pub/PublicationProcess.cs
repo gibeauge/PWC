@@ -38,19 +38,28 @@ namespace EuCA.Pwc.Pub
 
             // Check for cancellation 
             cancellationToken.ThrowIfCancellationRequested();
-            
+
+            // 0. Extract languages
+            progress.Report("0a. Extract language from source file");
+            _logger.Debug("Extract language from source file");
+            ExtractLanguageSource(parameters, progress, cancellationToken);
+
+            progress.Report("0b. Extract language from translated file");
+            _logger.Debug("0b. Extract language from translated file");
+            ExtractLanguageTranslation(parameters, progress, cancellationToken);
+
             // 1. Pre-process XML
-            progress.Report("1a. Preprocess XML source (english) file");
-            _logger.Debug("Preprocess XML source (english) file");
+            progress.Report("1a. Preprocess XML source file");
+            _logger.Debug("Preprocess XML source file");
             PreprocessSource(parameters, progress, cancellationToken);
 
             progress.Report("1b. Preprocess XML translated file");
             _logger.Debug("Preprocess XML translated file");
             PreprocessTranslation(parameters, progress, cancellationToken);
-
-            // 2a. Generate source (english) HTML files
-            progress.Report("2a. Generate source (english) HTML files");
-            _logger.Debug("Generating source (english) HTML files");
+            
+            // 2a. Generate source HTML files
+            progress.Report("2a. Generate source HTML files");
+            _logger.Debug("Generating source HTML files");
             GenerateSourceHtml(parameters, progress, cancellationToken);
 
             // 2b. Generate translated HTML files
@@ -94,6 +103,30 @@ namespace EuCA.Pwc.Pub
             progress.Report("Publicaton process end.");
         }
 
+        private void ExtractLanguageSource(ProcessParameters p, IProgress<object> progress, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var cmd =
+                "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Query " +
+                "-o:\"" + Path.Combine(Path.GetDirectoryName(p.FileOrig), Path.GetFileNameWithoutExtension(p.FileOrig)) + ".txt\" " +
+                "-qs:doc('" + p.FileOrig.Replace(@"\", "/") + "')//book/@lang/string() !method=text";
+
+            RunProcess(cmd);
+        }
+
+        private void ExtractLanguageTranslation(ProcessParameters p, IProgress<object> progress, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var cmd =
+               "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Query " +
+               "-o:\"" + Path.Combine(Path.GetDirectoryName(p.FileTrad), Path.GetFileNameWithoutExtension(p.FileTrad)) + ".txt\" " +
+               "-qs:doc('" + p.FileTrad.Replace(@"\", "/") + "')//book/@lang/string() !method=text ";
+
+            RunProcess(cmd);
+        }
+
         private void PreprocessSource(ProcessParameters p, IProgress<object> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -103,7 +136,7 @@ namespace EuCA.Pwc.Pub
             var cmd =
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform " +
                 "-s:\"" + p.FileOrig + "\" " +
-                "-xsl:\"" + p.DirXsl + "\\preprocess.xsl\" " +
+                "-xsl:\"" + p.DirXslBil + "\\preprocess.xsl\" " +
                 "-o:\"" + Path.Combine(p.DirOrig, Path.GetFileNameWithoutExtension(p.FileOrig) + "_2.xml") + "\"";
 
             RunProcess(cmd);
@@ -118,7 +151,7 @@ namespace EuCA.Pwc.Pub
             var cmd =
                "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform " +
                "-s:\"" + p.FileTrad + "\" " +
-               "-xsl:\"" + p.DirXsl + "\\preprocess.xsl\" " +
+               "-xsl:\"" + p.DirXslBil + "\\preprocess.xsl\" " +
                "-o:\"" + Path.Combine(p.DirTrad, Path.GetFileNameWithoutExtension(p.FileTrad) + "_2.xml") + "\"";
 
             RunProcess(cmd);
@@ -187,7 +220,8 @@ namespace EuCA.Pwc.Pub
                       "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                       " -s:\"" + fileIds + "\"" +
                       " -xsl:\"" + p.DirXslBil + "\\bil_title-page.xsl\"" +
-                      " -o:" + Path.Combine(p.DirTradPackageContent, fileName);
+                      " -o:" + Path.Combine(p.DirTradPackageContent, fileName) +
+                      " lang-orig=" + p.LangOrig + " lang-trad=" + p.LangTrad;
                     RunProcess(cmd);
                 }
                 else // File exists for english and chinese
@@ -241,7 +275,8 @@ namespace EuCA.Pwc.Pub
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                 " -s:\"" + fileMeta + "\"" +
                 " -xsl:\"" + p.DirXslBil + "\\bil_mtdt.xsl\"" +
-                " -o:" + Path.Combine(p.DirTradPackageContent, "metadata.html");
+                " -o:" + Path.Combine(p.DirTradPackageContent, "metadata.html") +
+                " lang-orig=" + p.LangOrig + " lang-trad=" + p.LangTrad;
             RunProcess(cmd);
         }
 
@@ -303,6 +338,9 @@ namespace EuCA.Pwc.Pub
             {
                 Directory.Delete(p.DirTrad, true);
                 Directory.Delete(p.DirOrig, true);
+
+                File.Delete(Path.GetFileNameWithoutExtension(p.FileOrig) + ".txt");
+                File.Delete(Path.GetFileNameWithoutExtension(p.FileTrad) + ".txt");
             } 
             catch (Exception) { }
         }

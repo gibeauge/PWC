@@ -12,6 +12,10 @@ namespace EuCA.Pwc.Pub
 
         public string FileTrad { get; set; }
 
+        public string LangOrig { get; set; }
+
+        public string LangTrad { get; set; }
+
         public string DirOut { get; set; }
 
         public string DirXsl { get; set; }
