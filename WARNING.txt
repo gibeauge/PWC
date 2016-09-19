@@ -1,0 +1,44 @@
+﻿
+NOTES:
+------
+
+Lors d'une livraison, attention aux fichiers suivants :
+
+
+** custom/init/init.acl (Scripts_ACL/init.acl)
+
+  - local :
+    
+    #set javavmmemory=4096;
+    #set javavmargs="-Xms2048m -Xmx4096m -Xmn1g -Xss128k -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:SurvivorRatio=8 -XX:TargetSurvivorRatio=90 -XX:MaxTenuringThreshold=31 -XX:+AggressiveOpts";
+
+  - pour PWC :
+
+    set javavmmemory=4096;
+    set javavmargs="-Xms2048m -Xmx4096m -Xmn1g -Xss128k -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:SurvivorRatio=8 -XX:TargetSurvivorRatio=90 -XX:MaxTenuringThreshold=31 -XX:+AggressiveOpts";
+
+
+** custom/stylesheets_s1000d/pm/pm.xsl (XSL_S1000D/pm/pm.xsl)
+
+  - local :
+
+     <xsl:variable name="output-dir-pm" select="concat($output-dir, fn:getPMC(/pm/identAndStatusSection/pmAddress/pmIdent/pmCode))"/>
+     <!--xsl:variable name="output-dir-pm" select="$output-dir"/-->
+
+  - PWC :
+
+     <!--xsl:variable name="output-dir-pm" select="concat($output-dir, fn:getPMC(/pm/identAndStatusSection/pmAddress/pmIdent/pmCode))"/-->
+     <xsl:variable name="output-dir-pm" select="$output-dir"/>
+
+
+** custom/scripts/pwc_ape_s1000d.acl (Scripts_ACL/pwc_ape_s1000d.acl)
+
+  - local :
+
+    global XSL_DIR = get_custom_dir() . $main::PCS . "stylesheets_s1000d";
+    global ENT_DIR = get_custom_dir() . $main::PCS . "doctypes" . $main::PCS . "S1000D_4-0-2" . $main::PCS . "ent";
+
+  - PWC :
+
+    global XSL_DIR = get_custom_dir($CUSTOM_INFO_ID) . $main::PCS . "stylesheets_s1000d";
+    global ENT_DIR = get_custom_dir($CUSTOM_INFO_ID) . $main::PCS . "doctypes" . $main::PCS . "S1000D_4-0-2" . $main::PCS . "ent";

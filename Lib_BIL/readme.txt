@@ -1,11 +1,11 @@
 
-Pratt & Whitney Canada - Bilingual Publication, July 2015
+Pratt & Whitney Canada - Bilingual Publication, September 2016
 
 
 Contents & Features
 -------------------
 
-The package contains PT6-A140 maintenance manual, in both English and Chinese.
+The package contains a manual, in both source and translated languages.
 
 Visualisation
 - Content is displayed side-by-side: English on the left, Chinese on the right.

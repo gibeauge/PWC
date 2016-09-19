@@ -22,6 +22,7 @@ autoload compose::compose_using_xsl comp_usingxsl;
 require e3;
 require _e3;
 require PEAppRequest;
+require PEAppResponse;
 require compose;
 
 global PUBLICATIONTYPE_PARAM    = 'publication-type';
@@ -38,13 +39,23 @@ global XSL_TEMP_DIR             = "xsl_out";
 global GRAPHICS_DIR             = "graphics";
 
 global CUSTOM_INFO_ID = 1;
-global XSL_DIR                  = get_custom_dir() . $main::PCS . "stylesheets_s1000d";
+global XSL_DIR                  = get_custom_dir($CUSTOM_INFO_ID) . $main::PCS . "stylesheets_s1000d";
+global ENT_DIR                  = get_custom_dir($CUSTOM_INFO_ID) . $main::PCS . "doctypes" . $main::PCS . "S1000D_4-0-2" . $main::PCS . "ent";
 
 global ZIP_EXTRACT_DIR          = "";
 
-global DEBUG_LOG = get_custom_dir() . $main::PCS . "acl_log.txt";
+#global DEBUG_LOG = get_custom_dir() . $main::PCS . "acl_log.txt";
+global TEMP_DIR_ZIP = "D:" . $main::PCS . "temp" . $main::PCS . "S1000D";
+if (! access($TEMP_DIR_ZIP, "e")) {
+    epicutil::mkdir_recursive($TEMP_DIR_ZIP);
+}
+
+global DEBUG_LOG = $TEMP_DIR_ZIP . $main::PCS . "s1000d_pub.txt";
 
 # forward declarations
+function write_result_as_web_age() {}
+function build_pwc_html_page() {}
+
 function convert()              {}
 function s1000d_preprocess()    {}
 function s1000d_postprocess()   {}
@@ -57,7 +68,10 @@ function copyGraphics()             {}
 function copyGraphics2()            {}
 
 function main::debug(msg) {
-     eval time_date() . " " . $msg output=>$DEBUG_LOG
+     #eval time_date() . " " . $msg output=>$DEBUG_LOG
+     local fid = open($DEBUG_LOG, "a");
+     write($fid, time_date() . " " . $msg . "\n");
+     close($fid);
 }
 
 function main::debug_array(array[], array_name) {
@@ -69,6 +83,32 @@ function main::debug_array(array[], array_name) {
     }
 }
 
+function write_result_as_web_age(body) {
+   # Translate the body string into an XHTML page
+   local page    = build_pwc_html_page($body);
+
+   PEAppResponse::setOutputPage(page);
+   PEAppResponse::setHeader("content-type", "text/html");
+   PEAppResponse::setStatus("200");
+}
+
+function build_pwc_html_page(body) {
+
+    local title  = "Arbortext Publishing Engine: P&amp;WC S1000D publication";
+    local heading = "P&amp;WC S1000D publication";
+
+    local ourResult = "<html>\n" . \
+	                "<head>\n" . "<title>" . $title . "</title>\n" . "</head>\n" . \
+                    "<body style='font-family: Verdana; size:11pt;'>" . \
+					"<h3>" . $heading . "</h3>\n" . \
+					"<div style='margin: 6pt;'>" . $body . "</div>" . \
+					"<div style='margin: 6pt;'>See file " . $DEBUG_LOG . " for details.</div>" . \
+                    "</body>\n" . \
+                    "</html>\n";
+
+    return ourResult;
+}
+
 #---------------------------------------------------------------------------
 # Function  : convert
 # Desc      : Method to publish s1000d data (as a zip file).
@@ -76,6 +116,7 @@ function main::debug_array(array[], array_name) {
 #---------------------------------------------------------------------------
 
 function convert() {
+    
     # Retrieve HTTP query parameters.
     local i;
     local parameterArray[];
@@ -105,14 +146,17 @@ function convert() {
 
     # Main process
     if (errorMessage == "") {
+        debug("Pre-process OK\n");
         inFile = newInFile;
 
         # set parameters
+		debug("** Process **");
         parameterArray[$STYLESHEET_PARAM] = $XSL_DIR . $main::PCS . "pm" . $main::PCS . "pm.xsl";
         parameterArray[$OUTPUTTYPE_PARAM] = $XML_TYPE;
         parameterArray['file'] = $inFile;
         parameterArray['file-type'] = "xml";
-
+		debug("  > Before hook");
+		debug_array($parameterArray, "PARAMS");
         result = e3::convert2(inFile, outFileHtml, parameterArray);
 
         # Decode 'e3::convert2' return array
@@ -120,12 +164,15 @@ function convert() {
         e3::string_to_array(convertRc, convertResult);
         # If conversion succeeded, we're done
         if (convertResult["result"] != "ok") {
+            result .= "\n". get_composer_log_contents();
             return result;
         }
     }
 
     # Post-process
     if (errorMessage == "") {
+        debug("Process OK\n");
+		debug("** Post-process **");
         local rc = s1000d_postprocess(inFile, outFile, parameterArray);
         if (rc != "ok") {
             errorMessage = rc;
@@ -137,17 +184,24 @@ function convert() {
 #        execute("remove_file -r -f " . ZIP_EXTRACT_DIR);
     }
     if (access($outFileHtml, "r")) {
-        remove_file "$outFileHtml";
+        remove_file -f "$outFileHtml";
     }
 
     if (errorMessage == "") {
+        debug("Post-process OK\n");
         result = _e3::Convert2Result("ok");
     }
     else {
+        debug("ERROR");
+        debug($errorMessage);
         result = _e3::Convert2Result("error", errorMessage);
     }
+    
+    debug("End program");
+    
+	write_result_as_web_age(result);
 
-    return result;
+    #return result;
 }
 
 #---------------------------------------------------------------------------
@@ -168,7 +222,17 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         return result;
     }
 
-    local extractedZipDirectory = dirname(inFile) . $main::PCS . "zip-out";
+	# Zip archive exists, can log where zip file is
+	DEBUG_LOG = dirname(inFile) . basename(inFile, ".zip") . "_pub_log.txt";
+	if (access($DEBUG_LOG, "r")) {
+        remove_file -f "$DEBUG_LOG";
+    }
+    
+	debug("Start program (source zip file exists)\n");
+	debug("** Pre-process **");
+	
+    #local extractedZipDirectory = dirname(inFile) . $main::PCS . "zip-out";
+    local extractedZipDirectory = $TEMP_DIR_ZIP . $main::PCS . basename(inFile, ".zip") . "_zip-out";
     epicutil::mkdir_recursive(extractedZipDirectory);
 
     if (!file_directory(extractedZipDirectory)) {
@@ -181,6 +245,8 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         return result;
     }
 
+	debug("  > Zip file extracted in " . $extractedZipDirectory);
+	
     # find xml file in extracted archive
     ZIP_EXTRACT_DIR = $extractedZipDirectory;
     local f[];
@@ -190,6 +256,33 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         return result;
     }
     local xmlFile = $f[1];
+	debug("  > PM file pre-processed is " . $xmlFile);
+
+	# before pre-process, change URL entities path to customisation path
+	local dms[];
+	glob(extractedZipDirectory . $main::PCS . "DM*.xml", $dms);
+	local i, j, dmFile, docDm;
+	for ($i=1; $i<=count($dms); $i++) {
+		dmFile = $dms[$i];
+		
+		local dmCopy = $dmFile . ".tmp";
+		copy_file "$dmFile" "$dmCopy";
+		local f1 = open($dmFile, "w");
+		local f2 = open($dmCopy, "r");
+		local line;
+		while (getline(f2, line)) {
+			if (index(line, " % ISOEntities") > 0) {
+				sub("http://www.s1000d.org/S1000D_4-0/ent/ISOEntities", $ENT_DIR . $main::PCS . "ISOEntities", $line, $line);
+				put(f1, line);
+			}
+			else {
+				put(f1, line);
+			}
+        }
+		close(f1);
+		close(f2);
+		remove_file -f "$dmCopy";
+	}
 
     # first pre-process
     local new_xmlFile = "";
@@ -199,9 +292,10 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
     result = pub_preprocess_xsl($doc, $xsl_path, $out_path, $new_xmlFile);
     doc_close($doc);
     if (result != "ok") {
-        result = "First XSL preprocess has failed." . "\n" . result;
+        result = "First XSL pre-process has failed." . "\n" . result;
         return result;
     }
+	debug("  > First pre-process is OK (file generated is " . $out_path . ")");
 
     # second pre-process
     doc = doc_open(new_xmlFile, 0x001+0x010+0x020+0x200+0x400+0x80000);
@@ -210,10 +304,11 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
     result = pub_preprocess_xsl($doc, $xsl_path, $out_path, $new_xmlFile);
     doc_close($doc);
     if (result != "ok") {
-        result = "Second XSL preprocess has failed." . "\n" . result;
+        result = "Second XSL pre-process has failed." . "\n" . result;
         return result;
     }
     newInFile = new_xmlFile;
+	debug("  > Second pre-process is OK (file generated is " . $out_path . ")");
 
     return result;
 }
@@ -224,6 +319,7 @@ function pub_preprocess_xsl(doc, xsl_path, out_path, &new_in_path) {
         result = pub_xsl($doc, $xsl_path, $out_path, "");
         if ($result != 1) {
             result = "Error while processing XSL stylesheet: " . $xsl_path;
+            result .= "\n". get_composer_log_contents();
         }
         else {
             result = "ok";
@@ -266,10 +362,13 @@ function s1000d_postprocess(inFile, outFile, parameterArray[]) {
     local rc = _e3::ZipDirectory(outFile, folderDir);
     if (rc != "ok") {
         result = "An error occured while creating the output zip: $rc";
+		result .= "\n" . "Cannot zip " . $folderDir . " as " . $outFile;
     }
-
+	else {
+		debug("  > Zip file created " . $outFile . " from " . $folderDir);
     # Delete temporary files
     execute("remove_file -r -f " . dirFolder);
+	}
 
     return result;
 }
@@ -300,6 +399,8 @@ function compFrameHook(doc, type, where, parameterArray[]) {
     if (isS1000DPub) {
         if (where == $compose::HK_CFTI_INITIAL)  {
             rc = setXSLParameters(doc, parameterArray);
+			debug("  > Inside Composition Framework hook");
+			debug_array($parameterArray, "PARAMS");
         }
         else if (where == $compose::HK_CFTI_POSTPROC) {
             local graphDir = get_e3_temp_dir() . $main::PCS . $XSL_TEMP_DIR . $main::PCS . "Pages" . $main::PCS . $GRAPHICS_DIR;
