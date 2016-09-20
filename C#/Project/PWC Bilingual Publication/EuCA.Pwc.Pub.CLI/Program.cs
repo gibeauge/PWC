@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace EuCA.Pwc.Pub.CLI
 {
@@ -14,10 +10,10 @@ namespace EuCA.Pwc.Pub.CLI
             Console.WriteLine("-=== PWC Bilingual Publication CLI ===-");
 
             var param = new ProcessParameters{
-                FileOrig = @"C:\Work\Project\_old\PWC\Work\xml\tmm_pt6a_pt6a140_3075742_5.EN.v4.xml",
-                FileTrad = @"C:\Work\Project\_old\PWC\Work\xml\tmm_pt6a_pt6a140_3075742_5.ZH.v4.xml",
-                DirOut = @"C:\Work\Project\_old\PWC\Work\chunks",
-                DirXsl = @"C:\Work\Github\PWC\XSL"
+                FileOrig = @"C:\Work\Projects\PWC\Bilingue\Work\xml\tmm_pt6a_pt6a140_3075742_5.EN.v4.xml",
+                FileTrad = @"C:\Work\Projects\PWC\Bilingue\Work\xml\tmm_pt6a_pt6a140_3075742_5.ZH.v4.xml",
+                DirOut = @"C:\Work\Projects\PWC\Bilingue\Work\chunks",
+                DirXsl = @"C:\Work\Projects\PWC\Bilingue\git\PWC\XSL"
             };
 
             var cancellationTokenSource = new CancellationTokenSource();
@@ -29,7 +25,7 @@ namespace EuCA.Pwc.Pub.CLI
 
         private static void OnProgress(object p)
         {
-            Console.WriteLine((string)p);
+            Console.WriteLine(p);
         }
     }
 }

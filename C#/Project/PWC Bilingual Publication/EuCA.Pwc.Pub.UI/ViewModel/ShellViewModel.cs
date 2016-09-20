@@ -64,7 +64,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 }
 
                 _shellCursor = value;
-                RaisePropertyChanged(CursorPropertyName);
+                RaisePropertyChanged();
             }
         }
 
@@ -98,7 +98,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 }
 
                 _title = value;
-                RaisePropertyChanged(TitlePropertyName);
+                RaisePropertyChanged();
             }
         }
 
@@ -132,7 +132,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 }
 
                 _fileOrig = value;
-                RaisePropertyChanged(FileOrigPropertyName);
+                RaisePropertyChanged();
             }
         }
 
@@ -166,7 +166,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 }
 
                 _fileTrad = value;
-                RaisePropertyChanged(FileTradPropertyName);
+                RaisePropertyChanged();
             }
         }
 
@@ -200,7 +200,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 }
 
                 _dirOut = value;
-                RaisePropertyChanged(DirOutPropertyName);
+                RaisePropertyChanged();
             }
         }
 
@@ -234,7 +234,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 }
 
                 _dirXsl = value;
-                RaisePropertyChanged(DirXslPropertyName);
+                RaisePropertyChanged();
             }
         }
 
@@ -268,7 +268,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 }
 
                 _deleteTempFile = value;
-                RaisePropertyChanged(IsDeleteTempFileCheckedPropertyName);
+                RaisePropertyChanged();
             }
         }
 
@@ -277,34 +277,125 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
         #region Enabled
 
         /// <summary>
-        /// The <see cref="Enabled" /> property's name.
+        /// The <see cref="IsEnabled" /> property's name.
         /// </summary>
-        public const string EnabledPropertyName = "Enabled";
+        public const string EnabledPropertyName = "IsEnabled";
 
-        private bool _enabled = true;
+        private bool _isEnabled = true;
 
         /// <summary>
         /// Sets and gets the Enabled property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public bool Enabled
+        public bool IsEnabled
         {
             get
             {
-                return _enabled;
+                return _isEnabled;
             }
 
             set
             {
-                if (_enabled == value)
+                if (_isEnabled == value)
                 {
                     return;
                 }
 
-                _enabled = value;
-                RaisePropertyChanged(EnabledPropertyName);
+                _isEnabled = value;
+                RaisePropertyChanged();
             }
         }
+
+        #endregion
+
+        #region Progress
+
+        #region ProgressLabel
+
+        private string _progressLabel = string.Empty;
+
+        /// <summary>
+        /// Sets and gets the ProgressLabel property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public string ProgressLabel
+        {
+            get
+            {
+                return _progressLabel;
+            }
+
+            set
+            {
+                if (_progressLabel == value)
+                {
+                    return;
+                }
+
+                _progressLabel = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region ProgressValue
+
+        private int _progressValue = 0;
+
+        /// <summary>
+        /// Sets and gets the ProgressValue property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public int ProgressValue
+        {
+            get
+            {
+                return _progressValue;
+            }
+
+            set
+            {
+                if (_progressValue == value)
+                {
+                    return;
+                }
+
+                _progressValue = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region IsProcessing
+
+        private bool _isProcessing = false;
+
+        /// <summary>
+        /// Sets and gets the Isprocessing property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool IsProcessing
+        {
+            get
+            {
+                return _isProcessing;
+            }
+
+            set
+            {
+                if (_isProcessing == value)
+                {
+                    return;
+                }
+
+                _isProcessing = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -462,10 +553,10 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             e.Cancel = (_publishingTask != null && !_publishingTask.IsCompleted);
         }
 
-        private static void OnProgress(object p)
+        private void OnProgress(ProgressStatus p)
         {
-            // TODO! Report progress
-            Console.WriteLine(p.ToString());
+            ProgressLabel = p.Message;
+            ProgressValue = p.Value;
         }
 
         #endregion
@@ -492,8 +583,11 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
 
         private void Run()
         {
+            // Indicate that the application is processing the publication of a package
+            IsProcessing = true;
+
             // Disable the controls.
-            Enabled = false;
+            IsEnabled = false;
             ShellCursor = Cursors.Wait;
 
             // Publication parameters
@@ -507,7 +601,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             };
 
             // Progress monitoring
-            var progress = new Progress<object>(OnProgress);
+            var progress = new Progress<ProgressStatus>(OnProgress);
             
             // Cancellation token, used to interrupt the publication process
             _tokenSource = new CancellationTokenSource();
@@ -519,7 +613,8 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             // Handles the publication process result
             _publishingTask.ContinueWith((task) =>
             {
-                Enabled = true;
+                IsProcessing = false;
+                IsEnabled = true;
                 ShellCursor = Cursors.Arrow;
 
                 if (task.Exception != null)
