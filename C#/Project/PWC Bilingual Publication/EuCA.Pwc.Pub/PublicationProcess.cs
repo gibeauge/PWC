@@ -39,61 +39,71 @@ namespace EuCA.Pwc.Pub
             // Check for cancellation 
             cancellationToken.ThrowIfCancellationRequested();
 
-            // 0. Extract languages
-            progress.Report("0a. Extract language from source file");
+            // α. Copy source files to local temp directory
+            progress.Report("α. Copy source files to local temp directory");
+            _logger.Debug("Copy source files to local temp directory");
+            CopyDataToWorkDir(parameters, progress, cancellationToken);
+
+            // 1. Extract languages
+            progress.Report("1a. Extract language from source file");
             _logger.Debug("Extract language from source file");
             ExtractLanguageSource(parameters, progress, cancellationToken);
 
-            progress.Report("0b. Extract language from translated file");
-            _logger.Debug("0b. Extract language from translated file");
+            progress.Report("1b. Extract language from translated file");
+            _logger.Debug("Extract language from translated file");
             ExtractLanguageTranslation(parameters, progress, cancellationToken);
 
-            // 1. Pre-process XML
-            progress.Report("1a. Preprocess XML source file");
+            // 2. Pre-process XML
+            progress.Report("2a. Preprocess XML source file");
             _logger.Debug("Preprocess XML source file");
             PreprocessSource(parameters, progress, cancellationToken);
 
-            progress.Report("1b. Preprocess XML translated file");
+            progress.Report("2b. Preprocess XML translated file");
             _logger.Debug("Preprocess XML translated file");
             PreprocessTranslation(parameters, progress, cancellationToken);
             
-            // 2a. Generate source HTML files
-            progress.Report("2a. Generate source HTML files");
+            // 3a. Generate source HTML files
+            progress.Report("3a. Generate source HTML files");
             _logger.Debug("Generating source HTML files");
             GenerateSourceHtml(parameters, progress, cancellationToken);
 
-            // 2b. Generate translated HTML files
-            progress.Report("2b. Generate translated HTML files");
+            // 3b. Generate translated HTML files
+            progress.Report("3b. Generate translated HTML files");
             _logger.Debug("Generating translated HTML files");
             GenerateTranslationHtml(parameters, progress, cancellationToken);
 
-            // 3. Merge HTML files
-            progress.Report("3. Merge HTML files");
+            // 4. Merge HTML files
+            progress.Report("4. Merge HTML files");
             _logger.Debug("Merging HTML files");
             MergeHtmlFiles(parameters, progress, cancellationToken);
             
-            // 4.a. Process meta data for banner
-            progress.Report("4.a. Process meta data for banner");
+            // 5.a. Process meta data for banner
+            progress.Report("5.a. Process meta data for banner");
             _logger.Debug("Processing meta data for banner");
             ProcessMetadata(parameters, progress, cancellationToken);
 
-            // 4.b. Process TOC
-            progress.Report("4.b. Process TOC");
+            // 5.b. Process TOC
+            progress.Report("5.b. Process TOC");
             _logger.Debug("Processing TOC");
             ProcessToc(parameters, progress, cancellationToken);
 
-            // 5. Prepare package
-            progress.Report("5. Prepare package");
+            // 6. Prepare package
+            progress.Report("6. Prepare package");
             _logger.Debug("Preparing package");
             PreparePackage(parameters, progress, cancellationToken);
 
-            // 6. Copy graphics
-            progress.Report("6. Copy graphics");
+            // 7. Copy graphics
+            progress.Report("7. Copy graphics");
             _logger.Debug("Copying graphics");
             CopyGraphics(parameters, progress, cancellationToken);
 
-            // 7. Delete temporary files and directories
-            progress.Report("7. Delete temporary files and directories");
+            // 8. Copy package to output directory
+            progress.Report("8. Copy package to ouput directory");
+            _logger.Debug("Copying package to output directory");
+            CopyPackageToOutDir(parameters, progress, cancellationToken);
+
+            // 9. Delete temporary files and directories
+            progress.Report("9. Delete temporary files and directories");
             if (parameters.DeleteTempFile)
             {
                 _logger.Debug("Deleting temporary files and directory");
@@ -101,6 +111,18 @@ namespace EuCA.Pwc.Pub
             }
 
             progress.Report("Publicaton process end.");
+        }
+
+        private void CopyDataToWorkDir(ProcessParameters p, IProgress<object> progress, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (!Directory.Exists(p.WorkDir)) {
+                throw new DirectoryNotFoundException("Working directory not found: " + p.WorkDir);
+            }
+
+            File.Copy(p.FileOrig, p.TempFileOrig);
+            File.Copy(p.FileTrad, p.tempFileTrad);
         }
 
         private void ExtractLanguageSource(ProcessParameters p, IProgress<object> progress, CancellationToken cancellationToken)
@@ -165,7 +187,7 @@ namespace EuCA.Pwc.Pub
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform " +
                 "-s:\"" + Path.Combine(p.DirOrig, Path.GetFileNameWithoutExtension(p.FileOrig) + "_2.xml") + "\" " +
                 "-xsl:\"" + p.DirXsl + "\\jmtosmigrate.xsl\" " +
-                "-o:" + Path.GetFileNameWithoutExtension(p.FileOrig) + ".html " +
+                "-o:\"" + Path.GetFileNameWithoutExtension(p.FileOrig) + ".html\" " +
                 "output-dir=\"" + new Uri(p.DirOrig).AbsoluteUri  + "\"";
 
             RunProcess(cmd);
@@ -182,7 +204,7 @@ namespace EuCA.Pwc.Pub
                "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform " +
                "-s:\"" + Path.Combine(p.DirTrad, Path.GetFileNameWithoutExtension(p.FileTrad) + "_2.xml") + "\" " +
                "-xsl:\"" + p.DirXsl + "\\jmtosmigrate.xsl\" " +
-               "-o:" + Path.GetFileNameWithoutExtension(p.FileTrad) + ".html " +
+               "-o:\"" + Path.GetFileNameWithoutExtension(p.FileTrad) + ".html\" " +
                "output-dir=\"" + new Uri(p.DirTrad).AbsoluteUri + "\"";
 
             RunProcess(cmd);
@@ -220,8 +242,8 @@ namespace EuCA.Pwc.Pub
                       "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                       " -s:\"" + fileIds + "\"" +
                       " -xsl:\"" + p.DirXslBil + "\\bil_title-page.xsl\"" +
-                      " -o:" + Path.Combine(p.DirTradPackageContent, fileName) +
-                      " lang-orig=" + p.LangOrig + " lang-trad=" + p.LangTrad;
+                      " -o:\"" + Path.Combine(p.DirTradPackageContent, fileName) + "\"" +
+                      " lang-orig=\"" + p.LangOrig + "\" lang-trad=\"" + p.LangTrad + "\"";
                     RunProcess(cmd);
                 }
                 else // File exists for english and chinese
@@ -247,8 +269,8 @@ namespace EuCA.Pwc.Pub
                        "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform -dtd:off" +
                        " -s:\"" + fileTradIds + "\"" +
                        " -xsl:\"" + p.DirXslBil + "\\bil_set_ids.xsl\"" +
-                       " -o:" + fileIds +
-                       " src-doc-path=" + fileOrigIds;
+                       " -o:\"" + fileIds + "\"" +
+                       " src-doc-path=\"" + new Uri(fileOrigIds).AbsoluteUri + "\"";
                     RunProcess(cmd);
 
                     _logger.Debug(Path.GetFileNameWithoutExtension(file) + ": merging");
@@ -258,7 +280,7 @@ namespace EuCA.Pwc.Pub
                       "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                       " -s:\"" + fileIds + "\"" +
                       " -xsl:\"" + p.DirXslBil + "\\bil_merge.xsl\"" +
-                      " -o:" + Path.Combine(p.DirTradMerge, fileName);
+                      " -o:\"" + Path.Combine(p.DirTradMerge, fileName) + "\"";
                     RunProcess(cmd);
                 }
             }
@@ -275,7 +297,7 @@ namespace EuCA.Pwc.Pub
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                 " -s:\"" + fileMeta + "\"" +
                 " -xsl:\"" + p.DirXslBil + "\\bil_mtdt.xsl\"" +
-                " -o:" + Path.Combine(p.DirTradPackageContent, "metadata.html") +
+                " -o:\"" + Path.Combine(p.DirTradPackageContent, "metadata.html") + "\"" +
                 " lang-orig=" + p.LangOrig + " lang-trad=" + p.LangTrad;
             RunProcess(cmd);
         }
@@ -289,7 +311,7 @@ namespace EuCA.Pwc.Pub
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                 " -s:\"" + fileToc + "\"" +
                 " -xsl:\"" + p.DirXslBil + "\\bil_toc.xsl\"" +
-                " -o:" + Path.Combine(p.DirTradPackageContent, "index.html");
+                " -o:\"" + Path.Combine(p.DirTradPackageContent, "index.html") + "\"";
             RunProcess(cmd);
         }
 
@@ -330,19 +352,28 @@ namespace EuCA.Pwc.Pub
                 });
         }
 
+        private void CopyPackageToOutDir(ProcessParameters p, IProgress<object> progress, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            
+            DeepCopy(new DirectoryInfo(p.DirTradPackage), new DirectoryInfo(Path.Combine(p.DirOut, new DirectoryInfo(p.DirTradPackage).Name)));
+        }
+
         private void DeleteTemp(ProcessParameters p, IProgress<object> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            
+            var di = new DirectoryInfo(p.WorkDir);
 
-            try
+            foreach (var file in di.GetFiles())
             {
-                Directory.Delete(p.DirTrad, true);
-                Directory.Delete(p.DirOrig, true);
+                file.Delete();
+            }
 
-                File.Delete(Path.Combine(Path.GetDirectoryName(p.FileOrig), Path.GetFileNameWithoutExtension(p.FileOrig)) + ".txt");
-                File.Delete(Path.Combine(Path.GetDirectoryName(p.FileTrad), Path.GetFileNameWithoutExtension(p.FileTrad)) + ".txt");
-            } 
-            catch (Exception) { }
+            foreach (var dir in di.GetDirectories())
+            {
+                dir.Delete(true);
+            }
         }
 
         private void RemoveNamespaces(string file, string dirXsl, string dirTmp, CancellationToken cancellationToken)
@@ -351,6 +382,7 @@ namespace EuCA.Pwc.Pub
 
             _logger.Debug(Path.GetFileNameWithoutExtension(file) + ": removing namespace");
 
+            // Temporary file path
             var fileTmp = Path.Combine(dirTmp, "tmp.xml");
 
             // Removes the 2 first lines of the fine containing the HTML DOCTYPE declaration
@@ -362,7 +394,7 @@ namespace EuCA.Pwc.Pub
                "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                " -s:\"" + file + "\"" +
                " -xsl:\"" + dirXsl + "\\bil_del_ns.xsl\"" +
-               " -o:" + fileTmp;
+               " -o:\"" + fileTmp + "\"";
             RunProcess(cmd);
             File.Copy(fileTmp, file, true);
             File.Delete(fileTmp);
@@ -370,6 +402,9 @@ namespace EuCA.Pwc.Pub
 
         private string RunProcess(string command, string fileName = "cmd.exe") 
         {
+            // Log the command
+            _logger.Debug(command);
+
              // Creates a new ProcessStartInfo with the command
             var processStartInfo = new ProcessStartInfo(fileName, command);
             // Forces some settings in the start info so we can capture the output

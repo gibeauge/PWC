@@ -182,7 +182,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(TargetDir)log"
+    <PostBuildEvent>mkdir "$(TargetDir)_work"
+mkdir "$(TargetDir)log"
 xcopy /y /s "$(SolutionDir)..\..\..\XSL_BIL\*.*" "$(TargetDir)xsl\"
 xcopy /y /s "$(SolutionDir)..\..\..\Lib_BIL\*.*" "$(TargetDir)\Lib_BIL\"
 

@@ -16,7 +16,8 @@
 
 <xsl:param name="src-doc-path"/>
 
-<xsl:variable name="src-doc" select="document(concat('file:///',replace($src-doc-path,'\\','/')))"/>
+<!--<xsl:variable name="src-doc" select="document(concat('file:///',replace($src-doc-path,'\\','/')))"/>-->
+<xsl:variable name="src-doc" select="doc($src-doc-path)"/>
 
 <xsl:variable name="lang-trad"   select="if (/*/@lang) then /*/@lang else 'en'"/>
 <xsl:variable name="prefix"      select="if ($lang-trad='en') then '' else concat($lang-trad,'_')"/>

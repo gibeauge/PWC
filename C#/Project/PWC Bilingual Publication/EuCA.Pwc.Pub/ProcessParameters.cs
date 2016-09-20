@@ -8,9 +8,15 @@ namespace EuCA.Pwc.Pub
     {
         public bool DeleteTempFile { get; set; }
 
+        public string WorkDir { get { return Path.Combine(Directory.GetCurrentDirectory(), "_work"); } }
+
         public string FileOrig { get; set; }
 
         public string FileTrad { get; set; }
+
+        public string TempFileOrig { get { return Path.Combine(WorkDir, Path.GetFileName(FileOrig)); } }
+
+        public string tempFileTrad { get { return Path.Combine(WorkDir, Path.GetFileName(FileTrad)); } }
 
         public string LangOrig { get; set; }
 
@@ -22,9 +28,9 @@ namespace EuCA.Pwc.Pub
 
         public string DirXslBil { get { return Path.Combine(Environment.CurrentDirectory, ConfigurationManager.AppSettings["pwc_xsl_bil"]); } }
 
-        public string DirOrig { get { return Path.Combine(DirOut, Path.GetFileNameWithoutExtension(FileOrig)); } }
+        public string DirOrig { get { return Path.Combine(WorkDir, Path.GetFileNameWithoutExtension(FileOrig)); } }
 
-        public string DirTrad { get { return Path.Combine(DirOut, Path.GetFileNameWithoutExtension(FileTrad)); } }
+        public string DirTrad { get { return Path.Combine(WorkDir, Path.GetFileNameWithoutExtension(FileTrad)); } }
 
         public string DirOrigPages { get { return Path.Combine(DirOrig, "Pages"); } }
 
@@ -36,10 +42,11 @@ namespace EuCA.Pwc.Pub
 
         public string DirTradMerge { get { return Path.Combine(DirTrad, "Merge"); } }
 
-        public string DirTradPackage { get { return Path.Combine(DirOut, "Package"); } }
+        public string DirTradPackage { get { return Path.Combine(WorkDir, "Package"); } }
 
         public string DirTradPackageContent { get { return Path.Combine(DirTradPackage, "Content"); } }
 
         public string DirGraphics { get { return Path.Combine(DirTradPackageContent, "graphics"); } }
+        
     }
 }
