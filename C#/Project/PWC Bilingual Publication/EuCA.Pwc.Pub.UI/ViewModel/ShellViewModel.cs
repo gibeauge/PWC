@@ -421,6 +421,9 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
 
         #region BrowseCommand
 
+        /// <summary>
+        /// Browse folder command
+        /// </summary>
         private RelayCommand<string> _browseCommand;
 
         /// <summary>
@@ -436,14 +439,18 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             }
         }
 
-        private void ExecuteBrowseCommand(string parameter)
+        /// <summary>
+        /// Browse command delegate
+        /// </summary>
+        /// <param name="arg">Command argument</param>
+        private void ExecuteBrowseCommand(string arg)
         {
-            if (!BrowseCommand.CanExecute(parameter))
+            if (!BrowseCommand.CanExecute(arg))
             {
                 return;
             }
 
-            switch (parameter)
+            switch (arg)
             {
                 case DirXslPropertyName:
                     var resultXsl = BrowseFolder(DirXsl);
@@ -464,7 +471,12 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             }
         }
 
-        private bool CanExecuteBrowseCommand(string parameter)
+        /// <summary>
+        /// Checks if the browse command delegate can be executed
+        /// </summary>
+        /// <param name="arg">command argument</param>
+        /// <returns>true is the delegate can be executed, false otherwise</returns>
+        private bool CanExecuteBrowseCommand(string arg)
         {
             return true;
         }
@@ -473,6 +485,9 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
 
         #region PublishCommand
 
+        /// <summary>
+        /// Publish data command
+        /// </summary>
         private RelayCommand _publishCommand;
 
         /// <summary>
@@ -488,6 +503,9 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             }
         }
 
+        /// <summary>
+        /// Publish data command delegate
+        /// </summary>
         private void ExecutePublishCommand()
         {
             if (!PublishCommand.CanExecute(null))
@@ -495,9 +513,13 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
                 return;
             }
 
-            Run();
+            Publish();
         }
 
+        /// <summary>
+        /// Checks if the publish command delegate can be executed
+        /// </summary>
+        /// <returns>True if the command can be executer, false otherwise</returns>
         private bool CanExecutePublishCommand()
         {
             return (_publishingTask == null || _publishingTask.IsCompleted) &&
@@ -509,6 +531,9 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
 
         #region CancelCommand
 
+        /// <summary>
+        /// Cancel command
+        /// </summary>
         private RelayCommand _cancelCommand;
 
         /// <summary>
@@ -524,6 +549,9 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             }
         }
 
+        /// <summary>
+        /// Cancel command delegate
+        /// </summary>
         private void ExecuteCancelCommand()
         {
             if (!CancelCommand.CanExecute(null))
@@ -537,6 +565,10 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             }
         }
 
+        /// <summary>
+        /// Checks if the cancel command delegate can be executed
+        /// </summary>
+        /// <returns>True if the command can be executer, false otherwise</returns>
         private bool CanExecuteCancelCommand()
         {
             return _publishingTask != null && !_publishingTask.IsCompleted;
@@ -548,12 +580,21 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
 
         #region Events
 
+        /// <summary>
+        /// Window closing event handler
+        /// </summary>
+        /// <param name="sender">The event sender</param>
+        /// <param name="e">The event arguments</param>
         private void MainWindowClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = (_publishingTask != null && !_publishingTask.IsCompleted);
         }
 
-        private void OnProgress(ProgressStatus p)
+        /// <summary>
+        /// Progress event handler
+        /// </summary>
+        /// <param name="p">Progress arguments</param>
+        private void OnProgress(ProgressEventArgs p)
         {
             ProgressLabel = p.Message;
             ProgressValue = p.Value;
@@ -563,6 +604,11 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
 
         #region Methods
 
+        /// <summary>
+        /// Custom browse folder dialog
+        /// </summary>
+        /// <param name="initialDir">The initial directory of the folder browser dialog</param>
+        /// <returns>The folder selected by the user</returns>
         private string BrowseFolder(string initialDir)
         {
             // https://wpffolderbrowser.codeplex.com/
@@ -571,6 +617,12 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             return (dlg.ShowDialog() == true) ? dlg.FileName : string.Empty;
         }
 
+        /// <summary>
+        /// Initialize a file browser
+        /// </summary>
+        /// <param name="initialFile">The initial file to use as a starting point for the browsing</param>
+        /// <param name="filter">Filter for the file to display in the browser</param>
+        /// <returns>The file selected by the user</returns>
         private string BrowseFile(string initialFile, string filter)
         {
             var dlg = new OpenFileDialog();
@@ -581,7 +633,10 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             return (dlg.ShowDialog() == true) ? dlg.FileName : string.Empty;
         }
 
-        private void Run()
+        /// <summary>
+        /// Starts the publishing process
+        /// </summary>
+        private void Publish()
         {
             // Indicate that the application is processing the publication of a package
             IsProcessing = true;
@@ -601,7 +656,7 @@ namespace EuCA.Pwc.Pub.UI.ViewModel
             };
 
             // Progress monitoring
-            var progress = new Progress<ProgressStatus>(OnProgress);
+            var progress = new Progress<ProgressEventArgs>(OnProgress);
             
             // Cancellation token, used to interrupt the publication process
             _tokenSource = new CancellationTokenSource();

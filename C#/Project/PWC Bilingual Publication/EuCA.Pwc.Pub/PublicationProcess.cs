@@ -32,88 +32,101 @@ namespace EuCA.Pwc.Pub
 
         #region Methods
 
-        public void Run(ProcessParameters parameters, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Main processing method.
+        /// Procedural treatment of a bilingual publication
+        /// </summary>
+        /// <param name="parameters">Parameters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        public void Run(ProcessParameters parameters, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
-            progress.Report(new ProgressStatus { Message = "Starting publication", Value = 0 });
+            progress.Report(new ProgressEventArgs { Message = "Starting publication", Value = 0 });
 
             // Check for cancellation 
             cancellationToken.ThrowIfCancellationRequested();
 
             // α. Copy source files to local temp directory
-            progress.Report(new ProgressStatus { Message = "Copying source data", Value = 0 });
+            progress.Report(new ProgressEventArgs { Message = "Copying source data", Value = 0 });
             _logger.Debug("Copy source files to local temp directory");
             CopyDataToWorkDir(parameters, progress, cancellationToken);
 
             // 1. Extract languages
-            progress.Report(new ProgressStatus { Message = "Extracting language from source", Value = 0 });
+            progress.Report(new ProgressEventArgs { Message = "Extracting language from source", Value = 0 });
             _logger.Debug("Extract language from source file");
             ExtractLanguageSource(parameters, progress, cancellationToken);
 
-            progress.Report(new ProgressStatus { Message = "Extracting language from translated", Value = 1 });
+            progress.Report(new ProgressEventArgs { Message = "Extracting language from translated", Value = 1 });
             _logger.Debug("Extract language from translated file");
             ExtractLanguageTranslation(parameters, progress, cancellationToken);
 
             // 2. Pre-process XML
-            progress.Report(new ProgressStatus { Message = "Pre-processing source XML", Value = 1 });
+            progress.Report(new ProgressEventArgs { Message = "Pre-processing source XML", Value = 1 });
             _logger.Debug("Preprocess XML source file");
             PreprocessSource(parameters, progress, cancellationToken);
 
-            progress.Report(new ProgressStatus { Message = "Pre-processing translation XML", Value = 2 });
+            progress.Report(new ProgressEventArgs { Message = "Pre-processing translation XML", Value = 2 });
             _logger.Debug("Preprocess XML translated file");
             PreprocessTranslation(parameters, progress, cancellationToken);
             
             // 3a. Generate source HTML files
-            progress.Report(new ProgressStatus { Message = "Generating source HTML", Value = 2 });
+            progress.Report(new ProgressEventArgs { Message = "Generating source HTML", Value = 2 });
             _logger.Debug("Generating source HTML files");
             GenerateSourceHtml(parameters, progress, cancellationToken);
 
             // 3b. Generate translated HTML files
-            progress.Report(new ProgressStatus { Message = "Generating translation HTML", Value = 27 });
+            progress.Report(new ProgressEventArgs { Message = "Generating translation HTML", Value = 27 });
             _logger.Debug("Generating translated HTML files");
             GenerateTranslationHtml(parameters, progress, cancellationToken);
 
             // 4. Merge HTML files
-            progress.Report(new ProgressStatus { Message = "Merging HTML files", Value = 50 });
+            progress.Report(new ProgressEventArgs { Message = "Merging HTML files", Value = 50 });
             _logger.Debug("Merging HTML files");
             MergeHtmlFiles(parameters, progress, cancellationToken);
             
             // 5.a. Process meta data for banner
-            progress.Report(new ProgressStatus { Message = "Processing metadata (banner)", Value = 95 });
+            progress.Report(new ProgressEventArgs { Message = "Processing metadata (banner)", Value = 95 });
             _logger.Debug("Processing meta data for banner");
             ProcessMetadata(parameters, progress, cancellationToken);
 
             // 5.b. Process TOC
-            progress.Report(new ProgressStatus { Message = "Processing TOC", Value = 96 });
+            progress.Report(new ProgressEventArgs { Message = "Processing TOC", Value = 96 });
             _logger.Debug("Processing TOC");
             ProcessToc(parameters, progress, cancellationToken);
 
             // 6. Prepare package
-            progress.Report(new ProgressStatus { Message = "Preparing package", Value = 97 });
+            progress.Report(new ProgressEventArgs { Message = "Preparing package", Value = 97 });
             _logger.Debug("Preparing package");
             PreparePackage(parameters, progress, cancellationToken);
 
             // 7. Copy graphics
-            progress.Report(new ProgressStatus { Message = "Copying graphics", Value = 98 });
+            progress.Report(new ProgressEventArgs { Message = "Copying graphics", Value = 98 });
             _logger.Debug("Copying graphics");
             CopyGraphics(parameters, progress, cancellationToken);
 
             // 8. Copy package to output directory
-            progress.Report(new ProgressStatus { Message = "Copying package", Value = 99 });
+            progress.Report(new ProgressEventArgs { Message = "Copying package", Value = 99 });
             _logger.Debug("Copying package to output directory");
             CopyPackageToOutDir(parameters, progress, cancellationToken);
 
             // 9. Delete temporary files and directories
             if (parameters.DeleteTempFile)
             {
-                progress.Report(new ProgressStatus { Message = "Deleting temporary files", Value = 99 });
+                progress.Report(new ProgressEventArgs { Message = "Deleting temporary files", Value = 99 });
                 _logger.Debug("Deleting temporary files");
                 DeleteTemp(parameters, progress, cancellationToken);
             }
 
-            progress.Report(new ProgressStatus { Message = "Publicaton process end.", Value = 100 });
+            progress.Report(new ProgressEventArgs { Message = "Publicaton process end.", Value = 100 });
         }
 
-        private void CopyDataToWorkDir(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Copy source data to a local folder, to avoid UNC problems with saxon
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void CopyDataToWorkDir(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -125,7 +138,13 @@ namespace EuCA.Pwc.Pub
             File.Copy(p.FileTrad, new Uri(p.TempFileTrad).LocalPath);
         }
 
-        private void ExtractLanguageSource(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Retrieve the language of the XML source file
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void ExtractLanguageSource(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -140,7 +159,13 @@ namespace EuCA.Pwc.Pub
             RunProcess(cmd);
         }
 
-        private void ExtractLanguageTranslation(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Retrieve the language of the XML translation file
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void ExtractLanguageTranslation(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -155,7 +180,13 @@ namespace EuCA.Pwc.Pub
             RunProcess(cmd);
         }
 
-        private void PreprocessSource(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Pre-process of the XML source file
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void PreprocessSource(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -170,7 +201,13 @@ namespace EuCA.Pwc.Pub
             RunProcess(cmd);
         }
 
-        private void PreprocessTranslation(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Pre-process of the XML translation file
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void PreprocessTranslation(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -185,7 +222,13 @@ namespace EuCA.Pwc.Pub
             RunProcess(cmd);
         }
 
-        private void GenerateSourceHtml(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Generate the HTMl for the source file
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void GenerateSourceHtml(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -202,7 +245,13 @@ namespace EuCA.Pwc.Pub
             File.Delete(Path.Combine(p.DirOrig, Path.GetFileNameWithoutExtension(p.TempFileOrig) + "_2.xml"));
         }
 
-        private void GenerateTranslationHtml(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Generate the HTMl for the translation file
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void GenerateTranslationHtml(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -219,12 +268,18 @@ namespace EuCA.Pwc.Pub
             File.Delete(Path.Combine(p.DirTrad, Path.GetFileNameWithoutExtension(p.TempFileTrad) + "_2.xml"));
         }
 
-        private void MergeHtmlFiles(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Merge the HTMl from the source and translation
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void MergeHtmlFiles(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             Directory.CreateDirectory(p.DirTradIds);
             Directory.CreateDirectory(p.DirTradMerge);
-            Directory.CreateDirectory(p.DirTradPackage);
-            Directory.CreateDirectory(p.DirTradPackageContent);
+            Directory.CreateDirectory(p.DirPackage);
+            Directory.CreateDirectory(p.DirPackageContent);
             var fileTmp = Path.Combine(p.DirTradIds, "tmp.xml");
 
             // For all the files contained in the Pages folder of original data
@@ -237,7 +292,7 @@ namespace EuCA.Pwc.Pub
 
                 var fileName = Path.GetFileName(file); // Name of the file being processed
                 var fileIds = Path.Combine(p.DirTradIds, fileName); // Output file path of the transformation
-                progress.Report(new ProgressStatus { Message = "Merging: " + fileName, Value = (int)(50 + cpt / nbFiles * 100 * 45) });
+                progress.Report(new ProgressEventArgs { Message = "Merging: " + fileName, Value = (int)(50 + cpt / nbFiles * 100 * 45) });
                 if (!File.Exists(Path.Combine(p.DirTradPages, fileName))) // All the file that do no exist in the translated data (no need to merge)
                 {
                     _logger.Debug(Path.GetFileNameWithoutExtension(file) + ": english only");
@@ -251,7 +306,7 @@ namespace EuCA.Pwc.Pub
                       "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                       " -s:\"" + fileIds + "\"" +
                       " -xsl:\"" + p.DirXslBil + "\\bil_title-page.xsl\"" +
-                      " -o:\"" + Path.Combine(p.DirTradPackageContent, fileName) + "\"" +
+                      " -o:\"" + Path.Combine(p.DirPackageContent, fileName) + "\"" +
                       " lang-orig=\"" + p.LangOrig + "\" lang-trad=\"" + p.LangTrad + "\"";
                     RunProcess(cmd);
                 }
@@ -296,7 +351,13 @@ namespace EuCA.Pwc.Pub
             }
          }
 
-        private void ProcessMetadata(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Process the metadata of the data
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void ProcessMetadata(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -307,12 +368,18 @@ namespace EuCA.Pwc.Pub
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                 " -s:\"" + fileMeta + "\"" +
                 " -xsl:\"" + p.DirXslBil + "\\bil_mtdt.xsl\"" +
-                " -o:\"" + Path.Combine(p.DirTradPackageContent, "metadata.html") + "\"" +
+                " -o:\"" + Path.Combine(p.DirPackageContent, "metadata.html") + "\"" +
                 " lang-orig=" + p.LangOrig + " lang-trad=" + p.LangTrad;
             RunProcess(cmd);
         }
 
-        private void ProcessToc(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Process the Table Of Content of the data
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void ProcessToc(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -321,31 +388,37 @@ namespace EuCA.Pwc.Pub
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform" +
                 " -s:\"" + fileToc + "\"" +
                 " -xsl:\"" + p.DirXslBil + "\\bil_toc.xsl\"" +
-                " -o:\"" + Path.Combine(p.DirTradPackageContent, "index.html") + "\"";
+                " -o:\"" + Path.Combine(p.DirPackageContent, "index.html") + "\"";
             RunProcess(cmd);
         }
 
-        private void PreparePackage(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Prepare the output package
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void PreparePackage(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            DeepCopy(new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, ConfigurationManager.AppSettings["pwc_lib_bil"])), new DirectoryInfo(p.DirTradPackageContent));
-            if (File.Exists(Path.Combine(p.DirTradPackage, "launch.exe"))) File.Delete(Path.Combine(p.DirTradPackage, "launch.exe"));
-            File.Move(Path.Combine(p.DirTradPackageContent, "launch.exe"), Path.Combine(p.DirTradPackage, "launch.exe"));
+            DeepCopy(new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, ConfigurationManager.AppSettings["pwc_lib_bil"])), new DirectoryInfo(p.DirPackageContent));
+            if (File.Exists(Path.Combine(p.DirPackage, "launch.exe"))) File.Delete(Path.Combine(p.DirPackage, "launch.exe"));
+            File.Move(Path.Combine(p.DirPackageContent, "launch.exe"), Path.Combine(p.DirPackage, "launch.exe"));
 
             Directory
                 .EnumerateFiles(p.DirTradMerge, "*.html")
                 .ToList()
-                .ForEach(file => File.Copy(file, Path.Combine(p.DirTradPackageContent, Path.GetFileName(file)), true));
+                .ForEach(file => File.Copy(file, Path.Combine(p.DirPackageContent, Path.GetFileName(file)), true));
         }
 
-        private void DeepCopy(DirectoryInfo source, DirectoryInfo target)
-        {
-            source.EnumerateDirectories().ToList().ForEach(dir => DeepCopy(dir, target.CreateSubdirectory(dir.Name)));
-            source.EnumerateFiles().ToList().ForEach(file => file.CopyTo(Path.Combine(target.FullName, file.Name), true));
-        }
-
-        private void CopyGraphics(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Copies the graphic from the source to the output package
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void CopyGraphics(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             var dirGraphics = Path.Combine(Directory.GetParent(new Uri(p.FileOrig).LocalPath).FullName, "graphics");
@@ -362,14 +435,26 @@ namespace EuCA.Pwc.Pub
                 });
         }
 
-        private void CopyPackageToOutDir(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Copies the output package to the output directory
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void CopyPackageToOutDir(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             
-            DeepCopy(new DirectoryInfo(p.DirTradPackage), new DirectoryInfo(Path.Combine(p.DirOut, new DirectoryInfo(p.DirTradPackage).Name)));
+            DeepCopy(new DirectoryInfo(p.DirPackage), new DirectoryInfo(Path.Combine(p.DirOut, new DirectoryInfo(p.DirPackage).Name)));
         }
 
-        private void DeleteTemp(ProcessParameters p, IProgress<ProgressStatus> progress, CancellationToken cancellationToken)
+        /// <summary>
+        /// Delete temporary files
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void DeleteTemp(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             
@@ -385,7 +470,25 @@ namespace EuCA.Pwc.Pub
                 dir.Delete(true);
             }
         }
+        
+        /// <summary>
+        /// Copies a folder and its content, including its subdirectories and their content to a new directory
+        /// </summary>
+        /// <param name="source">Source directory</param>
+        /// <param name="target">Target directory</param>
+        private void DeepCopy(DirectoryInfo source, DirectoryInfo target)
+        {
+            source.EnumerateDirectories().ToList().ForEach(dir => DeepCopy(dir, target.CreateSubdirectory(dir.Name)));
+            source.EnumerateFiles().ToList().ForEach(file => file.CopyTo(Path.Combine(target.FullName, file.Name), true));
+        }
 
+        /// <summary>
+        /// Removes namespace declaration from and XML file
+        /// </summary>
+        /// <param name="file">The file to process</param>
+        /// <param name="dirXsl">The path to the XSL file that will remvoe the namespaces</param>
+        /// <param name="dirTmp">A temporary working directory</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
         private void RemoveNamespaces(string file, string dirXsl, string dirTmp, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -410,6 +513,12 @@ namespace EuCA.Pwc.Pub
             File.Delete(fileTmp);
         }
 
+        /// <summary>
+        /// Runs a command in another thread
+        /// </summary>
+        /// <param name="command">The command to run</param>
+        /// <param name="fileName">The executable to use for the command</param>
+        /// <returns>The standard output of the command</returns>
         private string RunProcess(string command, string fileName = "cmd.exe") 
         {
             // Log the command
