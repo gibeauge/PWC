@@ -79,9 +79,8 @@
 </xsl:template>
 
 <xsl:template match="externalPubRef" mode="refs">
-  <xsl:variable name="externalPubCode" select="externalPubRefIdent/externalPubCode"/>
   <xsl:choose>
-    <xsl:when test="starts-with($externalPubCode, 'http://')">
+    <xsl:when test="@xlink:href">
       <xsl:call-template name="externalPubRef-link-refs"/>
     </xsl:when>
     <xsl:otherwise>
@@ -91,16 +90,14 @@
 </xsl:template>
 
 <xsl:template name="externalPubRef-link-refs">
-  <xsl:param name="externalPubCode" select="externalPubRefIdent/externalPubCode"/>
+  <xsl:param name="target" select="@xlink:href"/>
 
   <tr>
+    <td></td>
     <td>
-      <a href="{$externalPubCode}">
-        <xsl:value-of select="$externalPubCode"/>
+      <a href="{$target}">
+        <xsl:apply-templates select="externalPubRefIdent/externalPubTitle" mode="refs"/>
       </a>
-    </td>
-    <td>
-      <xsl:apply-templates select="externalPubRefIdent/externalPubTitle" mode="refs"/>
     </td>
   </tr> 
 </xsl:template>
@@ -257,10 +254,10 @@
   <xsl:next-match/>
 </xsl:template>
 
-<xsl:template match="externalPubRef[starts-with(externalPubRefIdent/externalPubCode, 'http://')]" priority="3">
+<xsl:template match="externalPubRef[@xlink:href]" priority="3">
   <a>
     <xsl:call-template name="change"/>
-    <xsl:attribute name="href" select="externalPubRefIdent/externalPubCode"/>
+    <xsl:attribute name="href" select="@xlink:href"/>
     <xsl:next-match/>
   </a>
 </xsl:template>
