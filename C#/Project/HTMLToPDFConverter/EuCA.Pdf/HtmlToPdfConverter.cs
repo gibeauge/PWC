@@ -175,7 +175,7 @@ namespace EuCA.Pdf
 
 #endregion
 
-#region private static Methods
+        #region private static Methods
 
         /// <summary>
         /// Sets the EO PDf license

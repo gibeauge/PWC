@@ -1070,7 +1070,7 @@ function euCAGetIDs(paraIds, tableIds, figureIds) {
 
     $('div[class^="x-pageblock-front"]').each(function () {
         var childs = $(this).children('div').each(function () {
-            var txt = $.trim($(this).children(':first').text());
+            var txt = $.trim($(this).find("div[class*='title']:first").text());
             if (txt.length != 0) {
                 paraIds[$(this).attr('id')] = txt;
             }
@@ -1078,14 +1078,14 @@ function euCAGetIDs(paraIds, tableIds, figureIds) {
     });
 
     $('div[class^="x-n-para"], div[class^="x-task"], div[class^="x-pbfmatr"], div[class^="x-tprereq"]').each(function () {
-        var txt = $.trim($(this).children(':first').text());
+        var txt = $.trim($(this).find("div[class^='x-title']:first").text());
         if (txt.length != 0) {
             paraIds[$(this).attr('id')] = txt;
         }
     });
 
     $('div[class^="pr-figure"]').each(function () {
-        var txt = $.trim($(this).children(':first').text());
+        var txt = $.trim($(this).children("div[class^='x-title']:first").text());
         if (txt.length != 0) {
             figureIds[$(this).parent().attr('id')] = txt;
         }
@@ -1102,7 +1102,6 @@ function euCAGetIDs(paraIds, tableIds, figureIds) {
     });
     */
 }
-
 
 /**
  *  Setup block styles for printing.      

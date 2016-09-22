@@ -261,6 +261,10 @@
 
 <xsl:template match="figure" priority="20">
   <div class="pr-brk"></div>
+  <xsl:if test="parent::illustratedPartsCatalog">
+  <br />
+    <xsl:apply-templates select="title" />
+  </xsl:if>
   <div style="display:none;">
     <xsl:call-template name="setID"/>
     <xsl:call-template name="change">
@@ -270,14 +274,16 @@
       <xsl:next-match/>
     </div>
   </div>
-  <span class="pr-figure-min">
-    <a href="#{@id}" onclick="displayGraphics('{@id}');" class="s-figure-anchor">
-    <xsl:if test="title">
-      <xsl:attribute name="title" select="title"/>
-    </xsl:if>
-    <xsl:text>Display graphics</xsl:text>
-    </a>
-  </span>
+  <xsl:if test="parent::illustratedPartsCatalog">
+	  <span class="pr-figure-min">
+      <a href="#{@id}" onclick="displayGraphics('{@id}');">
+        <xsl:if test="title">
+          <xsl:attribute name="title" select="title"/>
+        </xsl:if>
+        <xsl:text>Display graphics</xsl:text>
+      </a>
+	  </span>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="figure">
