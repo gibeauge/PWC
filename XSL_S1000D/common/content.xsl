@@ -270,6 +270,14 @@
       <xsl:next-match/>
     </div>
   </div>
+  <span class="pr-figure-min">
+    <a href="#{@id}" onclick="displayGraphics('{@id}');" class="s-figure-anchor">
+    <xsl:if test="title">
+      <xsl:attribute name="title" select="title"/>
+    </xsl:if>
+    <xsl:text>Display graphics</xsl:text>
+    </a>
+  </span>
 </xsl:template>
 
 <xsl:template match="figure">
