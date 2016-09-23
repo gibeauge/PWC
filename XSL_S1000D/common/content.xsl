@@ -276,12 +276,14 @@
   </div>
   <xsl:if test="parent::illustratedPartsCatalog">
 	  <span class="pr-figure-min">
-      <a href="#{@id}" onclick="displayGraphics('{@id}');">
-        <xsl:if test="title">
-          <xsl:attribute name="title" select="title"/>
-        </xsl:if>
-        <xsl:text>Display graphics</xsl:text>
-      </a>
+      <div style="display:inline-block;margin-bottom:20px; padding:10px;border: 3px solid #1A86D2;-webkit-box-shadow: 3px 3px 1px 0px #888;-moz-box-shadow:3px 3px 1px 0px #888;box-shadow: 3px 3px 1px 0px #888;">
+        <a href="#{@id}" onclick="displayGraphics('{@id}');">
+          <xsl:if test="title">
+            <xsl:attribute name="title" select="title"/>
+          </xsl:if>
+          <xsl:text>Display illustration</xsl:text>
+        </a>
+      </div>      
 	  </span>
   </xsl:if>
 </xsl:template>
