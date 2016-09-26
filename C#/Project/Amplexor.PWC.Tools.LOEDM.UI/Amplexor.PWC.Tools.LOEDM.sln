@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amplexor.PWC.Tools.LOEDM.UI", "Amplexor.PWC.Tools.LOEDM.UI\Amplexor.PWC.Tools.LOEDM.UI.csproj", "{91A9D81C-6D37-4B00-B475-53C83F883A05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{ACF548C1-E300-496A-A9C4-8B87F8F0831A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{D7DF12C5-4C6F-47B4-8EA7-15B26ADCDD76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amplexor.PWC.Tools.LOEDM", "Amplexor.PWC.Tools.LOEDM\Amplexor.PWC.Tools.LOEDM.csproj", "{C4CC1302-6726-4B05-9FFB-715DCA86215C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Test", "_Test", "{8ED8FE40-95F3-40A6-80D1-3BB02C426BFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amplexor.PWC.Tools.LOEDM.Tests", "Amplexor.PWC.Tools.LOEDM.Tests\Amplexor.PWC.Tools.LOEDM.Tests.csproj", "{915CA22C-3339-4E8A-8EAC-99CFC055889A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91A9D81C-6D37-4B00-B475-53C83F883A05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A9D81C-6D37-4B00-B475-53C83F883A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A9D81C-6D37-4B00-B475-53C83F883A05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A9D81C-6D37-4B00-B475-53C83F883A05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4CC1302-6726-4B05-9FFB-715DCA86215C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4CC1302-6726-4B05-9FFB-715DCA86215C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4CC1302-6726-4B05-9FFB-715DCA86215C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4CC1302-6726-4B05-9FFB-715DCA86215C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{915CA22C-3339-4E8A-8EAC-99CFC055889A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{915CA22C-3339-4E8A-8EAC-99CFC055889A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{915CA22C-3339-4E8A-8EAC-99CFC055889A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{915CA22C-3339-4E8A-8EAC-99CFC055889A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{91A9D81C-6D37-4B00-B475-53C83F883A05} = {ACF548C1-E300-496A-A9C4-8B87F8F0831A}
+		{C4CC1302-6726-4B05-9FFB-715DCA86215C} = {D7DF12C5-4C6F-47B4-8EA7-15B26ADCDD76}
+		{915CA22C-3339-4E8A-8EAC-99CFC055889A} = {8ED8FE40-95F3-40A6-80D1-3BB02C426BFE}
+	EndGlobalSection
+EndGlobal

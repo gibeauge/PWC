@@ -1,0 +1,85 @@
+﻿<Mahapps:MetroWindow x:Class="Amplexor.PWC.Tools.LOEDM.UI.View.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Mahapps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="{Binding Title}" Height="200" Width="600"
+        ResizeMode="CanResizeWithGrip"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        EnableDWMDropShadow="True"
+        WindowTransitionsEnabled="False"
+        BorderThickness="1"
+        WindowStartupLocation="CenterScreen"
+        Cursor="{Binding ShellCursor}">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
+        <Label      Grid.Row="0" Grid.Column="0"
+                    Margin="0 0 10 10"
+                    Content="Previous LOEDM"/>
+        <TextBox    Grid.Row="0" Grid.Column="1" 
+                    Margin="0 0 10 10"
+                    Text="{Binding LOEDMPrevious, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsEnabled="{Binding IsEnabled}"/>
+        <Button     Grid.Row="0" Grid.Column="2" 
+                    Content="..."
+                    Margin="0 0 0 10"
+                    Command="{Binding BrowseCommand}" CommandParameter="LOEDMPrevious"
+                    IsEnabled="{Binding IsEnabled}"/>
+
+        <Label      Grid.Row="1" Grid.Column="0"
+                    Margin="0 0 10 10"
+                    Content="Current LOEDM"/>
+        <TextBox    Grid.Row="1" Grid.Column="1" 
+                    Margin="0 0 10 10"
+                    Text="{Binding LOEDMCurrent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsEnabled="{Binding IsEnabled}"/>
+        <Button     Grid.Row="1" Grid.Column="2" 
+                    Content="..."
+                    Margin="0 0 0 10"
+                    Command="{Binding BrowseCommand}" CommandParameter="LOEDMCurrent"
+                    IsEnabled="{Binding IsEnabled}"/>
+
+        <Label Grid.Row="2" Grid.Column="0" 
+               Margin="0 0 0 0"
+               Content="Status" 
+               Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVis}}"/>
+        <ProgressBar Grid.Row="2" Grid.Column="1"
+                     Margin="0 0 10 0" HorizontalAlignment="Stretch"
+                     Value="{Binding ProgressValue}"
+                     Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVis}}"/>
+
+        <Label Grid.Row="3" Grid.Column="1"
+               HorizontalAlignment="Stretch"
+               Content="{Binding ProgressLabel}"
+               Padding="0" Margin="0 0 10 0"
+               Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVis}}" />
+
+        <DockPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
+                   HorizontalAlignment="Right" 
+                   Margin="0 0 10 0"
+                   Cursor="Arrow">
+            <Button DockPanel.Dock="Right" Content="Cancel" 
+                    Margin="10 0 0 0"
+                    Command="{Binding CancelCommand}"/>
+            <Button DockPanel.Dock="Right" Content="Update"
+                    Command="{Binding UpdateCommand}"/>
+        </DockPanel>
+
+    </Grid>
+</Mahapps:MetroWindow>
