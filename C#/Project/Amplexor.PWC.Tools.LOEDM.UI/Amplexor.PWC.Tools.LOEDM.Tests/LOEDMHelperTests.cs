@@ -44,12 +44,12 @@ namespace Amplexor.PWC.Tools.LOEDM.Tests
         [TestCleanup]
         public void CleanUpTest()
         {
-            if (File.Exists(_LOEDMbackup)) File.Delete(_LOEDMbackup);            
+            /*if (File.Exists(_LOEDMbackup)) File.Delete(_LOEDMbackup);            
             if (File.Exists(_TRACE)) File.Delete(_TRACE);
 
             File.Move(_LOEDMCurrent, _LOEDMCurrent + ".todelete");
             File.Delete(_LOEDMCurrent + ".todelete");
-            File.Copy(_LOEDMCurrentOrig, _LOEDMCurrent);
+            File.Copy(_LOEDMCurrentOrig, _LOEDMCurrent);*/
         }
 
         [TestMethod]

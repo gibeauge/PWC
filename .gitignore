@@ -28,3 +28,4 @@ proguard/
 bin/
 obj/
 packages/
+/C#/Project/Amplexor.PWC.Tools.LOEDM.UI/Amplexor.PWC.Tools.LOEDM.Tests/data/n_1/trace.csv
