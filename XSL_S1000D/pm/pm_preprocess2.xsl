@@ -265,7 +265,7 @@
     <entry colsep="0" rowsep="0">
       <para>
         <xsl:choose>
-          <xsl:when test="number($g_issue)=0">
+          <xsl:when test="number($g_issue)=0 or ../@is-tp='true' or ../@inc=('00S','00U')">
             <xsl:apply-templates select="/pm/identAndStatusSection/pmAddress/pmAddressItems/issueDate" mode="loedm"/>
           </xsl:when>
           <xsl:otherwise>

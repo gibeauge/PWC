@@ -89,9 +89,11 @@
   </xsl:copy>
 </xsl:template>
 
+<!--
 <xsl:template match="issueDate[parent::dmAddressItems/parent::dmAddress/dmIdent/issueInfo/@issueNumber='000']">
   <issueDate day="{$g_day}" month="{$g_month}" year="{$g_year}" />
 </xsl:template>
+-->
 
 <xsl:template match="@infoEntityIdent">
   <xsl:copy-of select="."/>
