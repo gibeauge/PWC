@@ -393,7 +393,7 @@
   <xsl:if test="identAndStatusSection/pmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]">
     <row>
       <entry colsep="0" rowsep="0">
-        <para/>
+        <para><xsl:value-of select="fn:getPMCBasic($g_pmc)"/></para>
       </entry>
       <entry colsep="0" rowsep="0">
         <para><xsl:apply-templates select="identAndStatusSection/pmAddress//pmTitle" mode="highlights"/></para>

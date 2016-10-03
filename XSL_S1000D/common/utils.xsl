@@ -57,6 +57,11 @@
   </xsl:choose>
 </xsl:function>
 
+<xsl:function name="fn:getPMCBasic">
+  <xsl:param name="pmc"/>
+  <xsl:value-of select="replace(substring-after($pmc, 'PMC-'), '-', '&#x2011;')"/>
+</xsl:function>
+
 <xsl:function name="fn:getGenText">
   <xsl:param name="key"/>
   
