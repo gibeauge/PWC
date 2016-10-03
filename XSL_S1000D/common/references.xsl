@@ -95,7 +95,7 @@
   <tr>
     <td></td>
     <td>
-      <a href="{$target}">
+      <a href="{$target}" target="_blank">
         <xsl:apply-templates select="externalPubRefIdent/externalPubTitle" mode="refs"/>
       </a>
     </td>
@@ -255,9 +255,8 @@
 </xsl:template>
 
 <xsl:template match="externalPubRef[@xlink:href]" priority="3">
-  <a>
+  <a href="{@xlink:href}" target="_blank">
     <xsl:call-template name="change"/>
-    <xsl:attribute name="href" select="@xlink:href"/>
     <xsl:next-match/>
   </a>
 </xsl:template>

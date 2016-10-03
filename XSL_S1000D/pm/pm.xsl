@@ -158,7 +158,7 @@
   <xsl:variable name="out-file"    select="concat($dmc, '.html')"/>
   <xsl:variable name="out-file-id" select="dmodule/generate-id()"/>
 
-  <Page FileType="FILE" MIMEType="text/html" URL="{$out-file}#{$out-file-id}">
+  <Page FileType="FILE" MIMEType="text/html" URL="{$out-file}#{$out-file-id}" DMC="{@ref}">
     <xsl:attribute name="ID"><xsl:call-template name="genTocID"/></xsl:attribute>
     <xsl:attribute name="Title">
       <xsl:choose>
