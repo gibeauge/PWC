@@ -197,7 +197,7 @@ namespace Amplexor.PWC.Tools.LOEDM
                         continue;
                     
                     // Find what the DM status should be
-                    var newStatus = previousDMInfo.ContainsKey(dmc) ? date > previousDMInfo[dmc] ? DM_CHANGED : DM_UNCHANGED : DM_NEW;
+                    var newStatus = previousDMInfo.ContainsKey(dmc) ? date != previousDMInfo[dmc] ? DM_CHANGED : DM_UNCHANGED : DM_NEW;
                     children[2].Element(ns + "div").SetValue(newStatus); // Updates the XML tree with the status
 
                     if (trace.ContainsKey(dmc)) trace[dmc] = new DMStatus { Old = trace[dmc].Old, Current = date.ToShortDateString(), Status = newStatus };
