@@ -19,7 +19,7 @@
 <xsl:param name="js-path"       select="'javascript'"/>
 
 <xsl:param name="max-expansion-pass-count"  select="number(3)"/>
-<xsl:param name="output-dir"                select="concat('file:///C:/Work/Projects/PWC/Maintenance/data/chunks/_', $doctype, '_',/book/@object-key, '_', /book/@revnbr, '.', /book/@point-revnbr)"/>
+<xsl:param name="output-dir"                select="concat('file:///C:/Work/Projets/PWC/chunks/_', $doctype, '_',/book/@object-key, '_', /book/@revnbr, '.', /book/@point-revnbr)"/>
 
 <xsl:variable name="lang"       select="if (/*/@lang) then /*/@lang else 'EN'"/>
 <xsl:variable name="gen-texts"  select="document('generated_texts.xml')//texts[@language=$lang]"/>
@@ -81,11 +81,20 @@
 
   <!-- debug -->
   <!--
+  <xsl:result-document href="{concat($output-dir, '/XML/tree2.xml')}" method="xml" encoding="utf-8" 
+                         indent="yes" exclude-result-prefixes="ch" omit-xml-declaration="no">
+    <xsl:copy-of select="$tree2"/>
+  </xsl:result-document>
+  <xsl:result-document href="{concat($output-dir, '/XML/tree4.xml')}" method="xml" encoding="utf-8" 
+                         indent="yes" exclude-result-prefixes="ch" omit-xml-declaration="no">
+    <xsl:copy-of select="$tree4"/>
+  </xsl:result-document>
   <xsl:result-document href="{concat($output-dir, '/XML/tree5.xml')}" method="xml" encoding="utf-8" 
                          indent="yes" exclude-result-prefixes="ch" omit-xml-declaration="no">
     <xsl:copy-of select="$tree5"/>
   </xsl:result-document>
   -->
+  
   <result/>
 </xsl:template>
  
@@ -247,12 +256,34 @@
   </xsl:copy>
 </xsl:template>
   
-<xsl:template match="itemspec|marker[not(@id)]" mode="initial-pass-mode" priority="2">
+<xsl:template match="itemspec" mode="initial-pass-mode" priority="2">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
   </xsl:copy>
 </xsl:template>
-   
+
+<xsl:template match="marker[not(@id) or @id='']" mode="initial-pass-mode" priority="4"/>
+
+<xsl:template match="revst" mode="initial-pass-mode" priority="3">
+  <xsl:copy>
+    <xsl:if test="not(preceding::revst[@ref=current()/@ref])">
+      <xsl:copy-of select="@ref"/>
+    </xsl:if>
+    <xsl:apply-templates select="@*[not(name()='ref')]|node()" mode="initial-pass-mode"/>
+  </xsl:copy>
+  <xsl:if test="not(//marker[@id=current()/@ref])">
+    <_ufe:marker id="{@ref}"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="marker" mode="initial-pass-mode" priority="3">
+  <xsl:if test="not(preceding::marker[@id=current()/@id])">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()" mode="initial-pass-mode"/>
+    </xsl:copy>
+  </xsl:if>
+</xsl:template>
+
 <!-- EXPAND GENTEXT MODE : add generated text -->
  
 <xsl:template name="t-expand-gentext">

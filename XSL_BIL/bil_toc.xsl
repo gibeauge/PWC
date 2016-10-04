@@ -22,6 +22,9 @@
   <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</xsl:text>
   <html>
     <head>
+      <meta http-equiv="cache-Control" content="no-cache, no-store, must-revalidate"/>
+      <meta http-equiv="pragma" content="no-cache"/>
+      <meta http-equiv="expires" content="0"/>
       <link href="css/content.css" rel="stylesheet" type="text/css" />
       <link href="css/jstree.css" rel="stylesheet" type="text/css" />
       <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />

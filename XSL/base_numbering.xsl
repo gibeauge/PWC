@@ -413,7 +413,7 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="figure/title" mode="set-countas" priority="41">
+<xsl:template match="figure/title|ipc-fig-reloc/title" mode="set-countas" priority="41">
   <xsl:copy>
      <xsl:choose>
        <xsl:when test="&pb-01;">
@@ -1125,7 +1125,13 @@
 
 <xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" mode="s_numbering" priority="68">
   <xsl:for-each select="..">
-    <xsl:number count="figure[title]" level="single" format="1"/>
+    <xsl:number count="figure[title]|ipc-fig-reloc[title]" level="single" format="1"/>
+  </xsl:for-each>
+</xsl:template>
+
+<xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//ipc-fig-reloc/title" mode="s_numbering" priority="68">
+  <xsl:for-each select="..">
+    <xsl:number count="figure[title]|ipc-fig-reloc[title]" level="single" format="1"/>
   </xsl:for-each>
 </xsl:template>
 
@@ -1242,6 +1248,13 @@
 </xsl:template>
 
 <xsl:template match="book[contains(@doctype, 'ipc')]//figure/title" mode="s_numbering" priority="52">
+  <xsl:param name="do-qmark" select="'yes'"/>
+  <xsl:if test="$do-qmark='yes'">
+     <xsl:value-of select="'?'"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="book[contains(@doctype, 'ipc')]//ipc-fig-reloc/title" mode="s_numbering" priority="52">
   <xsl:param name="do-qmark" select="'yes'"/>
   <xsl:if test="$do-qmark='yes'">
      <xsl:value-of select="'?'"/>

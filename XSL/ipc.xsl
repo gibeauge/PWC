@@ -280,7 +280,19 @@
 </xsl:template>
 
 <xsl:template match="ipc-fig-reloc" priority="0">
-  <xsl:apply-templates/>
+  <!--xsl:apply-templates/-->
+  <xsl:variable name="l-id"><xsl:value-of select="$pf-id"/><xsl:apply-templates mode="set-id" select="."/></xsl:variable>
+  <div style="display:none;" class="x-figure-1-0">
+    <xsl:copy-of select="@ch:*"/>
+    <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
+    <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
+    <div class="pr-figure">
+      <xsl:apply-templates select="title"/>
+    </div>
+  </div>
+  <span class="pr-figure-min">
+    <xsl:apply-templates select="node()[not(self::title) and not(self::figno)]"/>
+  </span>
 </xsl:template>
 
 <xsl:template match="kits" priority="0">
@@ -1128,6 +1140,12 @@
   </div>
 </xsl:template>
 
+<xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//ipc-fig-reloc/title" priority="68">
+  <div ch:title="toc" class="x-title-5-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
+
 <xsl:template match="module[@module-name='Airworthiness_Limits']/pgblk/title" priority="65">
   <div ch:title="notoc" class="x-title-8-0">
     <xsl:call-template name="t-base-div-title"/>
@@ -1159,6 +1177,12 @@
 </xsl:template>
 
 <xsl:template match="book[contains(@doctype, 'ipc')]//figure/title" priority="52">
+  <div ch:title="toc" class="x-title-21-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="book[contains(@doctype, 'ipc')]//ipc-fig-reloc/title" priority="52">
   <div ch:title="toc" class="x-title-21-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>

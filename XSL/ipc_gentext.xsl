@@ -116,6 +116,11 @@
               <xsl:apply-templates mode="ElementContent_All" select="./figure/title"/>
             </_gte:Gentexted-Content-Wrapper>
           </xsl:if>
+          <xsl:if test="./ipc-fig-reloc/title/node()">
+            <_gte:Gentexted-Content-Wrapper>
+              <xsl:apply-templates mode="ElementContent_All" select="./ipc-fig-reloc/title"/>
+            </_gte:Gentexted-Content-Wrapper>
+          </xsl:if>
         </_ufe:fig-title>
       </xsl:with-param>
     </xsl:call-template>

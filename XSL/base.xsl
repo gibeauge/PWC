@@ -900,7 +900,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="figure/figno" priority="1">
+<xsl:template match="figure/figno|ipc-fig-reloc/figno" priority="1">
   <xsl:param name="hidden" select="'yes'"/>
 
   <xsl:if test="$hidden='no'">
@@ -1638,7 +1638,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="marker" priority="0">
+<xsl:template match="marker|_ufe:marker" priority="0">
   <span class="x-marker-1-0">
     <xsl:copy-of select="@ch:*|@id|@xml:id"/>
     <xsl:apply-templates/>
@@ -2577,9 +2577,10 @@
 </xsl:template>
 
 <xsl:template match="revst" priority="0">
-  <div class="x-revst-1-0" id="{@ref}">
+  <div class="x-revst-1-0">
     <xsl:copy-of select="@ch:*"/>
     <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
+    <xsl:if test="@ref"><xsl:attribute name="id" select="@ref"/></xsl:if>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -2875,13 +2876,13 @@
 <xsl:template match="table[@display='expand']" priority="13">
   <div>
   <xsl:attribute name="class">
-  	<xsl:text>x-table-1-0</xsl:text>
-  	<xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+    <xsl:text>x-table-1-0</xsl:text>
+    <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
   </xsl:attribute>
   <xsl:if test="title">
-  	<xsl:attribute name="id">
+    <xsl:attribute name="id">
       <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	</xsl:attribute>
+    </xsl:attribute>
   </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
@@ -2892,51 +2893,51 @@
     <xsl:attribute name="class">
       <xsl:text>x-table-2-0</xsl:text>
       <xsl:if test="ancestor-or-self::page-block[1]/@pb-name='title-page'"> x-table-2-1</xsl:if>
-	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>      
+    <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>      
    </xsl:attribute>
    <xsl:if test="title">
-	  	<xsl:attribute name="id">
+      <xsl:attribute name="id">
           <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-	  	</xsl:attribute>
-  	</xsl:if>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
 </xsl:template>
 
 <xsl:template match="sheet/gdesc/table" priority="9">
   <div>
-  	<xsl:if test="title">
-   	  <xsl:attribute name="id">
+    <xsl:if test="title">
+      <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
-  	  <xsl:attribute name="class">
+      </xsl:attribute>
+      <xsl:attribute name="class">
         <xsl:text>pr-tbl</xsl:text>
-  	  </xsl:attribute>
-  	</xsl:if>
-	<div>
-	  <a href="#none" onclick="toggle('{@id}','{@id}');">
-	    <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
-	    <xsl:text>                   </xsl:text>
-	    <xsl:apply-templates mode="numbering" select="title"/>
-	  </a>
-	</div>
-	<div style="display:none" class="x-table-3-0">
+      </xsl:attribute>
+    </xsl:if>
+  <div>
+    <a href="#none" onclick="toggle('{@id}','{@id}');">
+      <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
+      <xsl:text>                   </xsl:text>
+      <xsl:apply-templates mode="numbering" select="title"/>
+    </a>
+  </div>
+  <div style="display:none" class="x-table-3-0">
        <xsl:call-template name="t-base-div-basic2"/>
-	</div>
-	<xsl:call-template name="t-base-js-toggle"/>
+  </div>
+  <xsl:call-template name="t-base-js-toggle"/>
   </div>
 </xsl:template>
 
 <xsl:template match="highlights/table" priority="10">
   <div>
     <xsl:attribute name="class">
-  	  <xsl:text>x-table-4-0</xsl:text>
-  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+      <xsl:text>x-table-4-0</xsl:text>
+      <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
+      </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
@@ -2944,14 +2945,14 @@
 
 <xsl:template match="figure/table" priority="7">
   <div>
-  	<xsl:if test="title">
-   	  <xsl:attribute name="id">
+    <xsl:if test="title">
+      <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
-  	  <xsl:attribute name="class">
+      </xsl:attribute>
+      <xsl:attribute name="class">
         <xsl:text>pr-tbl</xsl:text>
-  	  </xsl:attribute>
-  	</xsl:if>
+      </xsl:attribute>
+    </xsl:if>
     <div>
       <a href="#none" onclick="toggle('{@id}','{@id}');">
         <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
@@ -2968,14 +2969,14 @@
 
 <xsl:template match="mfmatr//table[title]" priority="8">
   <div>
-  	<xsl:if test="title">
-   	  <xsl:attribute name="id">
+    <xsl:if test="title">
+      <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
-  	  <xsl:attribute name="class">
+      </xsl:attribute>
+      <xsl:attribute name="class">
         <xsl:text>pr-tbl</xsl:text>
-  	  </xsl:attribute>
-  	</xsl:if>
+      </xsl:attribute>
+    </xsl:if>
     <div>
       <a href="#none" onclick="toggle('{@id}','{@id}');">
         <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
@@ -2992,13 +2993,13 @@
 <xsl:template match="mfmatr//table" priority="7">
   <div>
     <xsl:attribute name="class">
-  	  <xsl:text>x-table-7-0</xsl:text>
-  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+      <xsl:text>x-table-7-0</xsl:text>
+      <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
+      </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
@@ -3007,13 +3008,13 @@
 <xsl:template match="table[@tabstyle='eqn' and @display='inline']" priority="6">
   <span style="display:inline-block">
     <xsl:attribute name="class">
-  	  <xsl:text>x-table-8-0</xsl:text>
-  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+      <xsl:text>x-table-8-0</xsl:text>
+      <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
+      </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </span>
@@ -3022,13 +3023,13 @@
 <xsl:template match="table[@tabstyle='IPCDET']" priority="5">
   <div>
     <xsl:attribute name="class">
-  	  <xsl:text>x-table-9-0</xsl:text>
-  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+      <xsl:text>x-table-9-0</xsl:text>
+      <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
+      </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
@@ -3037,13 +3038,13 @@
 <xsl:template match="table[@tabstyle='frac' and parent::item]" priority="4">
   <span style="display:inline-block">
     <xsl:attribute name="class">
-  	  <xsl:text>x-table-10-0</xsl:text>
-  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+      <xsl:text>x-table-10-0</xsl:text>
+      <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
+      </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </span>
@@ -3051,14 +3052,14 @@
 
 <xsl:template match="table[@tabstyle='frac' and (parent::step1 or parent::step2 or parent::step3 or parent::step4 or parent::step5)]" priority="3">
   <span style="display:inline-block">
-  		<xsl:attribute name="class">
-  	  <xsl:text>x-table-11-0</xsl:text>
-  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+      <xsl:attribute name="class">
+      <xsl:text>x-table-11-0</xsl:text>
+      <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
+      </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </span>
@@ -3067,13 +3068,13 @@
 <xsl:template match="table[@tabstyle='frac']" priority="2">
   <span style="display:inline-block">
     <xsl:attribute name="class">
-  	  <xsl:text>x-table-12-0</xsl:text>
-  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+      <xsl:text>x-table-12-0</xsl:text>
+      <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
+      </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </span>
@@ -3082,13 +3083,13 @@
 <xsl:template match="table[@tabstyle='eqn']" priority="1">
   <div>
     <xsl:attribute name="class">
-  	  <xsl:text>x-table-13-0</xsl:text>
-  	  <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
+      <xsl:text>x-table-13-0</xsl:text>
+      <xsl:if test="title"><xsl:text> pr-tbl</xsl:text></xsl:if>
     </xsl:attribute>
     <xsl:if test="title">
       <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
+      </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t-base-div-basic2"/>
   </div>
@@ -3096,14 +3097,14 @@
 
 <xsl:template match="table" priority="0">
   <div>
-  	<xsl:if test="title">
-   	  <xsl:attribute name="id">
+    <xsl:if test="title">
+      <xsl:attribute name="id">
         <xsl:text>pr_</xsl:text><xsl:apply-templates select="." mode="set-id"/>
-  	  </xsl:attribute>
-  	  <xsl:attribute name="class">
+      </xsl:attribute>
+      <xsl:attribute name="class">
         <xsl:text>pr-tbl</xsl:text>
-  	  </xsl:attribute>
-  	</xsl:if>
+      </xsl:attribute>
+    </xsl:if>
     <div>
       <a href="#none" onclick="toggle('{@id}','{@id}');">
         <img alt="table" src="{$images-path}/table.gif" style="border-style:none; display:inline;"/>
@@ -3395,9 +3396,9 @@
 
 <xsl:template match="figure/title" priority="41">
   <div ch:title="notoc">
-   <xsl:attribute name="class">
-    <xsl:text>x-title-32-0</xsl:text>
-   </xsl:attribute>
+    <xsl:attribute name="class">
+      <xsl:text>x-title-32-0</xsl:text>
+    </xsl:attribute>
     <xsl:call-template name="t-base-div-title"/>
   </div>
 </xsl:template>
@@ -4132,7 +4133,7 @@
   <xsl:param name="hidden" select="'yes'"/>
   
   <xsl:variable name="l-ref" select="@ref"/>
-  <xsl:variable name="l-dest-node" select="id($l-ref)"/>
+  <xsl:variable name="l-dest-node" select="//*[@id=$l-ref][1]"/>
   
   <xsl:choose>
     <xsl:when test="not($l-dest-node)">
@@ -4929,7 +4930,8 @@
     <xsl:when test="self::num-index"><xsl:value-of select="$gen-texts//text[@name='num-index-title']"/></xsl:when>
     <xsl:when test="pageblock-title"><xsl:value-of select="pageblock-title"/></xsl:when>
     <xsl:when test="$doctype='emipc' and figure"><xsl:value-of select="concat($gen-texts//text[@name='figure'], ' ', figure[1]/@fignbr)"/></xsl:when>
-    <xsl:when test="$doctype='ipc' and ipc-fig"><xsl:value-of select="concat($gen-texts//text[@name='figure'], ' ', ipc-fig[1]/figure[1]/figno)"/></xsl:when>
+    <xsl:when test="$doctype='ipc' and ipc-fig/figure"><xsl:value-of select="concat($gen-texts//text[@name='figure'], ' ', ipc-fig[1]/figure[1]/figno)"/></xsl:when>
+    <xsl:when test="$doctype='ipc' and ipc-fig/ipc-fig-reloc"><xsl:value-of select="concat($gen-texts//text[@name='figure'], ' ', ipc-fig[1]/ipc-fig-reloc[1]/figno)"/></xsl:when>
     <xsl:otherwise><xsl:value-of select=".//title[1]"/></xsl:otherwise>
   </xsl:choose>
 </xsl:template>

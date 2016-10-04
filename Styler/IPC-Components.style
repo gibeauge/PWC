@@ -402,16 +402,39 @@ id="A3d09a01f-86d2-46c6-9821-3d8d9e6dea00"><_gte:Target lang="en"
 </Context>
 </Element>
 <Element name="ipc-fig" style="block">
-<Context priority="0" selector="ipc-fig">
+<Context priority="6" selector="ipc-fig[figure]">
 <BaseProperties>
 <Breaks blockOrInline="block"/>
 <GeneratedText>
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
-id="A281a41a4-2e47-4925-a885-2c224078b4d7"><_gte:Target lang="en"
+id="Ad0c75011-c618-4a35-8566-d6c099983ca2"><_gte:Target lang="en"
 ><_ufe:fig-title>Figure <_gte:ElementContent occur="1" scope="ipc-fig"
 include="contentOnly" elem="figno"/> <_gte:ElementContent
 include="contentOnly" xpath="./figure/title"/></_ufe:fig-title></_gte:Target
 ></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="3" selector="ipc-fig[ipc-fig-reloc]">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="Aced679b0-4e6f-43f9-a38b-826a6e8af237"><_gte:Target lang="en"
+><_ufe:fig-title>Figure <_gte:ElementContent occur="1" scope="ipc-fig"
+include="contentOnly" elem="figno"/> <_gte:ElementContent
+include="contentOnly" xpath="./ipc-fig-reloc/title"/></_ufe:fig-title
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<Context priority="0" selector="ipc-fig">
+<BaseProperties>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="Aa5ffe4be-1447-4de5-bf48-81b7b89c3795"><_gte:Target lang="en"
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
 </Context>
@@ -422,10 +445,58 @@ include="contentOnly" xpath="./figure/title"/></_ufe:fig-title></_gte:Target
 <Breaks blockOrInline="inline"/></BaseProperties>
 </Context>
 </Element>
-<Element name="ipc-fig-reloc" style="nostyle">
+<Element name="ipc-fig-reloc" style="formalBlock">
 <Context priority="0" selector="ipc-fig-reloc">
-<BaseProperties>
-<Breaks blockOrInline="inline"/></BaseProperties>
+<BaseProperties propertySetReferences="Standard_space">
+<Breaks blockOrInline="block"/></BaseProperties>
+<EditedSource minorVersion="0" productVersion="6.0M011"
+sourceType="xslDmp" stylerVersion="6">&lt;!--Style template for Context: ipc-fig-reloc-->&lt;xsl:template
+name="__style-for_ipc-fig-reloc.1">       &lt;xsl:text> .x-ipc-fig-reloc-1-0
+{margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; margin-top:
+8pt; }&lt;/xsl:text>    &lt;/xsl:template>&lt;!--Template for Context: ipc-fig-reloc-->&lt;xsl:template
+match="ipc-fig-reloc" priority="1">       &lt;div style="display:none;"
+>&lt;!--Emit class values to reflect conditions-->&lt;xsl:attribute
+name="class">             &lt;xsl:text> x-figure-1-0&lt;/xsl:text>     
+    &lt;/xsl:attribute>          &lt;xsl:if test="@xml:lang">          
+  &lt;xsl:attribute name="lang">                &lt;xsl:call-template
+name="return-lang-applying-language-map">
+&lt;xsl:with-param name="doclang" select="@xml:lang">&lt;/xsl:with-param>
+&lt;/xsl:call-template>             &lt;/xsl:attribute>          &lt;/xsl:if
+>          &lt;xsl:copy-of select="@ch:*"/>          &lt;xsl:copy-of
+select="@dmp:*"
+xmlns:dmp="http://www.arbortext.com/namespace/dmp/dmpmap"/>      
+   &lt;xsl:if test="@xml:lang">             &lt;xsl:attribute name="lang"
+>                &lt;xsl:call-template
+name="return-lang-applying-language-map">
+&lt;xsl:with-param name="doclang" select="@xml:lang">&lt;/xsl:with-param>
+&lt;/xsl:call-template>             &lt;/xsl:attribute>          &lt;/xsl:if
+>          &lt;xsl:call-template name="maybe-set-id">
+&lt;xsl:with-param name="only-if-id-attr" select="'no'">&lt;/xsl:with-param>
+&lt;xsl:with-param name="generated-id-prefix" select="'styler-id'">&lt;/xsl:with-param>
+&lt;/xsl:call-template>&lt;xsl:attribute name="id">             &lt;xsl:text
+>styler-id&lt;/xsl:text>             &lt;xsl:apply-templates mode="set-id"
+select=".">&lt;/xsl:apply-templates>         &lt;/xsl:attribute>       
+  &lt;!--Process this element's content-->&lt;xsl:apply-templates
+select="node()[self::title]">&lt;/xsl:apply-templates>       &lt;/div>&lt;br
+>&lt;/br>&lt;xsl:apply-templates
+select="node()[not(self::figno) and not(self::title)]">
+&lt;/xsl:apply-templates>    &lt;/xsl:template>&lt;!--Gentext template for Context: ipc-fig-reloc-->&lt;xsl:template
+match="ipc-fig-reloc" mode="expand-gentext" priority="0">       &lt;xsl:copy
+>          &lt;xsl:apply-templates mode="expand-gentext" select="@*|node()">
+&lt;/xsl:apply-templates>       &lt;/xsl:copy>    &lt;/xsl:template>&lt;!--Initial pass template for Context: ipc-fig-reloc-->&lt;xsl:template
+match="ipc-fig-reloc" mode="initial-pass-mode" priority="0">     
+ &lt;xsl:copy>          &lt;xsl:call-template name="maybe-set-gte-id">
+&lt;/xsl:call-template>          &lt;xsl:apply-templates
+mode="initial-pass-mode" select="@*|node()">&lt;/xsl:apply-templates
+>       &lt;/xsl:copy>    &lt;/xsl:template>&lt;!--Set count-as pass template for Context: ipc-fig-reloc-->&lt;xsl:template
+match="ipc-fig-reloc" mode="set-countas" priority="0">       &lt;xsl:copy
+>          &lt;xsl:apply-templates mode="set-countas" select="@*|node()">
+&lt;/xsl:apply-templates>       &lt;/xsl:copy>    &lt;/xsl:template>&lt;!--Set ch:chunk template for Context: ipc-fig-reloc-->&lt;xsl:template
+match="ipc-fig-reloc" mode="set-ch-chunk" priority="0">       &lt;xsl:copy
+>          &lt;xsl:if test="not(@_gte:did-set-chunk)">             &lt;xsl:attribute
+name="_gte:did-set-chunk">yes&lt;/xsl:attribute>          &lt;/xsl:if> 
+        &lt;xsl:apply-templates mode="set-ch-chunk" select="@*|node()">
+&lt;/xsl:apply-templates>       &lt;/xsl:copy>    &lt;/xsl:template></EditedSource>
 </Context>
 </Element>
 <Element name="kits" style="block">
@@ -2148,7 +2219,6 @@ id="A0dbd22a9-6253-45b1-8bba-ddf802d73e25"><_gte:Target lang="en"
 </Context>
 </Element>
 <!--Rule added to keep the sin element in the HTML. JS 20141114-->
-<?Pub Caret -1?>
 <Element name="sin" style="hidden">
 <Context priority="0" selector="sin">
 <BaseProperties>
@@ -3048,7 +3118,7 @@ tabtoAfter="0em" tocLevel="10"/>
 <TocEntry tocLevel="3" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry3_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry3_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3059,7 +3129,7 @@ tabtoAfter="4em" tocLevel="3"/></TocEntry>
 <TocEntry tocLevel="2" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry2_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry2_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3070,7 +3140,7 @@ tabtoAfter="2em" tocLevel="2"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3081,7 +3151,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3094,7 +3164,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 ><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
 ></_sfe:TocLabel_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry5_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="8em" followWith="space" includeLabel="yes"
@@ -3107,7 +3177,7 @@ tabtoAfter="0em" tocLevel="5"/></TocEntry>
 ><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
 ></_sfe:TocLabel_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry5_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="8em" followWith="space" includeLabel="yes"
@@ -3118,7 +3188,7 @@ tabtoAfter="0em" tocLevel="5"/></TocEntry>
 <TocEntry tocLevel="4" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry4_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry4_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3129,7 +3199,7 @@ tabtoAfter="6em" tocLevel="4"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3141,7 +3211,7 @@ titleContextSelector="frontmatter//module/pageblock-title">
 <TocEntry tocLevel="2" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry2_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry2_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3152,7 +3222,7 @@ tabtoAfter="2em" tocLevel="2"/></TocEntry>
 <TocEntry tocLevel="4" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry4_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry4_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3163,7 +3233,7 @@ tabtoAfter="6em" tocLevel="4"/></TocEntry>
 <TocEntry tocLevel="2" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry2_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry2_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3174,7 +3244,7 @@ tabtoAfter="2em" tocLevel="2"/></TocEntry>
 <TocEntry tocLevel="2" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry2_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry2_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3185,7 +3255,7 @@ tabtoAfter="2em" tocLevel="2"/></TocEntry>
 <TocEntry tocLevel="2" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry2_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry2_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3196,7 +3266,7 @@ tabtoAfter="2em" tocLevel="2"/></TocEntry>
 <TocEntry tocLevel="2" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry2_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry2_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3207,7 +3277,7 @@ tabtoAfter="2em" tocLevel="2"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3218,7 +3288,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="2" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry2_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry2_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3231,7 +3301,7 @@ tabtoAfter="2em" tocLevel="2"/></TocEntry>
 ><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
 ></_sfe:TocLabel_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry5_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="8em" followWith="space" includeLabel="yes"
@@ -3244,7 +3314,7 @@ tabtoAfter="0em" tocLevel="5"/></TocEntry>
 ><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
 ></_sfe:TocLabel_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry5_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="8em" followWith="space" includeLabel="yes"
@@ -3257,7 +3327,7 @@ tabtoAfter="0em" tocLevel="5"/></TocEntry>
 ><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
 ></_sfe:TocLabel_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry5_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="8em" followWith="space" includeLabel="yes"
@@ -3269,7 +3339,7 @@ titleContextSelector="ata-page-block//fixtures-and-equipment//_ufe:fixequ-title"
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3281,7 +3351,7 @@ titleContextSelector="page-block//fixtures-and-equipment//_ufe:fixequ-title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3293,7 +3363,7 @@ titleContextSelector="page-block//consumables//_ufe:consumables-title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3305,7 +3375,7 @@ titleContextSelector="ata-page-block//consumables//_ufe:consumables-title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3317,7 +3387,7 @@ titleContextSelector="page-block//general//_ufe:general-title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3329,7 +3399,7 @@ titleContextSelector="ata-page-block//general//_ufe:general-title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3341,7 +3411,7 @@ titleContextSelector="page-block//special-tools//_ufe:spectools-title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3353,7 +3423,7 @@ titleContextSelector="ata-page-block//special-tools//_ufe:spectools-title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3366,7 +3436,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 ><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
 ></_sfe:TocLabel_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry5_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="8em" followWith="space" includeLabel="yes"
@@ -3377,7 +3447,7 @@ tabtoAfter="0em" tocLevel="5"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3389,7 +3459,7 @@ titleContextSelector="book[contains(@doctype, 'ipc')]/frontmatter//figure/title"
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3401,7 +3471,7 @@ titleContextSelector="book[contains(@doctype, 'ipc')]//figure/title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3412,7 +3482,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3423,7 +3493,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3434,7 +3504,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3445,7 +3515,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3456,7 +3526,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3467,7 +3537,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3478,7 +3548,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3491,7 +3561,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 ><_gte:LabelAndNumberMarker><_gte:ElementLabelAndNumber/></_gte:LabelAndNumberMarker
 ></_sfe:TocLabel_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry5_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="8em" followWith="space" includeLabel="yes"
@@ -3503,7 +3573,7 @@ titleContextSelector="page-block[@pb-name='record-of-revisions']//n-para/title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3514,7 +3584,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3525,7 +3595,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3536,7 +3606,7 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
 <TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
 ><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
+><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit"
 minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
 ></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
@@ -3545,11 +3615,19 @@ tabtoAfter="0em" tocLevel="1"/></TocEntry>
 </TocTitleContext>
 <TocTitleContext titleContextSelector="_ufe:pdlist-title">
 <TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
-<TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents
-><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents
-><_gte:Leaders leaderType="dots" lenType="fit" leaderSpacing="3pt"
-minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents
-></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
+<TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents>
+<_sfe:TocPage_Table_of_Contents><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
+<TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes" indentFollowing="4em" numberAlignment="left" numbered="no" tabtoAfter="0em" tocLevel="1"/></TocEntry></TocTitleContext>
+<TocTitleContext titleContextSelector="book[contains(@doctype, 'ipc')]/frontmatter//ipc-fig-reloc/title">
+<TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
+<TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents>
+<_sfe:TocPage_Table_of_Contents><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents></_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
+<TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes" indentFollowing="4em" numberAlignment="left" numbered="no" tabtoAfter="0em" tocLevel="1"/></TocEntry>
+</TocTitleContext>
+<TocTitleContext titleContextSelector="book[contains(@doctype, 'ipc')]//ipc-fig-reloc/title">
+<TocEntry tocLevel="1" tocNameReference="Table_of_Contents">
+<TocEntryContents><_sfe:TocEntry1_Table_of_Contents><_sfe:TocTitle_Table_of_Contents><_gte:ElementContent/></_sfe:TocTitle_Table_of_Contents><_sfe:TocPage_Table_of_Contents><_gte:Leaders leaderType="dots" leaderSpacing="3pt" lenType="fit" minLen="3pc"/><_gte:PageNumberReference/></_sfe:TocPage_Table_of_Contents>
+</_sfe:TocEntry1_Table_of_Contents></TocEntryContents>
 <TocLevelIndent alignAt="0em" followWith="tab" includeLabel="yes"
 indentFollowing="4em" numberAlignment="left" numbered="no"
 tabtoAfter="0em" tocLevel="1"/></TocEntry>

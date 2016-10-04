@@ -411,7 +411,7 @@ function addChangebarsByDocument(doc){
 //            var calcHeight = 0;
             var siblingCount = 0;
 //            var calcAlert = "";
-            while(sibling.nodeType != null){
+            while(sibling != null && sibling.nodeType != null){
                 
                 if(sibling.className != null){
                     if(sibling.className.indexOf("x-revend") >= 0

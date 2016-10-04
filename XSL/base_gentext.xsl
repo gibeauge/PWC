@@ -269,7 +269,7 @@
     
   <xsl:template match="address/att" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-att']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-att']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
     
@@ -452,7 +452,7 @@
   <xsl:template match="email" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content">
-        <xsl:value-of select="$gen-texts//text[@name='address-email']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/>
+        <xsl:value-of select="$gen-texts//text[@name='address-email']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/>
         <_ufe:email-link>
           <xsl:if test="string(.)">
             <xsl:attribute name="email">
@@ -500,7 +500,7 @@
   
   <xsl:template match="address/fax" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-fax']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-fax']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1285,7 +1285,7 @@
     
   <xsl:template match="address/ref" mode="gentext" priority="1">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-ref']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-ref']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1629,7 +1629,7 @@
   
   <xsl:template match="address/tel[1]" mode="gentext" priority="2">
     <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-tel']"/><xsl:value-of select="$gen-texts//text[@name='sep-1']"/></xsl:with-param>
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='address-tel']"/><xsl:value-of select="$gen-texts//text[@name='sep1']"/></xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -1672,6 +1672,12 @@
   </xsl:template>
   
   <xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//figure/title" mode="gentext" priority="68">
+    <xsl:call-template name="expand-gentext">
+      <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template match="book[contains(@doctype, 'ipc')]/frontmatter//ipc-fig-reloc/title" mode="gentext" priority="68">
     <xsl:call-template name="expand-gentext">
       <xsl:with-param name="content"><xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text><xsl:call-template name="t-styler-numbering"/><xsl:text>&#xa0;</xsl:text></xsl:with-param>
     </xsl:call-template>
@@ -1784,7 +1790,23 @@
         </xsl:if>
         <xsl:text> </xsl:text>
       </xsl:with-param>
-    </xsl:call-template>    
+    </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template match="book[contains(@doctype, 'ipc')]//ipc-fig-reloc/title" mode="gentext" priority="52">
+    <xsl:call-template name="expand-gentext">
+      <xsl:with-param name="content">
+        <xsl:value-of select="$gen-texts//text[@name='figure']"/><xsl:text> </xsl:text>
+        <xsl:if test="(ancestor-or-self::ipc-fig-reloc[1]//figno)[1]/*|(ancestor-or-self::ipc-fig-reloc[1]//figno)[1]/text()|(ancestor-or-self::ipc-fig-reloc[1]//figno)[1]/processing-instruction()">
+          <_gte:Gentexted-Content-Wrapper>
+            <xsl:apply-templates mode="gentext" select="(ancestor-or-self::ipc-fig-reloc[1]//figno)[1]/*|(ancestor-or-self::ipc-fig-reloc[1]//figno)[1]/text()|(ancestor-or-self::ipc-fig-reloc[1]//figno)[1]/processing-instruction()">
+              <xsl:with-param name="skip-expanded-gentext" select="'yes'"/>
+            </xsl:apply-templates>
+          </_gte:Gentexted-Content-Wrapper>
+        </xsl:if>
+        <xsl:text> </xsl:text>
+      </xsl:with-param>
+    </xsl:call-template>
   </xsl:template>
   
   <xsl:template match="task//table/title" mode="gentext" priority="51">

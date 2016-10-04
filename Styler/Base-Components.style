@@ -10567,6 +10567,29 @@ id="A821aa2a7-3b2e-49e8-95be-821cf3facea6"><_gte:Target lang="en"
 </GeneratedText>
 </BaseProperties>
 </Context>
+<!-- Added by GBE - R-028 -->
+<Context priority="51.505"
+selector="book[contains(@doctype, 'ipc')]/frontmatter//ipc-fig-reloc/title">
+<BaseProperties>
+<Font size="14pt" weight="bold"/>
+<Indent firstLineIndent="*-0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A93e9c921-d019-4930-b30f-985c0bd7dca8"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+display="Figure 1"/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target
+></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberStyle="1" tabtoAfter="0pt">
+<LabelAndNumber><_gte:Translate translate="on"
+id="Ad385e270-c823-4a31-8479-88030ded6cb2"><_gte:Target lang="en"
+>Figure <_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<!-- End added by GBE - R-028 -->
 <Context priority="50.01" selector="ata-page-block//task/graphic/title">
 <BaseProperties>
 <Font size="14pt" weight="bold"/>
@@ -11694,8 +11717,22 @@ id="Ad75dfba2-cedc-4a05-ae95-2a067bf233c6"><_gte:Target lang="en"
 include="contentOnly" elem="figno"/>&#x2003;</_gte:Target></_gte:Translate
 ></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
+<!-- Added by GBE - R-028 -->
+<Context priority="31.52"
+selector="book[contains(@doctype, 'ipc')]//ipc-fig-reloc/title">
+<BaseProperties>
+<Font size="14pt" weight="bold"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A0a92758f-5f1b-4a6f-bd08-2d3618333cec"><_gte:Target lang="en"
+>Figure <_gte:ElementContent occur="1" scope="ipc-fig-reloc"
+include="contentOnly" elem="figno"/>&#x2003;</_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+</GeneratedText>
 </BaseProperties>
 </Context>
+<!-- End added by GBE - R-028 -->
 <Context priority="30.04" selector="task//table/title">
 <BaseProperties
 propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space">
@@ -13677,7 +13714,34 @@ id="A3305c126-2a1b-4bbb-9ee9-9b51c57eaae0"><_gte:Target lang="en"
 </BaseProperties>
 </Condition>
 </Conditions>
+<!-- Added by GBE - R-028 -->
 </Context>
+<Context priority="20.1975" selector="ipc-fig-reloc/title">
+<BaseProperties
+propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space">
+<Indent firstLineIndent="*0pt" leftIndent="@0pt"/>
+<Breaks blockOrInline="block"/>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="off"
+id="A2c137a50-fb10-487c-bd6c-6d7657c29c7a"><_gte:Target lang="en"
+><_gte:LabelAndNumberMarker><_gte:Font><_gte:ElementLabelAndNumber
+/></_gte:Font></_gte:LabelAndNumberMarker></_gte:Target></_gte:Translate
+></_sfe:BeforeOrAfterText></AddBefore>
+<RepeatingTitle><_sfe:Gentext><_sfe:RepeatingTitle><_gte:Translate
+translate="on" id="A1fb4fb21-bbfa-4d6a-99f1-89059b0903c5"><_gte:Target
+lang="en"><_gte:ElementLabelAndNumber/><_gte:Leaders leaderType="space"
+lenType="specified" specLen="1em"/><_gte:ElementContent/> (cont'd.)</_gte:Target
+></_gte:Translate></_sfe:RepeatingTitle></_sfe:Gentext></RepeatingTitle>
+<Numbering alignAt="0pt" followWith="space" format="(CURRENT)"
+numberAlignment="left" numberScope="(none)" numberStyle="1">
+<LabelAndNumber><_gte:Translate translate="off"
+id="Ad8bf3870-3ca9-4c4a-a6a9-b4137329ed16"><_gte:Target lang="en"
+><_gte:ElementNumber/></_gte:Target></_gte:Translate></LabelAndNumber>
+</Numbering>
+</GeneratedText>
+</BaseProperties>
+</Context>
+<!-- End added by GBE - R-028 -->
 <Context priority="20.195" selector="pbfmatr/title"><?Pub Dtl?>
 <BaseProperties>
 <Hidden hidden="yes"/>

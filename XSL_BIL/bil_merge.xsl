@@ -65,6 +65,26 @@
 
 <!-- ** FOR PORTUGUESE PROJECT ** -->
 
+<xsl:template match="div[contains(@class, 'x-pageblock-front-')]">
+  <xsl:call-template name="main-table"/>
+</xsl:template>
+
+<xsl:template match="div[contains(@class, 'x-general-')]">
+  <xsl:call-template name="main-table-object"/>
+</xsl:template>
+
+<xsl:template match="div[contains(@class, 'x-consumables-')]">
+  <xsl:call-template name="main-table-object"/>
+</xsl:template>
+
+<xsl:template match="div[contains(@class, 'x-special-tools-')]">
+  <xsl:call-template name="main-table-object"/>
+</xsl:template>
+
+<xsl:template match="div[contains(@class, 'x-fixtures-and-equipment-')]">
+  <xsl:call-template name="main-table-object"/>
+</xsl:template>
+
 <xsl:template match="div[contains(@class, 'x-n-para-')]">
   <xsl:call-template name="main-table"/>
 </xsl:template>
@@ -109,6 +129,20 @@
   </xsl:copy>
 </xsl:template>
 
+<xsl:template match="div[contains(@class, 'x-figure-')]/*/div[contains(@class, 'block-prespace') and text()]" priority="5">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+    <span class="graphic-title-trans">
+      <xsl:text> / </xsl:text>
+      <xsl:call-template name="get-translated-object">
+        <xsl:with-param name="from-parent" select="'1'"/>
+        <xsl:with-param name="class" select="'block-prespace'"/>
+        <xsl:with-param name="text-only" select="'1'"/>
+      </xsl:call-template>
+    </span>
+  </xsl:copy>
+</xsl:template>
+
 <xsl:template match="div[contains(@class, 'x-key-')]/span[contains(@class, 'x-def-')]" priority="5">
   <xsl:variable name="class" select="@class"/>
   <xsl:copy>
@@ -126,26 +160,26 @@
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="div[contains(@class, 'x-figure-')]/*/div[contains(@class, 'x-sheet-')]//div[contains(@class, 'pr-tbl')]" priority="5">
+<xsl:template match="_div[contains(@class, 'x-figure-')]/*/div[contains(@class, 'x-sheet-')]//div[contains(@class, 'pr-tbl')]" priority="5">
   <xsl:copy>
     <xsl:apply-templates select="@*|node()"/>
   </xsl:copy>
   <xsl:call-template name="get-translated-object"/>
 </xsl:template>
 
-<xsl:template match="div[ancestor::html[.//div[contains(@class, 'x-n-para-')]] and contains(@class, 'x-module-') and not(div[contains(@class, 'x-n-para-')])]" priority="5">
+<xsl:template match="_div[ancestor::html[.//div[contains(@class, 'x-n-para-')]] and contains(@class, 'x-module-') and not(div[contains(@class, 'x-n-para-')])]" priority="5">
   <xsl:call-template name="main-table"/>
 </xsl:template>
 
-<xsl:template match="div[ancestor::html[.//div[contains(@class, 'x-n-para-')]] and contains(@class, 'x-module-') and not(div[contains(@class, 'x-n-para-')])]/div[@class='pr-brk']" priority="5">
+<xsl:template match="_div[ancestor::html[.//div[contains(@class, 'x-n-para-')]] and contains(@class, 'x-module-') and not(div[contains(@class, 'x-n-para-')])]/div[@class='pr-brk']" priority="5">
   <xsl:call-template name="main-table-cells-merged"/>
 </xsl:template>
 
-<xsl:template match="div[ancestor::html[.//div[contains(@class, 'x-n-para-')]] and contains(@class, 'x-module-') and not(div[contains(@class, 'x-n-para-')])]/div[contains(@class,'x-figure')]" priority="5">
+<xsl:template match="_div[ancestor::html[.//div[contains(@class, 'x-n-para-')]] and contains(@class, 'x-module-') and not(div[contains(@class, 'x-n-para-')])]/div[contains(@class,'x-figure')]" priority="5">
   <xsl:call-template name="main-table-cells-merged"/>
 </xsl:template>
 
-<xsl:template match="div[ancestor::html[.//div[contains(@class, 'x-n-para-')]] and contains(@class, 'x-module-') and not(div[contains(@class, 'x-n-para-')])]/*" priority="4">
+<xsl:template match="_div[ancestor::html[.//div[contains(@class, 'x-n-para-')]] and contains(@class, 'x-module-') and not(div[contains(@class, 'x-n-para-')])]/*" priority="4">
   <xsl:call-template name="main-table-object"/>
 </xsl:template>
 
