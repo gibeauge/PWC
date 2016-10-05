@@ -81,6 +81,40 @@ namespace EuCA.Pwc.Pub
 
         #endregion
 
+        #region PreProcessedFileOrig
+
+        private string _preProcessedFileOrig = string.Empty;
+
+        public string PreProcessedFileOrig
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_preProcessedFileOrig))
+                    _preProcessedFileOrig = Path.Combine(DirOrig, Path.GetFileNameWithoutExtension(TempFileOrig) + "_2.xml");
+
+                return _preProcessedFileOrig;
+            }
+        }
+
+        #endregion
+
+        #region PreProcessedFileTrad
+
+        private string _preProcessedFileTrad = string.Empty;
+
+        public string PreProcessedFileTrad
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_preProcessedFileTrad))
+                    _preProcessedFileTrad = Path.Combine(DirTrad, Path.GetFileNameWithoutExtension(TempFileTrad) + "_2.xml");
+
+                return _preProcessedFileTrad;
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Language of the XML source file
         /// </summary>
@@ -319,6 +353,12 @@ namespace EuCA.Pwc.Pub
             }
         }
 
+        #endregion
+        
+        #region Schema
+
+        public string Schema { get; set; } 
+        
         #endregion
     }
 }

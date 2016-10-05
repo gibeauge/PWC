@@ -68,7 +68,12 @@ namespace EuCA.Pwc.Pub
             progress.Report(new ProgressEventArgs { Message = "Pre-processing translation XML", Value = 2 });
             _logger.Debug("Preprocess XML translated file");
             PreprocessTranslation(parameters, progress, cancellationToken);
-            
+
+            // 2.α. Extract schema info
+            progress.Report(new ProgressEventArgs { Message = "Extracting XML schema information", Value = 2 });
+            _logger.Debug("Extracting XML schema information");
+            ExtractXMLSchema(parameters, progress, cancellationToken);
+
             // 3a. Generate source HTML files
             progress.Report(new ProgressEventArgs { Message = "Generating source HTML", Value = 2 });
             _logger.Debug("Generating source HTML files");
@@ -119,7 +124,7 @@ namespace EuCA.Pwc.Pub
 
             progress.Report(new ProgressEventArgs { Message = "Publicaton process end.", Value = 100 });
         }
-
+        
         /// <summary>
         /// Copy source data to a local folder, to avoid UNC problems with saxon
         /// </summary>
@@ -196,7 +201,7 @@ namespace EuCA.Pwc.Pub
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform " +
                 "-s:\"" + p.TempFileOrig + "\" " +
                 "-xsl:\"" + p.DirXslBil + "\\preprocess.xsl\" " +
-                "-o:\"" + Path.Combine(p.DirOrig, Path.GetFileNameWithoutExtension(p.TempFileOrig) + "_2.xml") + "\"";
+                "-o:\"" + p.PreProcessedFileOrig + "\"";
 
             RunProcess(cmd);
         }
@@ -217,11 +222,31 @@ namespace EuCA.Pwc.Pub
                "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform " +
                "-s:\"" + p.TempFileTrad + "\" " +
                "-xsl:\"" + p.DirXslBil + "\\preprocess.xsl\" " +
-               "-o:\"" + Path.Combine(p.DirTrad, Path.GetFileNameWithoutExtension(p.TempFileTrad) + "_2.xml") + "\"";
+               "-o:\"" + p.PreProcessedFileTrad + "\"";
 
             RunProcess(cmd);
         }
+        
+        /// <summary>
+        /// Extract the name of the xml schema from the preprocessed source file
+        /// </summary>
+        /// <param name="p">Paramters of the publication</param>
+        /// <param name="progress">Progress notifier</param>
+        /// <param name="cancellationToken">Cancellation token for the thread</param>
+        private void ExtractXMLSchema(ProcessParameters p, IProgress<ProgressEventArgs> progress, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
 
+            var outputPath =
+                new Uri(Path.Combine(Path.GetDirectoryName(p.TempFileOrig), Path.GetFileNameWithoutExtension(p.TempFileOrig)) + "_schema.txt").LocalPath;
+
+            var cmd =
+                "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Query " +
+                "-qs:doc('" + new Uri(p.PreProcessedFileOrig).AbsoluteUri + "')/book/@xsi:noNamespaceSchemaLocation/string() !method=text";
+
+            p.Schema = RunProcess(cmd);
+        }
+        
         /// <summary>
         /// Generate the HTMl for the source file
         /// </summary>
@@ -235,7 +260,7 @@ namespace EuCA.Pwc.Pub
             var cmd =
                 "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform " +
                 "-s:\"" + Path.Combine(p.DirOrig, Path.GetFileNameWithoutExtension(p.TempFileOrig) + "_2.xml") + "\" " +
-                "-xsl:\"" + p.DirXsl + "\\jmtosmigrate.xsl\" " +
+                "-xsl:\"" + p.DirXsl + "\\" + p.Schema.Substring(0, p.Schema.Length - 3) + "xsl\" " +
                 "-o:\"" + Path.GetFileNameWithoutExtension(p.TempFileOrig) + ".html\" " +
                 "output-dir=\"" + new Uri(p.DirOrig).AbsoluteUri  + "\"";
 
@@ -258,7 +283,7 @@ namespace EuCA.Pwc.Pub
             var cmd =
                "/c java -cp \"./lib/java/saxonb9-1-0-8j/saxon9.jar\" net.sf.saxon.Transform " +
                "-s:\"" + Path.Combine(p.DirTrad, Path.GetFileNameWithoutExtension(p.TempFileTrad) + "_2.xml") + "\" " +
-               "-xsl:\"" + p.DirXsl + "\\jmtosmigrate.xsl\" " +
+               "-xsl:\"" + p.DirXsl + "\\" + p.Schema.Substring(0, p.Schema.Length - 3) + "xsl\" " +
                "-o:\"" + Path.GetFileNameWithoutExtension(p.TempFileTrad) + ".html\" " +
                "output-dir=\"" + new Uri(p.DirTrad).AbsoluteUri + "\"";
 
