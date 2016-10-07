@@ -506,12 +506,12 @@
   <div>
      <xsl:copy-of select="@ch:*"/>
      <xsl:apply-templates select="_sfe:BeforeOrAfterText[not(preceding-sibling::*)]"/>
-     <xsl:apply-templates select="_ufe:chapsect-title|_ufe:cir-title|_ufe:consumables-title|_ufe:eipc-title|_ufe:em-title|_ufe:fixequ-title|_ufe:general-title|_ufe:glossary-title|_ufe:howtouse-title|_ufe:intro-title|manual-title|_ufe:num-index-title|_ufe:nut-option-title|_ufe:pdlist-title|pwc-title|_ufe:sblist-title|_ufe:spblist-title|_ufe:spectools-title|_ufe:supplier-list-title|_ufe:task-title|_ufe:temp-rev-title|title|_ufe:tmm-title"/>
+     <xsl:apply-templates select="_ufe:chapsect-title|_ufe:cir-title|_ufe:consumables-title|_ufe:eipc-title|_ufe:em-title|_ufe:fixequ-title|_ufe:general-title|_ufe:glossary-title|_ufe:howtouse-title|_ufe:intro-title|manual-title|_ufe:num-index-title|_ufe:nut-option-title|_ufe:pdlist-title|pwc-title|pwcepc-apu-title|_ufe:sblist-title|_ufe:spblist-title|_ufe:spectools-title|_ufe:supplier-list-title|_ufe:task-title|_ufe:temp-rev-title|title|_ufe:tmm-title"/>
      <dl class="x-chapsect-list-1-0">
         <xsl:call-template name="maybe-set-id"/>
         <xsl:apply-templates select="chapsect-item|chapsect"/>
      </dl>
-     <xsl:apply-templates select="*[not(self::_sfe:BeforeOrAfterText|self::_ufe:chapsect-title|self::_ufe:cir-title|self::_ufe:consumables-title|self::_ufe:eipc-title|self::_ufe:em-title|self::_ufe:fixequ-title|self::_ufe:general-title|self::_ufe:glossary-title|self::_ufe:howtouse-title|self::_ufe:intro-title|self::manual-title|self::_ufe:num-index-title|self::_ufe:nut-option-title|self::_ufe:pdlist-title|self::pwc-title|self::_ufe:sblist-title|self::_ufe:spblist-title|self::_ufe:spectools-title|self::_ufe:supplier-list-title|self::_ufe:task-title|self::_ufe:temp-rev-title|self::title|self::_ufe:tmm-title|self::chapsect-item|self::chapsect|self::chapsect-title)]"/>
+     <xsl:apply-templates select="*[not(self::_sfe:BeforeOrAfterText|self::_ufe:chapsect-title|self::_ufe:cir-title|self::_ufe:consumables-title|self::_ufe:eipc-title|self::_ufe:em-title|self::_ufe:fixequ-title|self::_ufe:general-title|self::_ufe:glossary-title|self::_ufe:howtouse-title|self::_ufe:intro-title|self::manual-title|self::_ufe:num-index-title|self::_ufe:nut-option-title|self::_ufe:pdlist-title|self::pwc-title|self::pwcepc-apu-title|self::_ufe:sblist-title|self::_ufe:spblist-title|self::_ufe:spectools-title|self::_ufe:supplier-list-title|self::_ufe:task-title|self::_ufe:temp-rev-title|self::title|self::_ufe:tmm-title|self::chapsect-item|self::chapsect|self::chapsect-title)]"/>
      <xsl:apply-templates select="_sfe:BeforeOrAfterText[not(following-sibling::*)][preceding-sibling::*]"/>
   </div>
 </xsl:template>
@@ -1791,7 +1791,7 @@
   <div class="x-page-block-1-0">
     <xsl:call-template name="t-base-page-block-spec">
       <xsl:with-param name="manual-title" select="'ILLUSTRATED PARTS CATALOG'"/>
-      <xsl:with-param name="engine"       select="./module/pwc-title/pwc-model/modelspec"/>
+      <xsl:with-param name="engine"       select="./module/pwc-title/pwc-model/modelspec|./module/pwcepc-apu-title/pwc-model/modelspec"/>
       <xsl:with-param name="manual-pn"    select="ancestor::book/@manualpnr"/>
     </xsl:call-template>
   </div>
@@ -4673,8 +4673,8 @@
   <xsl:call-template name="t-base-pwcmetainfo"/>
   <div id="pwcbannerinfo" style="display:none">
     <div id="manualTitle"><xsl:value-of select="$manual-title"/></div>
-    <div id="engine"     >Model(s) <xsl:value-of select="substring-after($engine, 'Model(s)')"/></div>
-    <div id="manualPn"   >Manual Part No. <xsl:value-of select="substring-after($manual-pn, 'Manual Part No.')"/></div>
+    <div id="engine"     >Model(s) <xsl:value-of select="if (contains($engine, 'Model(s)')) then substring-after($engine, 'Model(s)') else $engine"/></div>
+    <div id="manualPn"   >Manual Part No. <xsl:value-of select="if (contains($manual-pn, 'Manual Part No.')) then substring-after($manual-pn, 'Manual Part No.') else $manual-pn"/></div>
     <div id="pointRev"   ><xsl:value-of select="ancestor::book/@point-revnbr"/></div>
     <div id="revision"   ><xsl:value-of select="ancestor::book/@revnbr"/></div>
     <div id="revDate"    ><xsl:value-of select="ancestor::book/@revdate"/></div>
@@ -4840,8 +4840,11 @@
     </div>
     <div id="engine">
        <xsl:choose>
-          <xsl:when test="ancestor::book[contains(@doctype,'epc')]//page-block[@pb-name='title-page']">
+          <xsl:when test="ancestor::book[contains(@doctype,'epc')]//page-block[@pb-name='title-page']/module/pwc-title">
              <xsl:text>Model(s) </xsl:text><xsl:value-of select="//page-block[@pb-name='title-page'][1]/module/pwc-title/pwc-model/modelspec"/>
+          </xsl:when>
+          <xsl:when test="ancestor::book[contains(@doctype,'epc')]//page-block[@pb-name='title-page']/module/pwcepc-apu-title">
+             <xsl:text>Model(s) </xsl:text><xsl:value-of select="//page-block[@pb-name='title-page'][1]/module/pwcepc-apu-title/pwc-model/modelspec"/>
           </xsl:when>
           <xsl:when test="ancestor::book[contains(@doctype,'tmm') or contains(@doctype,'em') or contains(@doctype,'cir')]//page-block[@pb-name='title-page']">
              <xsl:text>Model(s) </xsl:text><xsl:value-of select="//page-block[@pb-name='title-page'][1]/module/mfmatr/pwcem-title/@model"/>

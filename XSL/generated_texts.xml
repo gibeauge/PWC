@@ -57,6 +57,7 @@
 <text name="nut-option-title">NUT OPTIONS</text>
 <text name="opt-pn">SEE TABLE FOR OPTIONAL PART NUMBERS</text>
 <text name="orig-date">Original Issue date</text>
+<text name="part-no">Part No.</text> <!-- TODO: MISSING TRANSLATION -->
 <text name="pdlist-title">PARTS DIGEST LIST</text>
 <text name="pntype-field">Field reidentification P/N</text>
 <text name="pntype-rew">Reworked from P/N</text>

@@ -9,7 +9,7 @@
   version="1.0" 
   exclude-result-prefixes="#default _ufe _sfe _gte">
 
-<xsl:template match="pwc-title" mode="s_numbering" priority="0">
+<xsl:template match="pwc-title|pwcepc-apu-title" mode="s_numbering" priority="0">
   <xsl:param name="do-qmark" select="'yes'"/>
   <xsl:if test="$do-qmark='yes'">
      <xsl:value-of select="'?'"/>

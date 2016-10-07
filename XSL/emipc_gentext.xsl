@@ -26,11 +26,13 @@
   </xsl:template>
 
   <xsl:template match="buildspec" mode="gentext" priority="0">
-    <xsl:call-template name="expand-gentext">
-      <xsl:with-param name="content">
-        <xsl:value-of select="$gen-texts//text[@name='buildspec']"/><xsl:text> </xsl:text>
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:if test="node()">
+      <xsl:call-template name="expand-gentext">
+        <xsl:with-param name="content">
+          <xsl:value-of select="$gen-texts//text[@name='buildspec']"/><xsl:text> </xsl:text>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="dd" mode="gentext" priority="0">
@@ -255,7 +257,7 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="pwc-title" mode="gentext" priority="0">
+  <xsl:template match="pwc-title|pwcepc-apu-title" mode="gentext" priority="0">
     <xsl:call-template name="expand-gentext3">
       <xsl:with-param name="content-before">
         <_ufe:engine-type>

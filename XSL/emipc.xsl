@@ -137,12 +137,12 @@
   <div>
      <xsl:copy-of select="@ch:*"/>
      <xsl:apply-templates select="_sfe:BeforeOrAfterText[not(preceding-sibling::*)]"/>
-     <xsl:apply-templates select="_ufe:chapsect-title|_ufe:cir-title|_ufe:consumables-title|_ufe:eipc-title|_ufe:em-title|_ufe:fixequ-title|_ufe:general-title|_ufe:glossary-title|_ufe:howtouse-title|_ufe:intro-title|manual-title|_ufe:num-index-title|_ufe:nut-option-title|_ufe:pdlist-title|pwc-title|_ufe:sblist-title|_ufe:spblist-title|_ufe:spectools-title|_ufe:supplier-list-title|_ufe:task-title|_ufe:temp-rev-title|title|_ufe:tmm-title"/>
+     <xsl:apply-templates select="_ufe:chapsect-title|_ufe:cir-title|_ufe:consumables-title|_ufe:eipc-title|_ufe:em-title|_ufe:fixequ-title|_ufe:general-title|_ufe:glossary-title|_ufe:howtouse-title|_ufe:intro-title|manual-title|_ufe:num-index-title|_ufe:nut-option-title|_ufe:pdlist-title|pwc-title|pwcepc-apu-title|_ufe:sblist-title|_ufe:spblist-title|_ufe:spectools-title|_ufe:supplier-list-title|_ufe:task-title|_ufe:temp-rev-title|title|_ufe:tmm-title"/>
      <dl class="x-glossary-1-0">
         <xsl:call-template name="maybe-set-id"/>
         <xsl:apply-templates select="glosdata|term"/>
      </dl>
-     <xsl:apply-templates select="*[not(self::_sfe:BeforeOrAfterText|self::_ufe:chapsect-title|self::_ufe:cir-title|self::_ufe:consumables-title|self::_ufe:eipc-title|self::_ufe:em-title|self::_ufe:fixequ-title|self::_ufe:general-title|self::_ufe:glossary-title|self::_ufe:howtouse-title|self::_ufe:intro-title|self::manual-title|self::_ufe:num-index-title|self::_ufe:nut-option-title|self::_ufe:pdlist-title|self::pwc-title|self::_ufe:sblist-title|self::_ufe:spblist-title|self::_ufe:spectools-title|self::_ufe:supplier-list-title|self::_ufe:task-title|self::_ufe:temp-rev-title|self::title|self::_ufe:tmm-title|self::glosdata|self::term|self::def)]"/>
+     <xsl:apply-templates select="*[not(self::_sfe:BeforeOrAfterText|self::_ufe:chapsect-title|self::_ufe:cir-title|self::_ufe:consumables-title|self::_ufe:eipc-title|self::_ufe:em-title|self::_ufe:fixequ-title|self::_ufe:general-title|self::_ufe:glossary-title|self::_ufe:howtouse-title|self::_ufe:intro-title|self::manual-title|self::_ufe:num-index-title|self::_ufe:nut-option-title|self::_ufe:pdlist-title|self::pwc-title|self::pwcepc-apu-title|self::_ufe:sblist-title|self::_ufe:spblist-title|self::_ufe:spectools-title|self::_ufe:supplier-list-title|self::_ufe:task-title|self::_ufe:temp-rev-title|self::title|self::_ufe:tmm-title|self::glosdata|self::term|self::def)]"/>
      <xsl:apply-templates select="_sfe:BeforeOrAfterText[not(following-sibling::*)][preceding-sibling::*]"/>
   </div>
 </xsl:template>
@@ -485,11 +485,24 @@
 
 <xsl:template match="pwc-model" priority="0">
   <div class="x-pwc-model-1-0">
-    <xsl:call-template name="t-base-div-basic"/>
+    <!--xsl:call-template name="t-base-div-basic"/-->
+    <xsl:copy-of select="@ch:*"/>
+    <xsl:call-template name="maybe-set-id"/>
+    <xsl:apply-templates select="modelspec"/>
+    <xsl:if test="ancestor::pwcepc-apu-title">
+        <div class="x-pwc-model-1-0"><xsl:value-of select="$gen-texts//text[@name='part-no']"/><xsl:text> </xsl:text><xsl:value-of select="ancestor::pwcepc-apu-title/@apunbr"/></div><br/>
+    </xsl:if>
+    <xsl:apply-templates select="buildspec"/>
   </div>
 </xsl:template>
 
 <xsl:template match="pwc-title" priority="0">
+  <div ch:title="notoc" class="x-pwc-title-1-0">
+    <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="pwcepc-apu-title" priority="0">
   <div ch:title="notoc" class="x-pwc-title-1-0">
     <xsl:call-template name="t-base-div-title"/>
   </div>
@@ -691,6 +704,12 @@
 <xsl:template match="_ufe:spblist-title" priority="0">
   <div ch:title="notoc" class="x--ufe-spblist-title-3-0">
     <xsl:call-template name="t-base-div-title"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="statement" priority="0">
+  <div class="x-statement-1-0">
+    <xsl:call-template name="t-base-div-basic"/>
   </div>
 </xsl:template>
 
