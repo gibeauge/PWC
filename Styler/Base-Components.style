@@ -14,9 +14,9 @@ xmlns:saxon="http://saxon.sf.net/"
 xmlns:_="http://www.pwc.ca/namespace/doctypes/migrate"
 xmlns:_2="http://www.pwc.ca/namespace/doctypes/jmtosmigrate"
 xmlns:_5="http://www.pwc.ca/namespace/doctypes/ipc"
-xmlns:_4="http://www.pwc.ca/namespace/doctypes/emipc"
 xmlns:_acl="java:com.arbortext.epic.Acl"
-xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript">
+xmlns:_js="java:com.arbortext.epic.internal.js.JavaScript"
+xmlns:_4="http://www.pwc.ca/namespace/doctypes/emipc">
 <StyleSheetInfo minorVersion="0" printPdfEngine="FOSI" stylerVersion="6">
 <ElementSet/>
 <ChunkConfig/>
@@ -46,7 +46,8 @@ name="_sfe:ExternalLink" style="link">
 <Context priority="0" selector="_sfe:ExternalLink">
 <BaseProperties propertySetReferences="Link">
 <SetOutputAttributes>
-<SetOutputAttribute attributeName="target" attributeValueXPath='"_blank"' resultElementVocabulary="html"/>
+<SetOutputAttribute attributeName="target"
+attributeValueXPath='"_blank"' resultElementVocabulary="html"/>
 </SetOutputAttributes>
 </BaseProperties>
 </Context>
@@ -11743,6 +11744,7 @@ id="Ad75dfba2-cedc-4a05-ae95-2a067bf233c6"><_gte:Target lang="en"
 include="contentOnly" elem="figno"/>&#x2003;</_gte:Target></_gte:Translate
 ></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
+</Context>
 <!-- Added by GBE - R-028 -->
 <Context priority="31.52"
 selector="book[contains(@doctype, 'ipc')]//ipc-fig-reloc/title">
@@ -13740,8 +13742,8 @@ id="A3305c126-2a1b-4bbb-9ee9-9b51c57eaae0"><_gte:Target lang="en"
 </BaseProperties>
 </Condition>
 </Conditions>
-<!-- Added by GBE - R-028 -->
 </Context>
+<!-- Added by GBE - R-028 -->
 <Context priority="20.1975" selector="ipc-fig-reloc/title">
 <BaseProperties
 propertySetReferences="Title_font Title_color Title_alignment Title_keeps Title_space">
@@ -16805,11 +16807,10 @@ selector="_ufe:url-link[starts-with(@url,'http://') or starts-with(@url,'https:/
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
 id="A3f7ba3b9-9265-4538-967a-5393863c7428"><_gte:Target lang="en"
 ><_sfe:ExternalLink><_gte:LinkTarget targetXPath="string(./@url)"
-targetAttrName="href"><_gte:AttributeContent occur="1"
-scope="_ufe:url-link" attr="url"/></_gte:LinkTarget><_gte:LinkContent
-><_gte:AttributeContent occur="1" scope="_ufe:url-link" attr="url"
-/></_gte:LinkContent></_sfe:ExternalLink></_gte:Target></_gte:Translate
-></_sfe:BeforeOrAfterText></AddBefore>
+targetAttrName="href"><_gte:AttributeContent occur="1" attr="url"
+scope="_ufe:url-link"/></_gte:LinkTarget><_gte:LinkContent><_gte:AttributeContent
+occur="1" attr="url" scope="_ufe:url-link"/></_gte:LinkContent></_sfe:ExternalLink
+></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
 </Context>
@@ -16822,9 +16823,9 @@ scope="_ufe:url-link" attr="url"/></_gte:LinkTarget><_gte:LinkContent
 id="Ad418c758-e01c-44b4-b994-264207c54e74"><_gte:Target lang="en"
 ><_sfe:ExternalLink><_gte:LinkTarget
 targetXPath="concat('http://', string(./@url))" targetAttrName="href"
->http://<_gte:AttributeContent occur="1" scope="_ufe:url-link"
-attr="url"/></_gte:LinkTarget><_gte:LinkContent><_gte:AttributeContent
-occur="1" scope="_ufe:url-link" attr="url"/></_gte:LinkContent></_sfe:ExternalLink
+>http://<_gte:AttributeContent occur="1" attr="url"
+scope="_ufe:url-link"/></_gte:LinkTarget><_gte:LinkContent><_gte:AttributeContent
+occur="1" attr="url" scope="_ufe:url-link"/></_gte:LinkContent></_sfe:ExternalLink
 ></_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 <!-- Modified by GBE - R-004 and R-024, see above -->
@@ -16852,8 +16853,8 @@ occur="1" scope="_ufe:url-link" attr="url"/></_gte:LinkContent></_sfe:ExternalLi
 <GeneratedText>
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
 id="A556f5b91-c82f-4338-8a77-866461a4d9c5"><_gte:Target lang="en"
-><_gte:Font Underline="single" ScoreSpace="yes" Weight="bold"
-BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
+><_gte:Font FontColor="yellow" Underline="single" ScoreSpace="yes"
+Weight="bold" BackColor="#FF0000">WARNING</_gte:Font>:&#x2003;</_gte:Target
 ></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
@@ -16865,8 +16866,8 @@ BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
 <GeneratedText>
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
 id="A5b663daf-c76e-4d44-aca0-cc8cd40f3c60"><_gte:Target lang="en"
-><_gte:Font Underline="single" ScoreSpace="yes" Weight="bold"
-BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
+><_gte:Font FontColor="yellow" Underline="single" ScoreSpace="yes"
+Weight="bold" BackColor="#FF0000">WARNING</_gte:Font>:&#x2003;</_gte:Target
 ></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
@@ -16879,8 +16880,8 @@ BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
 <GeneratedText>
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
 id="Af78e4c60-04b6-4cbd-9b9d-0dea502fdfb0"><_gte:Target lang="en"
-><_gte:Font Underline="single" ScoreSpace="yes" Weight="bold"
-BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
+><_gte:Font FontColor="yellow" Underline="single" ScoreSpace="yes"
+Weight="bold" BackColor="#FF0000">WARNING</_gte:Font>:&#x2003;</_gte:Target
 ></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
@@ -16893,8 +16894,8 @@ BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
 <GeneratedText>
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
 id="A4169470c-1c09-4e4c-b3cf-7f23f9240eaf"><_gte:Target lang="en"
-><_gte:Font Underline="single" ScoreSpace="yes" Weight="bold"
-BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
+><_gte:Font FontColor="yellow" Underline="single" ScoreSpace="yes"
+Weight="bold" BackColor="#FF0000">WARNING</_gte:Font>:&#x2003;</_gte:Target
 ></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
@@ -16906,8 +16907,8 @@ BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
 <GeneratedText>
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
 id="A227cdc6c-10bf-4d30-bbc4-26203ee85160"><_gte:Target lang="en"
-><_gte:Font Underline="single" ScoreSpace="yes" Weight="bold"
-BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
+><_gte:Font FontColor="yellow" Underline="single" ScoreSpace="yes"
+Weight="bold" BackColor="#FF0000">WARNING</_gte:Font>:&#x2003;</_gte:Target
 ></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
@@ -16940,8 +16941,8 @@ BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
 <GeneratedText>
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
 id="A48470786-aa4c-4fd5-82f9-1dcfdbd90e8d"><_gte:Target lang="en"
-><_gte:Font Underline="single" ScoreSpace="yes" Weight="bold"
-BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
+><_gte:Font FontColor="yellow" Underline="single" ScoreSpace="yes"
+Weight="bold" BackColor="#FF0000">WARNING</_gte:Font>:&#x2003;</_gte:Target
 ></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
@@ -16954,8 +16955,8 @@ BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
 <GeneratedText>
 <AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
 id="Aac595d30-ce77-4fd5-8bbd-fa452aaf6edf"><_gte:Target lang="en"
-><_gte:Font Underline="single" ScoreSpace="yes" Weight="bold"
-BackColor="#FF0000" FontColor="yellow">WARNING</_gte:Font>:&#x2003;</_gte:Target
+><_gte:Font FontColor="yellow" Underline="single" ScoreSpace="yes"
+Weight="bold" BackColor="#FF0000">WARNING</_gte:Font>:&#x2003;</_gte:Target
 ></_gte:Translate></_sfe:BeforeOrAfterText></AddBefore>
 </GeneratedText>
 </BaseProperties>
