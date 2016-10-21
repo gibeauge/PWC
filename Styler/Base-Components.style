@@ -1479,6 +1479,19 @@ id="A1dc52901-5abc-4545-9b72-0d42a288e9b8"><_gte:Target lang="en"
 </GeneratedText>
 </BaseProperties>
 </Condition>
+<Condition conditionType="elseIf">
+<Tests>
+<AttributeTest attributeName="enginetype" testType="equals"
+testValue="APS"/></Tests>
+<BaseProperties>
+<GeneratedText>
+<AddBefore><_sfe:BeforeOrAfterText><_gte:Translate translate="on"
+id="A1dc52901-5abc-4545-9b72-0d42a288e9b9"><_gte:Target lang="en"
+>AUXILIARY POWER UNIT SYSTEM</_gte:Target></_gte:Translate></_sfe:BeforeOrAfterText
+></AddBefore>
+</GeneratedText>
+</BaseProperties>
+</Condition>
 </Conditions>
 </Context>
 </Element>

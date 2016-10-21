@@ -22,6 +22,7 @@
 <text name="effect">EFF</text>
 <text name="em-title">OVERHAUL MANUAL</text>
 <text name="engine-type-apu">AUXILIARY POWER UNIT</text>
+<text name="engine-type-aps">AUXILIARY POWER UNIT SYSTEM</text>
 <text name="engine-type-shaft">TURBOSHAFT ENGINE</text>
 <text name="engine-type-prop">TURBOPROP ENGINE</text>
 <text name="engine-type-fan">TURBOFAN ENGINE</text>
@@ -57,7 +58,7 @@
 <text name="nut-option-title">NUT OPTIONS</text>
 <text name="opt-pn">SEE TABLE FOR OPTIONAL PART NUMBERS</text>
 <text name="orig-date">Original Issue date</text>
-<text name="part-no">Part No.</text> <!-- TODO: MISSING TRANSLATION -->
+<text name="part-no">Part No.</text>
 <text name="pdlist-title">PARTS DIGEST LIST</text>
 <text name="pntype-field">Field reidentification P/N</text>
 <text name="pntype-rew">Reworked from P/N</text>
@@ -129,6 +130,7 @@
 <text name="effect">有效性</text>
 <text name="em-title">检修手册</text>
 <text name="engine-type-apu">辅助动力装置</text>
+<text name="engine-type-aps">AUXILIARY POWER UNIT SYSTEM</text> <!-- TODO: MISSING TRANSLATION -->
 <text name="engine-type-shaft">涡轮轴发动机</text>
 <text name="engine-type-prop">涡轮螺旋桨发动机</text>
 <text name="engine-type-fan">涡轮风扇发动机</text>
@@ -164,6 +166,7 @@
 <text name="nut-option-title">螺母选项</text>
 <text name="opt-pn">可选件号參见表格</text>
 <text name="orig-date">初始签发日期</text>
+<text name="part-no">Part No.</text> <!-- TODO: MISSING TRANSLATION -->
 <text name="pdlist-title">零件摘要清单</text>
 <text name="pntype-field">现场重覆鉴定件号</text>
 <text name="pntype-rew">按件号返工</text>

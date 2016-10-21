@@ -490,6 +490,7 @@
       <xsl:with-param name="content">
         <xsl:choose>
           <xsl:when test="@enginetype='APU'"><xsl:value-of select="$gen-texts//text[@name='engine-type-apu']"/></xsl:when>
+          <xsl:when test="@enginetype='APS'"><xsl:value-of select="$gen-texts//text[@name='engine-type-aps']"/></xsl:when>
           <xsl:when test="@enginetype='SHAFT'"><xsl:value-of select="$gen-texts//text[@name='engine-type-shaft']"/></xsl:when>
           <xsl:when test="@enginetype='PROP'"><xsl:value-of select="$gen-texts//text[@name='engine-type-prop']"/></xsl:when>
           <xsl:when test="@enginetype='FAN'"><xsl:value-of select="$gen-texts//text[@name='engine-type-fan']"/></xsl:when>

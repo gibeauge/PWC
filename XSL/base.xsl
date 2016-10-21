@@ -832,6 +832,7 @@
           <xsl:when test="@enginetype='PROP'"> x--ufe-engine-type-1-2</xsl:when>
           <xsl:when test="@enginetype='SHAFT'"> x--ufe-engine-type-1-3</xsl:when>
           <xsl:when test="@enginetype='APU'"> x--ufe-engine-type-1-4</xsl:when>
+          <xsl:when test="@enginetype='APS'"> x--ufe-engine-type-1-4</xsl:when>
         </xsl:choose>
      </xsl:attribute>
      <xsl:call-template name="t-base-div-basic"/>
