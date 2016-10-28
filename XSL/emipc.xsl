@@ -163,7 +163,7 @@
     <xsl:value-of select="$graphics-path"/><xsl:text>/</xsl:text>
   </xsl:variable>
   <div class="pr-brk"></div>
-  <div style="display:none" class="x-graphic-1-0">
+  <div style="display:none" class="x-figure-2-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
      <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
@@ -205,7 +205,7 @@
     <xsl:value-of select="$graphics-path"/><xsl:text>/</xsl:text>
   </xsl:variable>
   <div class="pr-brk"></div>
-  <div style="display:none" class="x-graphic-2-0">
+  <div style="display:none" class="x-figure-2-0">
      <xsl:copy-of select="@ch:*"/>
      <xsl:if test="@xml:id"><xsl:copy-of select="@xml:id"/></xsl:if>
      <xsl:attribute name="id"><xsl:value-of select="$l-id"/></xsl:attribute>
@@ -657,9 +657,11 @@
      <xsl:when test="$fo-class='hidden-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text>x-sheet-1-0</xsl:text>
-              <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:text>x-graphic-1-0</xsl:text>
+              <!--
+              <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-/sheet-1-1</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-/sheet-1-2</xsl:if>
+              -->
            </xsl:attribute>
            <xsl:call-template name="t-base-div-basic-h">
               <xsl:with-param name="hidden" select="$hidden"/>
@@ -669,9 +671,11 @@
      <xsl:when test="$fo-class='block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text>x-sheet-1-0</xsl:text>
-              <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:text>x-graphic-1-0</xsl:text>
+              <!--
+              <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-/sheet-1-1</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-/sheet-1-2</xsl:if>
+              -->
            </xsl:attribute>
            <xsl:if test="count(following-sibling::sheet[@size='med']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -682,9 +686,11 @@
      <xsl:when test="$fo-class='graphic-block'">
         <div>
            <xsl:attribute name="class">
-              <xsl:text>x-sheet-1-0</xsl:text>
-              <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-sheet-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size!='big')"> x-sheet-1-2</xsl:if>
+              <xsl:text>x-graphic-1-0</xsl:text>
+              <!--
+              <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0"> x-/sheet-1-1</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-/sheet-1-2</xsl:if>
+              -->
            </xsl:attribute>
            <xsl:if test="count(following-sibling::sheet[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>

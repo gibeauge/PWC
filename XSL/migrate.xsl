@@ -176,8 +176,10 @@
            <div>
               <xsl:attribute name="class">
                  <xsl:text>x-graphic-1-0</xsl:text>
-                 <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-                 <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
+                 <!--
+                 <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-/graphic-1-1</xsl:if>
+                 <xsl:if test="not(@size) or (@size!='big')"> x-/graphic-1-2</xsl:if>
+                 -->
               </xsl:attribute>
               <xsl:call-template name="t-base-div-basic"/>
            </div>
@@ -187,8 +189,10 @@
         <div>
            <xsl:attribute name="class">
               <xsl:text>x-graphic-1-0</xsl:text>
-              <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
+              <!--
+              <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-/graphic-1-1</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-/graphic-1-2</xsl:if>
+              -->
            </xsl:attribute>
            <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
@@ -200,8 +204,10 @@
         <div>
            <xsl:attribute name="class">
               <xsl:text>x-graphic-1-0</xsl:text>
-              <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-graphic-1-1</xsl:if>
-              <xsl:if test="not(@size) or (@size!='big')"> x-graphic-1-2</xsl:if>
+              <!--
+              <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0"> x-/graphic-1-1</xsl:if>
+              <xsl:if test="not(@size) or (@size!='big')"> x-/graphic-1-2</xsl:if>
+              -->
            </xsl:attribute>
            <xsl:if test="count(following-sibling::graphic[@size='big']) &gt; 0">
               <xsl:attribute name="style">margin-bottom: 8pt; border-bottom: 2px solid #000000;</xsl:attribute>
