@@ -467,11 +467,13 @@
         <xsl:if test="not(@_gte:Gentext-Expanded)">
           <_sfe:BeforeOrAfterText>
             <_ufe:block-prespace>
-              <xsl:text>(</xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet']"/><xsl:text> </xsl:text>
-              <xsl:value-of select="@sheetnbr"/>
-              <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet-of']"/><xsl:text> </xsl:text>
-              <xsl:value-of select="(ancestor-or-self::graphic[1]//sheet)[position()=last()]/@sheetnbr"/>
-              <xsl:text>)</xsl:text>
+              <xsl:if test="(ancestor-or-self::graphic[1]//sheet)[position()=last()]/@sheetnbr &gt; 1">
+                <xsl:text>(</xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet']"/><xsl:text> </xsl:text>
+                <xsl:value-of select="@sheetnbr"/>
+                <xsl:text> </xsl:text><xsl:value-of select="$gen-texts//text[@name='sheet-of']"/><xsl:text> </xsl:text>
+                <xsl:value-of select="(ancestor-or-self::graphic[1]//sheet)[position()=last()]/@sheetnbr"/>
+                <xsl:text>)</xsl:text>
+              </xsl:if>
             </_ufe:block-prespace>
           </_sfe:BeforeOrAfterText>
         </xsl:if>

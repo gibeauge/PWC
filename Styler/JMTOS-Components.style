@@ -4003,13 +4003,13 @@ test="not(@_gte:Gentext-Expanded)">                &lt;_gte:Must-Expand-Gentext
 &lt;xsl:otherwise>             &lt;xsl:if test="not(@_gte:Gentext-Expanded)"
 >                &lt;_gte:Must-Expand-Gentext>&lt;/_gte:Must-Expand-Gentext
 >                &lt;_sfe:BeforeOrAfterText>                   &lt;_ufe:block-prespace
->                      &lt;xsl:text>SHEET (&lt;/xsl:text>              
-       &lt;xsl:value-of select="@sheetnbr"/>                      &lt;xsl:text
-> OF &lt;/xsl:text>                      &lt;xsl:value-of
+>                      &lt;xsl:if
+test="(ancestor-or-self::graphic[1]//sheet)[position()=last()]/@sheetnbr &amp;gt; 1"
+>   &lt;xsl:text>SHEET (&lt;/xsl:text>              &lt;xsl:value-of
+select="@sheetnbr"/>   &lt;xsl:text> OF &lt;/xsl:text>   &lt;xsl:value-of
 select="(ancestor-or-self::graphic[1]//sheet)[position()=last()]/@sheetnbr"
-/>                      &lt;xsl:text>)&lt;/xsl:text>                   &lt;/_ufe:block-prespace
->                &lt;/_sfe:BeforeOrAfterText>             &lt;/xsl:if> 
-        &lt;/xsl:otherwise>
+/>   &lt;xsl:text>)&lt;/xsl:text>   &lt;/xsl:if>  &lt;/_ufe:block-prespace> &lt;/_sfe:BeforeOrAfterText
+>             &lt;/xsl:if>          &lt;/xsl:otherwise>
 &lt;/xsl:choose>       &lt;xsl:copy>          &lt;xsl:attribute
 name="_gte:Gentext-Expanded">y&lt;/xsl:attribute>          &lt;xsl:apply-templates
 mode="expand-gentext" select="@*">&lt;/xsl:apply-templates>          &lt;xsl:if
