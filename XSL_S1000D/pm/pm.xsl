@@ -97,6 +97,7 @@
   <xsl:result-document href="{concat($output-dir-pm, '/XML/Metadata.xml')}" method="xml" encoding="utf-8" 
                        indent="yes" omit-xml-declaration="no">
     <Metadatas>
+      <S1000D>1</S1000D>
       <PartNo><xsl:value-of select="tokenize(/pm/@id, '-')[2]"/></PartNo>
       <Title><xsl:apply-templates select="/pm/identAndStatusSection/pmAddress/pmAddressItems/pmTitle" mode="metas"/></Title>
       <OriginalIssueDate><xsl:value-of select="tokenize(/pm/@id, '-')[3]"/></OriginalIssueDate>

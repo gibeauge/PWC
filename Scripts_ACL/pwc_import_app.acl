@@ -1,0 +1,481 @@
+###############################################################################
+#
+#   Author:       Ryan Lubben (rlubben@ptc.com)
+#                 Arbortext Business Unit, PTC
+#
+#   Package:      pwc_import_app
+#
+#   Functions:    pwc_import
+#
+#   Date:         3/23/11
+#
+#   Description:  This package contains all of the necessary functions for 
+#                 the PWC Import/Update application. This package will be
+#                 called by the PE Watchdog application via the PE Java
+#                 client. It will be responsible for initiating an ACM/Windchill 
+#                 session, checking in and bursting new documents, updating
+#                 existing documents and graphics, and updating and checking
+#                 in the book manifest file.                
+#
+#   Revisions:    
+#
+###############################################################################
+
+package pwc_import_app;
+
+function pwc_import_app::process_import(){}
+function pwc_import_app::handle_error() {}
+
+if(main::is_e3 || main::is_e3_interactive){
+    require _e3;
+    require e3;
+}
+require build_acm_library;
+require connect_to_ACM;
+require pwc_bursting;
+require update_pwc_manifest;
+require update_acm_object;
+
+global SESSION_HANDLE = -1;
+global LOGGING = "false";
+global BURST_STATUS = 1;
+global MANIFEST = -1;
+global APP_LOG;
+global IMPORT_LOG;
+global PACKAGE;
+global _STRICT_ = 1;
+
+set bigjobthreshold=1;
+#set stricterrors=on;
+
+#Debugging settings
+#Conrtol log output by setting the "APTDBGMODE" environment variable (e.g. "E:/temp/import.log")
+set_user_property("com.ptc.arbortext.gso.debugger","on");
+
+
+function debug(msg){
+    local debugger = get_user_property("com.ptc.arbortext.gso.debugger");
+    if($debugger=="on"){
+        eval time_date() . ' ' . "[PE WATCHDOG] " . ' ' .  caller(1).' ' . caller_line(1) . '  ' .  msg output=*debug;  
+    }
+    $pwc_import_app::IMPORT_LOG .= time_date() . ' ' . "[PE WATCHDOG] " . ' ' .  $msg . "\n";
+}
+
+##############################################################################
+#   Function:     pwc_import()
+#
+#   Expects:      
+#
+#   Calls:        build_acm_library::create_folder_stucture
+#
+#   Returns:      ati-e3-string (error code)
+#                     0 = manifest file not found
+#                     1 = success
+#                    -1 = Could not initiate a Windchill session
+#                    -2 = Info*Engine task failed
+#                    -3 = Could not open XML file
+#                    -4 = Nothing in the manifest was flagged for import or update
+#                    -5 = Object burst/checkin failed
+#                    -6 = Manifest burst/checkin failed
+#
+#   Description:  Saves the local XML file as a server object in ACM  
+#
+#                 Note: this function is derived from the 
+#                 dms::file_save_as_object function.
+#                
+#   Revisions:    
+###############################################################################
+
+###########################################################################################################################
+# Import/Update Required Tasks                                                                                           
+#
+# 1. Verify that the package exists and contains a manifest.  file_directory(package_location)
+# 2. Build out the Windchill folder structure.  build_acm_library::create_folder_stucture(package_location,manifest_name). 
+#       a. If we get "1" as a reponse, open the manifest and let's get to work processing the update package
+#       b. Any other response means the I*E task failed and we need to return a response
+# 3. Open and parse the manifest. We need to know if the package is a new manual or an update to an existing manual.
+#       a. Search for the 1st manifest-item in the manifest. This should be the book object and will have an attribute 
+#          value of type="book".
+#       b. If the book manifest-item has an attribute value of status="New" we know the book needs to be added to  
+#          ACM--it's as simple as that. Go to step 4A.
+#       c. If the book manifest has an attribute value of status="Update" or status="Unchanged" we know that it's an 
+#          update package and we'll need to update all of the manifest-items that are flagged as status="Update"--
+#          this is going to take a little more work. Go to step 4B.
+# 4A. New object creation (books only). update_acm_object::add()?
+#       a. Open the book file. The file name will be the same as the update package folder name.  doc_open()
+#       b. Initiate the ACM session.  connect_to_ACM::connect().
+#       c. Burst the document. dobj_burst(), dobj_checkin()
+#       d. Update the manifest.  pwc_bursting::updatemanifest()
+#       e. Close the document and return a success or fail response.  docj_close()
+# 4B. Update existing objects (books and/or nested objects). 
+#       a. Create an array of manifest-items flagged as status="Update";
+#       b. Check out the manifest-- TODO we need a Logical ID handle for the manifest in the manifest
+#       c. For each updated object, open the file using its WC Logical ID.  doc_open()
+#       d. Replace the contents of the object with the content in the update package--this is where it starts to get  
+#          a little hairy. The object in the update package will be an XML fragment that is named the same as the 
+#          manifest-item object-key attribute value.
+#          For example:
+#          <manifest-item ACM-logical-id="x-wc://file=0000002877.xml" ACM-path="/Extracts/pw300/pw306a/mm/30B1412/05" 
+#           bookpartnumber="30B1412" exportdate="20110310" object-key="30B1412.05" point-revnbr="0" revdate="20110310" 
+#           revnbr="32" status="Update" type="chapter">
+#          This manifest-item would exist as an XML fragment... <package_location>/30B1412.05.xml.
+#       e. Burst the object so that any frontmatter, chapter, section, subject, ata-page-block  or page-block 
+#          children that are new will be converted to server objects.  dobj_burst(), dobj_checkin()
+#       f. Update the manifest.  pwc_bursting::updatemanifest()
+#       g. Close the document and move on to the next updated object.  dobj_close()
+#       h. Once all update objects have been processed, return a success or fail response.
+# 5.    If the book is new, save the manifest to the same location in Windchill as the book. Otherwise, check in the 
+#       manifest.
+# 6.    Close the ACM session.
+# 7.    All done.
+#############################################################################################################################
+
+# ERROR CODES
+#  0   = Manifest file not found
+# -1   = Could not initiate a Windchill session
+#  -10 = Windchill property file not found (init/windchill_properties.xml)
+#  -11 = Windchill path not specified
+#  -12 = Windchill user not specified
+#  -13 = Windchill organization not specified
+#  -14 = Windchill library not specified
+#  -15 = Windchill password not specified
+#  -16 = Windchill context not specified
+#  -17 = Windchill workspace not specified
+# -2   = Info*Engine task failed
+#  -20 = No ACM paths specified in manifest
+#  -21 = Path not created in Windchill
+# -3   = Could not open XML/Graphic file
+#  -30 = XML object update failed. Can't open XML file: {}
+#  -31 = XML object update failed. Can't build dynamic object for: {}
+#  -32 = XML object update failed. Can't lock dynamic object for: {}
+#  -33 = Graphic update failed. Can't open graphic file: {}
+#  -34 = Graphic update failed. Can't build dynamic object for graphic: {}
+#  -35 = Graphic update failed. Can't get WC number for graphic: {}
+# -4   = Nothing in the manifest was flagged for import or update
+#  -40 = No object-key found in manifest
+#  -41 = Nothing found to update in manifest
+# -5   = Object burst/checkin failed
+#  -51 = Bursting of new book {} failed
+#  -52 = Bursting of new book {} failed. Can't get dynamic object ID
+#  -53 = XML object update failed. Bursting failed for: {}
+#  -54 = XML object update failed. Checkin failed for: {}
+# -6   = Manifest burst/checkin failed
+#  -61 = Bursting of new manifest {} failed
+#  -62 = Bursting of new manifest {} failed. Can't get dynamic object ID
+#  -63 = Checkin of new manifest {} failed.
+#  -64 = Manifest logical IDs update failed
+#  -65 = Manifest update failed. Can't build dynamic object
+#  -66 = Manifest update failed. Can't lock dynamic object
+#  -67 = Manifest update failed. Bursting failed
+#  -68 = Manifest update failed. Checkin failed
+
+function handle_error(error_code) {
+    local new_error_code = 1;
+    if ($error_code <= -10 && $error_code > -20) {
+        new_error_code = -1;
+    }
+    else if ($error_code <= -20 && $error_code > -30) {
+        new_error_code = -2;
+    }
+    else if ($error_code <= -30 && $error_code > -40) {
+        new_error_code = -3;
+    }
+    else if ($error_code <= -40 && $error_code > -50) {
+        new_error_code = -4;
+    }
+    else if ($error_code <= -50 && $error_code > -60) {
+        new_error_code = -5;
+    }
+    else if ($error_code <= -60 && $error_code > -70) {
+        new_error_code = -6;
+    }
+    else {
+        new_error_code = error_code;
+    }
+    switch ($new_error_code) {
+        case 1:
+            break;
+        case 0:
+            pwc_import_app::debug("Manifest file not found");
+            break;
+        case -1:
+            pwc_import_app::debug("Could not initiate a Windchill session");
+            break;
+        case -2:
+            pwc_import_app::debug("Info*Engine task failed");
+            break;
+        case -3:
+            pwc_import_app::debug("Could not open XML/Graphic file");
+            break;
+        case -4:
+            pwc_import_app::debug("Nothing in the manifest was flagged for import or update");
+            break;
+        case -5:
+            pwc_import_app::debug("Object burst/checkin failed");
+            break;
+        case -6:
+            pwc_import_app::debug("Manifest burst/checkin failed");
+            break;
+    }
+    return new_error_code;
+}
+
+function pwc_import(package_location, manifest_name, inFile, headers, outFile){
+  
+    main::ENV["APTBURSTLOG"] = package_location . "/burst.log";
+    IMPORT_LOG = "";
+  
+    pwc_import_app::PACKAGE = package_location; 
+
+    local error_code = 1;
+    local res;
+    local updates = 0;
+    local hasManifest = "false";
+    
+
+    #Check to see if the manifest exists
+    hasManifest = find_file_in_path(manifest_name, 'e', PACKAGE);
+  
+    if(hasManifest) {
+        pwc_import_app::debug("Manifest ". PACKAGE . "/" . manifest_name . " located.");
+        pwc_import_app::MANIFEST = doc_open(PACKAGE . "/" . manifest_name, 0x002);
+    
+        #Build the Windchill folder structure
+        pwc_import_app::debug("Building the ACM folder structure");
+        res = build_acm_library::create_folder_structure(MANIFEST);
+        if(res==1) {
+            pwc_import_app::debug("Finished building the ACM folder structure. Proceding with the import.");
+            if(MANIFEST) {
+
+                #Check to see if the ACM/Windchill session is open. If not, open one.
+                if(dms::current_sess()) {
+                    pwc_import_app::SESSION_HANDLE = dms::current_sess();
+                }
+                else {  
+                    pwc_import_app::debug("Initiating ACM/Windchill session.");
+                    pwc_import_app::SESSION_HANDLE = connect_to_ACM::pwc_connect();
+                }
+                
+                if(pwc_import_app::SESSION_HANDLE) {
+                    pwc_import_app::debug("Connected to ACM/Windchill.");
+                    
+                    if(!catch(error_code = pwc_import_app::process_import(manifest_name))) {
+                        #The import/update succeeded
+                    }
+                    else {
+                        #The update import/update failed
+                        #error_code = -1;
+                        if ($error_code==1) {
+                            error_code = pwc_import_app::handle_error(-5);
+                        }
+                        else {
+                            error_code = pwc_import_app::handle_error($error_code);
+                        }
+                    }
+                    
+                }
+                else {
+                    error_code = pwc_import_app::handle_error(-1);
+                }
+                #Clear the workspace so that it doesn't fill up
+                connect_to_ACM::clear_workspace(SESSION_HANDLE);
+                
+                #Close the session
+                #connect_to_ACM::pwc_disconnect(SESSION_HANDLE);
+            }
+            else {
+                error_code = pwc_import_app::handle_error(0);
+            }
+        }
+        else {
+            error_code = pwc_import_app::handle_error($res);
+        }
+    
+# GBE: not used?
+#        if(pwc_import_app::BURST_STATUS < 0){
+#            error_code = -5;
+#            pwc_import_app::debug("Object burst/checkin failed");
+#        }
+        doc_close(MANIFEST);
+    }
+    else {
+        error_code = pwc_import_app::handle_error(0);
+        pwc_import_app::debug("Import complete.");
+    }
+    
+    local fid = open($package_location . "/burst.log", "a");
+    write($fid, $IMPORT_LOG);
+    close($fid);
+    
+    if(main::is_e3 || main::is_e3_interactive) {
+        local resultArray[];
+        # Required so we can return HTML
+        resultArray[ "content-type" ] = "text/html";
+        # Directs E3 to return the string as the response message body
+        resultArray[ "ati-e3-action" ] = "return-string";  
+        # Provide a response to the PE client.
+        resultArray[ "ati-e3-string" ] = error_code;
+        # Encode result array as string
+        local resultString = eval( "e3::array_to_string(resultArray)");
+    
+        # Return string to E3
+        return resultString;
+    }
+    else {
+        return error_code;
+    }
+}
+
+# GBE: not used?
+#function post_burst(succeeded){
+#    if(suceed == 1){
+#        pwc_import_app::BURST_STATUS = 1;
+#    } else{
+#        pwc_import_app::BURST_STATUS = suceeded;
+#    }
+#}
+
+function process_import(manifest_name){
+    #Determine if the package is a new book or an updated one
+    local error_code = 1;
+    local updates = 0;
+    local updates_err = 0;
+    local book_status = "Unchanged";
+    local manifest_root, book_file, book_name, book_str, book_poid, oid, object_key, type, key, \
+        logical_id, graphic_path, updated_file, updated_graphic, manifest_logical_id, manifest_poid;
+    
+    
+    #Get the list of manifest items and their status
+    local res;
+    res = update_acm_object::get_updated_manifest_items(pwc_import_app::MANIFEST);
+    if(res==1) {
+        pwc_import_app::debug("Checking manifest for book status."); 
+        manifest_root = oid_root(pwc_import_app::MANIFEST);
+        book_status = oid_xpath_string(manifest_root, "//*[name() = 'manifest-item'][@type = 'book'][1]/@status");
+        pwc_import_app::debug("Book status = " . book_status . ".");
+        if(book_status == 'New'){
+            #The book is new and all we need to do is open it and check it in
+            #The name of the book can be derived from the name of the manifest without the "manifest_" prefix 
+            #example: "manifest_mm_pw300_pw306a_30B1412_32.xml" = "mm_pw300_pw306a_30B1412_32.xml"
+            book_file = substr(manifest_name, 10, length(manifest_name));
+            book_str = pwc_import_app::PACKAGE . "/" . book_file;
+
+            pwc_import_app::debug("Beginning bursting operation of " . book_str . ".");
+            book_poid = update_acm_object::checkin_new_server_object(book_str);
+            if(book_poid > 0){
+                #Reset the status attribute for all of the manifest-items in the manifest
+                pwc_import_app::debug("Bursting complete. Updating the manifest file. \n");
+                update_pwc_manifest::reset_status(pwc_import_app::MANIFEST);
+                #Add logical IDs to the manifest
+                pwc_import_app::debug("Adding ACM object logical IDs to the manifest.");
+                update_pwc_manifest::add_logical_ids(pwc_import_app::MANIFEST, book_poid, "descendants");
+
+                #Check in the manifest
+                pwc_import_app::debug("Manifest update complete. Importing the manifest.");
+                manifest_poid = update_pwc_manifest::checkin_new_manifest(pwc_import_app::MANIFEST);
+                if(manifest_poid > 0){
+                    updates++;
+                }
+                else {
+                    error_code = -6;
+                    updates_err++;
+                }
+            }
+            else {
+                error_code = -5;
+                updates_err++;
+            }
+        } 
+        else {
+            #This is an update package
+            #Look for manifest items with the attribute value status="Update"
+            pwc_import_app::debug("Beginning update of items flagged as status=\"Update\".");
+            
+            for(i in update_acm_object::UPDATED_ITEMS){
+                oid = update_acm_object::UPDATED_ITEMS[i];
+                object_key = oid_attr(oid, 'object-key');
+                type = oid_name(oid);
+                logical_id = oid_attr(oid, 'ACM-logical-id');
+
+                if(type == 'graphic'){
+                    graphic_path = oid_attr(oid, 'fileref');
+                    updated_graphic = pwc_import_app::PACKAGE . '/' . graphic_path;
+                    pwc_import_app::debug("Updating graphic object " . updated_graphic . " " . logical_id);
+                    res = update_acm_object::update_existing_library_graphic(logical_id, updated_graphic);
+                    if (res==1) {
+                        updates++;
+                    }
+                    else {
+                        #error_code = $res;
+                        updates_err++;
+                    }
+                } 
+                else {
+                    updated_file = PACKAGE . '/' . object_key . '.xml';
+                    pwc_import_app::debug("Updating child object " . updated_file . " " . logical_id);
+                    res = update_acm_object::update_existing_library_object(logical_id, updated_file, pwc_import_app::MANIFEST);
+                    if (res==1) {
+                        updates++;
+                    }
+                    else {
+                        #error_code = $res;
+                        updates_err++;
+                    }
+                }
+            }
+            
+            #Update the book object last
+            oid = update_acm_object::UPDATED_BOOK;
+            object_key = oid_attr(oid, 'object-key');
+            type = oid_attr(oid, 'type');
+            logical_id = oid_attr(oid, 'ACM-logical-id');
+                
+            book_name = substr(manifest_name, 10, length(manifest_name));
+            updated_file = pwc_import_app::PACKAGE . '/' . book_name;
+            pwc_import_app::debug("Updating book object " . updated_file . " " . logical_id);
+            res = update_acm_object::update_existing_library_object(logical_id, updated_file, pwc_import_app::MANIFEST);
+            if (res==1) {
+                if(updates > 0 && $updates_err==0) {
+
+                    #Reset the status attribute for all of the manifest items in the manifest
+                    pwc_import_app::debug("Resetting all manifest items to status=\"Unchanged\".");
+                    update_pwc_manifest::reset_status(pwc_import_app::MANIFEST);
+                    #Check in the updated manifest
+                    manifest_logical_id = oid_attr(oid_root(pwc_import_app::MANIFEST), 'ACM-logical-id');
+                    pwc_import_app::debug("Checking the updated manifest into ACM.");
+                    res = update_pwc_manifest::update_existing_server_manifest(manifest_logical_id, MANIFEST);
+                    if (res==1) {
+                        # SUCCESS
+                    }
+                    else {
+                        error_code = $res;
+                    }
+                }
+                else if ($updates_err > 0) {
+                    error_code = -5;
+                }
+                else {
+                    error_code = -4;
+                }
+            }
+            else {
+                error_code = $res;
+            }
+        }
+    }
+    else {
+        error_code = $res;
+    }
+    
+    return error_code;
+}
+
+function pwc_import_test(){ 
+    return pwc_import_app::pwc_import("D:\\Users\\rlubben\\Desktop\\PEWatchDog\\cir_pw300_pw300_30B4133", "manifest_cir_pw300_pw300_30B4133.xml", "", "", "");
+}
+
+#If PE is running in server mode, initiate a Windchill session
+#if(main::is_e3){
+    #timer_add_callback(10, 'connect_to_ACM::init');
+#}
+

@@ -1,0 +1,331 @@
+package update_acm_object;
+
+require connect_to_ACM;
+require update_pwc_manifest;
+
+global _STRICT_ = 1;
+global UPDATED_ITEMS[];
+global MANIFEST_ITEMS[];
+global UPDATE_INFORMATION[];
+global UPDATED_BOOK;
+
+##############################################################################
+#
+#   Function:     get_updated_manifest_itemst()
+#
+#   Expects:      manifest(doc)
+#
+#   Calls:        none
+#
+#   Returns:      int(return_code)
+#                 1  = success
+#                -40 = No object-key found in manifest
+#                -41 = Nothing found to update in manifest
+#
+#   Description:  This function loops through the array of manifest itmes and
+#                 gets all of the manifest_items that have the  status  
+#                 attribute equal to update 
+#
+#   Revisions:    
+#
+###############################################################################
+function debug(msg){
+    local debugger = get_user_property("com.ptc.arbortext.gso.debugger");
+    if($debugger=="on"){
+        eval time_date() . ' ' ."[UPDATE ACM OBJECT] ". ' ' . caller(1).' ' . caller_line(1) . '  ' .  msg output=*debug;   
+    }
+    $pwc_import_app::IMPORT_LOG .= time_date() . ' ' . "[UPDATE ACM OBJECT] " . ' ' .  $msg . "\n";
+}
+
+function get_updated_manifest_items(doc)
+{   
+    local items[];
+    local graphics[];
+    local i = 1;
+    local j = 1;
+    local upd = 0;
+    local status;
+    local type;
+    local return_code = 1;
+
+    oid_find_child_attrs(oid_root(doc), items ,"object-key");
+    
+    if(count(items) >= 1) {
+        for(i in items) {
+            update_acm_object::MANIFEST_ITEMS[i] = items[i];
+
+            status = oid_attr(items[i], "status");
+            type = oid_attr(items[i], "type");
+            oid_xpath_nodeset(items[i], graphics, "child::graphic[@status = 'New' or @status = 'Delete']");
+
+            if(status != "") {
+                if((status == "Update" && type != "book") || count(graphics) > 0) {               
+                    update_acm_object::UPDATED_ITEMS[j] = items[i];
+                    j++;
+                    upd = 1;
+                }
+                else if(type == "book") {
+                    update_acm_object::UPDATED_BOOK = items[i];
+                    upd = 1;
+                }
+            }
+        }
+        if ($upd==0) {
+            update_acm_object::debug("[-41] Nothing found to update in manifest");
+            return_code = -41;
+        }
+    }
+    else {
+        update_acm_object::debug("[-40] No object-key found in manifest");
+        return_code = -40;
+    }
+        
+    delete(items);
+    return return_code;         
+}
+
+###############################################################################
+#
+#   Function:     update_existing_library_objects()
+#
+#   Expects:      file_path
+#                 manifest_doc
+#
+#   Calls:        update_pwc_manifest::list_children
+#
+#   Returns:      String(return_code)
+#                 1 = success
+#               -30 = XML object update failed. Can't open XML file
+#               -31 = XML object update failed. Can't build dynamic object
+#               -32 = XML object update failed. Can't lock dynamic object
+#               -53 = XML object update failed. Bursting failed
+#               -54 = XML object update failed. Checkin failed
+#               -64 = Manifest logical IDs update failed
+#
+#   Description:  This function updates the book part in ACM
+#                 
+#
+#   Revisions:    
+#
+###############################################################################
+
+function update_existing_library_object(logical_id, file_path, manifest_doc)
+{
+    local updated_doc;
+    local return_code = 1;
+    local doc_str = file_path;
+    
+    update_acm_object::debug("Updating " . logical_id . " (file: " . $file_path . ")");
+        
+    updated_doc = doc_open(doc_str, 0x002);
+
+    if(updated_doc > 0) {
+        local root = oid_root(updated_doc);
+        
+        local dobj = dobj_construct(logical_id, updated_doc);
+        if (dobj==0) {
+            update_acm_object::debug("[-31] XML object update failed. Can't build dynamic object for: " . $file_path);
+            return_code = -31;
+        }
+        else {
+            #lock dobj object
+            if(dobj_lock(dobj, 2) != 0) {
+                oid_set_dobj(root, dobj);
+                doc_save(updated_doc);
+
+                if(dobj_burst(dobj)) {
+                    dobj_save(dobj, 0x002);
+
+                    if(dobj_checkin(dobj) > 0) {   
+                        update_acm_object::debug("Object " . logical_id . " has been checked in.");
+                        if(manifest_doc != null){
+                            #Update the manifest and add all the Logical IDs in the new document
+                            if(update_pwc_manifest::add_logical_ids(manifest_doc, logical_id, "children")){
+                                #success
+                            }
+                            else {
+                                update_acm_object::debug("[-64] Manifest logical IDs update failed");
+                                return_code = -64;
+                            }
+                        }
+                        dobj_close(dobj);
+                    }
+                    else {
+                        update_acm_object::debug("[-54] XML object update failed. Checkin failed for: " . $file_path);
+                        return_code = -54;
+                        dobj_close(dobj);
+                    }
+                } 
+                else {
+                    update_acm_object::debug("[-53] XML object update failed. Bursting failed for: " . $file_path);
+                    return_code = -53;
+                    dobj_close(dobj);
+                }
+            }
+            else {
+                update_acm_object::debug("[-32] XML object update failed. Can't lock dynamic object for: " . $file_path);
+                return_code = -32;
+                dobj_close(dobj);
+            }
+        }
+    }
+    else {
+        update_acm_object::debug("[-30] XML object update failed. Can't open XML file: " . $file_path);
+        return_code = -30;
+    }
+    doc_close(updated_doc);
+    return return_code;
+}
+
+##############################################################################
+#   Function:     update_existing_Library_graphic()
+#
+#   Expects:      logical_id - the logical ID of the existing server object
+#                 updated_graphic - the local graphic that will be used to
+#                 update the existing server graphic
+#                 manifest - the manifest doc
+#
+#   Returns:      int
+#                  1 = success
+#                -33 = Graphic update failed. Can't open graphic file
+#                -34 = Graphic update failed. Can't build dynamic object for graphic
+#                -35 = Graphic update failed. Can't get WC number for graphic
+#
+#   Description:  Check-out and update an existing graphic in Windchill/ACM  
+#                
+#   Revisions:    
+###############################################################################
+
+function update_existing_library_graphic(logical_id, updated_graphic){
+
+    local return_code = 1;
+    local graphic = doc_open(updated_graphic, 0x002);
+    
+    
+    if(graphic > 0){
+        local dobj = dobj_construct(logical_id, graphic);
+        if (dobj==0) {
+            update_acm_object::debug("[-34] Graphic update failed. Can't build dynamic object for graphic: " . $updated_graphic);
+            return_code = -34;
+        }
+        else {
+            local wc_number = dobj_get_attr( dobj, 'WC_NUMBER_ATTR');
+            dobj_close(dobj);
+            doc_close(graphic);
+         
+            if(wc_number != NULL) {
+                #Call the Info*Engine task
+                local obj = java_constructor('ca.pwc.utility.ie.UpdateGraphicUtility',connect_to_ACM::WC_PATH,connect_to_ACM::USERNAME,connect_to_ACM::PASSWORD);
+                local task = java_instance(obj,'init', updated_graphic, trim(wc_number));
+            }
+            else {
+                update_acm_object::debug("[-35] Graphic update failed. Can't get WC number for graphic: " . $updated_graphic);
+                return_code = -35;
+            }
+        }
+        
+    }
+    else {
+        update_acm_object::debug("[-33] Graphic update failed. Can't open graphic file: " . $updated_graphic);
+        return_code = -33;
+        doc_close(graphic);
+    }
+    
+    return return_code;
+}
+
+
+
+##############################################################################
+#   Function:     checkin_new_server_object()
+#
+#   Expects:      local_book - the Doc handle for the object being added to ACM
+#
+#   Calls:        dms::current_sess
+#                 update_pwc_manifest::add_logical_ids
+#
+#   Returns:      poid (checked-in server object)
+#
+#   Description:  Saves the local XML file as a server object in ACM  
+#
+#                 Note: this function is derived from the 
+#                 dms::file_save_as_object function.
+#                
+#   Revisions:    
+###############################################################################
+
+function checkin_new_server_object(local_book)
+{       
+    local objSess = dms::current_sess();
+    local use_locnrules = 1;
+    local lock = 0;
+    local flags = 0;
+    local poid = "-1";
+    local name = "";
+    local new_doc;
+    local err_code = main::ioerr;
+    local location;
+    local root; 
+    local clone;
+    local logical_id;
+    local dobj;
+
+    new_doc = doc_open(local_book, 0x002);
+    name = doc_name(new_doc);
+    root = oid_root(new_doc);
+    
+    if(new_doc) {
+        #Check in the book
+        if (lock) {
+            flags |= dms::BF_TOPLOCK;
+        }
+        else {
+            flags |= dms::BF_NOTOPLOCK;
+        }
+    
+        if (full_text) {
+            flags |= dms::BF_FULLTEXT;
+        }
+        
+        if (use_locnrules) {
+            flags |= dms::BF_USELOCNRULES;
+        }
+    
+        if (sess_doc_burst(objSess, new_doc, flags)) {
+            
+            local dobj = oid_encl_dobj(oid_first(new_doc));
+            if (dobj > 0) {
+                poid = dobj_logicalid(dobj);
+                dobj_unlock(dobj);
+                dobj_close(dobj);
+            }
+        }
+        else {
+            # In the event the burst failed with IO_ERR_SESS_MSG then the error
+            # will have already been reported internally and main::ioerr will
+            # have been set to IO_ERR_FAIL.  We sense this case and purposefully
+            # do nothing.
+            update_acm_object::debug("[-51] Bursting of new book " . name . " failed.");
+            if (err_code == -183) {
+                err_message = sess_err_message(objSess);
+                update_acm_object::debug(err_message);
+            }
+            else {
+                err_message = dms::io_err_msg[err_code];
+                update_acm_object::debug(err_message);
+            }
+            return -1;
+        }
+        
+        doc_close(new_doc);
+        
+        if(poid) {
+            update_acm_object::debug(name . " has been burst into ACM as " . poid . ".");
+        } 
+        else {
+            update_acm_object::debug("[-52] Bursting of new book " . name . " failed. Can't get dynamic object ID");
+        }
+        
+        return poid;
+    }
+}

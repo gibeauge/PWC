@@ -68,7 +68,7 @@ function setXSLParameters()         {}
 function copyGraphics()             {}
 function copyGraphics2()            {}
 
-function main::debug(msg) {
+function main::debug_msg(msg) {
      #eval time_date() . " " . $msg output=>$DEBUG_LOG
      local fid = open($DEBUG_LOG, "a");
      write($fid, time_date() . " " . $msg . "\n");
@@ -78,9 +78,9 @@ function main::debug(msg) {
 function main::debug_array(array[], array_name) {
     local i;
 
-    debug(" Values in array: $array_name:")
+    debug_msg(" Values in array: $array_name:")
     for (i in $array) {
-        debug(" [$i] = " . array[i])
+        debug_msg(" [$i] = " . array[i])
     }
 }
 
@@ -147,16 +147,16 @@ function convert() {
 
     # Main process
     if (errorMessage == "") {
-        debug("Pre-process OK\n");
+        debug_msg("Pre-process OK\n");
         inFile = newInFile;
 
         # set parameters
-        debug("** Process **");
+        debug_msg("** Process **");
         parameterArray[$STYLESHEET_PARAM] = $XSL_DIR . $main::PCS . "pm" . $main::PCS . "pm.xsl";
         parameterArray[$OUTPUTTYPE_PARAM] = $XML_TYPE;
         parameterArray['file'] = $inFile;
         parameterArray['file-type'] = "xml";
-        debug("  > Before hook");
+        debug_msg("  > Before hook");
         debug_array($parameterArray, "PARAMS");
         result = e3::convert2(inFile, outFileHtml, parameterArray);
 
@@ -172,8 +172,8 @@ function convert() {
 
     # Post-process
     if (errorMessage == "") {
-        debug("Process OK\n");
-        debug("** Post-process **");
+        debug_msg("Process OK\n");
+        debug_msg("** Post-process **");
         local rc = s1000d_postprocess(inFile, outFile, parameterArray);
         if (rc != "ok") {
             errorMessage = rc;
@@ -189,16 +189,16 @@ function convert() {
     }
 
     if (errorMessage == "") {
-        debug("Post-process OK\n");
+        debug_msg("Post-process OK\n");
         result = _e3::Convert2Result("ok");
     }
     else {
-        debug("ERROR");
-        debug($errorMessage);
+        debug_msg("ERROR");
+        debug_msg($errorMessage);
         result = _e3::Convert2Result("error", errorMessage);
     }
-
-    debug("End program");
+    
+    debug_msg("End program");
     
     write_result_as_web_age(result);
 
@@ -229,8 +229,8 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         remove_file -f "$DEBUG_LOG";
     }
     
-    debug("Start program (source zip file exists)\n");
-    debug("** Pre-process **");
+    debug_msg("Start program (source zip file exists)\n");
+    debug_msg("** Pre-process **");
     
     #local extractedZipDirectory = dirname(inFile) . $main::PCS . "zip-out";
     local extractedZipDirectory = $TEMP_DIR_ZIP . $main::PCS . basename(inFile, ".zip") . "_zip-out";
@@ -246,7 +246,7 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         return result;
     }
 
-    debug("  > Zip file extracted in " . $extractedZipDirectory);
+    debug_msg("  > Zip file extracted in " . $extractedZipDirectory);
     
     # find xml file in extracted archive
     ZIP_EXTRACT_DIR = $extractedZipDirectory;
@@ -257,7 +257,7 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         return result;
     }
     local xmlFile = $f[1];
-    debug("  > PM file pre-processed is " . $xmlFile);
+    debug_msg("  > PM file pre-processed is " . $xmlFile);
 
     # before pre-process, change URL entities path to customisation path
     local dms[];
@@ -285,7 +285,7 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         close(f2);
         remove_file -f "$dmCopy";
     }
-    
+
     # first pre-process
     local new_xmlFile = "";
     local doc = doc_open(xmlFile, 0x001+0x010+0x020+0x200+0x400+0x80000);
@@ -297,7 +297,7 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         result = "First XSL pre-process has failed." . "\n" . result;
         return result;
     }
-    debug("  > First pre-process is OK (file generated is " . $out_path . ")");
+    debug_msg("  > First pre-process is OK (file generated is " . $out_path . ")");
 
     # second pre-process
     doc = doc_open(new_xmlFile, 0x001+0x010+0x020+0x200+0x400+0x80000);
@@ -310,7 +310,7 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
         return result;
     }
     newInFile = new_xmlFile;
-    debug("  > Second pre-process is OK (file generated is " . $out_path . ")");
+    debug_msg("  > Second pre-process is OK (file generated is " . $out_path . ")");
 
     return result;
 }
@@ -367,11 +367,11 @@ function s1000d_postprocess(inFile, outFile, parameterArray[]) {
         result .= "\n" . "Cannot zip " . $folderDir . " as " . $outFile;
     }
     else {
-        debug("  > Zip file created " . $outFile . " from " . $folderDir);
-        # Delete temporary files
-        execute("remove_file -r -f " . dirFolder);
+        debug_msg("  > Zip file created " . $outFile . " from " . $folderDir);
+    # Delete temporary files
+    execute("remove_file -r -f " . dirFolder);
     }
-    
+
     return result;
 }
 
@@ -401,7 +401,7 @@ function compFrameHook(doc, type, where, parameterArray[]) {
     if (isS1000DPub) {
         if (where == $compose::HK_CFTI_INITIAL)  {
             rc = setXSLParameters(doc, parameterArray);
-            debug("  > Inside Composition Framework hook");
+            debug_msg("  > Inside Composition Framework hook");
             debug_array($parameterArray, "PARAMS");
         }
         else if (where == $compose::HK_CFTI_POSTPROC) {

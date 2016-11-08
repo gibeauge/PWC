@@ -1,0 +1,326 @@
+###############################################################################
+#
+#   Author:       Branden Allen (balleb@ptc.com)
+#                 Uniontown Solutions Center, PTC
+#
+#   Package:      connect_to_ACM
+#
+#   Functions:    get_dmsid()
+#                 get_windchill_properties()
+#                 set_adapter_home()
+#                 clear_workspace()
+#                 connect()
+#
+#   Date:         3/03/10
+#
+#   Description:  This package contains functions that will create the
+#                 connection to ACM "ie. Windchill" durring the check-in/update
+#                 process.
+#
+#   Revisions:    4/6/11 RL - added get_windchill_properties function so that
+#                 the WC username and password are obtained from the 
+#                 windchill_properties.xml.
+#
+###############################################################################
+
+package connect_to_ACM;
+
+global _STRICT_ = 1;
+global CONTEXT_AR[];
+global ADAPTER = "PTC Server";
+global WC_PATH = "";
+global WC_WORKSPACE = "";
+global WC_LOCAL_WS = "";
+global WC_CONTEXT = "";
+global USERNAME = "";
+global PASSWORD = "";
+global DMSID = "";
+global PROPERTIES_FILE = get_custom_dir() . "/init/windchill_properties.xml";
+
+function debug(msg){
+    local debugger = get_user_property("com.ptc.arbortext.gso.debugger");
+    if($debugger=="on"){
+        eval time_date() . ' ' . "[CONNECT TO ACM] " . ' ' . caller(1).' ' . caller_line(1) . '  ' .  msg output=*debug;    
+    }
+    $pwc_import_app::IMPORT_LOG .= time_date() . ' ' . "[CONNECT TO ACM] " . ' ' .  $msg . "\n";
+}
+
+###############################################################################
+#
+#   Function:     get_dmsid()
+#
+#   Expects:      none
+#
+#   Calls:        none
+#
+#   Returns:      dmsid (string)
+#
+#   Description:  This function will get the dmsid from siteprefs.xml.
+#
+#   Revisions:    
+#
+###############################################################################
+function get_dmsid()
+{
+    local path = "";
+    local config = get_custom_dir() . "/adapters/com.ptc.prowt.arbortext/siteprefs.xml";
+    local doc = doc_open(config, 0x020);
+    local dmsid;
+    local param_ar[];
+    
+    current_doc(doc);
+    oid_find_children(oid_root(), param_ar, "ParameterValue");
+    
+    local i = 0;
+    for(i in param_ar)
+    {
+        goto_oid(param_ar[i]);
+        if(match(oid_content(oid_current_tag()), connect_to_ACM::WC_PATH))
+        {
+            dmsid = oid_content(oid_current_tag());
+            dmsid = substr(dmsid, index(dmsid, "|") + 1, length(dmsid));
+            
+            if(index(dmsid, "|"))
+            {
+                dmsid = substr(dmsid, 1, index(dmsid, "|") - 1);
+            }
+        }
+    }
+    
+    doc_close(doc);
+    
+    #response(dmsid);
+    
+    return dmsid;
+}
+
+##############################################################################
+#   Function:     get_windchill_properties()
+#
+#   Expects:      none
+#
+#   Calls:        none
+#
+#   Returns:      error_code
+#                     0 = property file not found
+#                     1 = success
+#                   -10 = property file not found
+#                   -11 = Windchill path not specified
+#                   -12 = Windchill user not specified
+#                   -13 = Windchill organization not specified  * unused
+#                   -14 = Windchill library not specified       * unused
+#                   -15 = Windchill password not specified
+#                   
+#
+#   Description:  This function will open the Windchill properties file located
+#                 in the directory specified by connect_to_ACM::PROPERTIES_FILE.  It
+#                 will then populate the global variables with the data
+#                 contained in that file.
+#                
+#   Revisions:    
+###############################################################################
+function get_windchill_properties()
+{
+    local properties[];
+    local i;
+    local error_code = 1;
+    
+    local property_file = doc_open(connect_to_ACM::PROPERTIES_FILE, 0x001);
+    if(property_file > 0) {
+        oid_find_child_attrs(oid_root(property_file),properties,"type");
+        for(i in properties) {
+            
+            if(oid_attr(properties[i],"type") == "path") {
+                connect_to_ACM::WC_PATH = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "user") {
+                connect_to_ACM::USERNAME = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "pass") {
+                connect_to_ACM::PASSWORD = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "context") {
+                connect_to_ACM::WC_CONTEXT = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "workspace") {
+                connect_to_ACM::WC_WORKSPACE = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "local_ws") {
+                connect_to_ACM::WC_LOCAL_WS = oid_content(properties[i]);
+            }
+        }
+        if((connect_to_ACM::WC_PATH == "") || (connect_to_ACM::WC_PATH == null)) {
+            error_code = -11;
+            connect_to_ACM::debug("[-11] Windchill path not specified");
+        }
+        else if((connect_to_ACM::USERNAME == "") || (connect_to_ACM::USERNAME == null)) {
+            error_code = -12;
+            connect_to_ACM::debug("[-12] Windchill user not specified");
+        }
+        else if((connect_to_ACM::PASSWORD == "") || (connect_to_ACM::PASSWORD == null)) {
+            error_code = -15;
+            connect_to_ACM::debug("[-15] Windchill password not specified");
+        }
+        doc_close(property_file);
+        return error_code;
+    }
+    error_code = -10;
+    connect_to_ACM::debug("[-10] Windchill property file not found (init/windchill_properties.xml)");
+    doc_close(property_file);
+    return error_code;
+}
+
+###############################################################################
+#
+#   Function:     set_adapter_home()
+#
+#   Expects:      none
+#
+#   Calls:        none
+#
+#   Returns:      the folder path that will be used for the local adapter
+#                 cache (string)
+#
+#   Description:  This function creates a unique folder name that can be used
+#                 by the WIndchill adapter so that multiple sessions can
+#                 be opened.              
+#
+#   Revisions:    
+#
+###############################################################################
+
+function set_adapter_home(){
+    local timestamp, month;
+    local timestamp_ar[];
+                
+    gsub(":", ".", time_date(), timestamp);
+    split(timestamp, timestamp_ar, " ");
+                
+    switch(timestamp_ar[2])
+    {
+        case "Jan": month = "01"; break;
+        case "Feb": month = "02"; break;
+        case "Mar": month = "03"; break;
+        case "Apr": month = "04"; break;
+        case "May": month = "05"; break;
+        case "Jun": month = "06"; break;
+        case "Jul": month = "07"; break;
+        case "Aug": month = "08"; break;
+        case "Sep": month = "09"; break;
+        case "Oct": month = "10"; break;
+        case "Nov": month = "11"; break;
+        case "Dec": month = "12"; break;
+    }
+    # sets the format for timestamp to MM-DD-YYYY HH.MM.SS
+    timestamp = month . "-" . timestamp_ar[3] . "-" . timestamp_ar[5] . " " . timestamp_ar[4];
+    
+    return connect_to_ACM::USERNAME . " " . timestamp;
+}
+
+###############################################################################
+#
+#   Function:     clear_workspace()
+#
+#   Expects:      SESSION_HANDLE
+#
+#   Calls:        wcinvoke::invoke()
+#                 wcutil::getAdapter()
+#
+#   Returns:      int
+#
+#   Description:  This function clears the workspace that is being used by
+#                 the current Windchill/ACM session.              
+#
+#   Revisions:    
+#
+###############################################################################
+
+function clear_workspace(SESSION_HANDLE){
+    if(SESSION_HANDLE){
+        local adapter = wcutil::getAdapter();
+        wcinvoke::invoke(adapter, "clearCurrentWorkspace");
+        return 1;
+    } else{
+        return -1;
+    }
+}
+
+###############################################################################
+#
+#   Function:     connect()
+#
+#   Expects:      none
+#
+#   Calls:        connect_to_ACM::authenticate_user()
+#                 connect_to_ACM::get_dmsid()
+#                 connect_to_ACM::set_adapter_home
+#
+#   Returns:      connect_to_ACM::SESSION_HANDLE (int)
+#                 -1 in case of errors
+#                  displays:
+#                  -16 = Windchill context not specified
+#                  -17 = Windchill workspace not specified
+#
+#   Description:  This function makes a connection to ACM/Windchill.              
+#
+#   Revisions:    
+#
+###############################################################################
+function pwc_connect()
+{
+
+    local context = "";
+    local ws = "";
+    local adapter_data;
+    
+    connect_to_ACM::SESSION_HANDLE = -1;
+    local res = connect_to_ACM::get_windchill_properties();
+    
+    if ($res==1) {
+        #Set the WVSExecuteAs to prevent any .wcf files from overriding and causing import failures (PTC Case C10746736)
+        set_custom_property('com.ptc.prowt.arbortext.WVSExecuteAs', connect_to_ACM::USERNAME); 
+    
+        #Set the local adapter dir so that multiple connections can opened
+        set_custom_property('com.ptc.prowt.arbortext.WindchillAdapterHomeDir', connect_to_ACM::WC_LOCAL_WS . "\\" . connect_to_ACM::set_adapter_home());
+    
+        #This is the HostList form the siteprefs.xml file
+        connect_to_ACM::DMSID = connect_to_ACM::get_dmsid();
+    
+        context = connect_to_ACM::WC_CONTEXT;
+        ws = connect_to_ACM::WC_WORKSPACE;
+    
+        if(context) {
+            if(ws) {       
+                adapter_data = "context=" . context . ",workspace=" . ws;
+                connect_to_ACM::SESSION_HANDLE = sess_start(connect_to_ACM::ADAPTER, connect_to_ACM::USERNAME, connect_to_ACM::PASSWORD, connect_to_ACM::DMSID, adapter_data, "", 0);
+            }
+            else {
+                connect_to_ACM::debug("[-16] Windchill context not specified");
+                return -1;
+            }
+        }
+        else {
+            connect_to_ACM::debug("[-17] Windchill workspace not specified");
+            return -1;
+        }
+    }
+    else {
+        # errors already displayed in get_windchill_properties
+        return -1;
+    }
+    
+    return connect_to_ACM::SESSION_HANDLE;
+}
+
+function pwc_disconnect(session){
+    if(session){
+        sess_terminate(session);
+    }
+}
+
+#function init(){
+    #if(!dms::current_sess()){
+        #connect_to_ACM::pwc_connect();
+    #}
+#}
+

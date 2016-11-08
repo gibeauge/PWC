@@ -1,0 +1,465 @@
+###############################################################################
+#
+#   Author:       Ryan Lubben (rlubben@ptc.com)
+#                 Arbortext Business Unit, PTC
+#
+#   Package:      update_pwc_manifest
+#
+#   Functions:    list_ojects
+#                 update_manifest
+#
+#   Date:         3/15/11 
+#
+#   Description:  This package contains functions used to update the 
+#                 PWC manifest as documents are being checked into ACM.
+#
+#   Revisions:    3/23/12 
+#                 rlubben - Modified the list_children function so that it only
+#                 adds the logical IDs of children to the manifest and not all 
+#                 descendnants. The list_descendants function was created
+#                 to recursivelly list all descendants. 
+#
+###############################################################################
+
+package update_pwc_manifest;
+
+global _STRICT_ = 1;
+global ACM_OBJECTS[];
+
+function update_pwc_manifest::list_children() {}
+function update_pwc_manifest::list_descendants() {}
+
+function debug(msg){
+    local debugger = get_user_property("com.ptc.arbortext.gso.debugger");
+    if($debugger=="on"){
+        eval time_date() . ' ' . "[UPDATE PWC MANIFEST] " . ' ' . caller(1).' ' . caller_line(1) . '  ' .  msg output=*debug;   
+    }
+    $pwc_import_app::IMPORT_LOG .= time_date() . ' ' . "[UPDATE PWC MANIFEST] " . ' ' .  $msg . "\n";
+}
+
+##############################################################################
+#   Function:     list_objects()
+#
+#   Expects:      server_object (server object document OID)
+#
+#   Calls:        none
+#
+#   Returns:      int
+#
+#   Description:  This function will use iterate through all the OIDs in 
+#                 the open document and create an associative array of 
+#                 all server objects.
+#                
+#   Revisions:    
+###############################################################################
+
+function list_objects(server_object) {
+    
+    local oids[];
+    local doc = server_object;
+    local o = oid_root(doc);
+    local count = 0;
+    local i;
+    
+    oid_find_child_attrs(o, oids ,"ACM-path");
+    
+ 
+    if (!doc_valid(doc) || doc_kind(doc) != 'xml') {
+            return;
+    }
+        
+    #Add the document logical ID to the ACM_OBJECTS array
+    ACM_OBJECTS[oid_attr(o, 'object-key')] = poid_to_logicalid(oid_encl_poid(o));
+        
+    for(i in oids) {
+        if(oid_valid(oids[i])){
+            if(oid_graphic_pathname(oids[i]) > 0){
+                if(oid_type(oids[i]) == 0){
+                    local object_key = oid_attr(oids[i], 'object-key');
+                    local logical_id = oid_graphic_pathname(oids[i]);
+                    if(object_key > 0 && logical_id > 0){
+                        #Build an associative array of XIncludes
+                        update_pwc_manifest::debug("Adding " . logical_id . " to ACM_OBJECTS[" . object_key . "]" );
+                        ACM_OBJECTS[object_key] = logical_id;
+                    }
+                }
+            }   
+            else if (oid_encl_poid(oids[i])) {
+                # it is an xinclude, so add it to the array
+                if(oid_type(oids[i]) == 0){
+                    local object_key = oid_attr(oids[i], 'object-key');
+                    local logical_id = poid_to_logicalid(oid_encl_poid(oids[i]));
+                         
+                    if(object_key > 0 && logical_id > 0){
+                        #Build an associative array of XIncludes
+                        update_pwc_manifest::debug("Adding " . logical_id . " to ACM_OBJECTS[" . object_key . "]" );
+                        ACM_OBJECTS[object_key] = logical_id;
+                    }
+                }
+            }
+        }
+                
+    }
+    delete(oids);
+    
+    return count;
+}
+
+##############################################################################
+#   Function:     add_logical_ids()
+#
+#   Expects:      manifest - manifest document OID
+#                 logicalid - ACM logicalID of the object
+#                 level - children or descendants  
+#
+#   Calls:        pwc_bursting::list_xincludes
+#
+#   Returns:      integer (error code)
+#                 1 = success
+#                 0 = manifest file not found
+#
+#   Description:  This function will update the manifest file by adding
+#                 an ACM-logical-id attribute for each manifest-item that
+#                 contains the ACM logical ID of the object.  
+#                
+#   Revisions:    
+###############################################################################
+
+function add_logical_ids(manifest, logicalid, level){
+
+    local item_count;
+    local i, j;
+    local error_code=1;
+    local manifest_item, object_key;
+    
+    #Before we can update the manifest, we need to know what server objects exist in the open doc
+    if(level == "children"){
+        update_pwc_manifest::list_children(logicalid);
+    }
+    else {
+        #Get all descendants
+        update_pwc_manifest::list_descendants(logicalid);
+    }
+
+    if(manifest) {
+        item_count = count(update_acm_object::MANIFEST_ITEMS);
+
+        if(item_count > 0) {
+            for(i in update_acm_object::MANIFEST_ITEMS) {
+                manifest_item = update_acm_object::MANIFEST_ITEMS[i];
+                object_key = oid_attr(manifest_item, 'object-key');
+
+                if(ACM_OBJECTS[object_key] > 0) {
+                    update_pwc_manifest::debug("Adding logical-ID to manifet-item @object-key=" . object_key);
+                    oid_modify_attr(manifest_item, 'ACM-logical-id', ACM_OBJECTS[object_key]);
+                }
+            }
+
+            doc_save(manifest);
+            return error_code;
+        }
+    }
+    error_code = 0;
+    return error_code;
+}
+
+##############################################################################
+#   Function:     reset_status()
+#
+#   Returns:      integer
+#
+#   Description:  This function resets all of the status attributes in the 
+#                 manifest to status="Unchanged".
+#                
+#   Revisions:    
+###############################################################################
+
+function reset_status(manifest){
+    local item_count = 0;
+    local i, manifest_item, object_key, status;
+    
+    item_count = count(update_acm_object::MANIFEST_ITEMS);
+    
+    
+    if(item_count > 0)
+    {
+        for(i in update_acm_object::MANIFEST_ITEMS)
+        {
+            manifest_item = update_acm_object::MANIFEST_ITEMS[i];
+            if(oid_has_attr(manifest_item, 'object-key') && oid_has_attr(manifest_item, 'status')){
+            
+                object_key = oid_attr(manifest_item, 'object-key');
+                status = oid_attr(manifest_item, 'status');
+                
+                if(status == 'Delete'){
+                    if(oid_valid(manifest_item)){
+                        #remove the <manifest-item> and its contents from the manifest
+                        update_pwc_manifest::debug("Deleting manifest-item @object-key=". object_key);
+                        oid_delete(manifest_item);
+                    }
+                }
+                else{
+                    #Flip the status to Unchanged so the manifest is ready for the next round of updates
+                    if(oid_valid(manifest_item)){
+                        update_pwc_manifest::debug("Resetting the status for manifet-item @object-key=". object_key . "." );
+                        oid_modify_attr(manifest_item, 'status', 'Unchanged');
+                    }
+                }
+            } else{
+                update_pwc_manifest::debug("MANIFEST_ITEMS[" . i . "] is a zombie manifest item");
+            }
+        }
+            
+        doc_save(manifest);
+        status = 1;
+    }
+    
+    return status;
+}
+
+##############################################################################
+#   Function:     checkin_new_manifest()
+#
+#   Expects:      new_manifest - the Doc handle for the object being added to ACM
+#
+#   Calls:        dms::current_sess
+#
+#   Returns:      poid (checked-in server object)
+#                 -1 in case of errors
+#                  displays:
+#                  -61 = Bursting of new manifest failed
+#                  -62 = Bursting of new manifest failed. Can't get dynamic object ID
+#                  -63 = Checkin of new manifest failed
+#
+#   Description:  Saves the local XML file as a server object in ACM  
+#
+#                 Note: this function is derived from the 
+#                 dms::file_save_as_object function.
+#                
+#   Revisions:    
+###############################################################################
+
+function checkin_new_manifest(new_manifest)
+{       
+    local objSess = dms::current_sess();
+    local use_locnrules = 1;
+    local lock = 1;
+    local flags = 0;
+    local poid = "-1";
+    local name = substr(doc_name(new_manifest), 1, index(doc_name(new_manifest),'.xml') -1);
+    local object_key;
+
+    if (lock) {
+        flags |= dms::BF_TOPLOCK;
+    }
+    else {
+        flags |= dms::BF_NOTOPLOCK;
+    }
+
+    if (full_text) {
+        flags |= dms::BF_FULLTEXT;
+    }
+    
+    if (use_locnrules) {
+        flags |= dms::BF_USELOCNRULES;
+    }
+
+    if (sess_doc_burst(objSess, new_manifest, flags, name)) {      
+        local dobj = oid_encl_dobj(oid_first(new_manifest));
+        if (dobj > 0) {
+            if (!name)
+            {
+                # get name assigned by sess_doc_burst
+                name = doc_name(new_manifest);
+            }
+            
+            object_key = oid_attr(oid_root(new_manifest), 'object-key');
+            #add the Logical ID to the manifest for future reference
+            update_pwc_manifest::debug("Adding the ACM-logical-id to manifet-item @object-key=". object_key . "." );
+            
+            poid = dobj_logicalid(dobj);
+            if (poid) {
+                oid_modify_attr(oid_root(new_manifest), 'ACM-logical-id', poid);
+                doc_save(new_manifest);
+                dobj_save(dobj, 0x02);
+                update_pwc_manifest::debug("Checking in manifest " .  poid);
+                if(dobj_checkin(dobj) > 0) {
+                }
+                else {
+                    update_pwc_manifest::debug("[-63] Checkin of new manifest " . name . " failed.");
+                }
+                dobj_close(dobj);
+            }
+            else {
+                update_pwc_manifest::debug("[-62] Bursting of new manifest " . name . " failed. Can't get dynamic object ID (2)");
+            }
+        }
+        else {
+            update_pwc_manifest::debug("[-62] Bursting of new manifest " . name . " failed. Can't get dynamic object ID (1)");
+        }
+    
+    }
+    else {
+        # In the event the burst failed with IO_ERR_SESS_MSG then the error
+        # will have already been reported internally and main::ioerr will
+        # have been set to IO_ERR_FAIL.  We sense this case and purposefully
+        # do nothing.
+        update_pwc_manifest::debug("[-61] Bursting of new manifest " . name . " failed.");
+        if (main::ioerr != IO_ERR_FAIL) {
+            dms::io_err(main::ioerr);
+        }
+    }
+    
+    doc_close(new_manifest);
+    
+    return poid;
+}
+
+##############################################################################
+#   Function:     update_existing_server_manifest()
+#
+#   Expects:      logical_id - the logical ID of the existing server object
+#                 doc - the local doc that will be used to update the
+#                               server object
+#                 manifest - the manifest doc
+#
+#   Returns:      int 
+#                 1 = success
+#                 0 = manifest file not found
+#               -65 = Manifest update failed. Can't build dynamic object
+#               -66 = Manifest update failed. Can't lock dynamic object
+#               -67 = Manifest update failed. Bursting failed
+#               -68 = Manifest update failed. Checkin failed
+#
+#   Description:  Check-out and update an existing server object  
+#                
+#   Revisions:    
+###############################################################################
+
+function update_existing_server_manifest(logical_id, doc){
+
+    local error_code = 1;
+    
+    if(doc > 0) {
+        local root = oid_root(doc);
+        local dobj = dobj_construct(logical_id, doc);
+        
+        if (dobj==0) {
+            update_pwc_manifest::debug("[-65] Manifest update failed. Can't build dynamic object");
+            return_code = -65;
+        }
+        else {
+        
+            #Let's make sure we own the lock before we try updating the server object
+            if(dobj_lock(dobj, 1) != 0){
+                #replace the server object with the updated content
+                oid_set_dobj(root, dobj);
+                doc_save(doc);
+                if(dobj_burst(dobj)){
+                    dobj_save(dobj, 0x002);
+
+                    if(dobj_checkin(dobj) > 0){
+                        # success
+                    }
+                    else {
+                        update_pwc_manifest::debug("[-68] Manifest update failed. Checkin failed");
+                        return_code = -68;
+                        dobj_unlock(dobj);
+                    }
+                }
+                else {
+                    update_pwc_manifest::debug("[-67] Manifest update failed. Bursting failed");
+                    return_code = -67;
+                    dobj_unlock(dobj);
+                }
+            }
+            else {
+                update_pwc_manifest::debug("[-66] Manifest update failed. Can't lock dynamic object");
+                return_code = -66;
+            }
+            dobj_close(dobj);
+        }
+        doc_close(doc);
+    }
+    else {
+        error_code = 0;
+    }
+    
+    return error_code;
+}
+
+##############################################################################
+#   Function:     list_children()
+#
+#   Expects:      logical_id - the logical ID of the existing server object
+#
+#   Returns:      none
+#
+#   Description:  obtain a list of a server object's children and add them to
+#                 ACM_OBJECTS array.
+#                
+#   Revisions:    
+###############################################################################
+function list_children(logicalid){
+    local children[];
+    local childInfo[];
+    local i;
+    local dobj;
+    local object_key;
+    
+    dobj = dobj_construct(logicalid, current_doc());
+    object_key = dobj_get_attr(dobj, 'PWC_OBJECT_KEY');
+    
+    update_pwc_manifest::ACM_OBJECTS[object_key] = logicalid;
+
+    update_pwc_manifest::debug("Adding " .  logicalid . " to " . "ACM_OBJECTS[" . object_key . "]");
+    
+    poid_list_children(logicalid, children);
+    
+    for(i in children){
+        split(children[i], childInfo, '^');
+        #eval childInfo[3] output=>*;
+        update_pwc_manifest::list_children(childInfo[3]);
+        dobj = dobj_construct(childInfo[3], current_doc());
+        object_key = dobj_get_attr(dobj, 'PWC_OBJECT_KEY');
+        update_pwc_manifest::debug("Adding " .  childInfo[3] . " to " . "ACM_OBJECTS[" . object_key . "]");
+        update_pwc_manifest::ACM_OBJECTS[object_key] = childInfo[3];
+    }
+    
+}
+
+##############################################################################
+#   Function:     list_descendants()
+#
+#   Expects:      logical_id - the logical ID of the existing server object
+#
+#   Returns:      none
+#
+#   Description:  obtain a list of a server object's descendants and add them to
+#                 ACM_OBJECTS array.
+#                
+#   Revisions:    
+###############################################################################
+function list_descendants(logicalid){
+    local children[];
+    local childInfo[];
+    local i;
+    local dobj;
+    local object_key;
+    
+    dobj = dobj_construct(logicalid, current_doc());
+    object_key = dobj_get_attr(dobj, 'PWC_OBJECT_KEY');
+    
+    update_pwc_manifest::ACM_OBJECTS[object_key] = logicalid;
+    
+    update_pwc_manifest::debug("Adding " .  logicalid . " to " . "ACM_OBJECTS[" . object_key . "]");
+    
+    poid_list_children(logicalid, children);
+    
+    for(i in children){
+        split(children[i], childInfo, '^');
+        update_pwc_manifest::debug("Adding " .  childInfo[3] . " to " . "ACM_OBJECTS[" . object_key . "]");
+        update_pwc_manifest::list_children(childInfo[3]);
+    }
+    
+}

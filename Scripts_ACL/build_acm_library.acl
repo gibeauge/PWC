@@ -1,0 +1,253 @@
+##############################################################################
+#
+#   Author:       Troy Price (tprice@ptc.com)
+#                 Uniontown Solutions Center, PTC
+#
+#   Package:      build_acm_library
+#
+#   Functions:    get_windchill_properties
+#                 call_ie_task
+#                 read_manifest
+#                 create_folder_structure
+#
+#   Date:         2/28/11
+#
+#   Description:  This package contains functions that will use information
+#                 passed in from a burst hook.  With this information, the
+#                 code will open a manifest file, parse it for folder
+#                 structure, and call an Info*Engine task to create that
+#                 structure in Windchill.
+#
+#   Revisions:    3/11/2011 - ballen
+#                 Added parameter to the call_ie_task that takes the name
+#                 of the task
+#
+#                 Added read only argument to all of the calls to the doc_open
+#                 function
+#       
+#                 
+#                    
+#
+###############################################################################
+package build_acm_library;
+
+require array_functions;
+
+global _STRICT_ = 1;
+global PROPERTIES_FILE = get_custom_dir() . "/init/windchill_properties.xml";
+global WC_PATH = "";
+global WC_USER = "";
+global WC_PASS = "";
+global WC_ORG = "";
+global WC_LIB = "";
+
+function debug(msg){
+    local debugger = get_user_property("com.ptc.arbortext.gso.debugger");
+    if($debugger=="on"){
+        eval time_date() . ' ' . "[BUILD ACM LIBRARY] " . ' ' . caller(1).' ' . caller_line(1) . '  ' .  msg output=*debug; 
+    }
+    $pwc_import_app::IMPORT_LOG .= time_date() . ' ' . "[BUILD ACM LIBRARY] " . ' ' .  $msg . "\n";
+}
+
+
+##############################################################################
+#   Function:     get_windchill_properties()
+#
+#   Expects:      none
+#
+#   Calls:        none
+#
+#   Returns:      error_code
+#                     1 = success
+#                   -10 = property file not found
+#                   -11 = Windchill path not specified
+#                   -12 = Windchill user not specified
+#                   -13 = Windchill organization not specified
+#                   -14 = Windchill library not specified
+#                   -15 = Windchill password not specified
+#                   
+#
+#   Description:  This function will open the Windchill properties file located
+#                 in the directory specified by build_acm_library::PROPERTIES_FILE.  It
+#                 will then populate the global variables with the data
+#                 contained in that file.
+#                
+#   Revisions:    
+###############################################################################
+function get_windchill_properties()
+{
+    local properties[];
+    local i;
+    local error_code = 1;
+    
+    local property_file = doc_open(build_acm_library::PROPERTIES_FILE, 0x001);
+    if(property_file > 0) {
+        oid_find_child_attrs(oid_root(property_file),properties,"type");
+        for(i in properties) {
+            
+            if(oid_attr(properties[i],"type") == "path") {
+                build_acm_library::WC_PATH = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "user") {
+                build_acm_library::WC_USER = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "pass") {
+                build_acm_library::WC_PASS = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "organization") {
+                build_acm_library::WC_ORG = oid_content(properties[i]);
+            }
+            if(oid_attr(properties[i],"type") == "library") {
+                build_acm_library::WC_LIB = oid_content(properties[i]);
+            }
+        }
+        if((build_acm_library::WC_PATH == "") || (build_acm_library::WC_PATH == null)) {
+            error_code = -11;
+            build_acm_library::debug("[-11] Windchill path not specified");
+        }
+        else if((build_acm_library::WC_USER == "") || (build_acm_library::WC_USER == null)) {
+            error_code = -12;
+            build_acm_library::debug("[-12] Windchill user not specified");
+        }
+        else if((build_acm_library::WC_ORG == "") || (build_acm_library::WC_ORG == null)) {
+            error_code = -13;
+            build_acm_library::debug("[-13] Windchill organization not specified");
+        }
+        else if((build_acm_library::WC_LIB == "") || (build_acm_library::WC_LIB == null)) {
+            error_code = -14;
+            build_acm_library::debug("[-14] Windchill library not specified");
+        }
+        else if((build_acm_library::WC_PASS == "") || (build_acm_library::WC_PASS == null)) {
+            error_code = -15;
+            build_acm_library::debug("[-15] Windchill password not specified");
+        }
+        doc_close(property_file);
+        return error_code;
+    }
+    error_code = -10;
+    build_acm_library::debug("[-10] Windchill property file not found (init/windchill_properties.xml)");
+    doc_close(property_file);
+    return error_code;
+}
+
+##############################################################################
+#   Function:     call_ie_task()
+#
+#   Expects:      wc_folder_path (string)
+#                 ie_task (String)
+#
+#   Calls:        com.ptc.ssp.extie.ExtIEConnection
+#                 <Windchill>/infoengine/examples/createFolder.xml
+#
+#   Returns:      boolean
+#
+#   Description:  This function will read the Windchill folder path passed in
+#                 and call an Info*Engine task to create the folder structure
+#                 in Windchill.
+#                
+#   Revisions:    
+###############################################################################
+function call_ie_task(wc_folder_path, ie_task)
+{
+    wc_folder_path = wc_folder_path;
+    local obj = java_constructor('com.ptc.ssp.extie.ExtIEConnection',build_acm_library::WC_PATH,build_acm_library::WC_USER,build_acm_library::WC_PASS);
+    local task = java_instance(obj,'newExtIETask',ie_task);
+    java_instance(task,"addParam","folderName",wc_folder_path);
+    java_instance(task,"addParam","orgName",build_acm_library::WC_ORG);
+    java_instance(task,"addParam","libraryName",build_acm_library::WC_LIB);
+    local result = java_instance(task,"invoke");
+    return 1;
+}
+
+##############################################################################
+#   Function:     read_manifest
+#
+#   Expects:      Manifest_file (the manifest file doc handle)
+#
+#   Calls:        build_acm_library::call_ie_task()
+#                 array_functions::remove_duplicate_array_items()
+#
+#   Returns:      error_code
+#                     1 = success
+#                     0 = manifest file not found
+#                   -20 = no ACM paths specified
+#                   -21 = path not created in Windchill
+#                   
+#
+#   Description:  This function will open the manifest file located in the path
+#                 provided.  It will then parse out the ACM-path attributes and
+#                 pass that information to remove duplicate data and finally
+#                 send this information to Info*Engine.
+#                
+#   Revisions:    
+###############################################################################
+function read_manifest(manifest_file)
+{
+    local acm_paths[];
+    local path_count;
+    local i, j;
+    local error_code=1;
+    
+    if(manifest_file > 0) {
+        path_count = oid_find_child_attrs(oid_root(manifest_file),acm_paths,"ACM-path");
+        if(path_count > 0) {
+            for(i in acm_paths) {
+                acm_paths[i] = oid_attr(acm_paths[i],"ACM-path");   
+            }
+            
+            
+            array_functions::remove_substring_array_items(acm_paths);
+            
+            for(j in acm_paths) {
+                if(build_acm_library::call_ie_task(acm_paths[j], "createFolder.xml") != 1) {
+                    error_code = -21;
+                    build_acm_library::debug("[-21] Path not created in Windchill");
+                    doc_close(manifest_file);
+                    return error_code;
+                }
+            
+            }
+            
+            return error_code;
+        }
+        error_code = -20;
+        build_acm_library::debug("[-20] No ACM paths specified");
+        return error_code;
+    }
+    error_code = 0;
+    build_acm_library::debug("[0] Manifest file not found");
+    return error_code;
+}
+
+###############################################################################
+#   Function:     create_folder_structure
+#
+#   Expects:      manifest_doc (manifest file doc handle)
+#                 name (name of the manifest)
+#
+#   Calls:        build_acm_library::read_manifest()
+#
+#   Returns:      status (int)
+#
+#   Description:  This function will be called by a burst hook.  The burst
+#                 hook will pass in a file path that can be used to locate a
+#                 manifest file.
+#                
+#   Revisions:    
+###############################################################################
+function create_folder_structure(manifest_doc)
+{
+    local status;
+
+    local i=1;
+
+    status = build_acm_library::get_windchill_properties();
+    if(status != 1) {
+        return status;
+    }
+    
+    status = build_acm_library::read_manifest(manifest_doc);
+    return status;
+}
+
+#eval build_acm_library::create_folder_stucture("D:/workspace/PWC_ITEM/trunk/artifacts/SamplePackages/mm_pw300_pw306a_30B1412_32/","manifest_mm_pw300_pw306a_30B1412_32.xml") output=>*;
