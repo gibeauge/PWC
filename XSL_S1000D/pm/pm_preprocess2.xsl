@@ -181,8 +181,7 @@
               </row>
             </thead>
             <tbody>
-              <!--xsl:apply-templates select="//dmodule[../@is-tp='false']" mode="loedm"/-->
-              <xsl:apply-templates select="//dmodule" mode="loedm"/>
+              <xsl:apply-templates select="//dmodule[not(../@file = ../preceding::dmInclusion/@file)]" mode="loedm"/>
             </tbody>
           </tgroup>
         </table>
@@ -254,13 +253,9 @@
       </para>
     </entry>
     <entry colsep="0" rowsep="0">
-      <!--
-      <xsl:variable name="issue">
-        <xsl:apply-templates select="identAndStatusSection/dmStatus/@issueType" mode="loedm"/>
-      </xsl:variable>
-      <para><xsl:value-of select="if ($issue!='') then $issue else 'N'"/></para>
-      -->
-      <para>N</para>
+      <!--para><xsl:apply-templates select="identAndStatusSection/dmStatus/@issueType" mode="loedm"/></para-->
+      <xsl:variable name="issue" select="ancestor::dmInclusion/@isstype"/>
+      <para><xsl:value-of select="if ($issue!='NA') then $issue else 'N'"/></para>
     </entry>
     <entry colsep="0" rowsep="0">
       <para>
@@ -337,9 +332,8 @@
               </row>
             </thead>
             <tbody>
-              <!--xsl:apply-templates select="//dmodule[../@is-tp='false']" mode="highlights"/-->
               <xsl:apply-templates select="/pm" mode="highlights"/>
-              <xsl:apply-templates select="//dmodule" mode="highlights"/>
+              <xsl:apply-templates select="//dmodule[not(../@file = ../preceding::dmInclusion/@file)]" mode="highlights"/>
             </tbody>
           </tgroup>
         </table>

@@ -137,6 +137,7 @@ function convert() {
     local outFileHtml = outFile . ".html";
 
     local errorMessage = "";
+	local errorDetails = "";
 
     # Pre-process
     local newInFile = "";
@@ -160,13 +161,9 @@ function convert() {
         debug_array($parameterArray, "PARAMS");
         result = e3::convert2(inFile, outFileHtml, parameterArray);
 
-        # Decode 'e3::convert2' return array
-        local convertResult[];
-        e3::string_to_array(convertRc, convertResult);
-        # If conversion succeeded, we're done
-        if (convertResult["result"] != "ok") {
-            result .= "\n". get_composer_log_contents();
-            return result;
+		if (index(result, "*result:error*")>0) {
+			errorMessage = "Error during HTML processing\n";
+			errorDetails = get_composer_log_contents();
         }
     }
 
@@ -190,12 +187,13 @@ function convert() {
 
     if (errorMessage == "") {
         debug_msg("Post-process OK\n");
-        result = _e3::Convert2Result("ok");
+        result = "result: ok";
     }
     else {
         debug_msg("ERROR");
         debug_msg($errorMessage);
-        result = _e3::Convert2Result("error", errorMessage);
+		debug_msg($errorDetails);
+        result = "result: error<br/><br/>" . errorMessage;
     }
     
     debug_msg("End program");
@@ -290,7 +288,7 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
     local new_xmlFile = "";
     local doc = doc_open(xmlFile, 0x001+0x010+0x020+0x200+0x400+0x80000);
     local xsl_path = $XSL_DIR . $main::PCS . "pm" . $main::PCS . "pm_preprocess.xsl";
-    local out_path = substr($xmlFile, 1, match($xmlFile, "\.xml")-1) . "_pre.xml";
+    local out_path = substr($xmlFile, 1, match($xmlFile, "[\.]xml")-1) . "_pre.xml";
     result = pub_preprocess_xsl($doc, $xsl_path, $out_path, $new_xmlFile);
     doc_close($doc);
     if (result != "ok") {
@@ -302,7 +300,7 @@ function s1000d_preprocess(inFile, outFile, parameterArray[], &newInFile) {
     # second pre-process
     doc = doc_open(new_xmlFile, 0x001+0x010+0x020+0x200+0x400+0x80000);
     xsl_path = $XSL_DIR . $main::PCS . "pm" . $main::PCS . "pm_preprocess2.xsl";
-    out_path = substr($xmlFile, 1, match($xmlFile, "\.xml")-1) . "_pre_fm.xml";
+    out_path = substr($xmlFile, 1, match($xmlFile, "[\.]xml")-1) . "_pre_fm.xml";
     result = pub_preprocess_xsl($doc, $xsl_path, $out_path, $new_xmlFile);
     doc_close($doc);
     if (result != "ok") {

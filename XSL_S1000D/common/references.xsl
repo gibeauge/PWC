@@ -41,8 +41,13 @@
 
 <xsl:template match="dmRef[dmRefIdent/dmCode]" mode="refs">
   <xsl:variable name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
-  <xsl:variable name="file" select="key('dms', $dmc)/@file"/>
+  <xsl:variable name="target-dm" select="key('dms', $dmc)"/>
+  
   <tr>
+    <xsl:call-template name="change"/>
+    <xsl:choose>
+      <xsl:when test="$target-dm">
+        <xsl:variable name="file" select="$target-dm/@file"/>
     <td>
       <a class="s-refs-link" href="{$file}.html">
         <xsl:value-of select="fn:getDMCBasic($dmc)"/>
@@ -51,16 +56,27 @@
     <td>
       <a class="s-refs-link" href="{$file}.html">
         <xsl:call-template name="get-dmref-title">
-          <xsl:with-param name="dmc" select="$dmc"/>
+              <xsl:with-param name="target-dm" select="$target-dm"/>
         </xsl:call-template>
       </a>
     </td>
+      </xsl:when>
+      <xsl:otherwise>
+        <td>
+          <xsl:value-of select="fn:getDMCBasic($dmc)"/>
+        </td>
+        <td>
+          <xsl:call-template name="get-dmref-title"/>
+        </td>
+      </xsl:otherwise>
+    </xsl:choose>
   </tr>
 </xsl:template>
 
 <xsl:template match="pmRef" mode="refs">
   <xsl:variable name="pmc" select="fn:getPMC(pmRefIdent/pmCode)"/>
   <tr>
+    <xsl:call-template name="change"/>
     <td><xsl:value-of select="$pmc"/></td>
     <td>
       <xsl:choose>
@@ -93,6 +109,7 @@
   <xsl:param name="target" select="@xlink:href"/>
 
   <tr>
+    <xsl:call-template name="change"/>
     <td></td>
     <td>
       <a href="{$target}" target="_blank">
@@ -106,6 +123,7 @@
   <xsl:param name="externalPubCode" select="externalPubRefIdent/externalPubCode"/>
 
   <tr>
+    <xsl:call-template name="change"/>
     <td>
       <xsl:value-of select="$externalPubCode"/>
     </td>
@@ -123,15 +141,16 @@
 
 <xsl:template match="dmRef[@referredFragment and dmRefIdent/dmCode]" priority="5">
   <xsl:variable name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
-  <xsl:variable name="file" select="key('dms', $dmc)/@file"/>
+  <xsl:variable name="target-dm" select="key('dms', $dmc)"/>
+  
+  <xsl:choose>
+    <xsl:when test="$target-dm">
+      <xsl:variable name="file" select="$target-dm/@file"/>
   <xsl:variable name="refid" select="@referredFragment"/>
   <xsl:variable name="target-node" select="key('ids', concat($dmc, '-', $refid))"/>
   
   <xsl:choose>
-    <xsl:when test="not($target-node)">
-      <xsl:next-match/>
-    </xsl:when>
-    <xsl:otherwise>
+        <xsl:when test="$target-node">
       <a class="s-link" href="{$file}.html#{$refid}">
         <xsl:call-template name="change"/>
         <xsl:call-template name="get-dmref-value">
@@ -140,50 +159,69 @@
         <xsl:value-of select="fn:getGenText('sep3')"/>
         <xsl:apply-templates select="$target-node" mode="internalRef"/>
       </a>
+        </xsl:when>
+        <xsl:otherwise>
+          <a class="s-link" href="{$file}.html">
+            <xsl:call-template name="change"/>
+            <xsl:call-template name="get-dmref-value">
+              <xsl:with-param name="dmc" select="$dmc"/>
+            </xsl:call-template>
+          </a>
+    </xsl:otherwise>
+  </xsl:choose>
+    </xsl:when>
+    <xsl:otherwise>
+      <span>
+        <xsl:call-template name="change"/>
+        <xsl:call-template name="get-dmref-value">
+          <xsl:with-param name="dmc" select="$dmc"/>
+        </xsl:call-template>
+      </span>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
 <xsl:template match="dmRef[dmRefIdent/dmCode]">
   <xsl:variable name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
-  <xsl:variable name="file" select="key('dms', $dmc)/@file"/>
-  <a class="s-link" href="{$file}.html">
-    <xsl:call-template name="change"/>
-    <xsl:call-template name="get-dmref-value">
-      <xsl:with-param name="dmc" select="$dmc"/>
-    </xsl:call-template>
-  </a>
+  <xsl:variable name="target-dm" select="key('dms', $dmc)"/>
+  
+  <xsl:choose>
+    <xsl:when test="$target-dm">
+      <xsl:variable name="file" select="$target-dm/@file"/>
+      <a class="s-link" href="{$file}.html">
+        <xsl:call-template name="change"/>
+        <xsl:call-template name="get-dmref-value">
+          <xsl:with-param name="dmc" select="$dmc"/>
+        </xsl:call-template>
+      </a>
+    </xsl:when>
+    <xsl:otherwise>
+      <span>
+        <xsl:call-template name="change"/>
+        <xsl:call-template name="get-dmref-value">
+          <xsl:with-param name="dmc" select="$dmc"/>
+        </xsl:call-template>
+      </span>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template name="get-dmref-value">
   <xsl:param name="dmc"/>
   
-  <!--
-  <xsl:choose>
-    <!-/- show DM title in Highlights -/->
-    <xsl:when test="ancestor::dmInclusion[@inc='00U']">
-      <xsl:call-template name="get-dmref-title">
-        <xsl:with-param name="dmc" select="$dmc"/>
-      </xsl:call-template>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:value-of select="fn:getDMCBasic($dmc)"/>
-    </xsl:otherwise>
-  </xsl:choose>
-  -->
   <xsl:value-of select="fn:getDMCBasic($dmc)"/>
 </xsl:template>
 
 <xsl:template name="get-dmref-title">
-  <xsl:param name="dmc" select="fn:getDMC(dmRefIdent/dmCode)"/>
+  <xsl:param name="target-dm" select="false()"/>
 
   <xsl:choose>
     <xsl:when test="dmRefAddressItems/dmTitle">
       <xsl:apply-templates select="dmRefAddressItems/dmTitle" mode="dmref"/>
     </xsl:when>
-    <xsl:otherwise>
-      <xsl:apply-templates select="key('dms', $dmc)/dmodule/identAndStatusSection/dmAddress//dmTitle" mode="dmref"/>
-    </xsl:otherwise>
+    <xsl:when test="$target-dm">
+      <xsl:apply-templates select="$target-dm/dmodule/identAndStatusSection/dmAddress//dmTitle" mode="dmref"/>
+    </xsl:when>
   </xsl:choose>
 </xsl:template>
 
@@ -322,14 +360,18 @@
           </xsl:when>
           <xsl:when test="$reftype='figure'">
             <xsl:variable name="id" select="$target-node/@id"/>
-            <a class="x--sfe-InternalLink-1-0" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, ')')}">
+            <!--a class="x-/-sfe-InternalLink-1-0" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, ')')}"-->
+              <a class="x--sfe-InternalLink-1-0" href="#none">
+              <xsl:attribute name="onclick">displayGraphics('<xsl:value-of select="$id"/>')</xsl:attribute>
               <xsl:call-template name="link-tooltip"/>
               <xsl:apply-templates select="$target-node" mode="internalRef"/>
             </a>
           </xsl:when>
           <xsl:when test="$reftype='graphic'">
             <xsl:variable name="id" select="$target-node/../@id"/>
-            <a class="x--sfe-InternalLink-1-0" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, ')')}">
+            <!--a class="x-/-sfe-InternalLink-1-0" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, ')')}"-->
+            <a class="x--sfe-InternalLink-1-0" href="#none">
+              <xsl:attribute name="onclick">displayGraphics('<xsl:value-of select="$id"/>')</xsl:attribute>
               <xsl:call-template name="link-tooltip"/>
               <xsl:apply-templates select="$target-node" mode="internalRef"/>
             </a>
@@ -343,8 +385,9 @@
           </xsl:when>
           <xsl:when test="$reftype='hotspot'">
             <xsl:variable name="id" select="$target-node/ancestor::figure/@id"/>
-            <!--a class="s-anchor" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, '); go(', $quot, $refid, $quot, ')')}"-->
-            <a class="s-anchor" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, ')')}">
+            <!--a class="s-anchor" href="#none" onclick="{concat('displayGraphics(', $quot, $id, $quot, ')')}"-->
+            <a class="s-anchor" href="#none">
+              <xsl:attribute name="onclick">displayGraphics('<xsl:value-of select="$id"/>')</xsl:attribute>
               <xsl:call-template name="link-tooltip"/>
               <xsl:apply-templates select="$target-node" mode="internalRef"/>
               <!--xsl:text> </xsl:text-->

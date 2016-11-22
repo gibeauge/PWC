@@ -31,6 +31,7 @@
 <!-- *** DM PROCESSING *** -->
 
 <xsl:template match="dmodule">
+  <xsl:if test="not(../@file = ../preceding::dmInclusion/@file)">
   <xsl:result-document href="{concat($output-dir-pm, '/Pages/', ancestor::dmInclusion/@file, '.html')}" 
                        method="xhtml" encoding="utf-8" indent="no"
                        omit-xml-declaration="yes" exclude-result-prefixes="#default"
@@ -63,6 +64,7 @@
   
   <xsl:if test=".//table[title] and ancestor::dmInclusion/@is-tp='false'">
     <xsl:call-template name="build-dm-lot"/>
+    </xsl:if>
   </xsl:if>
 </xsl:template>
 

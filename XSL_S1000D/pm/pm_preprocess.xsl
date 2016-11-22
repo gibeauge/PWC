@@ -34,6 +34,8 @@
 <!-- ************************************************************** -->
 <!-- VARIABLES -->
 
+<xsl:variable name="g_statusDM"   select="document(concat($base-uri, 'StatusReport.xml'))"/>
+
 <xsl:variable name="g_langSrc"    select="lower-case(/pm/identAndStatusSection/pmAddress/pmIdent/language/@languageIsoCode)" />
 <xsl:variable name="g_lang"       select="if ($g_langSrc='sx') then 'en' else $g_langSrc"/>
 <xsl:variable name="g_year"       select="/pm/identAndStatusSection/pmAddress/pmAddressItems/issueDate/@year"/>
@@ -62,14 +64,17 @@
     
 <xsl:template match="pmEntry/dmRef" priority="10">
   <xsl:variable name="dmc"        select="fn:getDMC(dmRefIdent/dmCode)"/>
+  <xsl:variable name="dmc-short"  select="substring-after($dmc,'DMC-')"/>
+  
   <xsl:variable name="source"     select="concat($base-uri, $dmc, '.xml')"/>
   <xsl:if test="unparsed-text-available($source)">
     <xsl:variable name="doc"      select="document($source)"/>
     <xsl:variable name="infocode" select="$doc/dmodule/identAndStatusSection/dmAddress/dmIdent/dmCode/@infoCode"/>
     <xsl:variable name="is-tp"    select="contains('001', $infocode)"/>
     <xsl:variable name="is-fm"    select="contains('001,002,003,004,005,006,007,008,009,012,022,00A,00B,00C,00D,00E,00F,00G,00H,00J,00K,00L,00M,00N,00P,00Q,00R,00S,00T,00U,00W,00X,00Y,00Z,0A1', $infocode)"/>
+    <xsl:variable name="isstype"  select="if ($g_statusDM//dm[@dmc=$dmc-short]) then $g_statusDM//dm[@dmc=$dmc-short]/@issueType else 'NA'"/>
     
-    <dmInclusion ref="{$dmc}" file="{if ($is-tp) then 'title-page' else $dmc}" inc="{$infocode}" is-tp="{$is-tp}" is-fm="{$is-fm}">
+    <dmInclusion ref="{$dmc}" file="{if ($is-tp) then 'title-page' else $dmc}" inc="{$infocode}" is-tp="{$is-tp}" is-fm="{$is-fm}" isstype="{$isstype}">
       <xsl:if test="dmRefAddressItems/dmTitle">
         <tocTitle><xsl:copy-of select="dmRefAddressItems/dmTitle"/></tocTitle>
       </xsl:if>

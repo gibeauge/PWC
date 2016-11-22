@@ -288,11 +288,11 @@ function checkin_new_manifest(new_manifest)
                 else {
                     update_pwc_manifest::debug("[-63] Checkin of new manifest " . name . " failed.");
                 }
-                dobj_close(dobj);
             }
             else {
                 update_pwc_manifest::debug("[-62] Bursting of new manifest " . name . " failed. Can't get dynamic object ID (2)");
             }
+			dobj_close(dobj);
         }
         else {
             update_pwc_manifest::debug("[-62] Bursting of new manifest " . name . " failed. Can't get dynamic object ID (1)");
@@ -346,7 +346,7 @@ function update_existing_server_manifest(logical_id, doc){
         
         if (dobj==0) {
             update_pwc_manifest::debug("[-65] Manifest update failed. Can't build dynamic object");
-            return_code = -65;
+            error_code = -65;
         }
         else {
         
@@ -363,19 +363,19 @@ function update_existing_server_manifest(logical_id, doc){
                     }
                     else {
                         update_pwc_manifest::debug("[-68] Manifest update failed. Checkin failed");
-                        return_code = -68;
+                        error_code = -68;
                         dobj_unlock(dobj);
                     }
                 }
                 else {
                     update_pwc_manifest::debug("[-67] Manifest update failed. Bursting failed");
-                    return_code = -67;
+                    error_code = -67;
                     dobj_unlock(dobj);
                 }
             }
             else {
                 update_pwc_manifest::debug("[-66] Manifest update failed. Can't lock dynamic object");
-                return_code = -66;
+                error_code = -66;
             }
             dobj_close(dobj);
         }
