@@ -54,8 +54,10 @@ if (! access($TEMP_DIR_ZIP, "e")) {
 global DEBUG_LOG = $TEMP_DIR_ZIP . $main::PCS . "s1000d_pub.txt";
 
 # forward declarations
-function write_result_as_web_age() {}
+function write_result_as_web_page() {}
+function write_result_as_xml_page() {}
 function build_pwc_html_page() {}
+function build_pwc_xml_page() {}
 
 function convert()              {}
 function s1000d_preprocess()    {}
@@ -84,12 +86,21 @@ function main::debug_array(array[], array_name) {
     }
 }
 
-function write_result_as_web_age(body) {
+function write_result_as_web_page(body) {
    # Translate the body string into an XHTML page
    local page    = build_pwc_html_page($body);
 
    PEAppResponse::setOutputPage(page);
    PEAppResponse::setHeader("content-type", "text/html");
+   PEAppResponse::setStatus("200");
+}
+
+function write_result_as_xml_page(result, msg) {
+   # Translate the body string into an XML page
+   local page    = build_pwc_xml_page($result, $msg);
+
+   PEAppResponse::setOutputPage(page);
+   PEAppResponse::setHeader("content-type", "application/xml");
    PEAppResponse::setStatus("200");
 }
 
@@ -106,6 +117,17 @@ function build_pwc_html_page(body) {
                     "<div style='margin: 6pt;'>See file " . $DEBUG_LOG . " for details.</div>" . \
                     "</body>\n" . \
                     "</html>\n";
+
+    return ourResult;
+}
+
+function build_pwc_xml_page(result, msg) {
+
+    local ourResult = "<s1000dPub>\n" . \
+                        "<status>"  . $result    . "</status>\n" . \
+                        "<message>" . $msg       . "</message>\n" . \
+                        "<logFile>" . $DEBUG_LOG . "</logFile>\n" . \
+                      "</s1000dPub>\n";
 
     return ourResult;
 }
@@ -179,7 +201,7 @@ function convert() {
 
     # Remove temporary files
     if ($ZIP_EXTRACT_DIR != "") {
-#        execute("remove_file -r -f " . ZIP_EXTRACT_DIR);
+        execute("remove_file -r -f " . ZIP_EXTRACT_DIR);
     }
     if (access($outFileHtml, "r")) {
         remove_file -f "$outFileHtml";
@@ -187,18 +209,21 @@ function convert() {
 
     if (errorMessage == "") {
         debug_msg("Post-process OK\n");
-        result = "result: ok";
+        #result = "result: ok";
+        result = "ok";
     }
     else {
         debug_msg("ERROR");
         debug_msg($errorMessage);
 		debug_msg($errorDetails);
-        result = "result: error<br/><br/>" . errorMessage;
+        #result = "result: error<br/><br/>" . errorMessage;
+        result = "error";
     }
     
     debug_msg("End program");
     
-    write_result_as_web_age(result);
+    #write_result_as_web_page(result);
+    write_result_as_xml_page(result, errorMessage);
 
     #return result;
 }
