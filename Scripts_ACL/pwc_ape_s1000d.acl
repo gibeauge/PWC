@@ -557,7 +557,7 @@ function copyGraphics2(doc, graphDir) {
         if (fileIndex[fileRef] == "") {
 
             # Compute absolute path equivalent to fileRef
-            local absRef = absolute_file_name(fileRef, docDir);
+            local absRef = absolute_file_name(fileRef, docDir . $main::PCS . $GRAPHICS_DIR);
             _publow_util::Trace( e3::g_debug, "copyGraphics:  absRef    = '" . absRef . "'\n");
 
             # If no mapping for absolute pathname either, create one.
