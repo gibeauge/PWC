@@ -261,10 +261,17 @@
 
 <xsl:template match="figure" priority="20">
   <div class="pr-brk"></div>
-  <xsl:if test="parent::illustratedPartsCatalog">
-  <br />
-    <xsl:apply-templates select="title" />
-  </xsl:if>
+  <xsl:choose>
+    <xsl:when test="parent::illustratedPartsCatalog">
+      <xsl:call-template name="ipc-figure-content"/>
+    </xsl:when>
+    <xsl:otherwise>
+  <xsl:call-template name="figure-content"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="figure-content">
   <div style="display:none;">
     <xsl:call-template name="setID"/>
     <xsl:call-template name="change">
@@ -274,18 +281,6 @@
       <xsl:next-match/>
     </div>
   </div>
-  <xsl:if test="parent::illustratedPartsCatalog">
-	  <span class="pr-figure-min">
-      <div style="display:inline-block;margin-bottom:20px; padding:10px;border: 3px solid #1A86D2;-webkit-box-shadow: 3px 3px 1px 0px #888;-moz-box-shadow:3px 3px 1px 0px #888;box-shadow: 3px 3px 1px 0px #888;">
-        <a href="#{@id}" onclick="displayGraphics('{@id}');">
-          <xsl:if test="title">
-            <xsl:attribute name="title" select="title"/>
-          </xsl:if>
-          <xsl:text>Display illustration</xsl:text>
-        </a>
-      </div>      
-	  </span>
-  </xsl:if>
 </xsl:template>
 
 <xsl:template match="figure">

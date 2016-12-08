@@ -43,12 +43,30 @@
     </div>
   </div>
 </xsl:template>
-    
+
+<xsl:template name="ipc-figure-content">
+  <br/>
+  <xsl:apply-templates select="title" />
+  <xsl:call-template name="figure-content"/>
+  <span class="pr-figure-min">
+    <div style="display:inline-block;margin-bottom:20px; padding:10px;border: 3px solid #1A86D2;-webkit-box-shadow: 3px 3px 1px 0px #888;-moz-box-shadow:3px 3px 1px 0px #888;box-shadow: 3px 3px 1px 0px #888;">
+      <a href="#{@id}" onclick="displayGraphics('{@id}');">
+        <xsl:if test="title">
+          <xsl:attribute name="title" select="title"/>
+        </xsl:if>
+        <xsl:text>Display illustration</xsl:text>
+      </a>
+    </div>      
+  </span>
+</xsl:template>
+
 <xsl:template match="catalogSeqNumber">
   <xsl:if test="not(preceding-sibling::catalogSeqNumber)">
-    <xsl:variable name="diassy-code"   select="ancestor::dmodule/identAndStatusSection/dmAddress//dmCode/@disassyCode"/>
-    <xsl:variable name="diassy-code-v" select="ancestor::dmodule/identAndStatusSection/dmAddress//dmCode/@disassyCodeVariant"/>
-    <xsl:variable name="fig-num" select="if ($diassy-code-v='0') then $diassy-code else concat($diassy-code,$diassy-code-v)"/>
+    <xsl:variable name="fig-num">
+      <xsl:apply-templates select="preceding-sibling::figure" mode="numbering">
+        <xsl:with-param name="as-number" select="'0'"/>
+      </xsl:apply-templates>
+    </xsl:variable>
     <tr>
       <td><xsl:value-of select="$fig-num"/></td>
       <td/>

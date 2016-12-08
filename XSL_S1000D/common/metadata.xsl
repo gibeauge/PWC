@@ -78,7 +78,7 @@
 </xsl:template>
 
 <xsl:template match="issueDate" mode="metadata-s">
-  <xsl:value-of select="concat(@year, '/', @month, '/', @day)"/>
+  <xsl:value-of select="concat(@year, '-', @month, '-', @day)"/>
 </xsl:template>
 
 <xsl:template match="security" mode="metadata-s">
@@ -183,7 +183,7 @@
       <xsl:value-of select="fn:getGenText('sep1')"/>
     </td>
     <td class="s-metadata-term">
-      <xsl:value-of select="concat(@year, '/', @month, '/', @day)"/>
+      <xsl:value-of select="concat(@year, '-', @month, '-', @day)"/>
     </td>
   </tr>
 </xsl:template>

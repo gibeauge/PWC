@@ -14,6 +14,15 @@
   <xsl:number from="dmodule" count="figure" level="any" format="1"/>
 </xsl:template>
 
+<xsl:template match="illustratedPartsCatalog/figure" mode="numbering" priority="5">
+  <xsl:param name="as-number" select="'1'"/>
+  
+  <xsl:variable name="diassy-code"   select="ancestor::dmodule/identAndStatusSection/dmAddress//dmCode/@disassyCode"/>
+  <xsl:variable name="diassy-code-v" select="ancestor::dmodule/identAndStatusSection/dmAddress//dmCode/@disassyCodeVariant"/>
+  <xsl:variable name="fig-num" select="if ($diassy-code-v='0') then $diassy-code else concat($diassy-code,$diassy-code-v)"/>
+  <xsl:value-of select="if ($as-number='1') then replace($fig-num,'^0*(..*)','$1') else $fig-num"/>
+</xsl:template>
+
 <xsl:template match="graphic" mode="numbering">
   <xsl:number from="figure" count="graphic" level="single" format="1"/>
 </xsl:template>
