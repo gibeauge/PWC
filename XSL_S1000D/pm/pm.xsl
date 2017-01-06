@@ -104,7 +104,7 @@
       <Engine><xsl:value-of select="$g_mi"/></Engine>
       <EngineModels><xsl:value-of select="/pm/identAndStatusSection/pmStatus/applic/displayText"/></EngineModels>
       <RevisionDate><xsl:value-of select="concat($g_year,$g_month,$g_day)"/></RevisionDate>
-      <RevisionNo><xsl:value-of select="number($g_issue)"/></RevisionNo>
+      <RevisionNo><xsl:value-of select="$g_issue"/></RevisionNo>
       <RevisionType><xsl:value-of select="$g_issue_type"/></RevisionType>
       <DocType><xsl:value-of select="tokenize(/pm/@id, '-')[1]"/></DocType>
     </Metadatas>

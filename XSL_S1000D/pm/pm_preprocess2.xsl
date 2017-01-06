@@ -58,18 +58,16 @@
 </xsl:template>
 
 <xsl:template match="dmInclusion">
-  
-  <!-- build LOEDM -->
-  <xsl:variable name="dm-loedm">
-    <xsl:call-template name="build-loedm">
-      <xsl:with-param name="dm-tp" select="if (//dmInclusion[@is-tp='true']) then //dmInclusion[@is-tp='true'][1]/dmodule else dmodule"/>
-    </xsl:call-template>
-  </xsl:variable>
-  <xsl:variable name="dmc-loedm" select="fn:getDMC(exslt:node-set($dm-loedm)//identAndStatusSection/dmAddress/dmIdent/dmCode)"/>
-  
   <xsl:choose>
     <!-- existing LOEDM ; replace by our own -->
     <xsl:when test="@inc='00S'">
+      <!-- build LOEDM -->
+      <xsl:variable name="dm-loedm">
+        <xsl:call-template name="build-loedm">
+          <xsl:with-param name="dm-tp" select="if (//dmInclusion[@is-tp='true']) then //dmInclusion[@is-tp='true'][1]/dmodule else dmodule"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="dmc-loedm" select="fn:getDMC(exslt:node-set($dm-loedm)//identAndStatusSection/dmAddress/dmIdent/dmCode)"/>
       <dmInclusion ref="{$dmc-loedm}" file="{$dmc-loedm}" inc="00S" is-tp="false" is-fm="true">
         <xsl:copy-of select="exslt:node-set($dm-loedm)"/>
       </dmInclusion>
@@ -77,6 +75,13 @@
     <!-- no existing LOEDM ; add our own after title page or change record -->
     <xsl:when test="not(//dmInclusion/@inc='00S') and ((@is-tp='true' and not(//dmInclusion/@inc='00T')) or (@inc='00T' and not(preceding::dmInclusion/@inc='00T')))">
       <xsl:copy-of select="."/>
+	  <!-- build LOEDM -->
+      <xsl:variable name="dm-loedm">
+        <xsl:call-template name="build-loedm">
+          <xsl:with-param name="dm-tp" select="if (//dmInclusion[@is-tp='true']) then //dmInclusion[@is-tp='true'][1]/dmodule else dmodule"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="dmc-loedm" select="fn:getDMC(exslt:node-set($dm-loedm)//identAndStatusSection/dmAddress/dmIdent/dmCode)"/>
       <dmInclusion ref="{$dmc-loedm}" file="{$dmc-loedm}" inc="00S" is-tp="false" is-fm="true">
         <xsl:copy-of select="exslt:node-set($dm-loedm)"/>
       </dmInclusion>
