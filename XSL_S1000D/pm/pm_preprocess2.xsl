@@ -75,7 +75,7 @@
     <!-- no existing LOEDM ; add our own after title page or change record -->
     <xsl:when test="not(//dmInclusion/@inc='00S') and ((@is-tp='true' and not(//dmInclusion/@inc='00T')) or (@inc='00T' and not(preceding::dmInclusion/@inc='00T')))">
       <xsl:copy-of select="."/>
-	  <!-- build LOEDM -->
+    <!-- build LOEDM -->
       <xsl:variable name="dm-loedm">
         <xsl:call-template name="build-loedm">
           <xsl:with-param name="dm-tp" select="if (//dmInclusion[@is-tp='true']) then //dmInclusion[@is-tp='true'][1]/dmodule else dmodule"/>
@@ -260,7 +260,14 @@
     <entry colsep="0" rowsep="0">
       <!--para><xsl:apply-templates select="identAndStatusSection/dmStatus/@issueType" mode="loedm"/></para-->
       <xsl:variable name="issue" select="ancestor::dmInclusion/@isstype"/>
-      <para><xsl:value-of select="if ($issue!='NA') then $issue else 'N'"/></para>
+      <para>
+        <!--xsl:value-of select="if ($issue!='NA') then $issue else 'N'"/-->
+        <xsl:choose>
+          <xsl:when test="number($g_issue)=0 and (../@is-tp='true' or ../@inc=('00S','00U'))">N</xsl:when>
+          <xsl:when test="../@is-tp='true' or ../@inc=('00S','00U')">C</xsl:when>
+          <xsl:otherwise><xsl:value-of select="if ($issue!='NA') then $issue else 'N'"/></xsl:otherwise>
+        </xsl:choose>
+      </para>
     </entry>
     <entry colsep="0" rowsep="0">
       <para>
@@ -389,7 +396,8 @@
 </xsl:template>
 
 <xsl:template match="pm" mode="highlights">
-  <xsl:if test="identAndStatusSection/pmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]">
+  <!--xsl:if test="identAndStatusSection/pmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]"-->
+  <xsl:if test="identAndStatusSection/pmStatus/reasonForUpdate">
     <row>
       <entry colsep="0" rowsep="0">
         <para><xsl:value-of select="fn:getPMCBasic($g_pmc)"/></para>
@@ -398,14 +406,17 @@
         <para><xsl:apply-templates select="identAndStatusSection/pmAddress//pmTitle" mode="highlights"/></para>
       </entry>
       <entry colsep="0" rowsep="0">
-        <xsl:apply-templates select="identAndStatusSection/pmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]" mode="highlights"/>
+        <!--xsl:apply-templates select="identAndStatusSection/pmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]" mode="highlights"/-->
+        <xsl:apply-templates select="identAndStatusSection/pmStatus/reasonForUpdate" mode="highlights"/>
       </entry>
     </row>
   </xsl:if>  
 </xsl:template>
 
 <xsl:template match="dmodule" mode="highlights">
-  <xsl:if test="identAndStatusSection/dmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]">
+  <!--xsl:if test="identAndStatusSection/dmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]"-->
+  <xsl:variable name="issue" select="ancestor::dmInclusion/@isstype"/>
+  <xsl:if test="$issue='C' and identAndStatusSection/dmStatus/reasonForUpdate">
     <row>
       <entry colsep="0" rowsep="0">
         <!--para><xsl:value-of select="fn:getDMCBasic(ancestor::dmInclusion/@ref)"/></para-->
@@ -427,7 +438,8 @@
         <para><xsl:apply-templates select="identAndStatusSection/dmAddress//dmTitle" mode="highlights"/></para>
       </entry>
       <entry colsep="0" rowsep="0">
-        <xsl:apply-templates select="identAndStatusSection/dmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]" mode="highlights"/>
+        <!--xsl:apply-templates select="identAndStatusSection/dmStatus/reasonForUpdate[@updateHighlight='1' or not(@updateHighlight)]" mode="highlights"/-->
+        <xsl:apply-templates select="identAndStatusSection/dmStatus/reasonForUpdate" mode="highlights"/>
       </entry>
     </row>
   </xsl:if>
