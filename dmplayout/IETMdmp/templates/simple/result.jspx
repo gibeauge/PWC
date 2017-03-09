@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+	<atidmc:layout var="layout" />
+
+	<atidmc:searchResult startPage="0" length="10" showQueryInfo="true"
+		var="result">
+		<atidmc:transformInfo xsl="${layout.template}xsl/result.xsl">
+			<atidmc:parameter name="locale" value="${layout.locale.language}" />
+			<atidmc:parameter name="title"
+				value="${layout.resourceBundle['searchOutput']}" />
+			<atidmc:parameter name="url"
+				value="http://${pageContext.request.localName}:${pageContext.request.localPort}" />
+			<atidmc:parameter name="displayHits" value="10" />
+			<atidmc:parameter name="templatePath" value="${layout.template}" />
+			<atidmc:parameter name="homeString"
+				value="${layout.resourceBundle['home']}" />
+			<atidmc:parameter name="homeHref" value="${layout.pages['WELCOME']}" />
+			<atidmc:parameter name="tocString"
+				value="${layout.resourceBundle['tableOfContent']}" />
+			<atidmc:parameter name="tocHref" value="${layout.pages['TOC']}" />
+			<atidmc:parameter name="searchString"
+				value="${layout.resourceBundle['searchPage']}" />
+			<atidmc:parameter name="searchHref" value="${layout.pages['SEARCH']}" />
+			<atidmc:parameter name="searchTipsString"
+				value="${layout.resourceBundle['searchTips']}" />
+			<atidmc:parameter name="searchTipsHref"
+				value="${layout.pages['TIPS']}" />
+			<atidmc:parameter name="indextermString"
+				value="${layout.resourceBundle['indexTerm']}" />
+			<atidmc:parameter name="indextermHref"
+				value="${layout.pages['INDEX_TERM']}" />
+			<atidmc:parameter name="configString"
+				value="${layout.resourceBundle['configuration']}" />
+			<atidmc:parameter name="configHref" value="${layout.pages['CONFIG']}" />
+			<atidmc:parameter name="addSessionId" value="${layout.layoutParameters['addSessionId']}" />	
+			<atidmc:parameter name="links"
+				value="${layout.resourceBundle['links']}" />
+			<atidmc:parameter name="noResultTitle"
+				value="${layout.resourceBundle['noResults']}" />
+			<atidmc:parameter name="displayResultTitle"
+				value="${layout.resourceBundle['displaySearchResults']}" />
+		</atidmc:transformInfo>
+	</atidmc:searchResult>
+</jsp:root>

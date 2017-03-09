@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<shortcuts>
+
+  <skipIfNotSupported />
+
+  <programGroup defaultName="PWC IETM/%projectName%" location="applications"/>
+
+   <shortcut
+     name="%projectName%"
+     programGroup="yes"
+     desktop="yes"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     workingDirectory="$INSTALL_PATH"
+     iconFile="$INSTALL_PATH\installation\icons\appicon.ico"
+     target="$INSTALL_PATH\%appName%.exe"
+     commandLine=""
+     description="%projectName%">     
+     <createForPack name="Core" />
+   </shortcut>
+   
+   <shortcut
+     name="Uninstall %projectName%"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     workingDirectory="$INSTALL_PATH"
+     iconFile="$INSTALL_PATH\installation\icons\uninstall.ico"
+     target="$INSTALL_PATH\uninstall.exe"
+     commandLine=""
+     description="%projectName% uninstaller">     
+     <createForPack name="Core" />
+   </shortcut>
+   
+</shortcuts>

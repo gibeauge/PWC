@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+
+	<atidmc:layout var="layout" />
+
+	<atidmc:config var="template" javaClass="${layout.beans['TEMPLATE']}" />
+
+
+	<fmt:setLocale value="${layout.locale}" />
+
+	<html>
+	<head>
+	<title>${layout.resourceBundle['configureHighlightTitle']}</title>
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"><!--  --></link>
+	<script language="JavaScript"> <![CDATA[
+		function enableCreateLink(){
+			var elms = document.configure.elements;
+			var name = "${template.moduleParamNames.highlight.createLink}";
+			
+			for (var i=0; i < elms.length; i++) {
+				if (elms[i].name == name)
+					elms[i].disabled = false;
+			}
+		}
+		function disableCreateLink(){
+			var elms = document.configure.elements;
+			var name = "${template.moduleParamNames.highlight.createLink}";
+			
+			for (var i=0; i < elms.length; i++) {
+				if (elms[i].name == name)
+					elms[i].disabled = true;
+			}
+		}
+		function checkCreateLink(){
+			var elms = document.configure.elements;
+			var name = "${template.moduleParamNames.highlight.highlight}";
+			
+			for (var i=0; i < elms.length; i++) {
+				if (elms[i].name == name && elms[i].checked) {
+					if (elms[i].value=="true")
+						enableCreateLink();
+					else
+						disableCreateLink();	
+				}
+			}
+		}
+	]]></script>
+	</head>
+	<body onload="checkCreateLink()">
+	<div id="config"><!-- layout and language settings --> <!-- 
+			1. list and select avaliable templates
+			2. list and select template parameters
+			3. embedded/external browser	
+			4. browser location
+	--> <c:if test="${template.readable}">
+		<h1>${layout.resourceBundle['configureHighlightTitle']}</h1>
+		<c:choose>
+			<c:when test="${!template.defined}">
+				<p><font color="red"> ${template.errorMessage} </font></p>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${!template.valid}">
+					<p><font color="red"> ${layout.resourceBundle['errorInInput']} </font></p>
+					<br />
+					<font color="red"> ${layout.resourceBundle['errorMessage']}:
+					${template.errorMessage} </font>
+					<br />
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+
+		<form method="post" action="index.jspx" name="configure" id="configure"
+			accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+		<h2>${layout.resourceBundle['htmlDoc']}</h2>
+		<ul>
+			<li class="configRow"><span class="configHeader">${layout.resourceBundle['searchKeywordHighlight']}</span></li>
+			<li class="configRow"><span class="configField"> 
+			<input type="hidden" name="config" value="TEMPLATE"/>
+			<input type="hidden" name="task" value="VALIDATE"/>
+			<c:choose>
+				<c:when
+					test="${template.modules.highlight.parameters.highlight == 'true'}">
+					<input type="radio" checked="true" onclick="enableCreateLink()"
+						name="${template.moduleParamNames.highlight.highlight}"
+						value="true">${layout.resourceBundle['enable']}</input>
+				</c:when>
+				<c:otherwise>
+					<input type="radio" onclick="enableCreateLink()"
+						name="${template.moduleParamNames.highlight.highlight}"
+						value="true">${layout.resourceBundle['enable']}</input>
+				</c:otherwise>
+			</c:choose> </span></li>
+			<li class="configRow"><span class="configField"> <c:choose>
+				<c:when
+					test="${template.modules.highlight.parameters.highlight == 'false'}">
+					<input type="radio" checked="true" onclick="disableCreateLink()"
+						name="${template.moduleParamNames.highlight.highlight}"
+						value="false">${layout.resourceBundle['disable']}</input>
+				</c:when>
+				<c:otherwise>
+					<input type="radio" onclick="disableCreateLink()"
+						name="${template.moduleParamNames.highlight.highlight}"
+						value="false">${layout.resourceBundle['disable']}</input>
+				</c:otherwise>
+			</c:choose></span></li>
+		</ul>
+		<ul>
+			<li class="configRow"><span class="configHeader">${layout.resourceBundle['highlightStyle']}</span></li>
+			<li class="configRow"><span class="configField"> <c:choose>
+				<c:when
+					test="${template.modules.highlight.parameters.createLink == 'true'}">
+					<input type="radio" checked="true"
+						name="${template.moduleParamNames.highlight.createLink}"
+						value="true">${layout.resourceBundle['highlightandCreatelink']}</input>
+				</c:when>
+				<c:otherwise>
+					<input type="radio"
+						name="${template.moduleParamNames.highlight.createLink}"
+						value="true">${layout.resourceBundle['highlightandCreatelink']}</input>
+				</c:otherwise>
+			</c:choose></span></li>
+			<li class="configRow"><span class="configField"><c:choose>
+				<c:when
+					test="${template.modules.highlight.parameters.createLink == 'false'}">
+					<input type="radio" checked="true"
+						name="${template.moduleParamNames.highlight.createLink}"
+						value="false">${layout.resourceBundle['highlightOnly']}</input>
+				</c:when>
+				<c:otherwise>
+					<input type="radio"
+						name="${template.moduleParamNames.highlight.createLink}"
+						value="false">${layout.resourceBundle['highlightOnly']}</input>
+				</c:otherwise>
+			</c:choose></span></li>
+		</ul>
+
+		<br/>
+		<h2>${layout.resourceBundle['tableOfContents']}</h2>
+		<ul>
+			<li class="configRow"><span class="configHeader">${layout.resourceBundle['highlightUpdated']}</span></li>
+			<c:choose>
+				<c:when
+					test="${template.modules.highlightUpdate.parameters.highlight == 'true'}">
+					<li class="configRow"><span class="configField"> 
+					<input type="radio" checked="true"
+						name="${template.moduleParamNames.highlightUpdate.highlight}"
+						value="true">${layout.resourceBundle['enable']}</input>
+						</span></li>
+						<li class="configRow"><span class="configField"> 
+					<input type="radio" 
+						name="${template.moduleParamNames.highlightUpdate.highlight}"
+						value="false">${layout.resourceBundle['disable']}</input>	
+						</span></li>					
+				</c:when>
+				<c:otherwise>
+				<li class="configRow"><span class="configField"> 
+					<input type="radio"
+						name="${template.moduleParamNames.highlightUpdate.highlight}"
+						value="true">${layout.resourceBundle['enable']}</input>
+						</span></li>
+						<li class="configRow"><span class="configField"> 
+					<input type="radio" checked="true"
+						name="${template.moduleParamNames.highlightUpdate.highlight}"
+						value="false">${layout.resourceBundle['disable']}</input>
+						</span></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
+	<!-- 
+	
+		<h2>${layout.resourceBundle['pdfDoc']}</h2>
+		<ul>
+			<li class="configRow"><span class="configHeader">${layout.resourceBundle['searchKeywordHighlight']}</span></li>
+			<li class="configRow"><span class="configField"> <c:choose>
+				<c:when
+					test="${template.modules.embedPDF.parameters.highlight == 'true'}">
+					<input type="radio" checked="true"
+						name="${template.moduleParamNames.embedPDF.highlight}"
+						value="true">${layout.resourceBundle['enable']}</input>
+				</c:when>
+				<c:otherwise>
+					<input type="radio"
+						name="${template.moduleParamNames.embedPDF.highlight}"
+						value="true">${layout.resourceBundle['enable']}</input>
+				</c:otherwise>
+			</c:choose></span></li>
+			<li class="configRow"><span class="configField"> <c:choose>
+				<c:when
+					test="${template.modules.embedPDF.parameters.highlight == 'false'}">
+					<input type="radio" checked="true"
+						name="${template.moduleParamNames.embedPDF.highlight}"
+						value="false">${layout.resourceBundle['disable']}</input>
+				</c:when>
+				<c:otherwise>
+					<input type="radio"
+						name="${template.moduleParamNames.embedPDF.highlight}"
+						value="false">${layout.resourceBundle['disable']}</input>
+				</c:otherwise>
+			</c:choose></span></li>
+			<p>${layout.resourceBundle['pdfHighlightLimitation']}</p>
+		</ul>
+		
+	-->
+	
+		<ul>
+			<li class="configRow"><input type="checkbox" name="rememberSettings"
+				value="true" >${layout.resourceBundle['rememberSettings']}</input></li>
+		</ul>	
+		<br />	
+		<ul>
+
+			<li class="configRow"><input type="submit"
+				value="${layout.resourceBundle['submit']}" /></li>
+		</ul>
+		</form>
+	</c:if></div>
+	<div id="footer"></div>
+	</body>
+	</html>
+
+</jsp:root>

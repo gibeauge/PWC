@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd">
+	<file category="resourceBundle" datatype="cstring"
+		original="LocalStrings.properties" source-language="en-US"
+		target-language="en-US" xml:space="default">
+		<header>
+			<note>
+				The translation used for DMP Consumer User Interface
+				(FRAME LAYOUT) ********* %xxxxx% represents variable
+				name and should not be translated
+			</note>
+		</header>
+		<body>
+			<group resname="DMP Consumer" restype="file">
+
+				<!-- index.jspx -->
+				<trans-unit id="mainTitle">
+					<source>%projectName%</source>
+					<target>%projectName%</target>
+				</trans-unit>
+
+				<!-- banner.jspx -->
+				<trans-unit id="bannerTitle">
+					<source>Banner</source>
+					<target>Banner</target>
+				</trans-unit>
+
+				<trans-unit id="helpCenter">
+					<source>Help Center</source>
+					<target>Help Center</target>
+				</trans-unit>
+
+				<trans-unit id="linkToUrl">
+					<source>link to this page</source>
+					<target>link to this page</target>
+				</trans-unit>
+				
+				<trans-unit id="linkToUrlDescription">
+					<source>Change URL address to a format suitable for a bookmark.</source>
+					<target>Change URL address to a format suitable for a bookmark.</target>
+				</trans-unit>				
+				<!-- embed.jspx -->
+				<trans-unit id="embeddedPDFNotSupported">
+					<source>
+						Your browser does not support embedded PDF
+						files.
+					</source>
+					<target>
+						Your browser does not support embedded PDF
+						files.
+					</target>
+				</trans-unit>
+
+
+				<!-- error.jspx -->
+				<trans-unit id="errorTitle">
+					<source>Error in the Page</source>
+					<target>Error in the Page</target>
+				</trans-unit>
+				<trans-unit id="errorHeader">
+					<source>
+						The page you requested contains an error and
+						cannot be displayed.
+					</source>
+					<target>
+						The page you requested contains an error and
+						cannot be displayed.
+					</target>
+				</trans-unit>
+				<trans-unit id="errorStatus">
+					<source>Error Status:</source>
+					<target>Error Status:</target>
+				</trans-unit>
+				<trans-unit id="errorStackTrace">
+					<source>Error Stack Trace</source>
+					<target>Error Stack Trace</target>
+				</trans-unit>
+
+				<!-- form_annotation.jspx -->
+				<trans-unit id="annotationFormTitle">
+					<source>Comment</source>
+					<target>Comment</target>
+				</trans-unit>
+				<trans-unit id="submitAnnotation">
+					<source>Save</source>
+					<target>Save</target>
+				</trans-unit>
+				<trans-unit id="resetAnnotation">
+					<source>Reset</source>
+					<target>Reset</target>
+				</trans-unit>
+				<trans-unit id="clearAnnotation">
+					<source>Clear</source>
+					<target>Clear</target>
+				</trans-unit>
+
+				<!-- form_volume.jspx -->
+				<trans-unit id="volumeRedirectTitle">
+					<source>Media Location Not Found</source>
+					<target>Media Location Not Found</target>
+				</trans-unit>
+				<trans-unit id="mediaNotFound">
+					<source>
+						The media containing the page you are requesting
+						cannot be found.
+					</source>
+					<target>
+						The media containing the page you are requesting
+						cannot be found.
+					</target>
+				</trans-unit>
+				<trans-unit id="mediaInsertOrRelocate">
+					<source>
+						If it is on a removable media, insert it now and
+						retry. If the media location is changed, specify
+						its new location.
+					</source>
+					<target>
+						If it is on a removable media, insert it now and
+						retry. If the media location is changed, specify
+						its new location.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="mediaNotFoundAndReadOnly">
+					<source>
+						You must install %projectName% to access content in another volume.
+					</source>
+					<target>
+						You must install %projectName% to access content in another volume.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="mediaRetry">
+					<source>Try Again</source>
+					<target>Try Again</target>
+				</trans-unit>
+				<trans-unit id="mediaNewLocation">
+					<source>
+						Specify a new location and try again.
+					</source>
+					<target>
+						Specify a new location and try again.
+					</target>
+				</trans-unit>
+				<trans-unit id="mediaLocation">
+					<source>
+						Disk Location: (for example e:\ /mnt/cdrom)
+					</source>
+					<target>
+						Disk Location: (for example e:\ /mnt/cdrom)
+					</target>
+				</trans-unit>
+				<trans-unit id="mediaTryAgainButton">
+					<source>Try Again</source>
+					<target>Try Again</target>
+				</trans-unit>
+				<trans-unit id="mediaResetButton">
+					<source>Reset</source>
+					<target>Reset</target>
+				</trans-unit>
+				<trans-unit id="volumeInfo">
+					<source>Volume Information:</source>
+					<target>Volume Information:</target>
+				</trans-unit>
+				<!-- frame_content.jspx -->
+
+				<trans-unit id="contentFrameset">
+					<source>Content</source>
+					<target>Content</target>
+				</trans-unit>
+
+				<!-- frame_main.jspx -->
+				<trans-unit id="mainFrameset">
+					<source>%projectName% Main Frameset</source>
+					<target>%projectName% Main Frameset</target>
+				</trans-unit>
+
+				<!-- frame_nav.jspx -->
+				<trans-unit id="navigation">
+					<source>Navigation Frameset</source>
+					<target>Navigation Frameset</target>
+				</trans-unit>
+
+				<!-- frame_tabs.jspx -->
+				<trans-unit id="tabs">
+					<source>Navigation Tabs Frameset</source>
+					<target>Navigation Tabs Frameset</target>
+				</trans-unit>
+
+				<!-- frame_views.jspx -->
+				<trans-unit id="frameViews">
+					<source>
+						Frameset for Different Functional Area
+					</source>
+					<target>
+						Frameset for Different Functional Area
+					</target>
+				</trans-unit>
+
+
+
+				<!-- info_succeed.jspx -->
+				<trans-unit id="configurationSaved">
+					<source>Configuration Saved Successfully</source>
+					<target>Configuration Saved Successfully</target>
+				</trans-unit>
+				<trans-unit id="continue">
+					<source>Continue</source>
+					<target>Continue</target>
+				</trans-unit>
+
+				<!-- search_xxx.jspx -->
+				<trans-unit id="simple">
+					<source>Simple</source>
+					<target>Simple</target>
+				</trans-unit>
+				<trans-unit id="advanced">
+					<source>Advanced</source>
+					<target>Advanced</target>
+				</trans-unit>
+				<trans-unit id="targetSearch">
+					<source>Target Search To:</source>
+					<target>Target Search To:</target>
+				</trans-unit>
+				<trans-unit id="entireDoc">
+					<source>Entire Document</source>
+					<target>Entire Document</target>
+				</trans-unit>
+				<trans-unit id="docHeader">
+					<source>Document Headers</source>
+					<target>Document Headers</target>
+				</trans-unit>
+				<trans-unit id="primaryHeader">
+					<source>Primary Headers</source>
+					<target>Primary Headers</target>
+				</trans-unit>
+				<trans-unit id="secondaryHeader">
+					<source>Secondary Headers</source>
+					<target>Secondary Headers</target>
+				</trans-unit>
+				<trans-unit id="tertiaryHeader">
+					<source>Tertiary Headers</source>
+					<target>Tertiary Headers</target>
+				</trans-unit>				
+				<trans-unit id="documentType">
+					<source>Document Type:</source>
+					<target>Document Type:</target>
+				</trans-unit>
+				<trans-unit id="allDoc">
+					<source>All Documents</source>
+					<target>All Documents</target>
+				</trans-unit>
+				<trans-unit id="htmlDoc">
+					<source>HTML documents</source>
+					<target>HTML documents</target>
+				</trans-unit>
+				<trans-unit id="pdfDoc">
+					<source>PDF documents</source>
+					<target>PDF documents</target>
+				</trans-unit>
+				<trans-unit id="allitems">
+					<source>All Items</source>
+					<target>All Items</target>
+				</trans-unit>
+				<trans-unit id="locale">
+					<source>Language</source>
+					<target>Language</target>
+				</trans-unit>
+				<trans-unit id="noResults">
+					<source>No Results Found</source>
+					<target>No Results Found</target>
+				</trans-unit>
+				<trans-unit id="displaySearchResults">
+					<source>{0} - {1} of total {2} search results</source>
+					<target>{0} - {1} of total {2} search results</target>
+				</trans-unit>
+
+				<!--  status_error -->
+
+				<trans-unit id="cantAccessContent">
+					<source>Unable to Access Content</source>
+					<target>Unable to Access Content</target>
+				</trans-unit>
+
+				<trans-unit id="invalidLicense">
+					<source>Your License is not Valid</source>
+					<target>Your License is not Valid</target>
+				</trans-unit>
+
+				<trans-unit id="cannotVerifyLicense">
+					<source>Unrecognized Serial Number</source>
+					<target>Unrecognized Serial Number</target>
+				</trans-unit>
+
+				<trans-unit id="serialNumberInvalid">
+					<source>
+						You may have entered your serial number
+						incorrectly or the license file has been
+						corrupted. Contact %supportContactInfo% for
+						support.
+					</source>
+					<target>
+						You may have entered your serial number
+						incorrectly or the license file has been
+						corrupted. Contact %supportContactInfo% for
+						support.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="pleaseEnterSerialNumber">
+					<source>
+						If you have a serial number, enter it now.
+					</source>
+					<target>
+						If you have a serial number, enter it now.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="enterSerialNumber">
+					<source>Serial Number</source>
+					<target>Serial Number</target>
+				</trans-unit>
+
+				<trans-unit id="requireInstall">
+					<source>This Application must be Installed</source>
+					<target>This Application must be Installed</target>
+				</trans-unit>
+
+				<trans-unit id="askToRunSetup">
+					<source>
+						This application has not been installed. Run the setup
+						program and enter your serial number.
+					</source>
+					<target>
+						This application has not been installed. Run the setup
+						program and enter your serial number.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="licenseExpired">
+					<source>Content Has Expired</source>
+					<target>Content Has Expired</target>
+				</trans-unit>
+
+				<trans-unit id="expirationDate">
+					<source>Expiration Date:</source>
+					<target>Expiration Date:</target>
+				</trans-unit>
+				
+				<trans-unit id="askToRenew">
+					<source>
+						The content has expired and you can no longer
+						access the content in this file. Contact
+						%supportContactInfo% to extend the license or
+						obtain a new copy.
+					</source>
+					<target>
+						The content has expired and you can no longer
+						access the content in this file. Contact
+						%supportContactInfo% to extend the license or
+						obtain a new copy.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="noAvailableLicense">
+					<source>No More Sessions Avaliable</source>
+					<target>No More Sessions Available</target>
+				</trans-unit>
+
+				<trans-unit id="askToWait">
+					<source>
+						The maximum number of users are
+						accessing the content. Please wait and try again later.
+						Contact %supportContactInfo% for more
+						information.
+					</source>
+					<target>
+						The maximum number of users are
+						accessing the content. Please wait and try again later.
+						Contact %supportContactInfo% for more
+						information.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="unknownLicenseError">
+					<source>Unknown License Error</source>
+					<target>Unknown License Error</target>
+				</trans-unit>
+
+				<trans-unit id="contactVendor">
+					<source>
+						Contact %supportContactInfo% for support.
+					</source>
+					<target>
+						Contact %supportContactInfo% for support.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFound">
+					<source>Page Not Found</source>
+					<target>Page Not Found</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFoundDescription">
+					<source>
+						The page you were trying to access does not
+						exist.
+					</source>
+					<target>
+						The page you were trying to access does not
+						exist.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailable">
+					<source>Page Not Available</source>
+					<target>Page Not Available</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailableDescription">
+					<source>
+						The page you were trying to access is not
+						available for the current user profile.
+					</source>
+					<target>
+						The page you were trying to access is not
+						available for the current user profile.
+					</target>
+				</trans-unit>
+
+				<trans-unit id="requestPage">
+					<source>The page you were requesting:</source>
+					<target>The page you were requesting:</target>
+				</trans-unit>
+
+				<!-- tabs.jspx -->
+				<trans-unit id="navigationTabs">
+					<source>Tabs</source>
+					<target>Tabs</target>
+				</trans-unit>
+				<trans-unit id="tableOfContent">
+					<source>Table of Contents</source>
+					<target>Table of Contents</target>
+				</trans-unit>
+
+				<trans-unit id="search">
+					<source>Search</source>
+					<target>Search</target>
+				</trans-unit>
+
+				<trans-unit id="indexterms">
+					<source>Index Terms</source>
+					<target>Index Terms</target>
+				</trans-unit>
+
+				<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>Bookmark</target>
+				</trans-unit>
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>Configuration</target>
+				</trans-unit>
+				<trans-unit id="language">
+					<source>Language</source>
+					<target>Language</target>
+				</trans-unit>
+
+				<!-- toolbar_bookmark.jspx -->
+				<trans-unit id="toolbarBookmark">
+					<source>Bookmark Toolbar</source>
+					<target>Bookmark Toolbar</target>
+				</trans-unit>
+				<trans-unit id="deleteSelectedBookmark">
+					<source>Delete Selected Bookmark</source>
+					<target>Delete Selected Bookmark</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarks">
+					<source>Delete All Bookmarks</source>
+					<target>Delete All Bookmarks</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarksConfirm">
+					<source>
+						Are you sure you want to delete all bookmarks?
+					</source>
+					<target>
+						Are you sure you want to delete all bookmarks?
+					</target>
+				</trans-unit>
+				<trans-unit id="noBookmarkSelected">
+					<source>No bookmark is selected.</source>
+					<target>No bookmark is selected.</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="toolbarConfig">
+					<source>Configuration Toolbar</source>
+					<target>Configuration Toolbar</target>
+				</trans-unit>
+				<trans-unit id="configLocaleAndLayout">
+					<source>
+						Configure Locale and Layout Settings
+					</source>
+					<target>
+						Configure Locale and Layout Settings
+					</target>
+				</trans-unit>
+				<trans-unit id="configUpdate">
+					<source>Configure Update Preferences</source>
+					<target>Configure Update Preferences</target>
+				</trans-unit>
+
+				<!-- toolbar_main.jspx -->
+				<trans-unit id="toolbarMain">
+					<source>Main Toolbar</source>
+					<target>Main Toolbar</target>
+				</trans-unit>
+				<trans-unit id="goBack">
+					<source>Go Back</source>
+					<target>Go Back</target>
+				</trans-unit>
+				<trans-unit id="goForward">
+					<source>Go Forward</source>
+					<target>Go Forward</target>
+				</trans-unit>
+				<trans-unit id="previousTopic">
+					<source>Previous Topic</source>
+					<target>Previous Topic</target>
+				</trans-unit>
+				<trans-unit id="nextTopic">
+					<source>Next Topic</source>
+					<target>Next Topic</target>
+				</trans-unit>
+				<trans-unit id="synchronize">
+					<source>Show in Table of Contents</source>
+					<target>Show in Table of Contents</target>
+				</trans-unit>
+				<trans-unit id="bookmarkThisPage">
+					<source>Bookmark This Page</source>
+					<target>Bookmark This Page</target>
+				</trans-unit>
+				<trans-unit id="addAnnotation">
+					<source>Add Comment</source>
+					<target>Add Comment</target>
+				</trans-unit>
+				<trans-unit id="print">
+					<source>Print</source>
+					<target>Print</target>
+				</trans-unit>
+				<trans-unit id="reload">
+					<source>Reload</source>
+					<target>Reload</target>
+				</trans-unit>
+				<trans-unit id="toggleNavPane">
+					<source>Toggle Navigation Panel</source>
+					<target>Toggle Navigation Panel</target>
+				</trans-unit>
+				
+				<!-- toolbar_result.jspx -->
+				<trans-unit id="toolbarResult">
+					<source>Search Result Toolbar</source>
+					<target>Search Result Toolbar</target>
+				</trans-unit>
+
+				<trans-unit id="sortedBy">
+					<source>Sorted by:</source>
+					<target>Sorted by:</target>
+				</trans-unit>
+
+				<trans-unit id="relavance">
+					<source>Relevance</source>
+					<target>Relevance</target>
+				</trans-unit>
+
+				<trans-unit id="toc">
+					<source>Table of Contents</source>
+					<target>Table of Contents</target>
+				</trans-unit>
+
+				<!-- toolbar_toc.jspx -->
+				<trans-unit id="toolbarToc">
+					<source>Table of Content Toolbar</source>
+					<target>Table of Content Toolbar</target>
+				</trans-unit>
+				<trans-unit id="expandAll">
+					<source>Expand All Topics</source>
+					<target>Expand All Topics</target>
+				</trans-unit>
+				<trans-unit id="collapseAll">
+					<source>Collapse All Topics</source>
+					<target>Collapse All Topics</target>
+				</trans-unit>
+
+				<trans-unit id="arbortextEditorHelp">
+					<source>Arbortext Editor Help</source>
+					<target>Arbortext Editor Help</target>
+				</trans-unit>
+
+				<trans-unit id="pdfManuals">
+					<source>PDF Manuals</source>
+					<target>PDF Manuals</target>
+				</trans-unit>
+
+				<!-- toolbar_index_term.jspx -->
+				<trans-unit id="toolbarIndexTerm">
+					<source>Index Term Toolbar</source>
+					<target>Index Term Toolbar</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="configTitle">
+					<source>Configuration Toolbar</source>
+					<target>Configuration Toolbar</target>
+				</trans-unit>
+
+				<!-- validate.jspx -->
+
+
+				<!-- view_bookmark.jspx -->
+				<!--  defined in tabs.jspx
+					<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>Bookmark</target>
+					</trans-unit>
+				-->
+
+				<!-- view_config_locale.jspx -->
+				<trans-unit id="layoutTitle">
+					<source>Configure Layout Information</source>
+					<target>Configure Layout Information</target>
+				</trans-unit>
+				<trans-unit id="errorInInput">
+					<source>
+						The specified values contain errors. Correct the
+						items marked with asterisks (*).
+					</source>
+					<target>
+						The specified values contain errors. Correct the
+						items marked with asterisks (*).
+					</target>
+				</trans-unit>
+
+				<trans-unit id="errorMessage">
+					<source>Error Message</source>
+					<target>Error Message</target>
+				</trans-unit>
+				<trans-unit id="defaultLocale">
+					<source>Default Locale</source>
+					<target>Default Locale</target>
+				</trans-unit>
+
+				<trans-unit id="clientLocale">
+					<source>
+						Use this locale for the current user only.
+					</source>
+					<target>
+						Use this locale for the current user only.
+					</target>
+				</trans-unit>
+				<trans-unit id="localePreference">
+					<source>Profile Settings</source>
+					<target>Profile Settings</target>
+				</trans-unit>
+				<trans-unit id="requestLocale">
+					<source>Base on user platform locale.</source>
+					<target>Base on user platform locale.</target>
+				</trans-unit>
+				<trans-unit id="fixedLocale">
+					<source>Use this locale globally.</source>
+					<target>Use this locale globally.</target>
+				</trans-unit>
+				<trans-unit id="searchKeywordHighlight">
+					<source>Highlight Search Terms</source>
+					<target>Highlight Search Terms</target>
+				</trans-unit>
+				<trans-unit id="highlightandCreatelink">
+					<source>Highlight and Create Link</source>
+					<target>Highlight and Create Link</target>
+				</trans-unit>
+				<trans-unit id="highlightOnly">
+					<source>Highlight Only</source>
+					<target>Highlight Only</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>Highlight Updated Topics</target>
+				</trans-unit>
+				
+				<!-- view_config_update.jspx -->
+				<trans-unit id="updateTitle">
+					<source>Configure Update Properties</source>
+					<target>Configure Update Properties</target>
+				</trans-unit>
+				<trans-unit id="updateFromRemoteUrl">
+					<source>Remote URL</source>
+					<target>Remote URL</target>
+				</trans-unit>
+				<trans-unit id="updateFromLocalFolder">
+					<source>Local Folder</source>
+					<target>Local Folder</target>
+				</trans-unit>
+				<trans-unit id="updateFrequency"> 
+					<source>Update Frequency</source>
+					<target>Update Frequency</target>
+				</trans-unit>
+				<trans-unit id="timeOfTheDay"> <!-- What time of the day should the update run, 1pm, 2pm? -->
+					<source>Time of the Day</source>
+					<target>Time of the Day</target>
+				</trans-unit>
+				<trans-unit id="minutefrequency">
+					<source>Update Interval (Minute)</source>
+					<target>Update Interval (Minute)</target>
+				</trans-unit>
+				<trans-unit id="hourfrequency">
+					<source>Update Interval (Hour)</source>
+					<target>Update Interval (Hour)</target>
+				</trans-unit>
+				<trans-unit id="updateMinutely">
+					<source>Monthly</source>
+					<target>Monthly</target>
+				</trans-unit>
+				<trans-unit id="updateHourly">
+					<source>Hourly</source>
+					<target>Hourly</target>
+				</trans-unit>
+				<trans-unit id="updateDaily">
+					<source>Daily</source>
+					<target>Daily</target>
+				</trans-unit>
+				<trans-unit id="updateWeekly">
+					<source>Weekly</source>
+					<target>Weekly</target>
+				</trans-unit>
+				<trans-unit id="updateMonthly">
+					<source>Monthly</source>
+					<target>Monthly</target>
+				</trans-unit>				
+				<trans-unit id="updateLocation">
+					<source>Update Location</source>
+					<target>Update Location</target>
+				</trans-unit>
+				<trans-unit id="enableUpdateProxy">
+					<source>Enable Proxy</source>
+					<target>Enable Proxy</target>
+				</trans-unit>
+				<trans-unit id="proxySettings">
+					<source>Proxy Settings</source>
+					<target>Proxy Settings</target>
+				</trans-unit>
+				<trans-unit id="updateHistory">
+					<source>Update History</source>
+					<target>Update History</target>
+				</trans-unit>
+				<trans-unit id="proxyHost">
+					<source>Proxy Server Host</source>
+					<target>Proxy Server Host</target>
+				</trans-unit>
+				<trans-unit id="proxyPort">
+					<source>Proxy Server Port</source>
+					<target>Proxy Server Port</target>
+				</trans-unit>
+				<trans-unit id="password">
+					<source>Password</source>
+					<target>Password</target>
+				</trans-unit>
+				<trans-unit id="username">
+					<source>User Name</source>
+					<target>User Name</target>
+				</trans-unit>
+
+				<trans-unit id="updatePreference">
+					<source>Content Update Properties</source>
+					<target>Content Update Properties</target>
+				</trans-unit>
+
+				<trans-unit id="disabled">
+					<source>Disabled</source>
+					<target>Disabled</target>
+				</trans-unit>
+
+				<trans-unit id="automatic">
+					<source>
+						Update automatically at scheduled time
+					</source>
+					<target>
+						Update automatically at scheduled time
+					</target>
+				</trans-unit>
+				<trans-unit id="atLaunch">
+					<source>
+						Update while starting the application
+					</source>
+					<target>
+						Update while starting the application
+					</target>
+				</trans-unit>
+				<trans-unit id="manual">
+					<source>
+						Update by clicking on the Update button
+					</source>
+					<target>
+						Update by clicking on the Update button
+					</target>
+				</trans-unit>
+				<trans-unit id="updateContent">
+					<!-- Translation should match "Update Content" above-->
+					<source>Update Content</source>
+					<target>Update Content</target>
+				</trans-unit>
+				<trans-unit id="updateDate">
+					<source>Update Date</source>
+					<target>Update Date</target>
+				</trans-unit>
+				<trans-unit id="logDetail">
+					<source>Detail Update Log</source>
+					<target>Detail Update Log</target>
+				</trans-unit>
+
+				<!-- update.jspx -->
+				<trans-unit id="runUpdateTitle">
+					<source>Updating ...</source>
+					<target>Updating ...</target>
+				</trans-unit>
+				<trans-unit id="updateStatus">
+					<source>Update Status</source>
+					<target>Update Status</target>
+				</trans-unit>
+				<trans-unit id="reloadAfterUpdate">
+					<source>Refresh</source>
+					<target>Refresh</target>
+				</trans-unit>
+				<!-- view_config_proxy.jspx -->
+				<trans-unit id="proxyTitle">
+					<source>Configure Proxy Server Information</source>
+					<target>Configure Proxy Server Information</target>
+				</trans-unit>
+
+				<!-- view_config_highlight.jspx -->
+				<trans-unit id="configureHighlightTitle">
+					<source>Search Term Highlighting</source>
+					<target>Search Term Highlighting</target>
+				</trans-unit>
+				<trans-unit id="enable">
+					<source>Enable</source>
+					<target>Enable</target>
+				</trans-unit>
+				<trans-unit id="disable">
+					<source>Disable</source>
+					<target>Disable</target>
+				</trans-unit>
+				<trans-unit id="highlightStyle">
+					<source>Highlight Style</source>
+					<target>Highlight Style</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>Highlight Updated Topics</target>
+				</trans-unit>				
+				<trans-unit id="pdfHighlightLimitation">
+					<source>
+						Note: Search term highlighting in PDF documents
+						is not always accurate.
+					</source>
+					<target>
+						Note: Search term highlighting in PDF documents
+						is not always accurate.
+					</target>
+				</trans-unit>
+				<trans-unit id="rememberSettings">
+					<source>
+						Save Configuration Settings
+					</source>
+					<target>
+						Save Configuration Settings
+					</target>
+				</trans-unit>
+
+				<!-- view_config_profile.jspx -->
+				<trans-unit id="configureProfile">
+					<source>Profile Settings</source>
+					<target>Profile Settings</target>
+				</trans-unit>
+
+				<!-- view_config.jspx -->
+				<trans-unit id="english">
+					<source>English</source>
+					<target>English</target>
+				</trans-unit>
+				<trans-unit id="germany">
+					<source>Germany</source>
+					<target>Germany</target>
+				</trans-unit>
+				<trans-unit id="french">
+					<source>French</source>
+					<target>French</target>
+				</trans-unit>
+				<trans-unit id="spanish">
+					<source>Spanish</source>
+					<target>Spanish</target>
+				</trans-unit>
+				<trans-unit id="chinese-simplied">
+					<source>Simplified Chinese</source>
+					<target>Simplified Chinese</target>
+				</trans-unit>
+				<trans-unit id="chinese-traditional">
+					<source>Traditional Chinese</source>
+					<target>Traditional Chinese</target>
+				</trans-unit>
+				<trans-unit id="korean">
+					<source>Korean</source>
+					<target>Korean</target>
+				</trans-unit>
+				<trans-unit id="japanese">
+					<source>Japanese</source>
+					<target>Japanese</target>
+				</trans-unit>
+				<trans-unit id="italian">
+					<source>Italian</source>
+					<target>Italian</target>
+				</trans-unit>
+
+				<!-- view_result.jspx -->
+				<trans-unit id="searchOutput">
+					<source>Search Result Page</source>
+					<target>Search Result Page</target>
+				</trans-unit>
+				<trans-unit id="searchTips">
+					<source>Search Tips</source>
+					<target>Search Tips</target>
+				</trans-unit>
+				<trans-unit id="links">
+					<source>Links</source>
+					<target>Links</target>
+				</trans-unit>
+
+				<!-- view_toc.jspx -->
+				<trans-unit id="tableOfContents">
+					<source>Table of Contents</source>
+					<target>Table of Contents</target>
+				</trans-unit>
+
+				<!--  view_indexterm.jspx -->
+				<trans-unit id="indexTerm">
+					<source>Index Term</source>
+					<target>Index Term</target>
+				</trans-unit>
+
+				<!-- views.jspx -->
+				<trans-unit id="views">
+					<source>Views</source>
+					<target>Views</target>
+				</trans-unit>
+
+				<!-- volume_encrypted.jspx -->
+				<trans-unit id="volumeEncrpted">
+					<source>The File is Encrypted</source>
+					<target>The File is Encrypted</target>
+				</trans-unit>
+				<trans-unit id="volumeEncrptedDetail">
+					<source>
+						The file you are trying to open is encrypted and
+						cannot be opened. You may not have appropriate
+						privileges to view the file. Contact
+						%supportContactInfo% for further support.
+					</source>
+					<target>
+						The file you are trying to open is encrypted and
+						cannot be opened. You may not have appropriate
+						privileges to view the file. Contact
+						%supportContactInfo% for further support.
+					</target>
+				</trans-unit>
+
+
+				<!-- General -->
+				<trans-unit id="home">
+					<source>Home</source>
+					<target>Home</target>
+				</trans-unit>
+
+				<trans-unit id="searchPage">
+					<source>Search Page</source>
+					<target>Search Page</target>
+				</trans-unit>
+				<trans-unit id="submit">
+					<source>Submit</source>
+					<target>Submit</target>
+				</trans-unit>
+
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>Configuration</target>
+				</trans-unit>
+
+				<trans-unit id="help">
+					<source>How to Use %projectName%</source>
+					<target>How to Use %projectName%</target>
+				</trans-unit>
+
+				<!-- Help Center content_config.xml terms -->
+
+				<trans-unit id="userRole">
+					<source>User Role:</source>
+					<target>User Role:</target>
+				</trans-unit>
+
+				<trans-unit id="user">
+					<source>User</source>
+					<target>User</target>
+
+				</trans-unit>
+
+				<trans-unit id="developer">
+					<source>Developer</source>
+					<target>Developer</target>
+				</trans-unit>
+
+				<trans-unit id="administrator">
+					<source>Administrator</source>
+					<target>Administrator</target>
+				</trans-unit>
+
+				<trans-unit id="product">
+					<source>Arbortext Product:</source>
+					<target>Arbortext Product:</target>
+				</trans-unit>
+
+				<trans-unit id="toolhelp">
+					<source>Help</source>
+					<target>Help</target>
+				</trans-unit>
+
+				<trans-unit id="support">
+                			<source>PTC Customer Support website</source>
+                			<target>PTC Customer Support website</target>
+				</trans-unit>
+
+			</group>
+		</body>
+	</file>
+</xliff>

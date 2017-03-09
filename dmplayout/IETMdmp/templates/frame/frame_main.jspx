@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+		
+	<atidmc:layout var="layout" />
+	
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+		
+	<html>
+
+	<head>
+	<title>${resourceBundle['mainFrameset']}</title>			
+	</head>
+
+	<frameset cols="300,*" id="mainFrameset">
+
+		<frame id="navFrame" title="Navigation" src="index.jspx?task=NAVFRAME${layout.filteredQueryString}"
+			scrolling="no" />
+
+		<frame id="contentFrame" title="Content" 
+			src="index.jspx?task=CONTENTFRAME${layout.filteredQueryString}" scrolling="yes" />
+			
+	</frameset>
+
+	</html>
+
+</jsp:root>

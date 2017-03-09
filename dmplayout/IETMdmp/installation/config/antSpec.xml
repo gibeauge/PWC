@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<antactions>
+	<pack name="Core">
+		<antcall order="afterpack" uninstall_order="beforedeletion"
+			buildfile="$INSTALL_PATH/conf/build.xml"
+			messageid="registry.settings">
+			<property name="appName" value="%appName%" />
+			<property name="companyName" value="%companyName%" />
+			<property name="projectName" value="%projectName%" />
+			<property name="projectId" value="%projectId%" />
+			<property name="version" value="%version%" />
+			<property name="installLocation" value="$INSTALL_PATH" />			
+			<target name="install" />
+			<uninstall_target name="uninstall" />
+		</antcall>
+		<antcall order="afterpack"
+			buildfile="$INSTALL_PATH/conf/build.xml"
+			messageid="registry.settings">
+			<property name="serialNo" value="SYSTEM.serialNo"/>
+			<property name="installLocation" value="$INSTALL_PATH" />
+			<target name="serialnumber" />
+		</antcall>		
+		<antcall order="afterpack"
+			buildfile="$INSTALL_PATH/conf/build.xml"
+			messageid="registry.settings">
+
+			<property name="installLocation" value="$INSTALL_PATH" />
+			<property name="installationMode" value="partialInstall" />
+			<target name="volume" />
+		</antcall>
+	</pack>
+	
+	<pack name="Platform Dependent Files (HP-UX)">
+		<antcall order="afterpack"
+			buildfile="$INSTALL_PATH/conf/build.xml"
+			messageid="registry.settings">
+			<property name="appName" value="%appName%" />
+			<property name="installLocation" value="$INSTALL_PATH" />
+			<target name="chmod-hpux" />
+		</antcall>
+	</pack>	
+	
+	<pack name="Platform Dependent Files (Linux)">
+		<antcall order="afterpack"
+			buildfile="$INSTALL_PATH/conf/build.xml"
+			messageid="registry.settings">
+			<property name="appName" value="%appName%" />
+			<property name="installLocation" value="$INSTALL_PATH" />
+			<target name="chmod-linux" />
+		</antcall>
+	</pack>	
+	
+	<pack name="Platform Dependent Files (Solaris)">
+		<antcall order="afterpack"
+			buildfile="$INSTALL_PATH/conf/build.xml"
+			messageid="registry.settings">
+			<property name="appName" value="%appName%" />
+			<property name="installLocation" value="$INSTALL_PATH" />
+			<target name="chmod-solaris" />
+		</antcall>
+	</pack>		
+</antactions>

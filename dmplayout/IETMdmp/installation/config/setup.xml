@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	
+	Installation setup configuration file.
+	
+	Arbortext Inc.
+	Copyright 2005 All rights reserved.
+	
+-->
+
+<!-- The installation -->
+<installation version="1.0">
+
+	<!-- The info section -->
+	<info>
+		<appname>%projectName%</appname>
+		<appsubpath>PWC_IETM/%projectName%</appsubpath>
+		<appversion>%version%</appversion>
+		<url>http://www.ptc.com</url>
+		<javaversion>1.4.2</javaversion>
+	</info>
+
+	<variables>
+		<variable name="companyName" value="%companyName%" />
+		<variable name="projectName" value="%projectName%" />
+		<variable name="projectId" value="%projectId%" />
+		<variable name="version" value="%version%" />
+	</variables>
+
+	<!-- Flexible and in the screen proportions -->
+	<guiprefs height="600" resizable="yes" width="800">
+		<laf name="metouia">
+			<os family="unix" />
+		</laf>
+		<modifier key="useFlags" value="no" />		
+		<modifier key="langDisplayType" value="native" /> 
+	</guiprefs>
+
+	<!-- Language Packs -->
+	<locale>
+		<langpack iso3="eng" />
+		
+		<!-- Uncomment the languages that you want to 
+		     show at language selection panel -->
+		<!--
+			<langpack iso3="fra" />
+			<langpack iso3="deu" />
+			<langpack iso3="jpn" />
+			<langpack iso3="ita"/>
+			<langpack iso3="spa"/>
+			<langpack iso3="dan"/>
+			<langpack iso3="cat"/>
+			<langpack iso3="ned"/>
+			<langpack iso3="fin"/>
+			<langpack iso3="swe"/>
+			<langpack iso3="por"/>
+			<langpack iso3="pol"/>
+			<langpack iso3="rus"/>
+			<langpack iso3="ukr"/>
+			<langpack iso3="hun"/>
+			<langpack iso3="svk"/>
+			<langpack iso3="rom"/>
+			<langpack iso3="mys"/>
+			<langpack iso3="nor"/>
+			<langpack iso3="chn"/>
+			<langpack iso3="scg"/>
+			<langpack iso3="cze"/>
+		-->
+	</locale>
+
+	<!-- The resources needed by the various panels -->
+	<resources>
+		<res src="installation/readme.html" id="HTMLInfoPanel.info" />
+		<res src="installation/license.txt" id="LicencePanel.licence" />
+		
+		<!-- The following is the image showing in the language selection
+			 panel. You can change it to suit your need.
+		 -->
+		 
+		<res src="installation/images/langsel.jpg"
+			id="installer.langsel.img" />
+		<res src="installation/config/win_shortcuts.xml" 
+			id="shortcutSpec.xml" />
+		<res src="installation/config/unix_shortcuts.xml"
+			id="Unix_shortcutSpec.xml" />
+		<res src="installation/config/conditions.xml" 
+	    	id="conditions.xml"/>
+	    		
+		<!-- The following three images are for the packs 
+			 avaliable for installation. The corresponding
+			 image will show in component selection panel 
+			 when you click on a component. By default, we have
+			 three components (packs). To add additional component,
+			 in addition to add the pack in the packs section (see below for
+			 example), you need to add an additional image here
+			 as well. It is ok to repeat the same image for each
+			 component, but you do need to specify it.
+		-->	
+		<res src="installation/images/core.png"
+			id="ImgPacksPanel.img.0" />
+		<res src="installation/images/dependent.png"
+			id="ImgPacksPanel.img.1" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.2" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.3" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.4" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.5" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.6" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.7" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.8" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.9" />
+		<res src="installation/images/content.png"
+			id="ImgPacksPanel.img.10" />			
+		<!-- 
+		added an additional image for pack.
+			
+		<res src="installation/images/doc-html.png"
+			id="ImgPacksPanel.img.3" />				
+		<res src="installation/images/my-new-image.png"
+			id="ImgPacksPanel.img.4" />
+		 -->	
+			
+			
+		<!-- The following images are for the
+		     images showing on the left side
+		     of installation panels. -->	
+		<res src="installation/images/border1.png"
+			id="Installer.image.0" />	
+		<res src="installation/images/border1.png"
+			id="Installer.image.uptodate" />
+		<res src="installation/images/border1.png"
+			id="Installer.image.needupgrade" />
+		<res src="installation/images/border1.png"
+			id="Installer.image.readme" />
+		<res src="installation/images/border2.png"
+			id="Installer.image.license" />
+		<res src="installation/images/border3.png"
+			id="Installer.image.serialnumber" />		
+		<res src="installation/images/border4.png"
+			id="Installer.image.target" />
+		<res src="installation/images/border5.png"
+			id="Installer.image.packs" />
+		<res src="installation/images/border6.png"
+			id="Installer.image.install" />
+		<res src="installation/images/border7.png"
+			id="Installer.image.shortcut" />
+		<res src="installation/images/border8.png"
+			id="Installer.image.finish" />
+			
+			
+		<!-- Ant script to run during installation and uninstallation -->	
+		<res src="installation/config/antSpec.xml"
+			id="AntActionsSpec.xml" />
+			
+		<!-- Uninstallation registry settings -->	
+		<res src="installation/config/registry.xml" id="RegistrySpec.xml"/>
+	</resources>
+
+	<!-- The panels in a classic order -->
+	<panels>
+		<panel id="uptodate" classname="UpToDatePanel" />			
+		<panel id="needupgrade" classname="NeedUpgradePanel" />		
+		<!--<panel id="readme" classname="HTMLInfoPanel" />
+		<panel id="license" classname="LicencePanel" />-->
+		<panel id="serialnumber" classname="SerialNumberPanel" />		
+		<panel id="target" classname="TargetPanel" />		
+		<panel id="packs" classname="ImgPacksPanel" />
+		<panel id="install" classname="InstallPanel" />
+		<panel id="shortcut" classname="ShortcutPanel" />
+		<panel id="finish" classname="SimpleFinishPanel" />
+	</panels>
+
+	<!-- The packs section -->
+	<packs>
+		<!-- The core files -->
+		<pack name="Core" required="yes" loose="true" id="pack_core">
+			<description>
+				The Digital Media Consumer core files.
+			</description>
+			<fileset dir="." targetdir="$INSTALL_PATH" override="true">
+				<include name="conf/**" />
+				<include name="lib/**" />
+				<include name="license/**" />
+				<include name="launcher.xml" />
+				<include name="commons-launcher.jar" />
+				<include name="consumerui.jar" />
+				<include name="project/**" />
+				<include name="installation/icons/**" />				
+				<exclude name="project/installation/**" />
+				<exclude name="project/WEB-INF/volume/**" />
+			</fileset>
+			<singlefile src="installation/config/build.xml"
+				target="$INSTALL_PATH/conf/build.xml"  override="true"/>
+			<updatecheck>
+				<include name="conf/**" />
+				<include name="lib/**" />
+				<include name="license/**" />
+				<include name="launcher.xml" />
+				<include name="commons-launcher.jar" />
+				<include name="consumerui.jar" />
+				<include name="project/**" />
+				<include name="installation/icons/**" />	
+				<include name="project/WEB-INF/volume/**"/>			
+			</updatecheck>	
+		</pack>
+
+		<!-- The core files -->
+		<pack name="Platform Dependent Files (Windows)" required="yes"
+			loose="true"  id="pack_windows">
+			<description>
+				Java runtime and platform dependent files.
+			</description>
+
+			<fileset dir="." targetdir="$INSTALL_PATH" override="true">
+				<include name="native/win32/**" />
+				<include name="jre/win32/jre/**" />
+				<include name="%appName%.exe" />
+			</fileset>
+			<singlefile src="installation/scripts/uninstall.exe"
+				target="$INSTALL_PATH/uninstall.exe"  override="true"/>	
+			<os family="windows" />
+			<updatecheck>
+				<include name="native/win32/**" />
+				<include name="jre/win32/jre/**" />
+				<include name="%appName%.exe" />
+				<include name="uninstall.exe" />
+			</updatecheck>			
+		</pack>
+		
+		<pack name="Platform Dependent Files (Linux)" required="yes"
+			loose="true"  id="pack_linux">
+			<description>
+				Java runtime and platform dependent files.
+			</description>
+			<fileset dir="." targetdir="$INSTALL_PATH" override="true">
+				<include name="native/linux/**" />
+				<include name="jre/linux/jre/**" />
+				<include name="%appName%" />
+			</fileset>
+			<singlefile src="installation/scripts/uninstall"
+				target="$INSTALL_PATH/uninstall" override="true"/>			
+			<parsable targetfile="$INSTALL_PATH/%appName%" />
+			<executable targetfile="$INSTALL_PATH/%appName%"
+				stage="never" />
+			<parsable targetfile="$INSTALL_PATH/uninstall" />								
+			<executable targetfile="$INSTALL_PATH/uninstall"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-atk-gtk-3236.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-awt-gtk-3236.so"
+				stage="never" />												
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-cairo-gtk-3236.so"
+				stage="never" />											
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-glx-gtk-3236.so"
+				stage="never" />																		
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-gnome-gtk-3236.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-gtk-3236.so"
+				stage="never" />												
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-mozilla-gcc3-gtk-3236.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-mozilla-gtk-3236.so"
+				stage="never" />								
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-mozilla14-profile-gcc3-gtk-3236.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-mozilla14-profile-gtk-3236.so"
+				stage="never" />								
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-mozilla17-profile-gcc3-gtk-3236.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-mozilla17-profile-gtk-3236.so"
+				stage="never" />								
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-mozilla18-profile-gcc3-gtk-3236.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-mozilla18-profile-gtk-3236.so"
+				stage="never" />								
+			<executable targetfile="$INSTALL_PATH/native/linux/libswt-pi-gtk-3236.so"
+				stage="never" />
+			<os family="unix" name="Linux" />
+			<updatecheck>
+				<include name="native/linux/**" />
+				<include name="jre/linux/jre/**" />
+				<include name="%appName%" />
+				<include name="uninstall" />
+			</updatecheck>			
+		</pack>
+		
+		<pack name="Platform Dependent Files (HP-UX)" required="yes"
+			loose="true"  id="pack_hpux">
+			<description>
+				Java runtime and platform dependent files.
+			</description>
+			<fileset dir="." targetdir="$INSTALL_PATH" override="true">
+				<include name="native/hpux/**" />
+				<include name="jre/hpux/jre/**" />
+				<include name="%appName%" />
+			</fileset>
+			<singlefile src="installation/scripts/uninstall"
+				target="$INSTALL_PATH/uninstall" override="true"/>			
+			<parsable targetfile="$INSTALL_PATH/%appName%" />
+			<executable targetfile="$INSTALL_PATH/%appName%"
+				stage="never" />
+			<parsable targetfile="$INSTALL_PATH/uninstall" />								
+			<executable targetfile="$INSTALL_PATH/uninstall"
+				stage="never" />								
+			<executable targetfile="$INSTALL_PATH/native/hpux/libswt-cde-motif-3063.sl"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/hpux/libswt-motif-3063.sl"
+				stage="never" />			
+			<executable targetfile="$INSTALL_PATH/native/hpux/libswt-cde-motif-3063.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/hpux/libswt-motif-3063.so"
+				stage="never" />														
+			<os family="unix" name="HP-UX" />
+			<updatecheck>
+				<include name="native/hpux/**" />
+				<include name="jre/hpux/jre/**" />
+				<include name="%appName%" />
+				<include name="uninstall" />
+			</updatecheck>
+		</pack>
+		
+		<pack name="Platform Dependent Files (Solaris)" required="yes"
+			loose="true" id="pack_solaris_sparc">
+			<description>
+				Java runtime and platform dependent files.
+			</description>
+
+			<fileset dir="." targetdir="$INSTALL_PATH" override="true">
+				<include name="native/solaris/**" />
+				<include name="jre/solaris/jre/**" />
+				<include name="%appName%" />
+			</fileset>
+			<singlefile src="installation/scripts/uninstall"
+				target="$INSTALL_PATH/uninstall" override="true" />			
+			<parsable targetfile="$INSTALL_PATH/%appName%" />
+			<executable targetfile="$INSTALL_PATH/%appName%"
+				stage="never" />
+			<parsable targetfile="$INSTALL_PATH/uninstall" />				
+			<executable targetfile="$INSTALL_PATH/uninstall"
+				stage="never" />								
+			<executable targetfile="$INSTALL_PATH/native/solaris/libswt-cde-motif-3236.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/solaris/libswt-motif-3236.so"
+				stage="never" />							
+			<os family="unix" name="SunOS" arch="sparc"/>
+			<updatecheck>
+				<include name="native/solaris/**" />
+				<include name="jre/solaris/jre/**" />
+				<include name="%appName%" />
+				<include name="uninstall" />
+			</updatecheck>
+		</pack>
+
+		<pack name="Platform Dependent Files (Solaris X86)" required="yes"
+			loose="true" id="pack_solaris_x86">
+			<description>
+				Java runtime and platform dependent files.
+			</description>
+
+			<fileset dir="." targetdir="$INSTALL_PATH" override="true">
+				<include name="native/solaris_x86/**" />
+				<include name="jre/solaris_x86/jre/**" />
+				<include name="%appName%" />
+			</fileset>
+			<singlefile src="installation/scripts/uninstall"
+				target="$INSTALL_PATH/uninstall" override="true" />			
+			<parsable targetfile="$INSTALL_PATH/%appName%" />
+			<executable targetfile="$INSTALL_PATH/%appName%"
+				stage="never" />
+			<parsable targetfile="$INSTALL_PATH/uninstall" />				
+			<executable targetfile="$INSTALL_PATH/uninstall"
+				stage="never" />								
+			<executable targetfile="$INSTALL_PATH/native/solaris_x86/libswt-atk-gtk-3232.so"
+				stage="never" />				
+			<executable targetfile="$INSTALL_PATH/native/solaris_x86/libswt-awt-gtk-3232.so"
+				stage="never" />							
+			<executable targetfile="$INSTALL_PATH/native/solaris_x86/libswt-cde-gtk-3232.so"
+				stage="never" />	
+			<executable targetfile="$INSTALL_PATH/native/solaris_x86/libswt-gnome-gtk-3232.so"
+				stage="never" />	
+			<executable targetfile="$INSTALL_PATH/native/solaris_x86/libswt-gtk-3232.so"
+				stage="never" />	
+			<executable targetfile="$INSTALL_PATH/native/solaris_x86/libswt-mozilla-gtk-3232.so"
+				stage="never" />	
+			<executable targetfile="$INSTALL_PATH/native/solaris_x86/libswt-pi-gtk-3232.so"
+				stage="never" />	
+			<os family="unix" name="SunOS" arch="x86"/>
+			<updatecheck>
+				<include name="native/solaris_x86/**" />
+				<include name="jre/solaris_x86/jre/**" />
+				<include name="%appName%" />
+				<include name="uninstall" />
+			</updatecheck>
+		</pack>
+		
+		<!-- The Content Volume Install Pack will be 
+		     created here at composition process -->
+
+		<?beginvolume?> 
+		
+		<?endvolume?>
+
+		<!-- Additional packs go in here -->
+		<!-- 
+		<pack name="My Own Stuff" required="no">		
+			<description>
+				My own stuff to install.
+			</description>
+			<fileset dir="." targetdir="$INSTALL_PATH/mystuff">
+				<include name="installation/additional/*" />				
+			</fileset>
+			<executable targetfile="$INSTALL_PATH/mystuff/install.exe"
+				stage="postinstall" />
+		</pack>
+				
+		<pack name="Documentation" required="no">
+			<description>The Digital Media Consumer Help</description>
+			<fileset dir="." targetdir="$INSTALL_PATH">
+				<include name="doc/**" />
+			</fileset>
+		</pack>		
+		
+		********** additional legal elements in packs
+		<parsable> - parse a file after installation 
+					 Files specified by <parsable> are parsed after 
+					 installation and may have variables substituted. 
+
+					 targetfile : the file to parse, could be something like 
+								  $INSTALL_PATH/bin/launch-script.sh 
+								  A slash will be changed to the system 
+								  dependant path separator (e.g. to a backslash 
+								  on Windows) only if no backslash masks the slash. 
+
+					type : specifies the type (same as for the resources) - the default is plain 
+
+					encoding : specifies the file encoding 
+
+					os: specifies the operating system
+		
+		
+		<executable> - mark file executable or execute it 
+					   The <executable> tag is a very useful thing if you need 
+					   to execute something during the installation process. It 
+					   can also be used to set the executable flag on Unix-like 
+					   systems. Here are the attributes : 
+
+
+					   targetfile : the file to run, could be something like 
+									$INSTALL_PATH/bin/launch-script.sh 
+									Slashes are handled special (see attribute 
+									targetfile of tag <parsable>2.3.8). 
+
+					   class : If the executable is a jar file, this is the class 
+					   		   to run for a JavaTM program 
+
+					   type : bin or jar (the default is bin) 
+
+					   stage : specifies when to launch : postinstall is just 
+					           after the installation is done and the default 
+					           value, never will never launch it (useful to set 
+					           the +x flag on Unix). uninstall will launch the 
+					           executable when the application is uninstalled. 
+					           The executable is executed before any files are deleted. 
+
+				      failure : specifies what to do when an error occurs : abort will 
+				                abort the installation process, ask (default) will 
+				                ask the user what to do and warn will just tell the 
+				                user that something is wrong 
+
+					  os: specifies the operating system
+					  
+					  keep : specifies whether the file will be kept after execution. 
+					         The default is to delete the file after is has been executed. 
+					         This can be changed by specifying keep="true". 
+		 -->
+
+
+	</packs>
+
+	<native type="izpack" name="ShellLink.dll" />
+
+	<native type="3rdparty" name="COIOSHelper.dll" stage="both">
+    		<os family="windows"/>
+	</native>
+
+	<listeners>
+		<listener installer="AntActionInstallerListener"
+			uninstaller="AntActionUninstallerListener" />
+		<listener installer="RegistryInstallerListener"
+		        uninstaller="RegistryUninstallerListener" >
+		        <os family="windows"/>
+		</listener>
+	</listeners>
+
+	<jar src="lib/log4j.jar" stage="both" />
+	<jar src="lib/config.jar" stage="both" />
+	<jar src="lib/ant.jar" stage="both" />
+	<jar src="lib/ant-launcher.jar" stage="both" />
+	<jar src="lib/dmcconf.jar" stage="both" />
+	<jar src="lib/xbean.jar" stage="both" />
+	<jar src="lib/jsr173_1.0_api.jar" stage="both" />
+	<jar src="lib/xmlbeans-qname.jar" stage="both" />
+	<jar src="consumerui.jar" stage="both" />
+</installation>

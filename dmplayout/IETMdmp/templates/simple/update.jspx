@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer"
+	version="2.0">
+	<jsp:directive.page language="java"
+		contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
+	<jsp:text>
+		<![CDATA[ <?xml version="1.0" encoding="UTF-8" ?> ]]>
+	</jsp:text>
+	<jsp:text>
+		<![CDATA[ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> ]]>
+	</jsp:text>
+
+	<atidmc:layout var="layout" />
+
+	<atidmc:config var="update" javaClass="${layout.beans['UPDATE']}" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }" />
+
+	<fmt:setLocale value="${layout.locale}" />
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>${resourceBundle['runUpdateTitle']}</title>
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"><!--  --></link>
+	<script language="JavaScript"
+		src="${layout.template}javascript/update.js">
+	<![CDATA[
+					// leave some space, so that the serializer won't collapse element
+					// which could cause browser to mis-behave
+			]]></script>
+	</head>
+	<body
+		onload="updateStatus('in-progress', '_updateStatus')">
+	<div id="header">&#160;</div>
+	
+	<div id="tools">
+		<h1>${layout.resourceBundle['links']}</h1>
+		<ul>
+		<li><a href="index.jspx">${layout.resourceBundle['home']}</a></li>
+		<li><a href="index.jspx?task=TOC">${layout.resourceBundle['tableOfContent']}</a></li>
+		<li><a href="index.jspx?task=SEARCH">${layout.resourceBundle['searchPage']}</a></li>
+		<li><a href="index.jspx?task=INDEX_TERM">${layout.resourceBundle['indexTerm']}</a></li>		
+		<li><a href="index.jspx?task=CONFIG">${layout.resourceBundle['configuration']}</a></li>	
+		</ul>
+	</div>
+	
+	<div id="update">
+
+	<!-- 
+	<div id="updateHeading"></div>
+	
+		<div id="updateByFile">
+			<form  method="post" enctype="multipart/form-data" action="${layout.configActions.UPDATE}"
+			accept-charset="utf-8">
+			<ul>
+				<li class="configRow"><span class="updateHeader">Update package:</span></li>
+				<li class="configRow"><span class="updateField"><input type="file" name="updatePackFile"></input></span></li>
+				<li class="configRow"><span class="updateField"><input type="submit" name="send" value="update"></input></span></li>
+			</ul>
+			
+			</form>
+		</div>
+
+		<div id="updateByURL">
+			<form  method="post" action="${layout.configActions.UPDATE}"
+			accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+			<ul>
+				<li class="configRow"><span class="updateHeader">Update package URL</span></li>
+				<li class="configRow"><span class="updateField"><input type="file" name="updatePackFile"></input></span></li>
+				<li class="configRow"><span class="updateField"><input type="submit" name="send" value="update"></input></span></li>
+			</ul>
+			
+			</form>
+		</div>
+			
+		 -->
+
+	<div id="updateProgress">	
+	<h3>${resourceBundle['updateStatus']}</h3>
+	<div id="in-progress"></div>
+	</div>
+
+	<div id="refreshButton" class="norefresh"><input type="button" name="refresh"
+		value="${resourceBundle['reloadAfterUpdate']}" onclick="javascript:top.location.href='index.jspx'"/></div>
+	</div>
+	</body>
+	</html>
+</jsp:root>

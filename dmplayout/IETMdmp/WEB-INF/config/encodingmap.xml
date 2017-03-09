@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EncodingMap>
+	<Encoding java="UTF8" iana="UTF-8" country="US" language="en">
+		<Alias>UTF_8</Alias>
+	</Encoding>
+	<Encoding java="ISO-8859-1" iana="ISO-8859-1" country="US"
+		language="en">
+		<Alias>ISO_8859_1</Alias>
+		<Alias>ISO_8859-1</Alias>
+		<Alias>ISO-8859_1</Alias>
+	</Encoding>
+	<Encoding java="ISO-8859-2" iana="ISO-8859-2" country="CZ"
+		language="cs">
+		<Alias>ISO_8859_2</Alias>
+		<Alias>ISO_8859-2</Alias>
+		<Alias>ISO-8859_2</Alias>
+	</Encoding>
+	<Encoding java="ISO-8859-3" iana="ISO-8859-3" country="ES"
+		language="es">
+		<Alias>ISO_8859_3</Alias>
+		<Alias>ISO_8859-3</Alias>
+		<Alias>ISO-8859_3</Alias>
+	</Encoding>
+	<Encoding java="ISO-8859-4" iana="ISO-8859-4" country="US"
+		language="en">
+		<Alias>ISO_8859_4</Alias>
+		<Alias>ISO_8859-4</Alias>
+		<Alias>ISO-8859_4</Alias>
+	</Encoding>
+	<Encoding java="ISO-8859-5" iana="ISO-8859-5" country="UA"
+		language="uk">
+		<Alias>ISO_8859_5</Alias>
+		<Alias>ISO_8859-5</Alias>
+		<Alias>ISO-8859_5</Alias>
+	</Encoding>
+	<Encoding java="ISO-8859-6" iana="ISO-8859-6" country="SA"
+		language="ar">
+		<Alias>ISO_8859_6</Alias>
+		<Alias>ISO_8859-6</Alias>
+		<Alias>ISO-8859_6</Alias>
+	</Encoding>
+	<Encoding java="ISO-8859-7" iana="ISO-8859-7" country="GR"
+		language="el">
+		<Alias>ISO_8859_7</Alias>
+		<Alias>ISO_8859-7</Alias>
+		<Alias>ISO-8859_7</Alias>
+	</Encoding>
+	<Encoding java="ISO-8859-8" iana="ISO-8859-8" country="IL"
+		language="he">
+		<Alias>ISO_8859_8</Alias>
+		<Alias>ISO_8859-8</Alias>
+		<Alias>ISO-8859_8</Alias>
+	</Encoding>
+	<Encoding java="cp037" iana="ebcdic-cp-us" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp037" iana="ebcdic-cp-ca" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp037" iana="ebcdic-cp-nl" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp277" iana="ebcdic-cp-dk" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp277" iana="ebcdic-cp-no" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp278" iana="ebcdic-cp-fi" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp278" iana="ebcdic-cp-se" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp280" iana="ebcdic-cp-it" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp284" iana="ebcdic-cp-es" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp285" iana="ebcdic-cp-gb" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp297" iana="ebcdic-cp-fr" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp420" iana="ebcdic-cp-ar1" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp424" iana="ebcdic-cp-he" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp500" iana="ebcdic-cp-ch" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp870" iana="ebcdic-cp-roece" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp870" iana="ebcdic-cp-yu" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp871" iana="ebcdic-cp-is" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="cp918" iana="ebcdic-cp-ar2" country="US"
+		language="en">
+	</Encoding>
+	<Encoding java="GB2312" iana="gb2312" country="CN" language="zh">
+	</Encoding>
+	<Encoding java="eucjis" iana="euc-jp" country="JP" language="ja">
+	</Encoding>
+	<Encoding java="JIS" iana="iso-2020-jp" country="JP"
+		language="ja">
+	</Encoding>
+	<Encoding java="SJIS" iana="Shift_JIS" country="JP" language="ja">
+		<Alias>X-SJIS</Alias>
+	</Encoding>
+	<Encoding java="Big5" iana="Big5" country="TW" language="zh">
+	</Encoding>
+	<Encoding java="euc-kr" iana="euc-kr" country="KR"
+		language="ko">
+	</Encoding>
+	<Encoding java="ks_c_5601-1987" iana="euc-kr" country="KR"
+		language="ko">
+	</Encoding>	
+	<Encoding java="iso2022kr" iana="euc-kr" country="KR"
+		language="ko">
+	</Encoding>
+	<Encoding java="koi8-r" iana="koi8-r" country="KR" language="ko">
+	</Encoding>
+</EncodingMap>

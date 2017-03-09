@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:directive.page language="java" errorPage="error.jspx" />
+
+	<atidmc:forward/>
+	
+</jsp:root>

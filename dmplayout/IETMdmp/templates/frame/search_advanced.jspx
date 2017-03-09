@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+	
+	<atidmc:framemanager var="manager" />
+	
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+		
+	<atidmc:searchForm>
+		<atidmc:transformInfo xsl="${layout.template}xsl/search.xsl">
+			<atidmc:parameter name="template"
+				value="${layout.resourceBundle['configuration']}" />
+			<atidmc:parameter name="searchFieldLabel" value="${resourceBundle['targetSearch']}" />
+			<atidmc:parameter name="searchWordsLabel" value="Search Words" />
+			<atidmc:parameter name="searchLabel" value="${resourceBundle['search']}" />
+			<!-- 
+			<atidmc:parameter name="fields">
+				All Content:Content|
+				Headings Only:AllHeadings|
+				Primary Heading:PrimaryHeading|
+				Secondary Heading:SecondaryHeading
+			</atidmc:parameter>
+			 -->
+
+			<atidmc:parameter name="fields" value="*" />
+			<atidmc:parameter name="constraints" value="*" />
+
+			<!-- 
+			<atidmc:parameter name="constraints">
+				locale:{${layout.locale}:}|
+				mimetype:${layout.resourceBundle['FileType']}
+				{:All;text/html:HTML File;application/pdf: PDF File}
+			</atidmc:parameter>
+		    -->	
+			 
+			<!-- ideally, we should be able to do this: 
+			<atidmc:parameter name="constraints"
+				<atidmc:constraints>
+					<atidmc:constraint name="locale" display="${layout.resourceBundle['locale']">
+						<atidmc:value name="All" value="">
+						<atidmc:value name="English" value="en">
+						<atidmc:value name="中文" value="zh_TW">
+					</atidmc:constraint>
+					<atidmc:constraint name="Discription" display="Content Description"/>
+					<atidmc:constraint name="Keyword">
+						<atidmc:value value="xxxx">
+					</atidmc:constraint>					
+				</atidmc:constraints>
+			-->
+			<atidmc:parameter name="tabsFrame" value="tabs" />
+			<atidmc:parameter name="viewsFrame" value="viewsFrame" />
+			<atidmc:parameter name="tabToolbarFrame" value="tabToolbarFrame" />				
+			<atidmc:parameter name="tabId" value="${(manager.moduleMap.resultView == null)? 0 : manager.moduleMap.resultView.index}" />
+			<atidmc:parameter name="view" value="${(manager.moduleMap.resultView == null)? '' : manager.moduleMap.resultView.view}" />
+			<atidmc:parameter name="toolbar" value="${(manager.moduleMap.resultView == null)? '' : manager.moduleMap.resultView.toolbar}" />
+			<atidmc:parameter name="locale" value="${layout.locale.language}" />
+			<atidmc:parameter name="defaultsize" value="250" />				
+			<atidmc:parameter name="action" value="index.jspx" />
+			<atidmc:parameter name="keywords" value="${param.keywords}" />
+			<atidmc:parameter name="templatePath" value="${layout.template}" />
+			<atidmc:parameter name="altSearchLink" value="index.jspx?task=S_SEARCH" />
+			<atidmc:parameter name="altSearchType" value="${resourceBundle['simple']}" />
+		</atidmc:transformInfo>
+	</atidmc:searchForm>
+</jsp:root>

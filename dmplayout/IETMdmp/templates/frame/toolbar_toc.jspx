@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+	
+	<html>
+	<head>
+	<title>${resourceBundle['toolbarToc']}</title>
+	<link rel="stylesheet" type="text/css"
+		href="${layout.template}css/dmc.css" media="all"><!--  --></link>
+
+	<script language="JavaScript"
+		src="${layout.template}javascript/utils.js">
+	<![CDATA[
+					// leave some space, so that the serializer won't collapse element
+					// which could cause browser to mis-behave
+			]]></script>
+	<script language="JavaScript"
+		src="${layout.template}javascript/tree.js">
+	<![CDATA[
+					// leave some space, so that the serializer won't collapse element
+					// which could cause browser to mis-behave
+			]]></script>
+	</head>
+
+	<body class="tabToolBarBody">
+	<table height="20" align="right">
+		<tr>
+			<td align="right">
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td align="middle" class="button" height="18"><div
+						alt="${resourceBundle['expandAll']}" title="${resourceBundle['expandAll']}"
+						border="0" id="toolbar_toc_expand" onclick="expandAll('server', 'TOC')" class="button_toolbar_toc_expand_on"/></td>
+					<td align="middle" class="button" height="18"><div
+						alt="${resourceBundle['collapseAll']}" title="${resourceBundle['collapseAll']}"
+						border="0" id="toolbar_toc_collapse" onclick="collapseAll('server', 'TOC')" class="button_toolbar_toc_collapse_on"/></td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+	</table>
+	</body>
+	</html>
+</jsp:root>
+

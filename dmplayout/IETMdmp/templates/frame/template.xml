@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LayoutPreference resource="languages/LocalStrings">
+	<TemplateDescription>
+
+	</TemplateDescription>
+
+	<Project>
+		<title key="PWC IETM" />
+		<meta key="metadata" />
+	</Project>
+
+	<Pages>
+		<Page type="WELCOME">
+			<Url locale="*" href="index.jspx" />
+		</Page>
+		<Page type="INTRO">
+			<Url locale="*" href="/title-page.html" />
+		</Page>
+		<Page type="HELP">
+			<Url locale="*" href="srhtips.jspx" />
+		</Page>		
+		<Page type="SEARCH_TIPS">
+			<Url locale="*" href="srhtips.jspx" />
+		</Page>
+		<Page type="ABOUT">
+			<Url locale="*" href="about.jspx" />
+		</Page>
+		<Page type="VOLUME_REDIRECT">
+			<Url locale="*" href="form_volume.jspx" />
+		</Page>
+		<Page type="VOLUME_ENCRYPTED">
+			<Url locale="*" href="volume_encrypted.jspx" />
+		</Page>
+		<Page type="ANNOTATION">
+			<Url locale="*" href="form_annotation.jspx" />
+		</Page>
+		<Page type="ERROR">
+			<Url locale="*" href="error.jspx" />
+		</Page>
+		<Page type="STATUS_ERROR">
+			<Url locale="*" href="status_error.jspx" />
+		</Page>
+		<Page type="A_SEARCH">
+			<Url locale="*" href="search_advanced.jspx" />
+		</Page>
+		<Page type="S_SEARCH">
+			<Url locale="*" href="search_simple.jspx" />
+		</Page>
+		<Page type="TABS">
+			<Url locale="*" href="tabs.jspx" />
+		</Page>
+		<Page type="VALIDATE">
+			<Url locale="*" href="validate.jspx" />
+		</Page>
+		<Page type="SUCCEED">
+			<Url locale="*" href="info_succeed.jspx" />
+		</Page>
+		<Page type="BANNER">
+			<Url locale="*" href="banner.jspx" />
+		</Page>
+
+		<!--  Frames  -->
+		<Page type="MAINFRAME">
+			<Url locale="*" href="frame_main.jspx" />
+		</Page>
+		<Page type="CONTENTFRAME">
+			<Url locale="*" href="frame_content.jspx" />
+		</Page>
+		<Page type="NAVFRAME">
+			<Url locale="*" href="frame_nav.jspx" />
+		</Page>
+		<Page type="VIEWSFRAME">
+			<Url locale="*" href="frame_views.jspx" />
+		</Page>
+		<Page type="TABSFRAME">
+			<Url locale="*" href="frame_tabs.jspx" />
+		</Page>
+
+
+		<!-- Views -->
+		<Page type="VIEWS">
+			<Url locale="*" href="views.jspx" />
+		</Page>
+		<Page type="BOOKMARK">
+			<Url locale="*" href="view_bookmark.jspx" />
+		</Page>
+		<Page type="CONFIG">
+			<Url locale="*" href="view_config_highlight.jspx" />
+		</Page>
+		<Page type="CONFIG_LOCALE">
+			<Url locale="*" href="view_config_locale.jspx" />
+		</Page>
+		<Page type="CONFIG_WEB_LOCALE">
+			<Url locale="*" href="view_config_web_locale.jspx" />
+		</Page>		
+		<Page type="CONFIG_UPDATE">
+			<Url locale="*" href="view_config_update.jspx" />
+		</Page>
+		<Page type="CONFIG_HIGHLIGHT">
+			<Url locale="*" href="view_config_highlight.jspx" />
+		</Page>		
+		<Page type="CONFIG_PROFILE">
+			<Url locale="*" href="view_config_profile.jspx" />
+		</Page>	
+		<Page type="CONFIG_PROXY">
+			<Url locale="*" href="view_config_proxy.jspx" />
+		</Page>			
+		<Page type="RESULT">
+			<Url locale="*" href="view_result.jspx" />
+		</Page>
+		<Page type="TOC">
+			<Url locale="*" href="view_toc.jspx" />
+		</Page>
+		<Page type="INDEX_TERM">
+			<Url locale="*" href="view_index_term.jspx" />
+		</Page>
+		<Page type="UPDATE">
+			<Url locale="*" href="update.jspx" />
+		</Page>		
+		<!-- Toolbars -->
+		<Page type="TOC_TOOLBAR">
+			<Url locale="*" href="toolbar_toc.jspx" />
+		</Page>
+		<Page type="RESULT_TOOLBAR">
+			<Url locale="*" href="toolbar_result.jspx" />
+		</Page>
+		<Page type="BOOKMARK_TOOLBAR">
+			<Url locale="*" href="toolbar_bookmark.jspx" />
+		</Page>
+		<Page type="CONFIG_TOOLBAR">
+			<Url locale="*" href="toolbar_config.jspx" />
+		</Page>
+		<Page type="INDEX_TERM_TOOLBAR">
+			<Url locale="*" href="toolbar_index_term.jspx" />
+		</Page>
+		<Page type="TOOLBAR">
+			<Url locale="*" href="toolbar_main.jspx" />
+		</Page>
+		<Page type="EMBED">
+			<Url locale="*" href="embed.jspx" />
+		</Page>
+	</Pages>
+
+	<ConfigurationBeans>
+		<ConfigBean name="PROJECT"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.ProjectBean"
+			source="view_config_locale.jspx"
+			action="validate.jspx?config=PROJECT" />
+		<ConfigBean name="LOCALE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.LocaleBean"
+			source="view_config_locale.jspx"
+			action="validate.jspx?config=LOCALE" />			
+		<ConfigBean name="TEMPLATE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.TemplateBean"
+			source="view_config_highlight.jspx"
+			action="validate.jspx?config=TEMPLATE" />
+		<ConfigBean name="WEB_LOCALE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.WebLocaleBean"
+			source="view_config_web_locale.jspx"
+			action="validate.jspx?config=WEB_LOCALE" />			
+		<ConfigBean name="VOLUME"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.VolumeBean"
+			source="form_volume.jspx" action="validate.jspx?config=VOLUME" />
+		<ConfigBean name="UPDATE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.UpdateBean"
+			source="view_config_update.jspx"
+			action="validate.jspx?config=UPDATE" />
+		<ConfigBean name="LICENSE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.LicenseBean"
+			source="status_error.jspx" action="validate.jspx?config=LICENSE" />
+		<ConfigBean name="PROFILE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.ProfileBean"
+			source="status_error.jspx" action="validate.jspx?config=PROFILE" />			
+	</ConfigurationBeans>
+
+	<SystemModules>
+		<Module name="highlight"
+			class="com.arbortext.dmc.consumer.module.highlight.HTMLKWHighlighter">
+			<Parameter name="highlight">true</Parameter>
+			<Parameter name="indenting">false</Parameter>
+			<Parameter name="createLink">true</Parameter>
+			<Parameter name="noNestedElementNames">
+				A;{http://www.w3.org/1999/xhtml}A
+			</Parameter>
+			<Parameter name="jscripts">
+				javascript/highlight.js
+			</Parameter>
+			<Parameter name="anchorPrefix">ATI.</Parameter>
+			<Parameter name="stylePrefix">ATI_cls_</Parameter>
+			<Parameter name="css">css/highlite.css</Parameter>
+			<Parameter name="cdataElements">SCRIPT script</Parameter>
+			<Parameter name="mimetype">text/html</Parameter>
+			<Parameter name="maxColors">10</Parameter>
+		</Module>
+		<Module name="highlightUpdate"
+			class="com.arbortext.dmc.consumer.module.HighlightUpdatedModule">
+			<Parameter name="highlight">true</Parameter>
+		</Module>		
+		<Module name="insertScript"
+			class="com.arbortext.dmc.consumer.module.InsertScriptModule">
+			<Parameter name="indenting">false</Parameter>
+			<Parameter name="mimetype">text/html</Parameter>
+			<Parameter name="method">html</Parameter>
+		</Module>		
+		<Module name="tocView"
+			class="com.arbortext.dmc.consumer.module.view.ViewImpl">
+			<Parameter name="view">TOC</Parameter>
+			<Parameter name="tabimage">images/outline.gif</Parameter>
+			<Parameter name="tabalt">tableOfContents</Parameter>
+			<Parameter name="toolbar">TOC_TOOLBAR</Parameter>
+			<Parameter name="applicableMode">ALL</Parameter>			
+		</Module>
+		<Module name="resultView"
+			class="com.arbortext.dmc.consumer.module.view.ViewImpl">
+			<Parameter name="view">RESULT</Parameter>
+			<Parameter name="tabimage">images/view.gif</Parameter>
+			<Parameter name="tabalt">search</Parameter>
+			<Parameter name="toolbar">RESULT_TOOLBAR</Parameter>
+			<Parameter name="applicableMode">ALL</Parameter>			
+		</Module>
+		<Module name="indextermView"
+			class="com.arbortext.dmc.consumer.module.view.ViewImpl">
+			<Parameter name="view">INDEX_TERM</Parameter>
+			<Parameter name="tabimage">images/indexterm.gif</Parameter>
+			<Parameter name="tabalt">indexterms</Parameter>
+			<Parameter name="toolbar">INDEX_TERM_TOOLBAR</Parameter>
+			<Parameter name="applicableMode">NONE</Parameter>			
+		</Module>
+		<Module name="bookmarkView"
+			class="com.arbortext.dmc.consumer.module.view.ViewImpl">
+			<Parameter name="view">BOOKMARK</Parameter>
+			<Parameter name="tabimage">images/bookmark.gif</Parameter>
+			<Parameter name="tabalt">bookmark</Parameter>
+			<Parameter name="toolbar">BOOKMARK_TOOLBAR</Parameter>
+			<Parameter name="applicableMode">DISK_INSTALL</Parameter>
+		</Module>
+		<Module name="configView"
+			class="com.arbortext.dmc.consumer.module.view.ViewImpl">
+			<Parameter name="view">CONFIG</Parameter>
+			<Parameter name="tabimage">images/favorite.gif</Parameter>
+			<Parameter name="tabalt">configuration</Parameter>
+			<Parameter name="toolbar">CONFIG_TOOLBAR</Parameter>
+			<Parameter name="applicableMode">ALL</Parameter>
+		</Module>  
+		<Module name="configWebLocaleView"
+			class="com.arbortext.dmc.consumer.module.view.ViewImpl">
+			<Parameter name="view">WEB_CONFIG_LOCALE</Parameter>
+			<Parameter name="tabimage">images/favorite.gif</Parameter>
+			<Parameter name="tabalt">language</Parameter>
+			<Parameter name="toolbar">CONFIG_TOOLBAR</Parameter>
+			<Parameter name="applicableMode">NONE</Parameter>
+		</Module>
+		<Module name="configLocaleView"
+			class="com.arbortext.dmc.consumer.module.view.ViewImpl">
+			<Parameter name="view">CONFIG_LOCALE</Parameter>
+			<Parameter name="tabimage">images/favorite.gif</Parameter>
+			<Parameter name="tabalt">language</Parameter>
+			<Parameter name="toolbar">CONFIG_TOOLBAR</Parameter>
+			<Parameter name="applicableMode">NONE</Parameter>
+		</Module>		
+		<Module name="configUpdateView"
+			class="com.arbortext.dmc.consumer.module.view.ViewImpl">
+			<Parameter name="view">CONFIG_UPDATE</Parameter>
+			<Parameter name="tabimage">images/favorite.gif</Parameter>
+			<Parameter name="tabalt">update</Parameter>
+			<Parameter name="toolbar">CONFIG_TOOLBAR</Parameter>
+			<Parameter name="applicableMode">NONE</Parameter>
+		</Module>			
+		<Module name="userData"
+			class="com.arbortext.dmc.consumer.module.userdata.UserData">
+			<Parameter name="href">
+				/WEB-INF/config/userdata.xml
+			</Parameter>
+		</Module>
+		<Module name="embedSWF"
+			class="com.arbortext.dmc.consumer.module.embed.EmbedObject">
+			<Parameter name="includeMimeType">
+				application/x-shockwave-flash
+			</Parameter>
+			<Parameter name="classid">
+				clsid:D27CDB6E-AE6D-11cf-96B8-444553540000
+			</Parameter>
+		</Module>	
+		<Module name="embedPDF"
+			class="com.arbortext.dmc.consumer.module.embed.PDFEmbedObject">
+			<Parameter name="includeMimeType">
+				application/pdf
+			</Parameter>
+			<Parameter name="classid">
+				clsid:CA8A9780-280D-11CF-A24D-444553540000
+			</Parameter>
+			<Parameter name="highlight">
+				false
+			</Parameter>
+		</Module>	
+		<Module name="embedWord"
+			class="com.arbortext.dmc.consumer.module.embed.EmbedObject">
+			<Parameter name="includeMimeType">
+				application/msword
+			</Parameter>
+			<Parameter name="classid"></Parameter>
+			<Parameter name="highlight">
+				false
+			</Parameter>
+		</Module>
+		<Module name="embedPpt"
+			class="com.arbortext.dmc.consumer.module.embed.EmbedObject">
+			<Parameter name="includeMimeType">
+				application/powerpoint
+			</Parameter>
+			<Parameter name="classid"></Parameter>
+			<Parameter name="highlight">
+				false
+			</Parameter>
+		</Module>
+		<Module name="localeSelection"
+			class="com.arbortext.dmc.consumer.module.DefaultUIModule">
+			<Parameter name="en_US">
+				English
+			</Parameter>
+			<Parameter name="en_us">
+				English
+			</Parameter>
+			<Parameter name="en">
+				English
+			</Parameter>
+			<Parameter name="fr_FR">
+				Français
+			</Parameter>
+			<Parameter name="fr_fr">
+				Français
+			</Parameter>
+			<Parameter name="fr">
+				Français
+			</Parameter>
+			<Parameter name="de_DE">
+				Deutsch
+			</Parameter>
+			<Parameter name="de_de">
+				Deutsch
+			</Parameter>
+			<Parameter name="de">
+				Deutsch
+			</Parameter>
+			<Parameter name="zh_CN">
+				简体中文 (Simplified Chinese)
+			</Parameter>
+			<Parameter name="zh_cn">
+				简体中文 (Simplified Chinese)
+			</Parameter>
+			<Parameter name="zh">
+				简体中文 (Simplified Chinese)
+			</Parameter>
+			<Parameter name="zh_TW">
+				繁體中文 (Traditional Chinese)
+			</Parameter>
+			<Parameter name="zh_tw">
+				繁體中文 (Traditional Chinese)
+			</Parameter>
+			<Parameter name="zh">
+				繁體中文 (Traditional Chinese)
+			</Parameter>
+			<Parameter name="ko_KR">
+				한국어 (Korean)
+			</Parameter>
+			<Parameter name="ko_kr">
+				한국어 (Korean)
+			</Parameter>
+			<Parameter name="ko">
+				한국어 (Korean)
+			</Parameter>
+			<Parameter name="ja_JP">
+				日本語 (Japanese)
+			</Parameter>												
+			<Parameter name="ja_jp">
+				日本語 (Japanese)
+			</Parameter>
+			<Parameter name="ja">
+				日本語 (Japanese)
+			</Parameter>
+			<Parameter name="it_IT">
+				Italiano
+			</Parameter>
+			<Parameter name="it_it">
+				Italiano
+			</Parameter>
+			<Parameter name="it">
+				Italiano
+			</Parameter>
+			<Parameter name="es_ES">
+				Español
+			</Parameter>
+			<Parameter name="es_es">
+				Español
+			</Parameter>
+			<Parameter name="es">
+				Español
+			</Parameter>
+			<Parameter name="ar_SA">
+				اللغة العربية(Arabic)
+			</Parameter>
+			<Parameter name="ar_sa">
+				اللغة العربية(Arabic)
+			</Parameter>
+			<Parameter name="ar">
+				اللغة العربية(Arabic)
+			</Parameter>
+			<Parameter name="ru_RU">
+				русский язык (Russian)
+			</Parameter>
+			<Parameter name="ru_ru">
+				русский язык (Russian)
+			</Parameter>
+			<Parameter name="ru">
+				русский язык (Russian)
+			</Parameter>
+			<Parameter name="th_TH">
+				ภาษาไทย (Thai)
+			</Parameter>
+			<Parameter name="th_th">
+				ภาษาไทย (Thai)
+			</Parameter>
+			<Parameter name="th">
+				ภาษาไทย (Thai)
+			</Parameter>
+			<Parameter name="he_IL">
+				 (Hebrew) עִבְרִית
+			</Parameter>
+			<Parameter name="he_il">
+				 (Hebrew) עִבְרִית
+			</Parameter>
+			<Parameter name="he">
+				 (Hebrew) עִבְרִית
+			</Parameter>											
+		</Module>	
+		
+	</SystemModules>
+
+	<Parameters>
+		<Parameter name="preloadedStylesheets">
+			xsl/result.xsl;xsl/search.xsl;xsl/toc.xsl;xsl/bookmark.xsl;xsl/indexterm.xsl;xsl/search_toc.xsl
+		</Parameter>
+		<Parameter name="showSearchResultInToc">
+			false
+		</Parameter>
+		<Parameter name="addSessionId">
+			false
+		</Parameter>
+		<Parameter name="preventContentFromTakingOverFrameset">
+			true
+		</Parameter>
+		<Parameter name="preventContentFromTakingOverFramesetPrefix">
+		</Parameter>
+		<Parameter name="allowLinkToProfiledTopics">
+			false
+		</Parameter>
+		<Parameter name="searchBoostMetaFields">
+			Title
+		</Parameter>
+		<Parameter name="showAboutButton">
+			false
+		</Parameter>
+		<Parameter name="isTermVectorEnabled">
+			false
+		</Parameter>
+	</Parameters>
+
+</LayoutPreference>

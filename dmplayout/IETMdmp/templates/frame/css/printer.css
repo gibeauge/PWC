@@ -1,0 +1,75 @@
+ /* Display header and footer on every page for printing */
+ thead { display: table-header-group;} tfoot {display: table-footer-group;}
+
+ 
+ thead #contentHeader {
+	border-bottom: 1px solid #000;
+	text-align:center;
+	padding-bottom:2px;
+	font-weight:bold;
+	color:#000 !important;
+}
+tfoot #contentFooter {
+	font-weight:bold;
+	border-top: 1px solid #000;
+	text-align:center;
+	font-size:0.8em;
+	padding:5px;
+	margin:5px;
+	color:#000 !important;
+}
+thead #contentHeader .header-big {
+	font-size:1.1em;
+	margin:0px;
+	padding:0px;
+}
+
+/* Hide header and footer on screen */
+ @media screen {
+  thead #contentHeader, tfoot #contentFooter { display:none;}
+ } 
+ 
+ /* CSS for printing only */
+ @media print {
+	/* Fix text cut on the right side */
+	#contentWrapperPrint > tbody > tr > td > div { width:95%;}
+	#contentWrapperPrint > tbody > tr > td { vertical-align: top;}
+  
+	/* Fix blank pages caused by large figures */
+	
+	/* Hide second title of the figures */
+	.x-graphic-2-0 > div[class*="x-title"], .x--ufe-fig-title-1-0 {
+		display:none;
+	}
+	/* Remove vertical lines */
+	.x-figure-1-0 .x-sheet-1-1, .x-figure-1-0 .x-graphic-1-1, .x-graphic-2-0 .x-sheet-1-1, .x-graphic-1-0 .x-sheet-1-0 {
+		border:0px !important;
+	}	
+	/* Remove id below figure */
+	.x-figure-1-0 img + div, .x-graphic-2-0 img + div, .x-graphic-1-0 img + div {
+		display:none !important;
+	}
+	/* Add page break after every module and figure */
+	.x-module-1-0  {
+		page-break-before:always;
+	}
+	.x-figure-1-0  {
+		page-break-before:always;
+		margin-top:0px;
+	}
+	.x-task-1-0 .x-graphic-1-0  {
+		page-break-before:always;
+		margin-top:0px !important;
+	}	
+	/* Fix page break caused by some margins and long titles when printing figures */
+	.x-task-1-0 .x-graphic-1-0 > div[class*="x-title"], .x-task-1-0 .x-graphic-1-0 .x-sheet-1-0  {
+		margin-top:0px !important;
+	}
+	.x-task-1-0 .x-graphic-1-0 > div[class*="x-title"] {
+		font-size:12pt;
+	}
+	/* Do not put a page break after the first module or figure of the page */
+	.x-module-1-0-first, .x-figure-1-0-first, .x-task-1-0 .x-graphic-1-0-first{
+		page-break-before:auto !important;
+	}
+ }

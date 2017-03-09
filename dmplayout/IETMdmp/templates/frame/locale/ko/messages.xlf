@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd">
+	<file category="resourceBundle" datatype="cstring"
+		original="LocalStrings.properties" source-language="en-US"
+		target-language="en-US" xml:space="default">
+		<header>
+			<note>
+				The translation used for DMP Consumer User Interface
+				(FRAME LAYOUT) ********* %xxxxx% represents variable
+				name and should not be translated
+			</note>
+		</header>
+		<body>
+			<group resname="DMP Consumer" restype="file">
+
+				<!-- index.jspx -->
+				<trans-unit id="mainTitle">
+					<source>%projectName%</source>
+					<target>%projectName%</target>
+				</trans-unit>
+
+				<!-- banner.jspx -->
+				<trans-unit id="bannerTitle">
+					<source>Banner</source>
+					<target>배너</target>
+				</trans-unit>
+
+				<trans-unit id="helpCenter">
+					<source>Help Center</source>
+					<target>도움말 센터</target>
+				</trans-unit>
+
+				<trans-unit id="linkToUrl">
+					<source>link to this page</source>
+					<target>이 페이지에 연결</target>
+				</trans-unit>
+				
+				<trans-unit id="linkToUrlDescription">
+					<source>Change URL address to a format suitable for a bookmark.</source>
+					<target>URL 주소를 책갈피에 적합한 형식으로 바꿉니다.</target>
+				</trans-unit>				
+				<!-- embed.jspx -->
+				<trans-unit id="embeddedPDFNotSupported">
+					<source>
+						Your browser does not support embedded PDF
+						files.
+					</source>
+					<target>사용자의 브라우저는 내장된 PDF 파일을 지원하지 않습니다.</target>
+				</trans-unit>
+
+
+				<!-- error.jspx -->
+				<trans-unit id="errorTitle">
+					<source>Error in the Page</source>
+					<target>페이지에서 오류 발견</target>
+				</trans-unit>
+				<trans-unit id="errorHeader">
+					<source>
+						The page you requested contains an error and
+						cannot be displayed.
+					</source>
+					<target>요청한 페이지에 오류가 있기 때문에 표시할 수 없습니다.</target>
+				</trans-unit>
+				<trans-unit id="errorStatus">
+					<source>Error Status:</source>
+					<target>오류 상태:</target>
+				</trans-unit>
+				<trans-unit id="errorStackTrace">
+					<source>Error Stack Trace</source>
+					<target>스택 추적 오류</target>
+				</trans-unit>
+
+				<!-- form_annotation.jspx -->
+				<trans-unit id="annotationFormTitle">
+					<source>Comment</source>
+					<target>추가 정보</target>
+				</trans-unit>
+				<trans-unit id="submitAnnotation">
+					<source>Save</source>
+					<target>저장</target>
+				</trans-unit>
+				<trans-unit id="resetAnnotation">
+					<source>Reset</source>
+					<target>재설정</target>
+				</trans-unit>
+				<trans-unit id="clearAnnotation">
+					<source>Clear</source>
+					<target>지우기</target>
+				</trans-unit>
+
+				<!-- form_volume.jspx -->
+				<trans-unit id="volumeRedirectTitle">
+					<source>Media Location Not Found</source>
+					<target>미디어 위치를 찾을 수 없음</target>
+				</trans-unit>
+				<trans-unit id="mediaNotFound">
+					<source>
+						The media containing the page you are requesting
+						cannot be found.
+					</source>
+					<target>요청 중인 페이지를 포함하는 미디어를 찾을 수 없습니다.</target>
+				</trans-unit>
+				<trans-unit id="mediaInsertOrRelocate">
+					<source>
+						If it is on a removable media, insert it now and
+						retry. If the media location is changed, specify
+						its new location.
+					</source>
+					<target>이 페이지가 이동식 미디어에 있는 경우, 미디어를 삽입한 후 다시 시도하십시오. 미디어의 위치가 변경된 경우, 새 위치를 지정하십시오.</target>
+				</trans-unit>
+
+				<trans-unit id="mediaNotFoundAndReadOnly">
+					<source>
+						You must install %projectName% to access content in another volume.
+					</source>
+					<target>다른 볼륨의 컨텐트에 액세스하려면 %projectName%을(를) 설치해야 합니다.</target>
+				</trans-unit>
+
+				<trans-unit id="mediaRetry">
+					<source>Try Again</source>
+					<target>다시 시도</target>
+				</trans-unit>
+				<trans-unit id="mediaNewLocation">
+					<source>
+						Specify a new location and try again.
+					</source>
+					<target>새 위치를 지정하고 다시 시도하십시오.</target>
+				</trans-unit>
+				<trans-unit id="mediaLocation">
+					<source>
+						Disk Location: (for example e:\ /mnt/cdrom)
+					</source>
+					<target>디스크 위치: (예: e:\ /mnt/cdrom)</target>
+				</trans-unit>
+				<trans-unit id="mediaTryAgainButton">
+					<source>Try Again</source>
+					<target>다시 시도</target>
+				</trans-unit>
+				<trans-unit id="mediaResetButton">
+					<source>Reset</source>
+					<target>재설정</target>
+				</trans-unit>
+				<trans-unit id="volumeInfo">
+					<source>Volume Information:</source>
+					<target>볼륨 정보:</target>
+				</trans-unit>
+				<!-- frame_content.jspx -->
+
+				<trans-unit id="contentFrameset">
+					<source>Content</source>
+					<target>컨텐트</target>
+				</trans-unit>
+
+				<!-- frame_main.jspx -->
+				<trans-unit id="mainFrameset">
+					<source>%projectName% Main Frameset</source>
+					<target>%projectName% 기본 프레임셋</target>
+				</trans-unit>
+
+				<!-- frame_nav.jspx -->
+				<trans-unit id="navigation">
+					<source>Navigation Frameset</source>
+					<target>탐색 프레임셋</target>
+				</trans-unit>
+
+				<!-- frame_tabs.jspx -->
+				<trans-unit id="tabs">
+					<source>Navigation Tabs Frameset</source>
+					<target>탐색 탭 프레임셋</target>
+				</trans-unit>
+
+				<!-- frame_views.jspx -->
+				<trans-unit id="frameViews">
+					<source>
+						Frameset for Different Functional Area
+					</source>
+					<target>다른 기능 영역에 대한 프레임셋</target>
+				</trans-unit>
+
+
+
+				<!-- info_succeed.jspx -->
+				<trans-unit id="configurationSaved">
+					<source>Configuration Saved Successfully</source>
+					<target>구성을 성공적으로 저장했습니다.</target>
+				</trans-unit>
+				<trans-unit id="continue">
+					<source>Continue</source>
+					<target>계속</target>
+				</trans-unit>
+
+				<!-- search_xxx.jspx -->
+				<trans-unit id="simple">
+					<source>Simple</source>
+					<target>기본</target>
+				</trans-unit>
+				<trans-unit id="advanced">
+					<source>Advanced</source>
+					<target>고급</target>
+				</trans-unit>
+				<trans-unit id="targetSearch">
+					<source>Target Search To:</source>
+					<target>대상 검색 항목:</target>
+				</trans-unit>
+				<trans-unit id="entireDoc">
+					<source>Entire Document</source>
+					<target>전체 문서</target>
+				</trans-unit>
+				<trans-unit id="docHeader">
+					<source>Document Headers</source>
+					<target>문서 머리글</target>
+				</trans-unit>
+				<trans-unit id="primaryHeader">
+					<source>Primary Headers</source>
+					<target>주 머리글</target>
+				</trans-unit>
+				<trans-unit id="secondaryHeader">
+					<source>Secondary Headers</source>
+					<target>보조 머리글</target>
+				</trans-unit>
+				<trans-unit id="tertiaryHeader">
+					<source>Tertiary Headers</source>
+					<target>세 번째 머리글</target>
+				</trans-unit>				
+				<trans-unit id="documentType">
+					<source>Document Type:</source>
+					<target>문서 유형:</target>
+				</trans-unit>
+				<trans-unit id="allDoc">
+					<source>All Documents</source>
+					<target>모든 문서</target>
+				</trans-unit>
+				<trans-unit id="htmlDoc">
+					<source>HTML documents</source>
+					<target>HTML 문서</target>
+				</trans-unit>
+				<trans-unit id="pdfDoc">
+					<source>PDF documents</source>
+					<target>PDF 문서</target>
+				</trans-unit>
+				<trans-unit id="allitems">
+					<source>All Items</source>
+					<target>모든 항목</target>
+				</trans-unit>
+				<trans-unit id="locale">
+					<source>Language</source>
+					<target>언어</target>
+				</trans-unit>
+				<trans-unit id="noResults">
+					<source>No Results Found</source>
+					<target>찾은 결과 없음</target>
+				</trans-unit>
+				<trans-unit id="displaySearchResults">
+					<source>{0} - {1} of total {2} search results</source>
+					<target>총 {2}개의 검색 결과 중 {0} - {1}</target>
+				</trans-unit>
+
+				<!--  status_error -->
+
+				<trans-unit id="cantAccessContent">
+					<source>Unable to Access Content</source>
+					<target>컨텐트에 액세스할 수 없음</target>
+				</trans-unit>
+
+				<trans-unit id="invalidLicense">
+					<source>Your License is not Valid</source>
+					<target>라이센스가 유효하지 않습니다.</target>
+				</trans-unit>
+
+				<trans-unit id="cannotVerifyLicense">
+					<source>Unrecognized Serial Number</source>
+					<target>인식할 수 없는 일련 번호</target>
+				</trans-unit>
+
+				<trans-unit id="serialNumberInvalid">
+					<source>
+						You may have entered your serial number
+						incorrectly or the license file has been
+						corrupted. Contact %supportContactInfo% for
+						support.
+					</source>
+					<target>일련 번호를 잘못 입력했거나 라이센스 파일이 손상되었습니다. %supportContactInfo%에 연락하여 지원을 받으십시오.</target>
+				</trans-unit>
+
+				<trans-unit id="pleaseEnterSerialNumber">
+					<source>
+						If you have a serial number, enter it now.
+					</source>
+					<target>일련 번호가 있는 경우, 지금 입력하십시오.</target>
+				</trans-unit>
+
+				<trans-unit id="enterSerialNumber">
+					<source>Serial Number</source>
+					<target>일련 번호</target>
+				</trans-unit>
+
+				<trans-unit id="requireInstall">
+					<source>This Application must be Installed</source>
+					<target>이 응용 프로그램을 설치해야 합니다.</target>
+				</trans-unit>
+
+				<trans-unit id="askToRunSetup">
+					<source>
+						This application has not been installed. Run the setup
+						program and enter your serial number.
+					</source>
+					<target>이 응용 프로그램이 설치되지 않았습니다. 설치 프로그램을 실행하고 일련 번호를 입력하십시오.</target>
+				</trans-unit>
+
+				<trans-unit id="licenseExpired">
+					<source>Content Has Expired</source>
+					<target>컨텐트가 만료되었습니다.</target>
+				</trans-unit>
+
+				<trans-unit id="expirationDate">
+					<source>Expiration Date:</source>
+					<target>만료 날짜:</target>
+				</trans-unit>
+				
+				<trans-unit id="askToRenew">
+					<source>
+						The content has expired and you can no longer
+						access the content in this file. Contact
+						%supportContactInfo% to extend the license or
+						obtain a new copy.
+					</source>
+					<target>컨텐트가 만료되었기 때문에 이 파일의 컨텐트에 더 이상 액세스할 수 없습니다. %supportContactInfo%에 연락하여 라이센스를 연장하거나 새 라이센스를 얻으십시오.</target>
+				</trans-unit>
+
+				<trans-unit id="noAvailableLicense">
+					<source>No More Sessions Avaliable</source>
+					<target>사용할 수 있는 더 이상의 세션이 없음</target>
+				</trans-unit>
+
+				<trans-unit id="askToWait">
+					<source>
+						The maximum number of users are
+						accessing the content. Please wait and try again later.
+						Contact %supportContactInfo% for more
+						information.
+					</source>
+					<target>허용되는 최대 수의 사용자들이 컨텐트에 액세스하고 있습니다. 기다렸다가 나중에 다시 시도하십시오. 자세한 정보는 %supportContactInfo%에 연락하십시오.</target>
+				</trans-unit>
+
+				<trans-unit id="unknownLicenseError">
+					<source>Unknown License Error</source>
+					<target>알 수 없는 라이센스 오류</target>
+				</trans-unit>
+
+				<trans-unit id="contactVendor">
+					<source>
+						Contact %supportContactInfo% for support.
+					</source>
+					<target>%supportContactInfo%에 연락하여 지원을 받으십시오.</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFound">
+					<source>Page Not Found</source>
+					<target>페이지를 찾을 수 없음</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFoundDescription">
+					<source>
+						The page you were trying to access does not
+						exist.
+					</source>
+					<target>액세스하려는 페이지가 존재하지 않습니다.</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailable">
+					<source>Page Not Available</source>
+					<target>페이지를 사용할 수 없음</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailableDescription">
+					<source>
+						The page you were trying to access is not
+						available for the current user profile.
+					</source>
+					<target>현재 사용자 프로파일에서는 액세스하려는 페이지를 사용할 수 없습니다.</target>
+				</trans-unit>
+
+				<trans-unit id="requestPage">
+					<source>The page you were requesting:</source>
+					<target>사용자가 요청한 페이지:</target>
+				</trans-unit>
+
+				<!-- tabs.jspx -->
+				<trans-unit id="navigationTabs">
+					<source>Tabs</source>
+					<target>탭</target>
+				</trans-unit>
+				<trans-unit id="tableOfContent">
+					<source>Table of Contents</source>
+					<target>목차</target>
+				</trans-unit>
+
+				<trans-unit id="search">
+					<source>Search</source>
+					<target>검색</target>
+				</trans-unit>
+
+				<trans-unit id="indexterms">
+					<source>Index Terms</source>
+					<target>색인 용어</target>
+				</trans-unit>
+
+				<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>책갈피</target>
+				</trans-unit>
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>구성</target>
+				</trans-unit>
+				<trans-unit id="language">
+					<source>Language</source>
+					<target>언어</target>
+				</trans-unit>
+
+				<!-- toolbar_bookmark.jspx -->
+				<trans-unit id="toolbarBookmark">
+					<source>Bookmark Toolbar</source>
+					<target>책갈피 도구 모음</target>
+				</trans-unit>
+				<trans-unit id="deleteSelectedBookmark">
+					<source>Delete Selected Bookmark</source>
+					<target>선택한 책갈피 삭제</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarks">
+					<source>Delete All Bookmarks</source>
+					<target>모든 책갈피 삭제</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarksConfirm">
+					<source>
+						Are you sure you want to delete all bookmarks?
+					</source>
+					<target>책갈피를 모두 삭제하시겠습니까?</target>
+				</trans-unit>
+				<trans-unit id="noBookmarkSelected">
+					<source>No bookmark is selected.</source>
+					<target>선택된 책갈피가 없습니다.</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="toolbarConfig">
+					<source>Configuration Toolbar</source>
+					<target>구성 도구 모음</target>
+				</trans-unit>
+				<trans-unit id="configLocaleAndLayout">
+					<source>
+						Configure Locale and Layout Settings
+					</source>
+					<target>로케일 및 레이아웃 설정 구성</target>
+				</trans-unit>
+				<trans-unit id="configUpdate">
+					<source>Configure Update Preferences</source>
+					<target>업데이트 기본 설정 구성</target>
+				</trans-unit>
+
+				<!-- toolbar_main.jspx -->
+				<trans-unit id="toolbarMain">
+					<source>Main Toolbar</source>
+					<target>기본 도구 모음</target>
+				</trans-unit>
+				<trans-unit id="goBack">
+					<source>Go Back</source>
+					<target>뒤로 이동</target>
+				</trans-unit>
+				<trans-unit id="goForward">
+					<source>Go Forward</source>
+					<target>앞으로 이동</target>
+				</trans-unit>
+				<trans-unit id="previousTopic">
+					<source>Previous Topic</source>
+					<target>이전 항목</target>
+				</trans-unit>
+				<trans-unit id="nextTopic">
+					<source>Next Topic</source>
+					<target>다음 항목</target>
+				</trans-unit>
+				<trans-unit id="synchronize">
+					<source>Show in Table of Contents</source>
+					<target>목차에 표시</target>
+				</trans-unit>
+				<trans-unit id="bookmarkThisPage">
+					<source>Bookmark This Page</source>
+					<target>이 페이지를 책갈피에 추가</target>
+				</trans-unit>
+				<trans-unit id="addAnnotation">
+					<source>Add Comment</source>
+					<target>추가 정보 추가</target>
+				</trans-unit>
+				<trans-unit id="print">
+					<source>Print</source>
+					<target>인쇄</target>
+				</trans-unit>
+				<trans-unit id="reload">
+					<source>Reload</source>
+					<target>다시 로드</target>
+				</trans-unit>
+				<trans-unit id="toggleNavPane">
+					<source>Toggle Navigation Panel</source>
+					<target>탐색 패널 전환</target>
+				</trans-unit>
+				
+				<!-- toolbar_result.jspx -->
+				<trans-unit id="toolbarResult">
+					<source>Search Result Toolbar</source>
+					<target>검색 결과 도구 모음</target>
+				</trans-unit>
+
+				<trans-unit id="sortedBy">
+					<source>Sorted by:</source>
+					<target>정렬 기준:</target>
+				</trans-unit>
+
+				<trans-unit id="relavance">
+					<source>Relevance</source>
+					<target>연관성</target>
+				</trans-unit>
+
+				<trans-unit id="toc">
+					<source>Table of Contents</source>
+					<target>목차</target>
+				</trans-unit>
+
+				<!-- toolbar_toc.jspx -->
+				<trans-unit id="toolbarToc">
+					<source>Table of Content Toolbar</source>
+					<target>목차 도구 모음</target>
+				</trans-unit>
+				<trans-unit id="expandAll">
+					<source>Expand All Topics</source>
+					<target>모든 항목 확장</target>
+				</trans-unit>
+				<trans-unit id="collapseAll">
+					<source>Collapse All Topics</source>
+					<target>모든 항목 축소</target>
+				</trans-unit>
+
+				<trans-unit id="arbortextEditorHelp">
+					<source>Arbortext Editor Help</source>
+					<target>Arbortext Editor 도움말</target>
+				</trans-unit>
+
+				<trans-unit id="pdfManuals">
+					<source>PDF Manuals</source>
+					<target>PDF 설명서</target>
+				</trans-unit>
+
+				<!-- toolbar_index_term.jspx -->
+				<trans-unit id="toolbarIndexTerm">
+					<source>Index Term Toolbar</source>
+					<target>색인 용어 도구 모음</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="configTitle">
+					<source>Configuration Toolbar</source>
+					<target>구성 도구 모음</target>
+				</trans-unit>
+
+				<!-- validate.jspx -->
+
+
+				<!-- view_bookmark.jspx -->
+				<!--  defined in tabs.jspx
+					<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>Bookmark</target>
+					</trans-unit>
+				-->
+
+				<!-- view_config_locale.jspx -->
+				<trans-unit id="layoutTitle">
+					<source>Configure Layout Information</source>
+					<target>레이아웃 정보 구성</target>
+				</trans-unit>
+				<trans-unit id="errorInInput">
+					<source>
+						The specified values contain errors. Correct the
+						items marked with asterisks (*).
+					</source>
+					<target>지정된 값에 오류가 있습니다. 별표(*)로 표시된 항목을 수정하십시오.</target>
+				</trans-unit>
+
+				<trans-unit id="errorMessage">
+					<source>Error Message</source>
+					<target>오류 메시지</target>
+				</trans-unit>
+				<trans-unit id="defaultLocale">
+					<source>Default Locale</source>
+					<target>기본 로케일</target>
+				</trans-unit>
+
+				<trans-unit id="clientLocale">
+					<source>
+						Use this locale for the current user only.
+					</source>
+					<target>현재 사용자에 대해서만 이 로케일을 사용합니다.</target>
+				</trans-unit>
+				<trans-unit id="localePreference">
+					<source>Profile Settings</source>
+					<target>프로파일 설정</target>
+				</trans-unit>
+				<trans-unit id="requestLocale">
+					<source>Base on user platform locale.</source>
+					<target>사용자 플랫폼의 로케일을 기준으로 사용합니다.</target>
+				</trans-unit>
+				<trans-unit id="fixedLocale">
+					<source>Use this locale globally.</source>
+					<target>모든 환경에서 이 로케일을 사용합니다.</target>
+				</trans-unit>
+				<trans-unit id="searchKeywordHighlight">
+					<source>Highlight Search Terms</source>
+					<target>검색 용어 강조 표시</target>
+				</trans-unit>
+				<trans-unit id="highlightandCreatelink">
+					<source>Highlight and Create Link</source>
+					<target>강조 표시 및 링크 작성</target>
+				</trans-unit>
+				<trans-unit id="highlightOnly">
+					<source>Highlight Only</source>
+					<target>강조 표시만</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>업데이트된 주제 강조 표시</target>
+				</trans-unit>
+				
+				<!-- view_config_update.jspx -->
+				<trans-unit id="updateTitle">
+					<source>Configure Update Properties</source>
+					<target>업데이트 등록 정보 구성</target>
+				</trans-unit>
+				<trans-unit id="updateFromRemoteUrl">
+					<source>Remote URL</source>
+					<target>원격 URL</target>
+				</trans-unit>
+				<trans-unit id="updateFromLocalFolder">
+					<source>Local Folder</source>
+					<target>로컬 폴더</target>
+				</trans-unit>
+				<trans-unit id="updateFrequency"> 
+					<source>Update Frequency</source>
+					<target>업데이트 간격</target>
+				</trans-unit>
+				<trans-unit id="timeOfTheDay"> <!-- What time of the day should the update run, 1pm, 2pm? -->
+					<source>Time of the Day</source>
+					<target>특정 시간</target>
+				</trans-unit>
+				<trans-unit id="minutefrequency">
+					<source>Update Interval (Minute)</source>
+					<target>업데이트 간격(분)</target>
+				</trans-unit>
+				<trans-unit id="hourfrequency">
+					<source>Update Interval (Hour)</source>
+					<target>업데이트 간격(시간)</target>
+				</trans-unit>
+				<trans-unit id="updateMinutely">
+					<source>Monthly</source>
+					<target>매월</target>
+				</trans-unit>
+				<trans-unit id="updateHourly">
+					<source>Hourly</source>
+					<target>매시간</target>
+				</trans-unit>
+				<trans-unit id="updateDaily">
+					<source>Daily</source>
+					<target>매일</target>
+				</trans-unit>
+				<trans-unit id="updateWeekly">
+					<source>Weekly</source>
+					<target>매주</target>
+				</trans-unit>
+				<trans-unit id="updateMonthly">
+					<source>Monthly</source>
+					<target>매월</target>
+				</trans-unit>				
+				<trans-unit id="updateLocation">
+					<source>Update Location</source>
+					<target>업데이트 위치</target>
+				</trans-unit>
+				<trans-unit id="enableUpdateProxy">
+					<source>Enable Proxy</source>
+					<target>프록시 사용</target>
+				</trans-unit>
+				<trans-unit id="proxySettings">
+					<source>Proxy Settings</source>
+					<target>프록시 설정</target>
+				</trans-unit>
+				<trans-unit id="updateHistory">
+					<source>Update History</source>
+					<target>업데이트 기록</target>
+				</trans-unit>
+				<trans-unit id="proxyHost">
+					<source>Proxy Server Host</source>
+					<target>프록시 서버 호스트</target>
+				</trans-unit>
+				<trans-unit id="proxyPort">
+					<source>Proxy Server Port</source>
+					<target>프록시 서버 포트</target>
+				</trans-unit>
+				<trans-unit id="password">
+					<source>Password</source>
+					<target>암호</target>
+				</trans-unit>
+				<trans-unit id="username">
+					<source>User Name</source>
+					<target>사용자 이름</target>
+				</trans-unit>
+
+				<trans-unit id="updatePreference">
+					<source>Content Update Properties</source>
+					<target>컨텐트 업데이트 등록 정보</target>
+				</trans-unit>
+
+				<trans-unit id="disabled">
+					<source>Disabled</source>
+					<target>비활성화됨</target>
+				</trans-unit>
+
+				<trans-unit id="automatic">
+					<source>
+						Update automatically at scheduled time
+					</source>
+					<target>예약된 시간에 자동으로 업데이트</target>
+				</trans-unit>
+				<trans-unit id="atLaunch">
+					<source>
+						Update while starting the application
+					</source>
+					<target>응용 프로그램을 시작할 때 업데이트</target>
+				</trans-unit>
+				<trans-unit id="manual">
+					<source>
+						Update by clicking on the Update button
+					</source>
+					<target>[업데이트] 버튼을 클릭하여 업데이트</target>
+				</trans-unit>
+				<trans-unit id="updateContent">
+					<!-- Translation should match "Update Content" above-->
+					<source>Update Content</source>
+					<target>컨텐트 업데이트</target>
+				</trans-unit>
+				<trans-unit id="updateDate">
+					<source>Update Date</source>
+					<target>업데이트 날짜</target>
+				</trans-unit>
+				<trans-unit id="logDetail">
+					<source>Detail Update Log</source>
+					<target>세부 업데이트 로그</target>
+				</trans-unit>
+
+				<!-- update.jspx -->
+				<trans-unit id="runUpdateTitle">
+					<source>Updating ...</source>
+					<target>업데이트 중...</target>
+				</trans-unit>
+				<trans-unit id="updateStatus">
+					<source>Update Status</source>
+					<target>업데이트 상태</target>
+				</trans-unit>
+				<trans-unit id="reloadAfterUpdate">
+					<source>Refresh</source>
+					<target>새로 고침</target>
+				</trans-unit>
+				<!-- view_config_proxy.jspx -->
+				<trans-unit id="proxyTitle">
+					<source>Configure Proxy Server Information</source>
+					<target>프록시 서버 정보 구성</target>
+				</trans-unit>
+
+				<!-- view_config_highlight.jspx -->
+				<trans-unit id="configureHighlightTitle">
+					<source>Search Term Highlighting</source>
+					<target>검색 용어 강조 표시</target>
+				</trans-unit>
+				<trans-unit id="enable">
+					<source>Enable</source>
+					<target>사용</target>
+				</trans-unit>
+				<trans-unit id="disable">
+					<source>Disable</source>
+					<target>사용 안 함</target>
+				</trans-unit>
+				<trans-unit id="highlightStyle">
+					<source>Highlight Style</source>
+					<target>강조 표시 스타일</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>업데이트된 주제 강조 표시</target>
+				</trans-unit>				
+				<trans-unit id="pdfHighlightLimitation">
+					<source>
+						Note: Search term highlighting in PDF documents
+						is not always accurate.
+					</source>
+					<target>참고: PDF 문서에서 검색 용어 강조 표시가 항상 정확한 것은 아닙니다.</target>
+				</trans-unit>
+				<trans-unit id="rememberSettings">
+					<source>
+						Save Configuration Settings
+					</source>
+					<target>구성 설정 저장</target>
+				</trans-unit>
+
+				<!-- view_config_profile.jspx -->
+				<trans-unit id="configureProfile">
+					<source>Profile Settings</source>
+					<target>프로파일 설정</target>
+				</trans-unit>
+
+				<!-- view_config.jspx -->
+				<trans-unit id="english">
+					<source>English</source>
+					<target>영어</target>
+				</trans-unit>
+				<trans-unit id="germany">
+					<source>Germany</source>
+					<target>독일어</target>
+				</trans-unit>
+				<trans-unit id="french">
+					<source>French</source>
+					<target>프랑스어</target>
+				</trans-unit>
+				<trans-unit id="spanish">
+					<source>Spanish</source>
+					<target>스페인어</target>
+				</trans-unit>
+				<trans-unit id="chinese-simplied">
+					<source>Simplified Chinese</source>
+					<target>중국어 간체</target>
+				</trans-unit>
+				<trans-unit id="chinese-traditional">
+					<source>Traditional Chinese</source>
+					<target>중국어 번체</target>
+				</trans-unit>
+				<trans-unit id="korean">
+					<source>Korean</source>
+					<target>한국어</target>
+				</trans-unit>
+				<trans-unit id="japanese">
+					<source>Japanese</source>
+					<target>일본어</target>
+				</trans-unit>
+				<trans-unit id="italian">
+					<source>Italian</source>
+					<target>이탈리아어</target>
+				</trans-unit>
+
+				<!-- view_result.jspx -->
+				<trans-unit id="searchOutput">
+					<source>Search Result Page</source>
+					<target>검색 결과 페이지</target>
+				</trans-unit>
+				<trans-unit id="searchTips">
+					<source>Search Tips</source>
+					<target>검색 팁</target>
+				</trans-unit>
+				<trans-unit id="links">
+					<source>Links</source>
+					<target>링크</target>
+				</trans-unit>
+
+				<!-- view_toc.jspx -->
+				<trans-unit id="tableOfContents">
+					<source>Table of Contents</source>
+					<target>목차</target>
+				</trans-unit>
+
+				<!--  view_indexterm.jspx -->
+				<trans-unit id="indexTerm">
+					<source>Index Term</source>
+					<target>색인 용어</target>
+				</trans-unit>
+
+				<!-- views.jspx -->
+				<trans-unit id="views">
+					<source>Views</source>
+					<target>보기</target>
+				</trans-unit>
+
+				<!-- volume_encrypted.jspx -->
+				<trans-unit id="volumeEncrpted">
+					<source>The File is Encrypted</source>
+					<target>파일이 암호화되어 있습니다.</target>
+				</trans-unit>
+				<trans-unit id="volumeEncrptedDetail">
+					<source>
+						The file you are trying to open is encrypted and
+						cannot be opened. You may not have appropriate
+						privileges to view the file. Contact
+						%supportContactInfo% for further support.
+					</source>
+					<target>열려고 하는 파일이 암호화되어 있기 때문에 열 수 없습니다. 사용자에게 파일을 볼 수 있는 적합한 권한이 없을 수 있습니다. %supportContactInfo%에 연락하여 추가 지원을 받으십시오.</target>
+				</trans-unit>
+
+
+				<!-- General -->
+				<trans-unit id="home">
+					<source>Home</source>
+					<target>홈</target>
+				</trans-unit>
+
+				<trans-unit id="searchPage">
+					<source>Search Page</source>
+					<target>검색 페이지</target>
+				</trans-unit>
+				<trans-unit id="submit">
+					<source>Submit</source>
+					<target>제출</target>
+				</trans-unit>
+
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>구성</target>
+				</trans-unit>
+
+				<trans-unit id="help">
+					<source>How to Use %projectName%</source>
+					<target>%projectName% 사용법</target>
+				</trans-unit>
+
+				<!-- Help Center content_config.xml terms -->
+
+				<trans-unit id="userRole">
+					<source>User Role:</source>
+					<target>사용자 역할:</target>
+				</trans-unit>
+
+				<trans-unit id="user">
+					<source>User</source>
+					<target>사용자</target>
+
+				</trans-unit>
+
+				<trans-unit id="developer">
+					<source>Developer</source>
+					<target>개발자</target>
+				</trans-unit>
+
+				<trans-unit id="administrator">
+					<source>Administrator</source>
+					<target>관리자</target>
+				</trans-unit>
+
+				<trans-unit id="product">
+					<source>Arbortext Product:</source>
+					<target>Arbortext 제품:</target>
+				</trans-unit>
+
+				<trans-unit id="toolhelp">
+					<source>Help</source>
+					<target>도움말</target>
+				</trans-unit>
+
+				<trans-unit id="support">
+                			<source>PTC Customer Support website</source>
+                			<target>PTC 고객 지원 웹사이트</target>
+				</trans-unit>
+
+			</group>
+		</body>
+	</file>
+</xliff>

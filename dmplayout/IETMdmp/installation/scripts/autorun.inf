@@ -1,0 +1,4 @@
+[autorun]
+open=%appName%.exe -autorun
+icon=%appName%.exe
+label=%projectName%

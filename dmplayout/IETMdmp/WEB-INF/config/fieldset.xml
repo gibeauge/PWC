@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+<!DOCTYPE SYSTEM "FieldSets.dtd">
+-->
+
+<FieldSets>
+	
+    <FieldSet label="Default" id="Default">
+      <Documentation>Default Field Set. Retreive meta tag info and content.</Documentation>
+	  <!--
+      <Group name="Author" indexType="TEXT" >
+            <Tag name="meta" attribute="content">
+            <Condition name="name" value="author"/>
+            </Tag>
+            <Tag name="meta" attribute="content" namespace="http://www.w3.org/1999/xhtml">
+            <Condition name="name" value="author"/>
+            </Tag>
+      </Group>
+      <Group name="Keywords" indexType="TEXT">
+            <Tag name="meta" attribute="content">
+            <Condition name="name" value="keywords"/>
+            </Tag>
+            <Tag name="meta" attribute="content" namespace="http://www.w3.org/1999/xhtml">
+            <Condition name="name" value="keywords"/>
+            </Tag>
+      </Group>
+      <Group name="LastModified" indexType="TEXT">
+            <Tag name="meta" attribute="content">
+            <Condition name="name" value="revised"/>
+            </Tag>
+            <Tag name="meta" attribute="content" namespace="http://www.w3.org/1999/xhtml">
+            <Condition name="name" value="revised"/>
+            </Tag>
+      </Group>
+      <Group name="Description" indexType="TEXT">
+            <Tag name="meta" attribute="content">
+            <Condition name="name" value="description"/>
+            </Tag>
+            <Tag name="meta" attribute="content" namespace="http://www.w3.org/1999/xhtml">
+            <Condition name="name" value="description"/>
+            </Tag>
+      </Group>
+      <Group name="Title" indexType="TEXT">
+            <Tag name="title"/>
+            <Tag name="title" namespace="http://www.w3.org/1999/xhtml"/>
+      </Group>
+	  -->
+      <Group name="Content" default="true" indexType="UNSTORED" label="%entireDoc">
+            <Tag name="BODY"/>
+            <Tag name="BODY" namespace="http://www.w3.org/1999/xhtml"/>
+      </Group>
+
+      <Group name="AllHeadings" indexType="UNSTORED" label="%docHeader">
+            <Tag name="H1" namespace="http://www.w3.org/1999/xhtml"/>
+            <Tag name="H2" namespace="http://www.w3.org/1999/xhtml"/>
+            <Tag name="H3" namespace="http://www.w3.org/1999/xhtml"/>
+            <Tag name="H4" namespace="http://www.w3.org/1999/xhtml"/>
+            <Tag name="H5" namespace="http://www.w3.org/1999/xhtml"/>
+            <Tag name="H6" namespace="http://www.w3.org/1999/xhtml"/>
+            <Tag name="H1"/>
+            <Tag name="H2"/>
+            <Tag name="H3"/>
+            <Tag name="H4"/>
+            <Tag name="H5"/>
+            <Tag name="H6"/>
+      </Group>
+      
+      <Group name="PrimaryHeading" indexType="UNSTORED" label="%primaryHeader">
+            <Tag name="H1" namespace="http://www.w3.org/1999/xhtml"/>      
+            <Tag name="H1"/>
+      </Group>
+      <Group name="SecondaryHeading" indexType="UNSTORED" label="%secondaryHeader">
+            <Tag name="H2" namespace="http://www.w3.org/1999/xhtml"/>      
+            <Tag name="H2"/>
+      </Group>
+      <Group name="TertiaryHeading" indexType="UNSTORED" label="%tertiaryHeader">
+            <Tag name="H3" namespace="http://www.w3.org/1999/xhtml"/>      
+            <Tag name="H3"/>
+      </Group>
+
+      <Group exclude = "true" name="HEAD">
+            <Tag name="HEAD"/>
+            <Tag name="HEAD" namespace="http://www.w3.org/1999/xhtml"/>
+      </Group>
+
+      <Group exclude = "true" name="SCRIPT">
+            <Tag name="SCRIPT"/>
+            <Tag name="SCRIPT" namespace="http://www.w3.org/1999/xhtml"/>
+      </Group>
+
+    </FieldSet>
+
+<!-- 
+    <FieldSet label="Headers" id="a1">
+      <Group name="AllHeadings" default="true" indexType="UNSTORED">
+            <Tag name="H1"/>
+            <Tag name="H2"/>
+            <Tag name="H3"/>
+            <Tag name="H4"/>
+            <Tag name="H5"/>
+            <Tag name="H6"/>
+      </Group>
+      <Group name="PrimaryHeading" indexType="TEXT">
+            <Tag name="H1"/>
+      </Group>
+      <Group name="SecondaryHeading" indexType="UNSTORED">
+            <Tag name="H2"/>
+      </Group>
+      <Group name="TertiaryHeading" alias="Small Heading" indexType="UNSTORED">
+            <Tag name="H3"/>
+      </Group>
+    </FieldSet>
+ -->
+ 
+</FieldSets>

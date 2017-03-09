@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+
+	<atidmc:layout var="layout" />
+
+	<atidmc:config var="template" javaClass="${layout.beans['PROFILE']}" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }" />
+
+	<fmt:setLocale value="${layout.locale}" />
+
+	<html>
+	<head>
+	<title>${resourceBundle['configureProfile']}</title>
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"><!--   --></link>
+	</head>
+	<body>
+	<div id="header">&#160;</div>
+	<div id="tools">
+	<h1>${layout.resourceBundle['links']}</h1>
+	<ul>
+		<li><a href="index.jspx">${layout.resourceBundle['home']}</a></li>
+		<li><a href="index.jspx?task=TOC">${layout.resourceBundle['tableOfContent']}</a></li>
+		<li><a href="index.jspx?task=SEARCH">${layout.resourceBundle['searchPage']}</a></li>
+		<li><a href="index.jspx?task=TIPS">${layout.resourceBundle['searchTips']}</a></li>		
+		<li><a href="index.jspx?task=INDEX_TERM">${layout.resourceBundle['indexTerm']}</a></li>
+		<li><a href="index.jspx?task=CONFIG">${layout.resourceBundle['configuration']}</a></li>
+	</ul>
+	</div>
+	<c:choose>
+		<c:when test="${!template.defined}">
+			<p><font color="red"> ${template.errorMessage} </font></p>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${!template.valid}">
+				<p><font color="red"> ${resourceBundle['errorInInput']} </font></p>
+				<br />
+				<font color="red"> ${resourceBundle['errorMessage']}:
+				${template.errorMessage} </font>
+				<br />
+			</c:if>
+		</c:otherwise>
+	</c:choose>
+	<div id="config"><c:if test="${template.readable}">
+		<h1>${resourceBundle['configureProfile']}</h1>
+
+		<form method="post" action="index.jspx" id="profile" name="profile"
+			accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+
+		<input type="hidden" name="config" value="PROFILE"/>
+		<input type="hidden" name="task" value="VALIDATE"/>				
+		<ul>
+			<c:forEach var="item" items="${template.profile.attributeArray}">
+				<span class="configHeader">${item.label }</span><br/>
+				 <c:forEach var="value"
+					items="${item.valueArray}"> <span class="configField">
+					<li class="configRow"><c:choose>
+						<c:when test="${value.selected == 'true'}">
+							<input type="checkbox" name="${item.name}" value="${value.name }" checked="true" />${value.stringValue }<br />
+						</c:when>
+						<c:otherwise>
+							<input type="checkbox" name="${item.name}" value="${value.name }" />${value.stringValue }<br />
+						</c:otherwise>
+					</c:choose></li></span>
+				</c:forEach> 
+				<br />
+			</c:forEach>
+			<br/>
+			<li class="configRow"><input type="submit"
+				value="${resourceBundle['submit']}" /></li>
+
+		</ul>
+		</form>
+	</c:if></div>
+	<div id="footer"></div>
+	</body>
+	</html>
+
+</jsp:root>

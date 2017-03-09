@@ -1,0 +1,450 @@
+body {
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	height: 100%;
+}
+
+#header {
+	background-image: url(../images/banner.jpg);
+	height: 50px;
+	width: 600px;
+	margin: 0px 20px 0px 0px;
+	position: relative;
+	z-index: 1;
+}
+
+#footer {
+	display: none;
+}
+
+#tools {
+	background-color: #e0e0e0;
+	position: absolute;
+	left: 0px;
+	width: 80px;
+	height: 100%;
+	margin: -50px 0 0 0;
+	padding: 60px 0 0 0;
+	color: #202020;
+}
+
+#tools ul {
+	margin: 10px 0px 0px 0px;
+	padding: 0 5px 0 0;
+}
+
+#tools h1 {
+	font-size: 1em;
+	margin: 0 0 0 0 0;
+	color: #888888;
+	font-weight: lighter;
+}
+
+#tools li {
+	display: block;
+	line-height: 12px;
+	font-size: .6em;
+	list-style-type: none;
+	color: #888888;
+	margin: 0 0 5px 0;
+}
+
+#toc h1,#searchResults h1,#searchForm h1,#config h1,#succeed h1,#volume h1,#error h1,#indexterm h1
+	{
+	font-size: 1.2em;
+	color: #888888;
+	font-weight: lighter;
+	margin: 0px 0px 15px 0px;
+}
+
+#config h2 {
+	font-size: 1em;
+	color: #888888;
+	font-weight: lighter;
+	margin: 0px 0px 18px 0px;
+}
+
+#homePage h1 {
+	font-size: 1em;
+	color: #888888;
+	font-weight: lighter;
+	margin: 0px 0px 15px 0px;
+}
+
+#homePage ol,#config ul {
+	border-width: 0;
+	margin: 0;
+	padding: 0;
+}
+
+span.configHeader {
+	float: left;
+	width: 20em;
+}
+
+#searchResults span {
+	color: #888888
+}
+
+
+#homePage {
+	font-size: 1.2em;
+}
+
+#toc ul {
+	border-width: 0;
+	margin: 0px 0px 0px 20px;
+}
+
+#root {
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+#searchNavigation ul {
+	width: 360px;
+	margin: 5px 0 0 100px;
+	padding: 0 0 0 0;
+}
+
+#searchNavigation li {
+	display: inline;
+	width: 24%;
+	background-color: #e0e0e0;
+	text-align: center;
+	line-height: 2em;
+	font-size: .7em;
+	margin: 0 5px 0 0;
+	padding: 0 0 0 0;
+}
+
+#searchResults,#searchForm,#homePage,#config,#toc,#succeed,#volume,#error,#indexterm,#error,#update
+	{
+	padding: 15px 0 0 120px;
+	font-size: .8em;
+}
+
+#config li {
+	list-style-image: none;
+	list-style-type: none;
+}
+
+#succeed li {
+	list-style-image: none;
+	list-style-type: none;
+}
+
+#searchForm form {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+#searchForm input {
+	display: inline;
+}
+
+#searchForm span {
+	float: left;
+	width: 11em;
+}
+
+#searchResults ol,#config ol {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	font-size: .8em;
+	list-style: none;
+}
+
+#homePage ol {
+	list-style: none;
+}
+
+#searchResults p {
+	font-size: .85em;
+	margin: 0 0 0 0;
+	padding: 2px 0 6px 0;
+}
+
+#throwable ul {
+	width: 360px;
+	margin: 5px 0 0 20px;
+	padding: 0 0 0 0;
+}
+
+#throwable li {
+	width: 24%;
+	line-height: 1.2em;
+	font-size: .8em;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	list-style-image: none;
+	list-style-type: none;
+}
+
+#error p {
+	font-size: 1.2em;
+	color: #ff9900;
+}
+
+#throwable p {
+	font-size: .8em;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	color: #888888;
+}
+
+#toc li.closed ul {
+	display: none;
+}
+
+#toc li.open {
+	line-height: 18px;
+	list-style-type: none;
+}
+
+#toc li.closed {
+	line-height: 18px;
+	list-style-type: none;
+}
+
+#toc li.item {
+	line-height: 18px;
+	list-style-type: none;
+}
+
+#toc li {
+	margin-top: 3px;
+	margin-bottom: 3px;
+	list-style-image: none;
+	list-style-type: none;
+	white-space: nowrap;
+}
+
+#toc span.newFolder {
+	width: 2px;
+	background-color: #006600;
+}
+
+#toc span.updatedFolder {
+	width: 2px;
+	background-color: #000066;
+}
+
+#toc span.newFile {
+	width: 2px;
+	background-color: #006600;
+}
+
+#toc span.updatedFile {
+	width: 2px;
+	background-color: #0000ff;
+}
+
+#indexterm li.bucket {
+	list-style-image: none;
+	list-style-type: none;	
+}
+
+#indexterm span.index_bucket {
+	font-size: 1.2em;
+	color: #888888;
+	font-weight: bold;
+}
+
+
+
+img {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	margin-right: 4px;
+}
+
+#toc a {
+	text-decoration: underline;
+	color: #000000;
+	padding-right: 2px;
+	/* this works in ie5.5, but not in ie5.0  */
+	white-space: nowrap;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a.active {
+	color: #ddddff;
+}
+
+a.active:hover {
+	text-decoration: underline;
+	color: #ddddff;
+}
+
+
+/* Config Style */
+
+#config li {
+	list-style-image: none;
+	list-style-type: none;
+}
+
+span.configHeader {
+	font-weight: bold;
+}
+
+/* Update Style */
+#update ul {
+	border-width: 0;
+	margin: 0;
+	padding: 0;
+}
+
+#update li {
+	list-style-image: none;
+	list-style-type: none;
+}
+
+#in-progress span {
+	margin-left: 20px;
+	padding-left: 10px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	z-index: 2;
+	font-style: italic;
+	font-size: 0.9em;
+	color: #999999;
+	
+}
+
+#in-progress span.completed {
+	background-image: url('../images/completed.gif');
+	float: left;
+}
+
+#in-progress span.stopped {
+	background-image: url('../images/stop.gif');
+	float: left;	
+}
+
+#in-progress span.finished {
+	background-image: url('../images/completed.gif');
+	float: left;	
+}
+
+#in-progress span.progressing {
+	background-image: url('../images/progressing.gif');
+	float: left;	
+}
+
+#in-progress span.failed {
+	background-image: url('../images/failed.gif');
+	float: left;	
+}
+
+#in-progress span.cancelled {
+	background-image: url('../images/failed.gif');
+	float: left;
+}
+
+#in-progress span.first {
+	color: #627081;
+	margin-left: 45px;	
+	font-style: normal;
+	font-size: 1em;
+}	
+
+#in-progress span.FATAL {
+	margin-left: 50px;
+	width: 500px;
+	float: right;
+}
+
+#in-progress span.INFO {
+	margin-left: 50px;
+	width: 500px;
+	float: right;
+}
+
+#in-progress span.WARN {
+	margin-left: 50px;
+	width: 500px;
+	float: right;
+}
+
+#in-progress div {
+	width: 600px;
+	float: left;	
+}
+
+#updatelog {
+	
+	
+}
+
+#updatelog h3 {
+	font-size: 1.2em;
+	color: #222222;
+	font-weight: lighter;
+	margin: 5px 5px 5px 10px;	
+}
+
+#updatelog h4 {
+	font-size: 1.0em;
+	color: #555555;
+	font-weight: lighter;
+	margin: 5px 5px 5px 15px;	
+}
+
+#updatelog ul {
+	border-width: 0;
+	font-size: 0.8em;
+	margin: 3px 3px 10px 30px;
+}
+
+#updatelog li {
+	list-style-image: none;
+	list-style-type: none;
+}
+
+#updatelog .new li.topic {
+	color: #006600;
+}
+
+#updatelog .updated li.topic {
+	color: #000066;
+}
+
+#updatelog .obsolete li.topic {
+	color: #660000;
+}
+
+#updatelog span.hidden {
+	color: #888888;	
+}
+
+div.refresh {
+	margin: 10px;
+	clear: both;
+	float: left;	
+	display: block;
+}
+
+div.norefresh {
+	display: none;
+}
+
+span.updateHeader {
+	font-weight: bold;
+	margin: 0px 0px 0px 10px;
+	padding: 0px 0px 0px 10px;
+}
+
+span.updateField {
+	margin: 0px 0px 0px 20px;
+	padding: 0px 0px 0px 20px;
+}
+

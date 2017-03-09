@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+	
+	<html>
+	<head>
+	<title>${topic.label}</title>
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"></link>
+	</head>
+	<body id="embed"
+		style="margin: 0; padding: 0; border: 0; width: 100%; height:100%;">
+	<iframe
+		style="margin: 0; padding: 0; border: 0; width: 100%; height:100%;"
+		src="${module.parameters.prefix}${topic.path}?${module.parameters.queryString }"/>
+	</body>
+	</html>
+</jsp:root>

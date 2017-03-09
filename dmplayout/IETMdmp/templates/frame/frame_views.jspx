@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+		
+	<atidmc:layout var="layout" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+	
+	<c:set var="filteredQueryString" value="${layout.filteredQueryString }"/>
+	
+	<html>
+	
+	<head>
+		<title>${resourceBundle['frameViews']}</title>
+	</head>
+	
+	 
+	<frameset rows="30,*" id="viewFrameset">
+
+		<c:choose>
+		<c:when test="${layout.requestParam.view == null}">
+			<frame frameborder='0' scrolling="no" noresize="yes"
+				id='tabToolbarFrame' name='tabToolbarFrame' src="index.jspx?task=TOC_TOOLBAR${filteredQueryString}"><!--  -->
+			</frame>
+		</c:when>
+		<c:otherwise>
+			<frame frameborder='0' scrolling="no" noresize="yes"
+				id='tabToolbarFrame' name='tabToolbarFrame' src="index.jspx?task=${layout.requestParam.view[0]}_TOOLBAR${filteredQueryString}"><!--  -->
+			</frame>		
+		</c:otherwise>
+		</c:choose>
+
+		<frame frameborder='0' scrolling="no" noresize="yes"
+			id='viewsFrame' name='viewsFrame' src="index.jspx?task=VIEWS${filteredQueryString}"><!--  -->
+		</frame>
+
+	</frameset>
+	</html>
+</jsp:root>

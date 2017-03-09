@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+
+
+	<html>
+	<head>
+	<title>${layout.resourceBundle['configurationSaved']}</title>
+	<meta http-equiv="Cache-control" content="max-age 10" />
+	<meta Http-Equiv="Cache-Control" Content="no-cache" />
+	<meta Http-Equiv="Pragma" Content="no-cache" />
+	<meta Http-Equiv="Expires" Content="0" />
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"></link>
+	</head>
+	<body topmargin="5" bottommargin="5" marginheight="5">
+	<div id="header">&#160;</div>
+	<div id="tools">
+	<h1>${layout.resourceBundle['links']}</h1>
+	<ul>
+		<li><a href="index.jspx">${layout.resourceBundle['home']}</a></li>
+		<li><a href="index.jspx?task=TOC"><c:out
+			value="${layout.resourceBundle['tableOfContent']}" /></a></li>
+		<li><a href="index.jspx?task=SEARCH"><c:out
+			value="${layout.resourceBundle['searchPage']}" /></a></li>
+		<li><a href="index.jspx?task=INDEX_TERM">${layout.resourceBundle['indexTerm']}</a></li>			
+		<li>${layout.resourceBundle['configuration']}</li>
+	</ul>
+	</div>
+
+	<div id="succeed">
+	<h1>${layout.resourceBundle['configurationSaved']}</h1>
+
+	<form method="post" action="${layout.pages['WELCOME']}"
+		accept-charset="utf-8" enctype="application/x-www-form-urlencoded"><input
+		type="submit" value="${layout.resourceBundle['continue']}" /></form>
+
+	</div>
+	</body>
+	</html>
+</jsp:root>

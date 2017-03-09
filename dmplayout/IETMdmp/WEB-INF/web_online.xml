@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<context-param>
+		<param-name>Encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.mortbay.jetty.servlet.SessionURL</param-name>
+		<param-value>none</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>ConfigFile</param-name>
+		<param-value>config.dmpcf</param-value>
+	</context-param>
+
+	<error-page>
+		<error-code>401</error-code>
+		<location>/status_error.jspx</location>
+	</error-page>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/status_error.jspx</location>
+	</error-page>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/status_error.jspx</location>
+	</error-page>
+
+	<error-page>
+		<error-code>410</error-code>
+		<location>/status_error.jspx</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>503</error-code>
+		<location>/status_error.jspx</location>
+	</error-page>
+	
+	<servlet>
+		<servlet-name>content</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.ContentServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>search</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.SearchServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>pdfhighlite</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.PDFHighlightServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>urlmap</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.UrlMapServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ajaxid</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.AJaxIdMapServlet
+		</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>getTitle</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.GetTitleServlet
+		</servlet-class>
+	</servlet>
+		
+	<servlet>
+		<servlet-name>getNavStatus</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.GetNavStatusServlet
+		</servlet-class>
+	</servlet>
+			
+	<servlet>
+		<servlet-name>getTopic</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.GetTopicServlet
+		</servlet-class>
+	</servlet>
+						
+	<servlet>
+		<servlet-name>layoutParam</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.LayoutParamSetterServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>initialContentLoader</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.InitialContentLoader
+		</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>version</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.VersionServlet
+		</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>update</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.UpdateServlet
+		</servlet-class>
+	</servlet>
+		
+	<servlet>
+		<servlet-name>updateStatus</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.UpdateStatusServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>updateLog</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.UpdateLogServlet
+		</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>setProfile</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.SetProfileServlet
+		</servlet-class>
+	</servlet>
+		
+	<servlet>
+		<servlet-name>setLocale</servlet-name>
+		<servlet-class>
+			com.arbortext.dmc.consumer.servlet.SetLocaleServlet
+		</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>search</servlet-name>
+		<url-pattern>*.search</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>content</servlet-name>
+		<url-pattern>/content/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>pdfhighlite</servlet-name>
+		<url-pattern>/highlite</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>urlmap</servlet-name>
+		<url-pattern>/urlmap</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ajaxid</servlet-name>
+		<url-pattern>/ajaxid</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>layoutParam</servlet-name>
+		<url-pattern>/layoutParam</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>initialContentLoader</servlet-name>
+		<url-pattern>/initContentLoader</url-pattern>
+	</servlet-mapping>
+		
+	<servlet-mapping>
+		<servlet-name>version</servlet-name>
+		<url-pattern>/_version</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>update</servlet-name>
+		<url-pattern>/_update</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>updateStatus</servlet-name>
+		<url-pattern>/_updateStatus</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>updateLog</servlet-name>
+		<url-pattern>/_updateLog</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>getTitle</servlet-name>
+		<url-pattern>/_getTitle</url-pattern>
+	</servlet-mapping>
+								
+	<servlet-mapping>
+		<servlet-name>getNavStatus</servlet-name>
+		<url-pattern>/_getNavStatus</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>getTopic</servlet-name>
+		<url-pattern>/_getTopic</url-pattern>
+	</servlet-mapping>
+									
+	<servlet-mapping>
+		<servlet-name>setProfile</servlet-name>
+		<url-pattern>/_setProfile</url-pattern>
+	</servlet-mapping>
+				
+	<servlet-mapping>
+		<servlet-name>setLocale</servlet-name>
+		<url-pattern>/_setLocale</url-pattern>
+	</servlet-mapping>
+	<filter>									
+          <filter-name>PwcAuthFilter</filter-name>
+          <filter-class>ca.pwc.ietm.PwcAuthFilter</filter-class>
+          <init-param>
+            <param-name>unAuthPage</param-name>
+            <param-value>unAuthorized.html</param-value>
+          </init-param>
+          <init-param>
+            <param-name>authHostDev</param-name>
+            <param-value>tomcatwd.pwc.ca</param-value>
+          </init-param>
+          <init-param>
+            <param-name>authHostQA</param-name>
+            <param-value>tomcatwq.pwc.ca</param-value>
+          </init-param>
+          <init-param>
+            <param-name>authHostProd</param-name>
+            <param-value>eportal.pwc.ca</param-value>
+          </init-param>
+          <init-param>
+            <param-name>ietmHostDev</param-name>
+            <param-value>eportald.pwc.ca</param-value>
+          </init-param>
+          <init-param>
+            <param-name>ietmHostQA</param-name>
+            <param-value>eportalq.pwc.ca</param-value>
+          </init-param>
+          <init-param>
+            <param-name>ietmHostProd</param-name>
+            <param-value>eportal.pwc.ca</param-value>
+          </init-param>
+        </filter>
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>
+			com.arbortext.dmc.consumer.servletfilter.InitFilter
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>auth</filter-name>
+		<filter-class>
+			com.arbortext.dmc.consumer.servletfilter.AuthenticationFilter
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>redirect</filter-name>
+		<filter-class>
+			com.arbortext.dmc.consumer.servletfilter.RedirectFilter
+		</filter-class>
+	</filter>
+        <filter-mapping>
+          <filter-name>PwcAuthFilter</filter-name>
+          <url-pattern>*.jspx</url-pattern>
+        </filter-mapping>
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>auth</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>redirect</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.jspx</welcome-file>
+	</welcome-file-list>
+
+	<!-- Define application events listeners -->
+	<listener>
+		<listener-class>
+			com.arbortext.dmc.consumer.servletlistener.InitListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.arbortext.dmc.consumer.servletlistener.QuerySessionListener
+		</listener-class>
+	</listener>
+</web-app>

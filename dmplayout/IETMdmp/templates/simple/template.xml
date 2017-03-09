@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LayoutPreference resource="languages/LocalStrings">
+	<TemplateDescription>
+
+	</TemplateDescription>
+
+	<Project>
+		<title key="projectName" />
+		<meta key="metadata" />
+	</Project>
+
+	<Pages>
+		<Page type="WELCOME">
+			<Url locale="*" href="index.jspx" />
+		</Page>
+
+		<Page type="VOLUME_REDIRECT">
+			<Url locale="*" href="volume.jspx" />
+		</Page>
+
+		<Page type="VOLUME_ENCRYPTED">
+			<Url locale="*" href="volume_encrypted.jspx" />
+		</Page>
+
+		<Page type="RESULT">
+			<Url locale="*" href="result.jspx" />
+		</Page>
+		<Page type="ERROR">
+			<Url locale="*" href="error.jspx" />
+		</Page>
+		<Page type="STATUS_ERROR">
+			<Url locale="*" href="status_error.jspx" />
+		</Page>
+		<Page type="SEARCH">
+			<Url locale="*" href="search.jspx" />
+		</Page>
+		<Page type="TOC">
+			<Url locale="*" href="toc.jspx" />
+		</Page>
+		<Page type="VALIDATE">
+			<Url locale="*" href="validate.jspx" />
+		</Page>
+		<Page type="INDEX_TERM">
+			<Url locale="*" href="index_term.jspx" />
+		</Page>		
+		<Page type="SUCCEED">
+			<Url locale="*" href="succeed.jspx" />
+		</Page>
+		<Page type="UPDATE">
+			<Url locale="*" href="update.jspx" />
+		</Page>		
+		<Page type="CONFIG">
+			<Url locale="*" href="config.jspx" />
+		</Page>
+		<Page type="CONFIG_WEB_LOCALE">
+			<Url locale="*" href="config_web_locale.jspx" />
+		</Page>			
+		<Page type="CONFIG_UPDATE">
+			<Url locale="*" href="config_update.jspx" />
+		</Page>
+		<Page type="CONFIG_HIGHLIGHT">
+			<Url locale="*" href="config_highlight.jspx" />
+		</Page>		
+		<Page type="CONFIG_PROFILE">
+			<Url locale="*" href="config_profile.jspx" />
+		</Page>			
+		<Page type="TIPS">
+			<Url locale="*" href="srhtips.jspx" />
+		</Page>
+	</Pages>
+
+	<ConfigurationBeans>
+		<ConfigBean name="PROJECT"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.ProjectBean"
+			source="config.jspx" action="validate.jspx?config=PROJECT" />			
+		<ConfigBean name="TEMPLATE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.TemplateBean"
+			source="config_highlight.jspx"
+			action="validate.jspx?config=TEMPLATE" />
+		<ConfigBean name="WEB_LOCALE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.WebLocaleBean"
+			source="config_web_locale.jspx"
+			action="validate.jspx?config=WEB_LOCALE" />	
+		<ConfigBean name="VOLUME"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.VolumeBean"
+			source="volume.jspx" action="validate.jspx?config=VOLUME" />
+		<ConfigBean name="UPDATE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.UpdateBean"
+			source="config_update.jspx" action="validate.jspx?config=UPDATE" />
+		<ConfigBean name="LICENSE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.LicenseBean"
+			source="status_error.jspx" action="validate.jspx?config=LICENSE" />
+		<ConfigBean name="PROFILE"
+			javaClass="com.arbortext.dmc.consumer.conf.bean.ProfileBean"
+			source="config_profile.jspx" action="validate.jspx?config=PROFILE" />				
+	</ConfigurationBeans>
+
+	<SystemModules>
+		<Module name="highlight"
+			class="com.arbortext.dmc.consumer.module.highlight.HTMLKWHighlighter">
+			<Parameter name="highlight">true</Parameter>
+			<Parameter name="indenting">false</Parameter>
+			<Parameter name="createLink">true</Parameter>
+			<Parameter name="noNestedElementNames">
+				A;{http://www.w3.org/1999/xhtml}A
+			</Parameter>
+			<Parameter name="jscripts">
+				javascript/highlight.js
+			</Parameter>
+			<Parameter name="anchorPrefix">ATI.</Parameter>
+			<Parameter name="stylePrefix">ATI_cls_</Parameter>
+			<Parameter name="css">css/highlite.css</Parameter>
+			<Parameter name="cdataElements">SCRIPT script</Parameter>
+			<Parameter name="mimetype">text/html</Parameter>
+			<Parameter name="maxColors">10</Parameter>
+		</Module>
+		<Module name="highlightUpdate"
+			class="com.arbortext.dmc.consumer.module.HighlightUpdatedModule">
+			<Parameter name="highlight">true</Parameter>
+		</Module>		
+		<Module name="localeSelection"
+			class="com.arbortext.dmc.consumer.module.DefaultUIModule">
+			<Parameter name="en_US">
+				English
+			</Parameter>
+			<Parameter name="en_us">
+				English
+			</Parameter>
+			<Parameter name="en">
+				English
+			</Parameter>
+			<Parameter name="fr_FR">
+				Français
+			</Parameter>
+			<Parameter name="fr_fr">
+				Français
+			</Parameter>
+			<Parameter name="fr">
+				Français
+			</Parameter>
+			<Parameter name="de_DE">
+				Deutsch
+			</Parameter>
+			<Parameter name="de_de">
+				Deutsch
+			</Parameter>
+			<Parameter name="de">
+				Deutsch
+			</Parameter>
+			<Parameter name="zh_CN">
+				简体中文 (Simplified Chinese)
+			</Parameter>
+			<Parameter name="zh_cn">
+				简体中文 (Simplified Chinese)
+			</Parameter>
+			<Parameter name="zh">
+				简体中文 (Simplified Chinese)
+			</Parameter>
+			<Parameter name="zh_TW">
+				繁體中文 (Traditional Chinese)
+			</Parameter>
+			<Parameter name="zh_tw">
+				繁體中文 (Traditional Chinese)
+			</Parameter>
+			<Parameter name="zh">
+				繁體中文 (Traditional Chinese)
+			</Parameter>
+			<Parameter name="ko_KR">
+				한국어 (Korean)
+			</Parameter>
+			<Parameter name="ko_kr">
+				한국어 (Korean)
+			</Parameter>
+			<Parameter name="ko">
+				한국어 (Korean)
+			</Parameter>
+			<Parameter name="ja_JP">
+				日本語 (Japanese)
+			</Parameter>												
+			<Parameter name="ja_jp">
+				日本語 (Japanese)
+			</Parameter>
+			<Parameter name="ja">
+				日本語 (Japanese)
+			</Parameter>
+			<Parameter name="it_IT">
+				Italiano
+			</Parameter>
+			<Parameter name="it_it">
+				Italiano
+			</Parameter>
+			<Parameter name="it">
+				Italiano
+			</Parameter>
+			<Parameter name="es_ES">
+				Español
+			</Parameter>
+			<Parameter name="es_es">
+				Español
+			</Parameter>
+			<Parameter name="es">
+				Español
+			</Parameter>
+			<Parameter name="ar_SA">
+				اللغة العربية(Arabic)
+			</Parameter>
+			<Parameter name="ar_sa">
+				اللغة العربية(Arabic)
+			</Parameter>
+			<Parameter name="ar">
+				اللغة العربية(Arabic)
+			</Parameter>
+			<Parameter name="ru_RU">
+				русский язык (Russian)
+			</Parameter>
+			<Parameter name="ru_ru">
+				русский язык (Russian)
+			</Parameter>
+			<Parameter name="ru">
+				русский язык (Russian)
+			</Parameter>
+			<Parameter name="th_TH">
+				ภาษาไทย (Thai)
+			</Parameter>
+			<Parameter name="th_th">
+				ภาษาไทย (Thai)
+			</Parameter>
+			<Parameter name="th">
+				ภาษาไทย (Thai)
+			</Parameter>
+			<Parameter name="he_IL">
+				 (Hebrew) עִבְרִית
+			</Parameter>
+			<Parameter name="he_il">
+				 (Hebrew) עִבְרִית
+			</Parameter>
+			<Parameter name="he">
+				 (Hebrew) עִבְרִית
+			</Parameter>
+		</Module>			
+	</SystemModules>
+
+	<Parameters><!--  preloaded stylesheet, separated by ";" -->
+		<Parameter name="preloadedStylesheets">
+			xsl/result.xsl;xsl/search.xsl;xsl/toc.xsl;xsl/error.xsl;xsl/indexterm.xsl
+		</Parameter>
+		<Parameter name="addSessionId">
+			false
+		</Parameter>
+	</Parameters>
+
+</LayoutPreference>

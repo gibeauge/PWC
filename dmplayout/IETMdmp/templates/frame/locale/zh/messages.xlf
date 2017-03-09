@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd">
+	<file category="resourceBundle" datatype="cstring"
+		original="LocalStrings.properties" source-language="en-US"
+		target-language="en-US" xml:space="default">
+		<header>
+			<note>
+				The translation used for DMP Consumer User Interface
+				(FRAME LAYOUT) ********* %xxxxx% represents variable
+				name and should not be translated
+			</note>
+		</header>
+		<body>
+			<group resname="DMP Consumer" restype="file">
+
+				<!-- index.jspx -->
+				<trans-unit id="mainTitle">
+					<source>%projectName%</source>
+					<target>%projectName%</target>
+				</trans-unit>
+
+				<!-- banner.jspx -->
+				<trans-unit id="bannerTitle">
+					<source>Banner</source>
+					<target>横幅</target>
+				</trans-unit>
+
+				<trans-unit id="helpCenter">
+					<source>Help Center</source>
+					<target>帮助中心</target>
+				</trans-unit>
+
+				<trans-unit id="linkToUrl">
+					<source>link to this page</source>
+					<target>到此页面的链接</target>
+				</trans-unit>
+				
+				<trans-unit id="linkToUrlDescription">
+					<source>Change URL address to a format suitable for a bookmark.</source>
+					<target>将 URL 地址更改为适合书签的格式。</target>
+				</trans-unit>				
+				<!-- embed.jspx -->
+				<trans-unit id="embeddedPDFNotSupported">
+					<source>
+						Your browser does not support embedded PDF
+						files.
+					</source>
+					<target>您的浏览器不支持嵌入式 PDF 文件。</target>
+				</trans-unit>
+
+
+				<!-- error.jspx -->
+				<trans-unit id="errorTitle">
+					<source>Error in the Page</source>
+					<target>此页面有错误</target>
+				</trans-unit>
+				<trans-unit id="errorHeader">
+					<source>
+						The page you requested contains an error and
+						cannot be displayed.
+					</source>
+					<target>您请求的页面包含错误，无法显示。</target>
+				</trans-unit>
+				<trans-unit id="errorStatus">
+					<source>Error Status:</source>
+					<target>错误状况:</target>
+				</trans-unit>
+				<trans-unit id="errorStackTrace">
+					<source>Error Stack Trace</source>
+					<target>错误堆栈跟踪</target>
+				</trans-unit>
+
+				<!-- form_annotation.jspx -->
+				<trans-unit id="annotationFormTitle">
+					<source>Comment</source>
+					<target>备注</target>
+				</trans-unit>
+				<trans-unit id="submitAnnotation">
+					<source>Save</source>
+					<target>保存</target>
+				</trans-unit>
+				<trans-unit id="resetAnnotation">
+					<source>Reset</source>
+					<target>重置</target>
+				</trans-unit>
+				<trans-unit id="clearAnnotation">
+					<source>Clear</source>
+					<target>清除</target>
+				</trans-unit>
+
+				<!-- form_volume.jspx -->
+				<trans-unit id="volumeRedirectTitle">
+					<source>Media Location Not Found</source>
+					<target>找不到媒体位置</target>
+				</trans-unit>
+				<trans-unit id="mediaNotFound">
+					<source>
+						The media containing the page you are requesting
+						cannot be found.
+					</source>
+					<target>找不到包含您请求的页面的媒体。</target>
+				</trans-unit>
+				<trans-unit id="mediaInsertOrRelocate">
+					<source>
+						If it is on a removable media, insert it now and
+						retry. If the media location is changed, specify
+						its new location.
+					</source>
+					<target>如果它在可移动媒体上，请立即插入并重试。如果媒体位置已变更，则请指定新位置。</target>
+				</trans-unit>
+
+				<trans-unit id="mediaNotFoundAndReadOnly">
+					<source>
+						You must install %projectName% to access content in another volume.
+					</source>
+					<target>您必须安装 %projectName% 才能访问另一卷上的内容。</target>
+				</trans-unit>
+
+				<trans-unit id="mediaRetry">
+					<source>Try Again</source>
+					<target>重试</target>
+				</trans-unit>
+				<trans-unit id="mediaNewLocation">
+					<source>
+						Specify a new location and try again.
+					</source>
+					<target>指定新位置，然后重试。</target>
+				</trans-unit>
+				<trans-unit id="mediaLocation">
+					<source>
+						Disk Location: (for example e:\ /mnt/cdrom)
+					</source>
+					<target>磁盘位置: (例如 e:\ /mnt/cdrom)</target>
+				</trans-unit>
+				<trans-unit id="mediaTryAgainButton">
+					<source>Try Again</source>
+					<target>重试</target>
+				</trans-unit>
+				<trans-unit id="mediaResetButton">
+					<source>Reset</source>
+					<target>重置</target>
+				</trans-unit>
+				<trans-unit id="volumeInfo">
+					<source>Volume Information:</source>
+					<target>卷信息:</target>
+				</trans-unit>
+				<!-- frame_content.jspx -->
+
+				<trans-unit id="contentFrameset">
+					<source>Content</source>
+					<target>内容</target>
+				</trans-unit>
+
+				<!-- frame_main.jspx -->
+				<trans-unit id="mainFrameset">
+					<source>%projectName% Main Frameset</source>
+					<target>%projectName% 主框架集</target>
+				</trans-unit>
+
+				<!-- frame_nav.jspx -->
+				<trans-unit id="navigation">
+					<source>Navigation Frameset</source>
+					<target>导航框架集</target>
+				</trans-unit>
+
+				<!-- frame_tabs.jspx -->
+				<trans-unit id="tabs">
+					<source>Navigation Tabs Frameset</source>
+					<target>导航选项卡框架集</target>
+				</trans-unit>
+
+				<!-- frame_views.jspx -->
+				<trans-unit id="frameViews">
+					<source>
+						Frameset for Different Functional Area
+					</source>
+					<target>不同功能区域的框架集</target>
+				</trans-unit>
+
+
+
+				<!-- info_succeed.jspx -->
+				<trans-unit id="configurationSaved">
+					<source>Configuration Saved Successfully</source>
+					<target>已成功保存配置</target>
+				</trans-unit>
+				<trans-unit id="continue">
+					<source>Continue</source>
+					<target>继续</target>
+				</trans-unit>
+
+				<!-- search_xxx.jspx -->
+				<trans-unit id="simple">
+					<source>Simple</source>
+					<target>简易</target>
+				</trans-unit>
+				<trans-unit id="advanced">
+					<source>Advanced</source>
+					<target>高级</target>
+				</trans-unit>
+				<trans-unit id="targetSearch">
+					<source>Target Search To:</source>
+					<target>目标搜索范围:</target>
+				</trans-unit>
+				<trans-unit id="entireDoc">
+					<source>Entire Document</source>
+					<target>整个文档</target>
+				</trans-unit>
+				<trans-unit id="docHeader">
+					<source>Document Headers</source>
+					<target>文档标题</target>
+				</trans-unit>
+				<trans-unit id="primaryHeader">
+					<source>Primary Headers</source>
+					<target>主要标题</target>
+				</trans-unit>
+				<trans-unit id="secondaryHeader">
+					<source>Secondary Headers</source>
+					<target>次要标题</target>
+				</trans-unit>
+				<trans-unit id="tertiaryHeader">
+					<source>Tertiary Headers</source>
+					<target>第三级标题</target>
+				</trans-unit>				
+				<trans-unit id="documentType">
+					<source>Document Type:</source>
+					<target>文档类型:</target>
+				</trans-unit>
+				<trans-unit id="allDoc">
+					<source>All Documents</source>
+					<target>全部文档</target>
+				</trans-unit>
+				<trans-unit id="htmlDoc">
+					<source>HTML documents</source>
+					<target>HTML 文档</target>
+				</trans-unit>
+				<trans-unit id="pdfDoc">
+					<source>PDF documents</source>
+					<target>PDF 文档</target>
+				</trans-unit>
+				<trans-unit id="allitems">
+					<source>All Items</source>
+					<target>全部项目</target>
+				</trans-unit>
+				<trans-unit id="locale">
+					<source>Language</source>
+					<target>语言</target>
+				</trans-unit>
+				<trans-unit id="noResults">
+					<source>No Results Found</source>
+					<target>未找到任何结果</target>
+				</trans-unit>
+				<trans-unit id="displaySearchResults">
+					<source>{0} - {1} of total {2} search results</source>
+					<target>搜索结果 {0} - {1}，共 {2} 个</target>
+				</trans-unit>
+
+				<!--  status_error -->
+
+				<trans-unit id="cantAccessContent">
+					<source>Unable to Access Content</source>
+					<target>无法访问内容</target>
+				</trans-unit>
+
+				<trans-unit id="invalidLicense">
+					<source>Your License is not Valid</source>
+					<target>您的许可证无效</target>
+				</trans-unit>
+
+				<trans-unit id="cannotVerifyLicense">
+					<source>Unrecognized Serial Number</source>
+					<target>无法识别的序列号</target>
+				</trans-unit>
+
+				<trans-unit id="serialNumberInvalid">
+					<source>
+						You may have entered your serial number
+						incorrectly or the license file has been
+						corrupted. Contact %supportContactInfo% for
+						support.
+					</source>
+					<target>您可能输入了错误的序列号，或者许可证文件已损坏。请联系 %supportContactInfo% 获取支持。</target>
+				</trans-unit>
+
+				<trans-unit id="pleaseEnterSerialNumber">
+					<source>
+						If you have a serial number, enter it now.
+					</source>
+					<target>如果您有序列号，请立即输入。</target>
+				</trans-unit>
+
+				<trans-unit id="enterSerialNumber">
+					<source>Serial Number</source>
+					<target>序列号</target>
+				</trans-unit>
+
+				<trans-unit id="requireInstall">
+					<source>This Application must be Installed</source>
+					<target>必须安装此应用程序</target>
+				</trans-unit>
+
+				<trans-unit id="askToRunSetup">
+					<source>
+						This application has not been installed. Run the setup
+						program and enter your serial number.
+					</source>
+					<target>尚未安装此应用程序。请运行安装程序，并输入您的序列号。</target>
+				</trans-unit>
+
+				<trans-unit id="licenseExpired">
+					<source>Content Has Expired</source>
+					<target>内容已过期</target>
+				</trans-unit>
+
+				<trans-unit id="expirationDate">
+					<source>Expiration Date:</source>
+					<target>到期日期:</target>
+				</trans-unit>
+				
+				<trans-unit id="askToRenew">
+					<source>
+						The content has expired and you can no longer
+						access the content in this file. Contact
+						%supportContactInfo% to extend the license or
+						obtain a new copy.
+					</source>
+					<target>内容已过期，您无法再访问此文件内容。请联系 %supportContactInfo% 延长许可证的有效期或获取新副本。</target>
+				</trans-unit>
+
+				<trans-unit id="noAvailableLicense">
+					<source>No More Sessions Avaliable</source>
+					<target>没有可用的会话</target>
+				</trans-unit>
+
+				<trans-unit id="askToWait">
+					<source>
+						The maximum number of users are
+						accessing the content. Please wait and try again later.
+						Contact %supportContactInfo% for more
+						information.
+					</source>
+					<target>访问此内容的用户人数已达到上限。请稍候再试。请联系 %supportContactInfo% 了解更多信息。</target>
+				</trans-unit>
+
+				<trans-unit id="unknownLicenseError">
+					<source>Unknown License Error</source>
+					<target>未知许可证错误</target>
+				</trans-unit>
+
+				<trans-unit id="contactVendor">
+					<source>
+						Contact %supportContactInfo% for support.
+					</source>
+					<target>请联系 %supportContactInfo% 获取支持。</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFound">
+					<source>Page Not Found</source>
+					<target>未找到页面</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFoundDescription">
+					<source>
+						The page you were trying to access does not
+						exist.
+					</source>
+					<target>您试图访问的页面并不存在。</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailable">
+					<source>Page Not Available</source>
+					<target>页面不可用</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailableDescription">
+					<source>
+						The page you were trying to access is not
+						available for the current user profile.
+					</source>
+					<target>您试图访问的页面无法供当前用户配置文件使用。</target>
+				</trans-unit>
+
+				<trans-unit id="requestPage">
+					<source>The page you were requesting:</source>
+					<target>您请求的页面:</target>
+				</trans-unit>
+
+				<!-- tabs.jspx -->
+				<trans-unit id="navigationTabs">
+					<source>Tabs</source>
+					<target>选项卡</target>
+				</trans-unit>
+				<trans-unit id="tableOfContent">
+					<source>Table of Contents</source>
+					<target>目录</target>
+				</trans-unit>
+
+				<trans-unit id="search">
+					<source>Search</source>
+					<target>搜索</target>
+				</trans-unit>
+
+				<trans-unit id="indexterms">
+					<source>Index Terms</source>
+					<target>索引术语</target>
+				</trans-unit>
+
+				<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>书签</target>
+				</trans-unit>
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>配置</target>
+				</trans-unit>
+				<trans-unit id="language">
+					<source>Language</source>
+					<target>语言</target>
+				</trans-unit>
+
+				<!-- toolbar_bookmark.jspx -->
+				<trans-unit id="toolbarBookmark">
+					<source>Bookmark Toolbar</source>
+					<target>书签工具栏</target>
+				</trans-unit>
+				<trans-unit id="deleteSelectedBookmark">
+					<source>Delete Selected Bookmark</source>
+					<target>删除选定的书签</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarks">
+					<source>Delete All Bookmarks</source>
+					<target>删除全部书签</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarksConfirm">
+					<source>
+						Are you sure you want to delete all bookmarks?
+					</source>
+					<target>是否确定要删除全部书签?</target>
+				</trans-unit>
+				<trans-unit id="noBookmarkSelected">
+					<source>No bookmark is selected.</source>
+					<target>未选择任何书签。</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="toolbarConfig">
+					<source>Configuration Toolbar</source>
+					<target>配置工具栏</target>
+				</trans-unit>
+				<trans-unit id="configLocaleAndLayout">
+					<source>
+						Configure Locale and Layout Settings
+					</source>
+					<target>配置区域设置和布局设置</target>
+				</trans-unit>
+				<trans-unit id="configUpdate">
+					<source>Configure Update Preferences</source>
+					<target>配置更新首选项</target>
+				</trans-unit>
+
+				<!-- toolbar_main.jspx -->
+				<trans-unit id="toolbarMain">
+					<source>Main Toolbar</source>
+					<target>主工具栏</target>
+				</trans-unit>
+				<trans-unit id="goBack">
+					<source>Go Back</source>
+					<target>后退</target>
+				</trans-unit>
+				<trans-unit id="goForward">
+					<source>Go Forward</source>
+					<target>前进</target>
+				</trans-unit>
+				<trans-unit id="previousTopic">
+					<source>Previous Topic</source>
+					<target>上一主题</target>
+				</trans-unit>
+				<trans-unit id="nextTopic">
+					<source>Next Topic</source>
+					<target>下一主题</target>
+				</trans-unit>
+				<trans-unit id="synchronize">
+					<source>Show in Table of Contents</source>
+					<target>在目录中显示</target>
+				</trans-unit>
+				<trans-unit id="bookmarkThisPage">
+					<source>Bookmark This Page</source>
+					<target>将此页标记为书签</target>
+				</trans-unit>
+				<trans-unit id="addAnnotation">
+					<source>Add Comment</source>
+					<target>添加备注</target>
+				</trans-unit>
+				<trans-unit id="print">
+					<source>Print</source>
+					<target>打印</target>
+				</trans-unit>
+				<trans-unit id="reload">
+					<source>Reload</source>
+					<target>重新载入</target>
+				</trans-unit>
+				<trans-unit id="toggleNavPane">
+					<source>Toggle Navigation Panel</source>
+					<target>切换导航面板</target>
+				</trans-unit>
+				
+				<!-- toolbar_result.jspx -->
+				<trans-unit id="toolbarResult">
+					<source>Search Result Toolbar</source>
+					<target>搜索结果工具栏</target>
+				</trans-unit>
+
+				<trans-unit id="sortedBy">
+					<source>Sorted by:</source>
+					<target>排序依据:</target>
+				</trans-unit>
+
+				<trans-unit id="relavance">
+					<source>Relevance</source>
+					<target>相关程度</target>
+				</trans-unit>
+
+				<trans-unit id="toc">
+					<source>Table of Contents</source>
+					<target>目录</target>
+				</trans-unit>
+
+				<!-- toolbar_toc.jspx -->
+				<trans-unit id="toolbarToc">
+					<source>Table of Content Toolbar</source>
+					<target>目录工具栏</target>
+				</trans-unit>
+				<trans-unit id="expandAll">
+					<source>Expand All Topics</source>
+					<target>展开全部主题</target>
+				</trans-unit>
+				<trans-unit id="collapseAll">
+					<source>Collapse All Topics</source>
+					<target>折叠全部主题</target>
+				</trans-unit>
+
+				<trans-unit id="arbortextEditorHelp">
+					<source>Arbortext Editor Help</source>
+					<target>Arbortext Editor 帮助</target>
+				</trans-unit>
+
+				<trans-unit id="pdfManuals">
+					<source>PDF Manuals</source>
+					<target>PDF 手册</target>
+				</trans-unit>
+
+				<!-- toolbar_index_term.jspx -->
+				<trans-unit id="toolbarIndexTerm">
+					<source>Index Term Toolbar</source>
+					<target>索引术语工具栏</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="configTitle">
+					<source>Configuration Toolbar</source>
+					<target>配置工具栏</target>
+				</trans-unit>
+
+				<!-- validate.jspx -->
+
+
+				<!-- view_bookmark.jspx -->
+				<!--  defined in tabs.jspx
+					<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>Bookmark</target>
+					</trans-unit>
+				-->
+
+				<!-- view_config_locale.jspx -->
+				<trans-unit id="layoutTitle">
+					<source>Configure Layout Information</source>
+					<target>配置布局信息</target>
+				</trans-unit>
+				<trans-unit id="errorInInput">
+					<source>
+						The specified values contain errors. Correct the
+						items marked with asterisks (*).
+					</source>
+					<target>指定的值包含错误。请更正标有星号 (*) 的项目。</target>
+				</trans-unit>
+
+				<trans-unit id="errorMessage">
+					<source>Error Message</source>
+					<target>错误消息</target>
+				</trans-unit>
+				<trans-unit id="defaultLocale">
+					<source>Default Locale</source>
+					<target>默认区域设置</target>
+				</trans-unit>
+
+				<trans-unit id="clientLocale">
+					<source>
+						Use this locale for the current user only.
+					</source>
+					<target>仅针对当前用户使用此区域设置。</target>
+				</trans-unit>
+				<trans-unit id="localePreference">
+					<source>Profile Settings</source>
+					<target>配置文件设置</target>
+				</trans-unit>
+				<trans-unit id="requestLocale">
+					<source>Base on user platform locale.</source>
+					<target>以用户平台的区域设置为依据。</target>
+				</trans-unit>
+				<trans-unit id="fixedLocale">
+					<source>Use this locale globally.</source>
+					<target>全局使用此区域设置。</target>
+				</trans-unit>
+				<trans-unit id="searchKeywordHighlight">
+					<source>Highlight Search Terms</source>
+					<target>突出显示搜索条件</target>
+				</trans-unit>
+				<trans-unit id="highlightandCreatelink">
+					<source>Highlight and Create Link</source>
+					<target>突出显示并创建链接</target>
+				</trans-unit>
+				<trans-unit id="highlightOnly">
+					<source>Highlight Only</source>
+					<target>仅突出显示</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>突出显示更新的主题</target>
+				</trans-unit>
+				
+				<!-- view_config_update.jspx -->
+				<trans-unit id="updateTitle">
+					<source>Configure Update Properties</source>
+					<target>配置更新属性</target>
+				</trans-unit>
+				<trans-unit id="updateFromRemoteUrl">
+					<source>Remote URL</source>
+					<target>远程 URL</target>
+				</trans-unit>
+				<trans-unit id="updateFromLocalFolder">
+					<source>Local Folder</source>
+					<target>本地文件夹</target>
+				</trans-unit>
+				<trans-unit id="updateFrequency"> 
+					<source>Update Frequency</source>
+					<target>更新频率</target>
+				</trans-unit>
+				<trans-unit id="timeOfTheDay"> <!-- What time of the day should the update run, 1pm, 2pm? -->
+					<source>Time of the Day</source>
+					<target>每日时间</target>
+				</trans-unit>
+				<trans-unit id="minutefrequency">
+					<source>Update Interval (Minute)</source>
+					<target>更新间隔 (分钟)</target>
+				</trans-unit>
+				<trans-unit id="hourfrequency">
+					<source>Update Interval (Hour)</source>
+					<target>更新间隔 (小时)</target>
+				</trans-unit>
+				<trans-unit id="updateMinutely">
+					<source>Monthly</source>
+					<target>每月</target>
+				</trans-unit>
+				<trans-unit id="updateHourly">
+					<source>Hourly</source>
+					<target>每小时</target>
+				</trans-unit>
+				<trans-unit id="updateDaily">
+					<source>Daily</source>
+					<target>每天</target>
+				</trans-unit>
+				<trans-unit id="updateWeekly">
+					<source>Weekly</source>
+					<target>每周</target>
+				</trans-unit>
+				<trans-unit id="updateMonthly">
+					<source>Monthly</source>
+					<target>每月</target>
+				</trans-unit>				
+				<trans-unit id="updateLocation">
+					<source>Update Location</source>
+					<target>更新位置</target>
+				</trans-unit>
+				<trans-unit id="enableUpdateProxy">
+					<source>Enable Proxy</source>
+					<target>启用代理</target>
+				</trans-unit>
+				<trans-unit id="proxySettings">
+					<source>Proxy Settings</source>
+					<target>代理设置</target>
+				</trans-unit>
+				<trans-unit id="updateHistory">
+					<source>Update History</source>
+					<target>更新历史记录</target>
+				</trans-unit>
+				<trans-unit id="proxyHost">
+					<source>Proxy Server Host</source>
+					<target>代理服务器主机</target>
+				</trans-unit>
+				<trans-unit id="proxyPort">
+					<source>Proxy Server Port</source>
+					<target>代理服务器端口</target>
+				</trans-unit>
+				<trans-unit id="password">
+					<source>Password</source>
+					<target>密码</target>
+				</trans-unit>
+				<trans-unit id="username">
+					<source>User Name</source>
+					<target>用户名</target>
+				</trans-unit>
+
+				<trans-unit id="updatePreference">
+					<source>Content Update Properties</source>
+					<target>内容更新属性</target>
+				</trans-unit>
+
+				<trans-unit id="disabled">
+					<source>Disabled</source>
+					<target>已禁用</target>
+				</trans-unit>
+
+				<trans-unit id="automatic">
+					<source>
+						Update automatically at scheduled time
+					</source>
+					<target>自动在排定的时间更新</target>
+				</trans-unit>
+				<trans-unit id="atLaunch">
+					<source>
+						Update while starting the application
+					</source>
+					<target>每一次启动应用程序时更新</target>
+				</trans-unit>
+				<trans-unit id="manual">
+					<source>
+						Update by clicking on the Update button
+					</source>
+					<target>单击“更新”按钮以更新</target>
+				</trans-unit>
+				<trans-unit id="updateContent">
+					<!-- Translation should match "Update Content" above-->
+					<source>Update Content</source>
+					<target>更新内容</target>
+				</trans-unit>
+				<trans-unit id="updateDate">
+					<source>Update Date</source>
+					<target>更新日期</target>
+				</trans-unit>
+				<trans-unit id="logDetail">
+					<source>Detail Update Log</source>
+					<target>详细更新日志</target>
+				</trans-unit>
+
+				<!-- update.jspx -->
+				<trans-unit id="runUpdateTitle">
+					<source>Updating ...</source>
+					<target>正在更新 ...</target>
+				</trans-unit>
+				<trans-unit id="updateStatus">
+					<source>Update Status</source>
+					<target>更新状态</target>
+				</trans-unit>
+				<trans-unit id="reloadAfterUpdate">
+					<source>Refresh</source>
+					<target>刷新</target>
+				</trans-unit>
+				<!-- view_config_proxy.jspx -->
+				<trans-unit id="proxyTitle">
+					<source>Configure Proxy Server Information</source>
+					<target>配置代理服务器信息</target>
+				</trans-unit>
+
+				<!-- view_config_highlight.jspx -->
+				<trans-unit id="configureHighlightTitle">
+					<source>Search Term Highlighting</source>
+					<target>搜索条件突出显示</target>
+				</trans-unit>
+				<trans-unit id="enable">
+					<source>Enable</source>
+					<target>启用</target>
+				</trans-unit>
+				<trans-unit id="disable">
+					<source>Disable</source>
+					<target>禁用</target>
+				</trans-unit>
+				<trans-unit id="highlightStyle">
+					<source>Highlight Style</source>
+					<target>突出显示样式</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>突出显示更新的主题</target>
+				</trans-unit>				
+				<trans-unit id="pdfHighlightLimitation">
+					<source>
+						Note: Search term highlighting in PDF documents
+						is not always accurate.
+					</source>
+					<target>注意: PDF 文档中的搜索条件突出显示并不总是准确。</target>
+				</trans-unit>
+				<trans-unit id="rememberSettings">
+					<source>
+						Save Configuration Settings
+					</source>
+					<target>保存配置设置</target>
+				</trans-unit>
+
+				<!-- view_config_profile.jspx -->
+				<trans-unit id="configureProfile">
+					<source>Profile Settings</source>
+					<target>配置文件设置</target>
+				</trans-unit>
+
+				<!-- view_config.jspx -->
+				<trans-unit id="english">
+					<source>English</source>
+					<target>英语</target>
+				</trans-unit>
+				<trans-unit id="germany">
+					<source>Germany</source>
+					<target>德国</target>
+				</trans-unit>
+				<trans-unit id="french">
+					<source>French</source>
+					<target>法语</target>
+				</trans-unit>
+				<trans-unit id="spanish">
+					<source>Spanish</source>
+					<target>西班牙语</target>
+				</trans-unit>
+				<trans-unit id="chinese-simplied">
+					<source>Simplified Chinese</source>
+					<target>简体中文</target>
+				</trans-unit>
+				<trans-unit id="chinese-traditional">
+					<source>Traditional Chinese</source>
+					<target>繁体中文</target>
+				</trans-unit>
+				<trans-unit id="korean">
+					<source>Korean</source>
+					<target>朝鲜语</target>
+				</trans-unit>
+				<trans-unit id="japanese">
+					<source>Japanese</source>
+					<target>日语</target>
+				</trans-unit>
+				<trans-unit id="italian">
+					<source>Italian</source>
+					<target>意大利语</target>
+				</trans-unit>
+
+				<!-- view_result.jspx -->
+				<trans-unit id="searchOutput">
+					<source>Search Result Page</source>
+					<target>搜索结果页面</target>
+				</trans-unit>
+				<trans-unit id="searchTips">
+					<source>Search Tips</source>
+					<target>搜索提示</target>
+				</trans-unit>
+				<trans-unit id="links">
+					<source>Links</source>
+					<target>链接</target>
+				</trans-unit>
+
+				<!-- view_toc.jspx -->
+				<trans-unit id="tableOfContents">
+					<source>Table of Contents</source>
+					<target>目录</target>
+				</trans-unit>
+
+				<!--  view_indexterm.jspx -->
+				<trans-unit id="indexTerm">
+					<source>Index Term</source>
+					<target>索引术语</target>
+				</trans-unit>
+
+				<!-- views.jspx -->
+				<trans-unit id="views">
+					<source>Views</source>
+					<target>视图</target>
+				</trans-unit>
+
+				<!-- volume_encrypted.jspx -->
+				<trans-unit id="volumeEncrpted">
+					<source>The File is Encrypted</source>
+					<target>该文件为加密文件</target>
+				</trans-unit>
+				<trans-unit id="volumeEncrptedDetail">
+					<source>
+						The file you are trying to open is encrypted and
+						cannot be opened. You may not have appropriate
+						privileges to view the file. Contact
+						%supportContactInfo% for further support.
+					</source>
+					<target>您试图打开的文件为加密文件，无法打开。您可能没有查看该文件的适当权限。请联系 %supportContactInfo% 获取支持。</target>
+				</trans-unit>
+
+
+				<!-- General -->
+				<trans-unit id="home">
+					<source>Home</source>
+					<target>主目录</target>
+				</trans-unit>
+
+				<trans-unit id="searchPage">
+					<source>Search Page</source>
+					<target>搜索页面</target>
+				</trans-unit>
+				<trans-unit id="submit">
+					<source>Submit</source>
+					<target>提交</target>
+				</trans-unit>
+
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>配置</target>
+				</trans-unit>
+
+				<trans-unit id="help">
+					<source>How to Use %projectName%</source>
+					<target>如何使用 %projectName%</target>
+				</trans-unit>
+
+				<!-- Help Center content_config.xml terms -->
+
+				<trans-unit id="userRole">
+					<source>User Role:</source>
+					<target>用户角色:</target>
+				</trans-unit>
+
+				<trans-unit id="user">
+					<source>User</source>
+					<target>用户</target>
+
+				</trans-unit>
+
+				<trans-unit id="developer">
+					<source>Developer</source>
+					<target>开发人员</target>
+				</trans-unit>
+
+				<trans-unit id="administrator">
+					<source>Administrator</source>
+					<target>管理员</target>
+				</trans-unit>
+
+				<trans-unit id="product">
+					<source>Arbortext Product:</source>
+					<target>Arbortext 产品:</target>
+				</trans-unit>
+
+				<trans-unit id="toolhelp">
+					<source>Help</source>
+					<target>帮助</target>
+				</trans-unit>
+
+				<trans-unit id="support">
+                			<source>PTC Customer Support website</source>
+                			<target>PTC 客户支持网站</target>
+				</trans-unit>
+
+			</group>
+		</body>
+	</file>
+</xliff>

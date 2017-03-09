@@ -1,0 +1,18 @@
+Start of changelog file. This file logs all the changes to the DMP template starting with the 20121212 build.
+
+V1.0 changes 20130510:
+
+	- Modified toolbar.js in template as the pb-name was showing in the banner for non-frontmatter PB (will take effect when Styler changes are in place for the banner).
+	- Modified toc.xsl in template so that a click on a PB title in the TOC would expand the icon content in the TOC.
+	- Modified pwcbutton.js in template so that RSVP page would not receive CSS data for frontmatter RSVP.
+	- Added changes for enhanced print in IE: Added printer.css, added printer.js, modified toolbar.js by adding\calling new functions, modified index.jspx.
+	- Incorporated fixes for JIRA 809, 810, 813, 814, 824, 825.
+	
+V2.0 changes 20131018:
+
+	- Corrected toolbar.js to include fix for bannerinfo when value for manual revnbr or pointrevnbr is equal to zero.
+	- Styler modules and preprocess are modified to fix these issues:
+	  - Pageblock numbering optimization and fixes (Base-Components.style).
+	  - Banner fixes (Base-Components.style and toolbar.js).
+	  - Fix the display of LOT and LOF in ATA2200 TOC (preprocess.xsl and JMTOS-Components.style).
+	  - Offline IETM auto-uninstallation fix (Base-Components.style).

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+	
+	<atidmc:framemanager var="manager" />
+
+
+	<html>
+	<head>
+	<title>${resourceBundle['views']}</title>
+
+	<link rel="stylesheet" type="text/css"
+		href="${layout.template}css/dmc.css" media="all"><!--  --></link>
+
+	<style type="text/css">
+	/* need this one for Mozilla */
+	html { 
+		width:100%;
+		height:100%;
+		margin:0px;
+		padding:0px;
+		border:0px;
+ 	}
+	</style>
+ 
+	</head>
+	
+	<body>
+
+	<c:forEach var="item" varStatus="status" items="${manager.modules}">
+		<c:choose>
+			<c:when test="${!item.show}">
+			</c:when>
+			<c:when test="${layout.requestParam.view == null and status.index == 0}">
+				<iframe frameborder="0" class="show" 
+				id="${item.view}" name="${item.view}" src="index.jspx?task=${item.view}${layout.filteredQueryString}"><!--  --></iframe>
+			</c:when>
+			<c:when test="${layout.requestParam.view[0] == item.view}">
+				<iframe frameborder="0" class="show" 
+				id="${item.view}" name="${item.view}" src="index.jspx?task=${item.view}${layout.filteredQueryString}"><!--  --></iframe>
+			</c:when>
+			<c:otherwise>
+				<iframe frameborder="0" class="hidden" 
+				id="${item.view}" name="${item.view}"><!--  --></iframe>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+
+
+	<iframe frameborder="0" class="hidden" tabindex="-1" name="temp"
+		id="temp" width="100%" height="100%"><!-- placeholder --></iframe>
+	</body>
+	</html>
+</jsp:root>

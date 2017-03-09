@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:directive.page language="java" isErrorPage="true"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+	
+	<atidmc:errorReport> 
+		<atidmc:transformInfo
+			xsl="${layout.template}xsl/error.xsl">
+			<atidmc:parameter name="locale" value="${layout.locale.language}" />
+			<atidmc:parameter name="errorTitle" value="${resourceBundle['errorTitle']}"/>
+			<atidmc:parameter name="errorHeader" value="${resourceBundle['errorHeader']}"/> 
+			<atidmc:parameter name="errorStatus" value="${resourceBundle['errorStatus']}"/> 			
+			<atidmc:parameter name="errorStackTrace" value="${resourceBundle['errorStackTrace']}"/> 						
+			<atidmc:parameter name="templatePath" value="${layout.template}" />
+		</atidmc:transformInfo>  
+	</atidmc:errorReport>
+	
+</jsp:root>

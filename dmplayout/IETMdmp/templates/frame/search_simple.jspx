@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+	
+	<atidmc:framemanager var="manager" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+
+	<c:set var="locale" value="${layout.locale }"/>
+
+	<atidmc:searchForm>
+		<atidmc:transformInfo xsl="${layout.template}xsl/search.xsl">
+			<atidmc:parameter name="template"
+				value="${resourceBundle['configuration']}" />
+			<atidmc:parameter name="defaultsize" value="35" />		
+			<atidmc:parameter name="constraints">locale:{${layout.tocManager.tocLocale}:}|mimetype:{${layout.defaultMimetype}:${resourceBundle['htmlDoc']}}</atidmc:parameter>
+			<atidmc:parameter name="tabsFrame" value="tabs" />
+			<atidmc:parameter name="viewsFrame" value="viewsFrame" />
+			<atidmc:parameter name="tabToolbarFrame" value="tabToolbarFrame" />			
+			<atidmc:parameter name="tabId" value="${(manager.moduleMap.resultView == null)? 0 : manager.moduleMap.resultView.index}" />
+			<atidmc:parameter name="view" value="${(manager.moduleMap.resultView == null)? '' : manager.moduleMap.resultView.view}" />
+			<atidmc:parameter name="toolbar" value="${(manager.moduleMap.resultView == null)? '' : manager.moduleMap.resultView.toolbar}" />			
+			<atidmc:parameter name="action" value="index.jspx" />
+			<atidmc:parameter name="keywords" value="${param.keywords}" />
+			<atidmc:parameter name="templatePath" value="${layout.template}" />
+			<atidmc:parameter name="altSearchLink" value="index.jspx?task=A_SEARCH" />
+			<atidmc:parameter name="altSearchType" value="${resourceBundle['advanced']}" />
+			<atidmc:parameter name="searchLabel" value="${resourceBundle['search']}" />			
+		</atidmc:transformInfo>
+	</atidmc:searchForm>
+</jsp:root>

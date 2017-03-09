@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
+		doctype-system="" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+
+	<atidmc:layout var="layout" />
+	<html>
+	<head>
+	<title>Digital Media Consumer Searching</title>
+	</head>
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"></link>
+	<body>
+
+	<div id="config">
+	<h1>Digital Media Consumer searching</h1>
+
+	<h2>Search tips</h2>
+
+	<p>You can search the content of text, HTML, and PDF documents that are
+	included with your media image. This document tells you how to create
+	search queries to search the documents on the image.</p>
+
+	<p>To perform a search, Open the Search Page, enter a search query into
+	the <b>Search Words</b> field, and click the <b>Search</b> button. You
+	must enter whole words in the <b>Search Words</b> field. Use the <a
+		href="#wildcard">wildcard characters</a> to indicate partial words.
+	The search engine will stem the words you enter by default, so if you
+	search for "perform," then the search will also return hits
+	containing "performs," "performing," "performance" and so
+	forth. If you enter multiple words, the application only displays
+	documents containing all of those search terms in the search results.
+	You cannot search for the uppercase words AND, OR, and NOT, as they are
+	used to create search queries. Search is case insensitive.</p>
+
+	<p>Once you have performed a search, the results are displayed on the
+	Search Results page. This page contains a list of documents that match
+	your search query with a brief excerpt from each document. The
+	documents are displayed in sets of ten and are listed in order of
+	relevance. To view a document, click on the link to it. The associated
+	document will open in the browser window. For HTML documents, each
+	search term in the document is <a href="#highlight">highlighted</a>.
+	Search terms are not highlighted in PDF documents.</p>
+
+	<p>You can search for the following types of strings:</p>
+
+	<table style="hyphenate: true; " border="1" xmlns="">
+		<colgroup>
+			<col/>
+			<col/>
+		</colgroup>
+		<thead style="hyphenate: true; ">
+			<tr style="hyphenate: true; ">
+				<th style="font-weight: bold; font-family: sans-serif; "
+					valign="top">String type</th>
+				<th style="font-weight: bold; font-family: sans-serif; "
+					valign="top">Example</th>
+			</tr>
+		</thead>
+		<tbody style="hyphenate: true; ">
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">A sequence of digits
+				and letters</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">part-12</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">Internal apostrophes</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">company&#8217;s</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">Abbreviations and
+				acronyms</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">U.S.A., USA</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">Company names</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">Smith&amp;Waite</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">E-mail addresses</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">jsmith@company.com</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">Host names</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">mycompany.com</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">Strings with decimal
+				points, such as floating point numbers, serial numbers, model
+				numbers, or IP addresses, in which every segment must have at least
+				one digit</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">PN244.555.555</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<p>You can perform the following types of searches:</p>
+
+	<table style="hyphenate: true; " border="1" xmlns="">
+		<colgroup>
+			<col/>
+			<col/>
+			<col/>
+		</colgroup>
+		<thead style="hyphenate: true; ">
+			<tr style="hyphenate: true; ">
+				<th style="font-weight: bold; font-family: sans-serif; "
+					valign="top">Types of searches</th>
+				<th style="font-weight: bold; font-family: sans-serif; "
+					valign="top">Example</th>
+				<th style="font-weight: bold; font-family: sans-serif; "
+					valign="top">Results</th>
+			</tr>
+		</thead>
+		<tbody style="hyphenate: true; ">
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">AND</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">car AND engine<br
+					class="empty">car engine</br>
+				</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">
+				<div title="para"
+					style="line-height: 12pt; hyphenate: false; language: en; margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">Returns
+				files that include both car and engine, although not necessarily
+				together.</div>
+				<div title="para"
+					style="line-height: 12pt; hyphenate: false; language: en; margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">You
+				do not have to type the word AND between words, because this field
+				uses AND between words by default.</div>
+				</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">OR</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">car OR engine</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">Returns files that
+				include either car or engine. The files do not need to include both
+				words to match the search query.</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">NOT</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">car NOT engine<br
+					class="empty"/>
+				</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">Returns files that
+				include car, but do not include engine.</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">Nested searches</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">((car OR engine) NOT
+				train)</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">Returns files that
+				include car or engine, but do not include train.</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">Phrases</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">&#8220;car
+				engine&#8221;</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">Returns files that
+				include only an exact match for the phrase car engine. You must
+				enclose phrase searches within quotation marks.</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">* (a <span
+					title="anchor" id="wildcard"></span>wildcard character that
+				represents zero or more characters)</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">part number 12-*</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">
+				<div title="para"
+					style="line-height: 12pt; hyphenate: false; language: en; margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">Returns
+				files that include part numbers that begin with 12-, such as part
+				number 12-344, part number 12&#8211;78884, or part number 12-1.</div>
+				<div title="para"
+					style="line-height: 12pt; hyphenate: false; language: en; margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">The
+				* wildcard cannot be used in the following circumstances:
+				<div title="itemizedlist"
+					style="margin-top: 10pt; margin-bottom: 10pt; ">
+				<table border="0" cellpadding="0"
+					style="margin-top: 6pt; margin-bottom: 6pt; margin-top: .5em; margin-bottom: .5em; "
+					title="listitem">
+					<col style="width: 12.00pt"/>
+					<col style="width:16pt"/>
+					<col/>
+					<tbody>
+						<tr valign="baseline">
+							<td align="right"></td>
+							<td align="left"><span style="">&#8226;</span>&#160;</td>
+							<td><span title="para"
+								style="margin-top: 6pt; margin-bottom: 6pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">As
+							the first character in a search string</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<table border="0" cellpadding="0"
+					style="margin-top: 6pt; margin-bottom: 6pt; margin-top: .5em; margin-bottom: .5em; "
+					title="listitem">
+					<col style="width: 12.00pt"/>
+					<col style="width:16pt"/>
+					<col/>
+					<tbody>
+						<tr valign="baseline">
+							<td align="right"></td>
+							<td align="left"><span style="">&#8226;</span>&#160;</td>
+							<td><span title="para"
+								style="margin-top: 6pt; margin-bottom: 6pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">In
+							phrase searches</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<table border="0" cellpadding="0"
+					style="margin-top: 6pt; margin-bottom: 6pt; margin-top: .5em; margin-bottom: .5em; "
+					title="listitem">
+					<col style="width: 12.00pt"/>
+					<col style="width:16pt"/>
+					<col/>
+					<tbody>
+						<tr valign="baseline">
+							<td align="right"></td>
+							<td align="left"><span style="">&#8226;</span>&#160;</td>
+							<td><span title="para"
+								style="margin-top: 6pt; margin-bottom: 6pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">In
+							the same search as the ? wildcard.</span></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				</div>
+				</td>
+			</tr>
+			<tr style="hyphenate: true; ">
+				<td style="margin-top: 0pt; hyphenate: true; ">? (a wildcard
+				character that represents one character)</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">part number 1?3</td>
+				<td style="margin-top: 0pt; hyphenate: true; ">
+				<div title="para"
+					style="line-height: 12pt; hyphenate: false; language: en; margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">Returns
+				files with part numbers that begin with 1 and end with 3, such as
+				part number 123, part number 113, or part number 103.</div>
+				<div title="para"
+					style="line-height: 12pt; hyphenate: false; language: en; margin-left: 0pt; margin-right: 0pt; text-indent: 0pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">The
+				? wildcard cannot be used in the following circumstances:
+				<div title="itemizedlist"
+					style="margin-top: 10pt; margin-bottom: 10pt; ">
+				<table border="0" cellpadding="0"
+					style="margin-top: 6pt; margin-bottom: 6pt; margin-top: .5em; margin-bottom: .5em; "
+					title="listitem">
+					<col style="width: 12.00pt"/>
+					<col style="width:16pt"/>
+					<col/>
+					<tbody>
+						<tr valign="baseline">
+							<td align="right"></td>
+							<td align="left"><span style="">&#8226;</span>&#160;</td>
+							<td><span title="para"
+								style="margin-top: 6pt; margin-bottom: 6pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">As
+							the first or last character in a search string</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<table border="0" cellpadding="0"
+					style="margin-top: 6pt; margin-bottom: 6pt; margin-top: .5em; margin-bottom: .5em; "
+					title="listitem">
+					<col style="width: 12.00pt"/>
+					<col style="width:16pt"/>
+					<col/>
+					<tbody>
+						<tr valign="baseline">
+							<td align="right"></td>
+							<td align="left"><span style="">&#8226;</span>&#160;</td>
+							<td><span title="para"
+								style="margin-top: 6pt; margin-bottom: 6pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">In
+							phrase searches</span></td>
+						</tr>
+					</tbody>
+				</table>
+				<table border="0" cellpadding="0"
+					style="margin-top: 6pt; margin-bottom: 6pt; margin-top: .5em; margin-bottom: .5em; "
+					title="listitem">
+					<col style="width: 12.00pt"/>
+					<col style="width:16pt"/>
+					<col/>
+					<tbody>
+						<tr valign="baseline">
+							<td align="right"></td>
+							<td align="left"><span style="">&#8226;</span>&#160;</td>
+							<td><span title="para"
+								style="margin-top: 6pt; margin-bottom: 6pt; hyphenate: true; line-height: 1.1; margin-top: .5em; margin-bottom: .5em; ">In
+							the same search as the * wildcard.</span></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2 id="highlight">Search term highlighting</h2>
+
+	<p>Terms you enter in the Digital Media Consumer <b>Search Words</b>
+	field are highlighted in HTML documents displayed from the results
+	page. If you enter multiple search terms, each term is highlighted in a
+	different color. The application supports highlighting for up to ten
+	search terms.</p>
+
+	<p>You can navigate through the document using the highlighted search
+	terms. To navigate forwards through the search terms, either click on a
+	term or press the Tab key. To navigate backwards through the search
+	terms, either hold down the Ctrl key and click on the term or press the
+	Shift+Tab keys.</p>
+	
+      <p></p>
+      <h2 id="rsvp">RSVP</h2>
+      <p>The "RSVP" button opens the Customer Feedback Sheet (RSVP Form) 
+        available on Pratt &amp; Whitney Canada's website in a separate 
+        browser window. Information about your current location in the IETM (Document, IPC Figure, etc.) are automatically filled in when this form opens. Information obtained from your login ID will automatically be filled in where applicable on the form.
+      </p>
+      <h2 id="Spotlight">Spotlight</h2>
+      <p>Click on the Spotlight button access the Spotlight web site. This site will reveal troubleshooting information for the subject you
+        are viewing. If you are using the ITEM application on the P&amp;WC 
+        web site, some of the submission information will be filled in for you.</p>
+      <h2 id="SearchMySubscriptions">Search My Subsciptions</h2>
+      <p>Click on the "Search My Subscriptions" button to bring up a separate
+        browser window that will allow you to perform searching across all of your subscriptions.</p>
+      <h2 id="ShowHideTables">Showing Tables</h2>
+      <p>Tables are not shown by default. However, each table contains a link that may be clicked, which will expand the document
+        to include the table. Clicking the link again will hide the table.</p>
+      <h2 id="ListOfFigures">List of Figures</h2>
+      <p>Any pageblock that is capable of showing figures may have a link in the navigation window for "Key To Figures".
+        Clicking on the link will reveal a list of Figures will show the first occurance of the figure in the pageblock in the content frame.</p>
+      <h2 id="ListOfTables">List of Tables</h2>
+      <p>Any pageblock that is capable of showing tables may have a link in the navigation window for "Key To Tables".
+        Clicking on the link will reveal a list of tables that the user can instantly refer to in the context of the content frame.</p>
+      <h2 id="DisplayOfFigures">Display of Figures</h2>
+      <p>Figures are not display inline to page block test. Clicking on a link to a figure
+        will show a new browser window with all the graphics that belong to the figure. More than one figure window may be open at any time.</p>
+      <h2 id="PrintingFigures">Printing of Figures</h2>
+      <p>Figures may be printed by clicking on the Print button at the bottom of the Figure window. The Key to figures will be printed weather it is expanded or now.</p>
+      <h2 id="KeyToFigures">Key To Figures</h2>
+      <p>The Key to Figures button, which resembles a key, will open up the legend of the diagram. By default, it is not expanded.</p>
+    </div>
+	</body>
+	</html>
+</jsp:root>

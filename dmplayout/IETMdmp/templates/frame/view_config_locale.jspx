@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+
+	<atidmc:layout var="layout" />
+
+	<atidmc:config var="template" javaClass="${layout.beans['LOCALE']}" />
+
+
+	<fmt:setLocale value="${layout.locale}" />
+
+	<html>
+	<head>
+	<title>${layout.resourceBundle['layoutTitle']}</title>
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"><!--  --></link>
+	</head>
+	<body>
+	<div id="config"><!-- layout and language settings --> <!-- 
+			default locale setting
+				a. use user client locale 
+				b. use user specified locale (stored in cookie and user dependent)
+				c. use default locale set in config file (same locale for all users)
+				   [this option only matters for web server install, 
+				   it is the same as (b) for a single user install]
+	--> <c:if test="${template.readable}">
+		<h1>${layout.resourceBundle['layoutTitle']}</h1>
+		<c:choose>
+			<c:when test="${!template.defined}">
+				<p><font color="red"> ${template.errorMessage} </font></p>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${!template.valid}">
+					<p><font color="red">
+					${layout.resourceBundle['errorInInput']} </font></p>
+					<br />
+					<font color="red"> ${layout.resourceBundle['errorMessage']}:
+					${template.errorMessage} </font>
+					<br />
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+
+		<form method="post" action="index.jspx"
+			accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+		<ul>
+			<c:choose>
+				<c:when test="${template.writable}">
+					<li class="configRow"><span class="configHeader">${layout.resourceBundle['localePreference']}</span></li>
+					<li class="configRow">
+					<input type="hidden" name="config" value="LOCALE"/>
+					<input type="hidden" name="task" value="VALIDATE"/>					
+					<c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.REQUEST}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true"
+								value="${template.localePreferences.REQUEST}">${layout.resourceBundle['requestLocale']}</input></span>
+
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference"
+								value="${template.localePreferences.REQUEST}">${layout.resourceBundle['requestLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"><c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.USER_CLIENT}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true"
+								value="${template.localePreferences.USER_CLIENT}">${layout.resourceBundle['clientLocale']}</input></span>
+
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference"
+								value="${template.localePreferences.USER_CLIENT}">${layout.resourceBundle['clientLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"><c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.FIXED}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true"
+								value="${template.localePreferences.FIXED}">${layout.resourceBundle['fixedLocale']}</input></span>
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference"
+								value="${template.localePreferences.FIXED}">${layout.resourceBundle['fixedLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					<br />
+					<li class="configRow"><span class="configHeader">${layout.resourceBundle['defaultLocale']}</span></li>
+
+					<li class="configRow"><span class="configField"><select
+						name="locale">
+						<c:forEach var="item" items="${layout.availableLocales}">
+							<li class="configRow"><span class="configField"><c:choose>
+								<c:when test="${template.locale == item }">
+									<option value="${item}" selected="selected">${layout.modules['localeSelection'].parameters[item]}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${item}">${layout.modules['localeSelection'].parameters[item]}</option>
+								</c:otherwise>
+							</c:choose></span></li>
+						</c:forEach>
+					</select></span></li>
+
+					<ul>
+						<li class="configRow"><input type="checkbox"
+							name="rememberSettings" value="true">${layout.resourceBundle['rememberSettings']}</input></li>
+					</ul>
+					<br />
+					<li class="configRow"><input type="submit"
+						value="${layout.resourceBundle['submit']}" /></li>
+				</c:when>
+				<c:otherwise>
+					<li><span class="configHeader">${layout.resourceBundle['localePreference']}</span>
+					</li>
+
+					<li class="configRow"><c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.REQUEST}">
+							<span class="configField"> <input type="radio"
+								name="localePreference" checked="true" disabled="true"
+								value="${template.localePreferences.REQUEST}">${layout.resourceBundle['requestLocale']}</input></span>
+
+						</c:when>
+						<c:otherwise>
+							<span class="configField"> <input type="radio"
+								name="localePreference" disabled="true"
+								value="${template.localePreferences.REQUEST}">${layout.resourceBundle['requestLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"><c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.USER_CLIENT}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true" disabled="true"
+								value="${template.localePreferences.USER_CLIENT}">${layout.resourceBundle['clientLocale']}</input></span>
+
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference" disabled="true"
+								value="${template.localePreferences.USER_CLIENT}">${layout.resourceBundle['clientLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"><c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.FIXED}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true" disabled="true"
+								value="${template.localePreferences.FIXED}">${layout.resourceBundle['fixedLocale']}</input></span>
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference" disabled="true"
+								value="${template.localePreferences.FIXED}">${layout.resourceBundle['fixedLocale']}</input></span>
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"><span class="configHeader">${layout.resourceBundle['defaultLocale']}</span>
+					</li>
+					<li class="configRow"><span class="configField"><select
+						name="locale" disabled="true">
+						<c:forEach var="item" items="${layout.availableLocales}">
+							<li class="configRow"><span class="configField"><c:choose>
+								<c:when test="${template.locale == item }">
+									<option value="${item}" selected="selected">${layout.modules['localeSelection'].parameters[item]}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${item}">${layout.modules['localeSelection'].parameters[item]}</option>
+								</c:otherwise>
+							</c:choose></span></li>
+						</c:forEach>
+					</select></span></li>
+					<br />
+				</c:otherwise>
+			</c:choose>
+		</ul>
+		</form>
+	</c:if></div>
+	<div id="footer"></div>
+	</body>
+	</html>
+
+</jsp:root>

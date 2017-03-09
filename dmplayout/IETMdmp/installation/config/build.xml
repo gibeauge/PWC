@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project default="install">
+
+	<taskdef name="setpreferences" classname="com.arbortext.dmc.util.SetPreferencesTask"/>
+	<taskdef name="unsetpreferences" classname="com.arbortext.dmc.util.UnsetPreferencesTask"/>
+	<taskdef name="volumelocation" classname="com.arbortext.dmc.util.VolumeLocationTask"/>		
+	<taskdef name="serialnumber" classname="com.arbortext.dmc.util.SetSerialNumberTask"/>		
+	
+    <target name="install">
+        <echo>installation going on ...</echo>
+		<setpreferences companyName="${companyName}"
+	                    projectName="${projectName}" 
+						projectId="${projectId}" 
+						installationPath="${installLocation}" 
+						version="${version}" 
+						appName="${appName}"/>
+
+    </target>
+
+	<target name="serialnumber">
+	   <echo>settting serial no ...</echo>
+	   <serialnumber installationPath="${installLocation}" serialNumber="${serialNo}"/>
+	</target>
+	
+	
+	<target name="volume">
+	   <echo>settting volume info ...</echo>
+	   <volumelocation installationPath="${installLocation}" 
+                           installationMode = "${installationMode}"/>
+	</target>
+
+  	<target name="hpux-jreavailable">
+  		<echo>check if jre is installed</echo>
+		<available file="${installLocation}/jre/hpux/jre/bin"
+  		property="hpux.jre.installed"/>
+	</target>
+	
+	<target name="chmod-hpux" depends="hpux-jreavailable" if="hpux.jre.installed">
+        <echo>change executable file attribute ...</echo>
+    	<chmod perm="a+x">
+    		<fileset dir="${installLocation}">
+    			<include name="jre/hpux/jre/bin/**"/>
+    			<include name="jre/hpux/jre/lib/**/*.sl"/>
+    			<include name="jre/hpux/jre/lib/**/*.so"/>
+    			<include name="$appName"/>
+    			<include name="uninstall"/>
+    		</fileset>
+    	</chmod>
+		<chmod perm="o+w">
+		    	<fileset dir="${installLocation}/project"/>
+		</chmod>
+    </target>
+
+	
+  	<target name="linux-jreavailable">
+  		<echo>check if jre is installed</echo>
+		<available file="${installLocation}/jre/linux/jre/bin"
+  		property="linux.jre.installed"/>
+	</target>
+	
+	<target name="chmod-linux" depends="linux-jreavailable" if="linux.jre.installed">
+        <echo>change executable file attribute ...</echo>
+    	<chmod perm="a+x">
+    		<fileset dir="${installLocation}">
+    			<include name="jre/linux/jre/bin/java"/>
+    			<include name="jre/linux/jre/bin/java_vm"/>
+    			<include name="$appName"/>
+    			<include name="uninstall"/>
+    		</fileset>
+    	</chmod>
+		<chmod perm="o+w">
+		    	<fileset dir="${installLocation}/project"/>
+		</chmod>
+	</target>
+		
+  	<target name="solaris-jreavailable">
+  		<echo>check if jre is installed</echo>
+		<available file="${installLocation}/jre/solaris/jre/bin"
+  		property="solaris.jre.installed"/>
+	</target>
+	
+	<target name="chmod-solaris" depends="solaris-jreavailable" if="solaris.jre.installed">
+        <echo>change executable file attribute ...</echo>
+    	<chmod perm="a+x">
+    		<fileset dir="${installLocation}">
+    			<include name="jre/solaris/jre/bin/java"/>
+    			<include name="$appName"/>
+    			<include name="uninstall"/>
+    		</fileset>
+    	</chmod>
+		<chmod perm="o+w">
+		    	<fileset dir="${installLocation}/project"/>
+		</chmod>
+    </target>	
+	
+	
+	
+	
+    <target name="uninstall">
+        <echo>uninstallation going on ...</echo>
+    	<unsetpreferences installationPath="${installLocation}" />
+    </target>
+
+
+</project>

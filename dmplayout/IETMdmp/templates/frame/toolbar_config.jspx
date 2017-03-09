@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+	
+	<html>
+	<head>
+	<title>${resourceBundle['configTitle']}</title>
+
+	<link rel="stylesheet" type="text/css"
+		href="${layout.template}css/dmc.css" media="all"><!-- 
+		 --></link>
+	<script language="JavaScript"
+		src="${layout.template}javascript/utils.js">
+	<![CDATA[
+					// leave some space, so that the serializer won't collapse element
+					// which could cause browser to mis-behave
+			]]></script>
+	<script language="JavaScript"
+		src="${layout.template}javascript/tab.js">
+	<![CDATA[
+					// leave some space, so that the serializer won't collapse element
+					// which could cause browser to mis-behave
+			]]></script>
+	</head>
+	<body class="tabToolBarBody">
+	<table height="20" align="right">
+		<tr>
+			<td align="right">
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<!-- 
+					<td align="middle" class="button" height="18"><a> <img
+						src="${layout.template}images/bookmark.gif"
+						alt="${resourceBundle['configProjectInfo']}"
+						title="${resourceBundle['configProjectInfo']}" border="0"
+						id="config_project" /></a></td> 
+					-->
+					<td align="middle" class="button" height="18"><div
+						alt="${resourceBundle['configureHighlightTitle']}"
+						title="${resourceBundle['configureHighlightTitle']}"
+						onclick="showPage('CONFIG', 'CONFIG_HIGHLIGHT')"
+						border="0" id="toolbar_config_highlight" class="button_toolbar_config_highlight_off"/></td>
+					<c:if test="${layout.hasProfile}">	
+					<td align="middle" class="button" height="18"><div
+						alt="${resourceBundle['configureProfile']}"
+						onclick="showPage('CONFIG', 'CONFIG_PROFILE')"
+						title="${resourceBundle['configureProfile']}" border="0" id="toolbar_config_profile" class="button_toolbar_config_profile_on"/></td>
+					</c:if>
+					<c:if test="${layout.updateConfigurable }">
+					<td align="middle" class="button" height="18"><div
+						alt="${resourceBundle['configUpdate']}"
+						onclick="showPage('CONFIG', 'CONFIG_UPDATE')"
+						title="${resourceBundle['configUpdate']}" border="0" id="toolbar_config_update" class="button_toolbar_config_update_on"/></td>
+					</c:if>	
+					<c:if test="${layout.availableLocales[1] != null}"> <!-- more than one lang -->
+					<td align="middle" class="button" height="18"><div
+						alt="${resourceBundle['locale']}"
+						onclick="showPage('CONFIG', 'CONFIG_WEB_LOCALE')"
+						title="${resourceBundle['locale']}" border="0" id="toolbar_config_locale" class="button_toolbar_config_locale_on"/></td>
+					</c:if>	
+					<!-- 
+					<td align="middle" class="button" height="18"><a> <img
+						src="${layout.template}images/reload.gif"
+						alt="${resourceBundle['configVolume']}"
+						title="${resourceBundle['configVolume']}" border="0" id="" /></a></td>
+					-->	
+				</tr>
+			</table>
+			</td>
+		</tr>
+	</table>
+	</body>
+	</html>
+</jsp:root>

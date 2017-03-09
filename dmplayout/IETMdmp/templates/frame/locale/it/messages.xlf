@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd">
+	<file category="resourceBundle" datatype="cstring"
+		original="LocalStrings.properties" source-language="en-US"
+		target-language="en-US" xml:space="default">
+		<header>
+			<note>
+				The translation used for DMP Consumer User Interface
+				(FRAME LAYOUT) ********* %xxxxx% represents variable
+				name and should not be translated
+			</note>
+		</header>
+		<body>
+			<group resname="DMP Consumer" restype="file">
+
+				<!-- index.jspx -->
+				<trans-unit id="mainTitle">
+					<source>%projectName%</source>
+					<target>%projectName%</target>
+				</trans-unit>
+
+				<!-- banner.jspx -->
+				<trans-unit id="bannerTitle">
+					<source>Banner</source>
+					<target>Banner</target>
+				</trans-unit>
+
+				<trans-unit id="helpCenter">
+					<source>Help Center</source>
+					<target>Help Center</target>
+				</trans-unit>
+
+				<trans-unit id="linkToUrl">
+					<source>link to this page</source>
+					<target>collegamento a questa pagina</target>
+				</trans-unit>
+				
+				<trans-unit id="linkToUrlDescription">
+					<source>Change URL address to a format suitable for a bookmark.</source>
+					<target>Modifica il formato dell'URL per renderlo adatto ai segnalibri.</target>
+				</trans-unit>				
+				<!-- embed.jspx -->
+				<trans-unit id="embeddedPDFNotSupported">
+					<source>
+						Your browser does not support embedded PDF
+						files.
+					</source>
+					<target>Il browser in uso non supporta file PDF incorporati.</target>
+				</trans-unit>
+
+
+				<!-- error.jspx -->
+				<trans-unit id="errorTitle">
+					<source>Error in the Page</source>
+					<target>Errore nella pagina</target>
+				</trans-unit>
+				<trans-unit id="errorHeader">
+					<source>
+						The page you requested contains an error and
+						cannot be displayed.
+					</source>
+					<target>La pagina richiesta contiene un errore e non può essere visualizzata.</target>
+				</trans-unit>
+				<trans-unit id="errorStatus">
+					<source>Error Status:</source>
+					<target>Stato errore:</target>
+				</trans-unit>
+				<trans-unit id="errorStackTrace">
+					<source>Error Stack Trace</source>
+					<target>Traccia errore stack</target>
+				</trans-unit>
+
+				<!-- form_annotation.jspx -->
+				<trans-unit id="annotationFormTitle">
+					<source>Comment</source>
+					<target>Commento</target>
+				</trans-unit>
+				<trans-unit id="submitAnnotation">
+					<source>Save</source>
+					<target>Salva</target>
+				</trans-unit>
+				<trans-unit id="resetAnnotation">
+					<source>Reset</source>
+					<target>Reimposta</target>
+				</trans-unit>
+				<trans-unit id="clearAnnotation">
+					<source>Clear</source>
+					<target>Cancella</target>
+				</trans-unit>
+
+				<!-- form_volume.jspx -->
+				<trans-unit id="volumeRedirectTitle">
+					<source>Media Location Not Found</source>
+					<target>Posizione supporto non trovata</target>
+				</trans-unit>
+				<trans-unit id="mediaNotFound">
+					<source>
+						The media containing the page you are requesting
+						cannot be found.
+					</source>
+					<target>Impossibile trovare il supporto contenente la pagina richiesta.</target>
+				</trans-unit>
+				<trans-unit id="mediaInsertOrRelocate">
+					<source>
+						If it is on a removable media, insert it now and
+						retry. If the media location is changed, specify
+						its new location.
+					</source>
+					<target>Se la pagina è su un supporto removibile, inserirlo e ritentare. Se la posizione del supporto è cambiata, specificare la nuova posizione.</target>
+				</trans-unit>
+
+				<trans-unit id="mediaNotFoundAndReadOnly">
+					<source>
+						You must install %projectName% to access content in another volume.
+					</source>
+					<target>È necessario installare %projectName% per accedere al contenuto in un altro volume.</target>
+				</trans-unit>
+
+				<trans-unit id="mediaRetry">
+					<source>Try Again</source>
+					<target>Riprovare</target>
+				</trans-unit>
+				<trans-unit id="mediaNewLocation">
+					<source>
+						Specify a new location and try again.
+					</source>
+					<target>Specificare una nuova posizione e riprovare.</target>
+				</trans-unit>
+				<trans-unit id="mediaLocation">
+					<source>
+						Disk Location: (for example e:\ /mnt/cdrom)
+					</source>
+					<target>Posizione disco (ad esempio e:\ /mnt/cdrom):</target>
+				</trans-unit>
+				<trans-unit id="mediaTryAgainButton">
+					<source>Try Again</source>
+					<target>Riprovare</target>
+				</trans-unit>
+				<trans-unit id="mediaResetButton">
+					<source>Reset</source>
+					<target>Reimposta</target>
+				</trans-unit>
+				<trans-unit id="volumeInfo">
+					<source>Volume Information:</source>
+					<target>Informazioni volume:</target>
+				</trans-unit>
+				<!-- frame_content.jspx -->
+
+				<trans-unit id="contentFrameset">
+					<source>Content</source>
+					<target>Contenuto</target>
+				</trans-unit>
+
+				<!-- frame_main.jspx -->
+				<trans-unit id="mainFrameset">
+					<source>%projectName% Main Frameset</source>
+					<target>Frameset principale di %projectName%</target>
+				</trans-unit>
+
+				<!-- frame_nav.jspx -->
+				<trans-unit id="navigation">
+					<source>Navigation Frameset</source>
+					<target>Frameset di navigazione</target>
+				</trans-unit>
+
+				<!-- frame_tabs.jspx -->
+				<trans-unit id="tabs">
+					<source>Navigation Tabs Frameset</source>
+					<target>Frameset schede di navigazione</target>
+				</trans-unit>
+
+				<!-- frame_views.jspx -->
+				<trans-unit id="frameViews">
+					<source>
+						Frameset for Different Functional Area
+					</source>
+					<target>Frameset per area funzionale differente</target>
+				</trans-unit>
+
+
+
+				<!-- info_succeed.jspx -->
+				<trans-unit id="configurationSaved">
+					<source>Configuration Saved Successfully</source>
+					<target>La configurazione è stata salvata</target>
+				</trans-unit>
+				<trans-unit id="continue">
+					<source>Continue</source>
+					<target>Continua</target>
+				</trans-unit>
+
+				<!-- search_xxx.jspx -->
+				<trans-unit id="simple">
+					<source>Simple</source>
+					<target>Semplice</target>
+				</trans-unit>
+				<trans-unit id="advanced">
+					<source>Advanced</source>
+					<target>Avanzata</target>
+				</trans-unit>
+				<trans-unit id="targetSearch">
+					<source>Target Search To:</source>
+					<target>Concentra la ricerca su:</target>
+				</trans-unit>
+				<trans-unit id="entireDoc">
+					<source>Entire Document</source>
+					<target>Intero documento</target>
+				</trans-unit>
+				<trans-unit id="docHeader">
+					<source>Document Headers</source>
+					<target>Intestazioni documento</target>
+				</trans-unit>
+				<trans-unit id="primaryHeader">
+					<source>Primary Headers</source>
+					<target>Intestazioni principali</target>
+				</trans-unit>
+				<trans-unit id="secondaryHeader">
+					<source>Secondary Headers</source>
+					<target>Intestazioni secondarie</target>
+				</trans-unit>
+				<trans-unit id="tertiaryHeader">
+					<source>Tertiary Headers</source>
+					<target>Intestazioni di terzo livello</target>
+				</trans-unit>				
+				<trans-unit id="documentType">
+					<source>Document Type:</source>
+					<target>Tipo di documento:</target>
+				</trans-unit>
+				<trans-unit id="allDoc">
+					<source>All Documents</source>
+					<target>Tutti i documenti</target>
+				</trans-unit>
+				<trans-unit id="htmlDoc">
+					<source>HTML documents</source>
+					<target>Documenti HTML</target>
+				</trans-unit>
+				<trans-unit id="pdfDoc">
+					<source>PDF documents</source>
+					<target>Documenti PDF</target>
+				</trans-unit>
+				<trans-unit id="allitems">
+					<source>All Items</source>
+					<target>Tutti gli elementi</target>
+				</trans-unit>
+				<trans-unit id="locale">
+					<source>Language</source>
+					<target>Lingua</target>
+				</trans-unit>
+				<trans-unit id="noResults">
+					<source>No Results Found</source>
+					<target>Nessun risultato</target>
+				</trans-unit>
+				<trans-unit id="displaySearchResults">
+					<source>{0} - {1} of total {2} search results</source>
+					<target>{0} - {1} di {2} risultati della ricerca</target>
+				</trans-unit>
+
+				<!--  status_error -->
+
+				<trans-unit id="cantAccessContent">
+					<source>Unable to Access Content</source>
+					<target>Impossibile accedere al contenuto</target>
+				</trans-unit>
+
+				<trans-unit id="invalidLicense">
+					<source>Your License is not Valid</source>
+					<target>La licenza non è valida</target>
+				</trans-unit>
+
+				<trans-unit id="cannotVerifyLicense">
+					<source>Unrecognized Serial Number</source>
+					<target>Numero di serie non riconosciuto</target>
+				</trans-unit>
+
+				<trans-unit id="serialNumberInvalid">
+					<source>
+						You may have entered your serial number
+						incorrectly or the license file has been
+						corrupted. Contact %supportContactInfo% for
+						support.
+					</source>
+					<target>È possibile che il numero di serie non sia stato immesso correttamente o che il file di licenza sia danneggiato. Contattare %supportContactInfo% per informazioni.</target>
+				</trans-unit>
+
+				<trans-unit id="pleaseEnterSerialNumber">
+					<source>
+						If you have a serial number, enter it now.
+					</source>
+					<target>Se si dispone di un numero di serie, immetterlo.</target>
+				</trans-unit>
+
+				<trans-unit id="enterSerialNumber">
+					<source>Serial Number</source>
+					<target>Numero di serie</target>
+				</trans-unit>
+
+				<trans-unit id="requireInstall">
+					<source>This Application must be Installed</source>
+					<target>È necessario installare l'applicazione</target>
+				</trans-unit>
+
+				<trans-unit id="askToRunSetup">
+					<source>
+						This application has not been installed. Run the setup
+						program and enter your serial number.
+					</source>
+					<target>L'applicazione non è stata installata. Eseguire il programma di installazione e immettere il numero di serie.</target>
+				</trans-unit>
+
+				<trans-unit id="licenseExpired">
+					<source>Content Has Expired</source>
+					<target>Il contenuto è scaduto</target>
+				</trans-unit>
+
+				<trans-unit id="expirationDate">
+					<source>Expiration Date:</source>
+					<target>Data di scadenza:</target>
+				</trans-unit>
+				
+				<trans-unit id="askToRenew">
+					<source>
+						The content has expired and you can no longer
+						access the content in this file. Contact
+						%supportContactInfo% to extend the license or
+						obtain a new copy.
+					</source>
+					<target>Il contenuto è scaduto, di conseguenza non è più possibile accedere al contenuto del file corrente. Contattare %supportContactInfo% per prolungare la licenza o ottenere una nuova copia.</target>
+				</trans-unit>
+
+				<trans-unit id="noAvailableLicense">
+					<source>No More Sessions Avaliable</source>
+					<target>Nessuna sessione disponibile</target>
+				</trans-unit>
+
+				<trans-unit id="askToWait">
+					<source>
+						The maximum number of users are
+						accessing the content. Please wait and try again later.
+						Contact %supportContactInfo% for more
+						information.
+					</source>
+					<target>È stato raggiunto il numero massimo consentito di utenti che possono accedere simultaneamente al contenuto. Riprovare in un secondo momento. Contattare %supportContactInfo% per ulteriori informazioni.</target>
+				</trans-unit>
+
+				<trans-unit id="unknownLicenseError">
+					<source>Unknown License Error</source>
+					<target>Errore di licenza sconosciuto</target>
+				</trans-unit>
+
+				<trans-unit id="contactVendor">
+					<source>
+						Contact %supportContactInfo% for support.
+					</source>
+					<target>Contattare %supportContactInfo% per assistenza.</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFound">
+					<source>Page Not Found</source>
+					<target>Pagina non trovata</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFoundDescription">
+					<source>
+						The page you were trying to access does not
+						exist.
+					</source>
+					<target>La pagina a cui si è cercato di accedere non esiste</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailable">
+					<source>Page Not Available</source>
+					<target>Pagina non disponibile</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailableDescription">
+					<source>
+						The page you were trying to access is not
+						available for the current user profile.
+					</source>
+					<target>La pagina a cui si è cercato di accedere non è disponibile per il profilo utente corrente.</target>
+				</trans-unit>
+
+				<trans-unit id="requestPage">
+					<source>The page you were requesting:</source>
+					<target>La pagina richiesta:</target>
+				</trans-unit>
+
+				<!-- tabs.jspx -->
+				<trans-unit id="navigationTabs">
+					<source>Tabs</source>
+					<target>Schede</target>
+				</trans-unit>
+				<trans-unit id="tableOfContent">
+					<source>Table of Contents</source>
+					<target>Sommario</target>
+				</trans-unit>
+
+				<trans-unit id="search">
+					<source>Search</source>
+					<target>Cerca</target>
+				</trans-unit>
+
+				<trans-unit id="indexterms">
+					<source>Index Terms</source>
+					<target>Termini di indice</target>
+				</trans-unit>
+
+				<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>Segnalibro</target>
+				</trans-unit>
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>Configurazione</target>
+				</trans-unit>
+				<trans-unit id="language">
+					<source>Language</source>
+					<target>Lingua</target>
+				</trans-unit>
+
+				<!-- toolbar_bookmark.jspx -->
+				<trans-unit id="toolbarBookmark">
+					<source>Bookmark Toolbar</source>
+					<target>Barra degli strumenti Segnalibri</target>
+				</trans-unit>
+				<trans-unit id="deleteSelectedBookmark">
+					<source>Delete Selected Bookmark</source>
+					<target>Elimina segnalibro selezionato</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarks">
+					<source>Delete All Bookmarks</source>
+					<target>Elimina tutti i segnalibri</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarksConfirm">
+					<source>
+						Are you sure you want to delete all bookmarks?
+					</source>
+					<target>Eliminare tutti i segnalibri?</target>
+				</trans-unit>
+				<trans-unit id="noBookmarkSelected">
+					<source>No bookmark is selected.</source>
+					<target>Nessun segnalibro selezionato.</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="toolbarConfig">
+					<source>Configuration Toolbar</source>
+					<target>Barra degli strumenti Configurazione</target>
+				</trans-unit>
+				<trans-unit id="configLocaleAndLayout">
+					<source>
+						Configure Locale and Layout Settings
+					</source>
+					<target>Configura le impostazioni internazionali e di layout</target>
+				</trans-unit>
+				<trans-unit id="configUpdate">
+					<source>Configure Update Preferences</source>
+					<target>Configura le preferenze di aggiornamento</target>
+				</trans-unit>
+
+				<!-- toolbar_main.jspx -->
+				<trans-unit id="toolbarMain">
+					<source>Main Toolbar</source>
+					<target>Barra degli strumenti principale</target>
+				</trans-unit>
+				<trans-unit id="goBack">
+					<source>Go Back</source>
+					<target>Torna indietro</target>
+				</trans-unit>
+				<trans-unit id="goForward">
+					<source>Go Forward</source>
+					<target>Va avanti</target>
+				</trans-unit>
+				<trans-unit id="previousTopic">
+					<source>Previous Topic</source>
+					<target>Argomento precedente</target>
+				</trans-unit>
+				<trans-unit id="nextTopic">
+					<source>Next Topic</source>
+					<target>Argomento successivo</target>
+				</trans-unit>
+				<trans-unit id="synchronize">
+					<source>Show in Table of Contents</source>
+					<target>Mostra nel sommario</target>
+				</trans-unit>
+				<trans-unit id="bookmarkThisPage">
+					<source>Bookmark This Page</source>
+					<target>Crea un segnalibro per questa pagina</target>
+				</trans-unit>
+				<trans-unit id="addAnnotation">
+					<source>Add Comment</source>
+					<target>Aggiungi commento</target>
+				</trans-unit>
+				<trans-unit id="print">
+					<source>Print</source>
+					<target>Stampa</target>
+				</trans-unit>
+				<trans-unit id="reload">
+					<source>Reload</source>
+					<target>Ricarica</target>
+				</trans-unit>
+				<trans-unit id="toggleNavPane">
+					<source>Toggle Navigation Panel</source>
+					<target>Visualizza/nascondi pannello di navigazione</target>
+				</trans-unit>
+				
+				<!-- toolbar_result.jspx -->
+				<trans-unit id="toolbarResult">
+					<source>Search Result Toolbar</source>
+					<target>Barra degli strumenti Risultati della ricerca</target>
+				</trans-unit>
+
+				<trans-unit id="sortedBy">
+					<source>Sorted by:</source>
+					<target>Ordina per:</target>
+				</trans-unit>
+
+				<trans-unit id="relavance">
+					<source>Relevance</source>
+					<target>Rilevanza</target>
+				</trans-unit>
+
+				<trans-unit id="toc">
+					<source>Table of Contents</source>
+					<target>Sommario</target>
+				</trans-unit>
+
+				<!-- toolbar_toc.jspx -->
+				<trans-unit id="toolbarToc">
+					<source>Table of Content Toolbar</source>
+					<target>Barra degli strumenti Sommario</target>
+				</trans-unit>
+				<trans-unit id="expandAll">
+					<source>Expand All Topics</source>
+					<target>Espandi tutti gli argomenti</target>
+				</trans-unit>
+				<trans-unit id="collapseAll">
+					<source>Collapse All Topics</source>
+					<target>Comprimi tutti gli argomenti</target>
+				</trans-unit>
+
+				<trans-unit id="arbortextEditorHelp">
+					<source>Arbortext Editor Help</source>
+					<target>Guida in linea di Arbortext Editor</target>
+				</trans-unit>
+
+				<trans-unit id="pdfManuals">
+					<source>PDF Manuals</source>
+					<target>Manuali PDF</target>
+				</trans-unit>
+
+				<!-- toolbar_index_term.jspx -->
+				<trans-unit id="toolbarIndexTerm">
+					<source>Index Term Toolbar</source>
+					<target>Barra degli strumenti Termine di indice</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="configTitle">
+					<source>Configuration Toolbar</source>
+					<target>Barra degli strumenti Configurazione</target>
+				</trans-unit>
+
+				<!-- validate.jspx -->
+
+
+				<!-- view_bookmark.jspx -->
+				<!--  defined in tabs.jspx
+					<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>Bookmark</target>
+					</trans-unit>
+				-->
+
+				<!-- view_config_locale.jspx -->
+				<trans-unit id="layoutTitle">
+					<source>Configure Layout Information</source>
+					<target>Configura le informazioni di layout</target>
+				</trans-unit>
+				<trans-unit id="errorInInput">
+					<source>
+						The specified values contain errors. Correct the
+						items marked with asterisks (*).
+					</source>
+					<target>I valori specificati contengono errori. Correggere gli elementi contrassegnati da un asterisco (*).</target>
+				</trans-unit>
+
+				<trans-unit id="errorMessage">
+					<source>Error Message</source>
+					<target>Messaggio di errore</target>
+				</trans-unit>
+				<trans-unit id="defaultLocale">
+					<source>Default Locale</source>
+					<target>Lingua di default</target>
+				</trans-unit>
+
+				<trans-unit id="clientLocale">
+					<source>
+						Use this locale for the current user only.
+					</source>
+					<target>Utilizza questa lingua per il solo utente corrente.</target>
+				</trans-unit>
+				<trans-unit id="localePreference">
+					<source>Profile Settings</source>
+					<target>Impostazioni profilo</target>
+				</trans-unit>
+				<trans-unit id="requestLocale">
+					<source>Base on user platform locale.</source>
+					<target>Basa sulle impostazioni internazionali della piattaforma utente.</target>
+				</trans-unit>
+				<trans-unit id="fixedLocale">
+					<source>Use this locale globally.</source>
+					<target>Utilizza questa lingua globalmente.</target>
+				</trans-unit>
+				<trans-unit id="searchKeywordHighlight">
+					<source>Highlight Search Terms</source>
+					<target>Evidenzia termini di ricerca</target>
+				</trans-unit>
+				<trans-unit id="highlightandCreatelink">
+					<source>Highlight and Create Link</source>
+					<target>Evidenzia e crea link</target>
+				</trans-unit>
+				<trans-unit id="highlightOnly">
+					<source>Highlight Only</source>
+					<target>Evidenzia solamente</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>Evidenzia argomenti aggiornati</target>
+				</trans-unit>
+				
+				<!-- view_config_update.jspx -->
+				<trans-unit id="updateTitle">
+					<source>Configure Update Properties</source>
+					<target>Configura proprietà di aggiornamento</target>
+				</trans-unit>
+				<trans-unit id="updateFromRemoteUrl">
+					<source>Remote URL</source>
+					<target>URL remoto</target>
+				</trans-unit>
+				<trans-unit id="updateFromLocalFolder">
+					<source>Local Folder</source>
+					<target>Cartella locale</target>
+				</trans-unit>
+				<trans-unit id="updateFrequency"> 
+					<source>Update Frequency</source>
+					<target>Frequenza di aggiornamento</target>
+				</trans-unit>
+				<trans-unit id="timeOfTheDay"> <!-- What time of the day should the update run, 1pm, 2pm? -->
+					<source>Time of the Day</source>
+					<target>Ora del giorno</target>
+				</trans-unit>
+				<trans-unit id="minutefrequency">
+					<source>Update Interval (Minute)</source>
+					<target>Intervallo di aggiornamento (minuto)</target>
+				</trans-unit>
+				<trans-unit id="hourfrequency">
+					<source>Update Interval (Hour)</source>
+					<target>Intervallo di aggiornamento (ora)</target>
+				</trans-unit>
+				<trans-unit id="updateMinutely">
+					<source>Monthly</source>
+					<target>Mensilmente</target>
+				</trans-unit>
+				<trans-unit id="updateHourly">
+					<source>Hourly</source>
+					<target>Ogni ora</target>
+				</trans-unit>
+				<trans-unit id="updateDaily">
+					<source>Daily</source>
+					<target>Quotidianamente</target>
+				</trans-unit>
+				<trans-unit id="updateWeekly">
+					<source>Weekly</source>
+					<target>Settimanalmente</target>
+				</trans-unit>
+				<trans-unit id="updateMonthly">
+					<source>Monthly</source>
+					<target>Mensilmente</target>
+				</trans-unit>				
+				<trans-unit id="updateLocation">
+					<source>Update Location</source>
+					<target>Posizione di aggiornamento</target>
+				</trans-unit>
+				<trans-unit id="enableUpdateProxy">
+					<source>Enable Proxy</source>
+					<target>Attiva proxy</target>
+				</trans-unit>
+				<trans-unit id="proxySettings">
+					<source>Proxy Settings</source>
+					<target>Impostazioni proxy</target>
+				</trans-unit>
+				<trans-unit id="updateHistory">
+					<source>Update History</source>
+					<target>Cronologia aggiornamenti</target>
+				</trans-unit>
+				<trans-unit id="proxyHost">
+					<source>Proxy Server Host</source>
+					<target>Host server proxy</target>
+				</trans-unit>
+				<trans-unit id="proxyPort">
+					<source>Proxy Server Port</source>
+					<target>Porta server proxy</target>
+				</trans-unit>
+				<trans-unit id="password">
+					<source>Password</source>
+					<target>Password</target>
+				</trans-unit>
+				<trans-unit id="username">
+					<source>User Name</source>
+					<target>Nome utente</target>
+				</trans-unit>
+
+				<trans-unit id="updatePreference">
+					<source>Content Update Properties</source>
+					<target>Proprietà aggiornamento contenuto</target>
+				</trans-unit>
+
+				<trans-unit id="disabled">
+					<source>Disabled</source>
+					<target>Disattivato</target>
+				</trans-unit>
+
+				<trans-unit id="automatic">
+					<source>
+						Update automatically at scheduled time
+					</source>
+					<target>Aggiorna automaticamente all'orario programmato</target>
+				</trans-unit>
+				<trans-unit id="atLaunch">
+					<source>
+						Update while starting the application
+					</source>
+					<target>Aggiorna all'avvio dell'applicazione</target>
+				</trans-unit>
+				<trans-unit id="manual">
+					<source>
+						Update by clicking on the Update button
+					</source>
+					<target>Aggiorna il contenuto quando viene fatto clic sul pulsante Aggiorna</target>
+				</trans-unit>
+				<trans-unit id="updateContent">
+					<!-- Translation should match "Update Content" above-->
+					<source>Update Content</source>
+					<target>Aggiorna contenuto</target>
+				</trans-unit>
+				<trans-unit id="updateDate">
+					<source>Update Date</source>
+					<target>Data aggiornamento</target>
+				</trans-unit>
+				<trans-unit id="logDetail">
+					<source>Detail Update Log</source>
+					<target>Dettagli log di aggiornamento</target>
+				</trans-unit>
+
+				<!-- update.jspx -->
+				<trans-unit id="runUpdateTitle">
+					<source>Updating ...</source>
+					<target>Aggiornamento in corso ...</target>
+				</trans-unit>
+				<trans-unit id="updateStatus">
+					<source>Update Status</source>
+					<target>Stato aggiornamento</target>
+				</trans-unit>
+				<trans-unit id="reloadAfterUpdate">
+					<source>Refresh</source>
+					<target>Aggiorna</target>
+				</trans-unit>
+				<!-- view_config_proxy.jspx -->
+				<trans-unit id="proxyTitle">
+					<source>Configure Proxy Server Information</source>
+					<target>Configura informazioni server proxy</target>
+				</trans-unit>
+
+				<!-- view_config_highlight.jspx -->
+				<trans-unit id="configureHighlightTitle">
+					<source>Search Term Highlighting</source>
+					<target>Evidenziazione termini di ricerca</target>
+				</trans-unit>
+				<trans-unit id="enable">
+					<source>Enable</source>
+					<target>Attiva</target>
+				</trans-unit>
+				<trans-unit id="disable">
+					<source>Disable</source>
+					<target>Disattiva</target>
+				</trans-unit>
+				<trans-unit id="highlightStyle">
+					<source>Highlight Style</source>
+					<target>Evidenzia stile</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>Evidenzia argomenti aggiornati</target>
+				</trans-unit>				
+				<trans-unit id="pdfHighlightLimitation">
+					<source>
+						Note: Search term highlighting in PDF documents
+						is not always accurate.
+					</source>
+					<target>Nota: l'evidenziazione del termine di ricerca nei documenti PDF non è sempre precisa.</target>
+				</trans-unit>
+				<trans-unit id="rememberSettings">
+					<source>
+						Save Configuration Settings
+					</source>
+					<target>Salva impostazioni di configurazione</target>
+				</trans-unit>
+
+				<!-- view_config_profile.jspx -->
+				<trans-unit id="configureProfile">
+					<source>Profile Settings</source>
+					<target>Impostazioni profilo</target>
+				</trans-unit>
+
+				<!-- view_config.jspx -->
+				<trans-unit id="english">
+					<source>English</source>
+					<target>Inglese</target>
+				</trans-unit>
+				<trans-unit id="germany">
+					<source>Germany</source>
+					<target>Tedesco</target>
+				</trans-unit>
+				<trans-unit id="french">
+					<source>French</source>
+					<target>Francese</target>
+				</trans-unit>
+				<trans-unit id="spanish">
+					<source>Spanish</source>
+					<target>Spagnolo</target>
+				</trans-unit>
+				<trans-unit id="chinese-simplied">
+					<source>Simplified Chinese</source>
+					<target>Cinese semplificato</target>
+				</trans-unit>
+				<trans-unit id="chinese-traditional">
+					<source>Traditional Chinese</source>
+					<target>Cinese tradizionale</target>
+				</trans-unit>
+				<trans-unit id="korean">
+					<source>Korean</source>
+					<target>Coreano</target>
+				</trans-unit>
+				<trans-unit id="japanese">
+					<source>Japanese</source>
+					<target>Giapponese</target>
+				</trans-unit>
+				<trans-unit id="italian">
+					<source>Italian</source>
+					<target>Italiano</target>
+				</trans-unit>
+
+				<!-- view_result.jspx -->
+				<trans-unit id="searchOutput">
+					<source>Search Result Page</source>
+					<target>Pagina di risultati della ricerca</target>
+				</trans-unit>
+				<trans-unit id="searchTips">
+					<source>Search Tips</source>
+					<target>Suggerimenti per la ricerca</target>
+				</trans-unit>
+				<trans-unit id="links">
+					<source>Links</source>
+					<target>Link</target>
+				</trans-unit>
+
+				<!-- view_toc.jspx -->
+				<trans-unit id="tableOfContents">
+					<source>Table of Contents</source>
+					<target>Sommario</target>
+				</trans-unit>
+
+				<!--  view_indexterm.jspx -->
+				<trans-unit id="indexTerm">
+					<source>Index Term</source>
+					<target>Termine di indice</target>
+				</trans-unit>
+
+				<!-- views.jspx -->
+				<trans-unit id="views">
+					<source>Views</source>
+					<target>Viste</target>
+				</trans-unit>
+
+				<!-- volume_encrypted.jspx -->
+				<trans-unit id="volumeEncrpted">
+					<source>The File is Encrypted</source>
+					<target>Il file è crittografato</target>
+				</trans-unit>
+				<trans-unit id="volumeEncrptedDetail">
+					<source>
+						The file you are trying to open is encrypted and
+						cannot be opened. You may not have appropriate
+						privileges to view the file. Contact
+						%supportContactInfo% for further support.
+					</source>
+					<target>Impossibile aprire il file in quanto è crittografato. È possibile che non si disponga dei privilegi necessari a visualizzare il file. Contattare %supportContactInfo% per ulteriore assistenza.</target>
+				</trans-unit>
+
+
+				<!-- General -->
+				<trans-unit id="home">
+					<source>Home</source>
+					<target>Home page</target>
+				</trans-unit>
+
+				<trans-unit id="searchPage">
+					<source>Search Page</source>
+					<target>Pagina di ricerca</target>
+				</trans-unit>
+				<trans-unit id="submit">
+					<source>Submit</source>
+					<target>Invia</target>
+				</trans-unit>
+
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>Configurazione</target>
+				</trans-unit>
+
+				<trans-unit id="help">
+					<source>How to Use %projectName%</source>
+					<target>Come utilizzare %projectName%</target>
+				</trans-unit>
+
+				<!-- Help Center content_config.xml terms -->
+
+				<trans-unit id="userRole">
+					<source>User Role:</source>
+					<target>Ruolo utente:</target>
+				</trans-unit>
+
+				<trans-unit id="user">
+					<source>User</source>
+					<target>Utente</target>
+
+				</trans-unit>
+
+				<trans-unit id="developer">
+					<source>Developer</source>
+					<target>Sviluppatore</target>
+				</trans-unit>
+
+				<trans-unit id="administrator">
+					<source>Administrator</source>
+					<target>Amministratore</target>
+				</trans-unit>
+
+				<trans-unit id="product">
+					<source>Arbortext Product:</source>
+					<target>Prodotto Arbortext:</target>
+				</trans-unit>
+
+				<trans-unit id="toolhelp">
+					<source>Help</source>
+					<target>?</target>
+				</trans-unit>
+
+				<trans-unit id="support">
+                			<source>PTC Customer Support website</source>
+                			<target>Sito Web dell'assistenza clienti PTC</target>
+				</trans-unit>
+
+			</group>
+		</body>
+	</file>
+</xliff>

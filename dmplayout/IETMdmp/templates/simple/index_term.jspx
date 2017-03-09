@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:directive.page language="java" errorPage="error.jspx"/>
+
+	<atidmc:layout var="layout" />
+
+	<atidmc:indexTerm>
+		<atidmc:transformInfo
+			xsl="${layout.template}xsl/indexterm.xsl">
+			<atidmc:parameter name="locale" value="${layout.locale.language}" />
+			<atidmc:parameter name="title" value="${layout.resourceBundle['indexterm']}" />
+			<atidmc:parameter name="templatePath" value="${layout.template}" />
+			<atidmc:parameter name="homeString" value="${layout.resourceBundle['home']}" />
+			<atidmc:parameter name="homeHref" value="${layout.pages['WELCOME']}" />
+			<atidmc:parameter name="tocString" value="${layout.resourceBundle['tableOfContent']}" />
+			<atidmc:parameter name="tocHref" value="${layout.pages['TOC']}" />
+			<atidmc:parameter name="searchString" value="${layout.resourceBundle['searchPage']}" />
+			<atidmc:parameter name="searchHref" value="${layout.pages['SEARCH']}" />
+			<atidmc:parameter name="searchTipsString" value="${layout.resourceBundle['searchTips']}" />
+			<atidmc:parameter name="searchTipsHref" value="${layout.pages['TIPS']}" />	
+			<atidmc:parameter name="indextermString" value="${layout.resourceBundle['indexTerm']}" />
+			<atidmc:parameter name="indextermHref" value="${layout.pages['INDEX_TERM']}" />			
+			<atidmc:parameter name="configString" value="${layout.resourceBundle['configuration']}" />
+			<atidmc:parameter name="configHref" value="${layout.pages['CONFIG']}" />
+			<atidmc:parameter name="links" value="${layout.resourceBundle['links']}" />
+		</atidmc:transformInfo>
+	</atidmc:indexTerm>
+
+</jsp:root>

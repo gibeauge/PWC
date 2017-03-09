@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.1 http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd">
+	<file category="resourceBundle" datatype="cstring"
+		original="LocalStrings.properties" source-language="en-US"
+		target-language="en-US" xml:space="default">
+		<header>
+			<note>
+				The translation used for DMP Consumer User Interface
+				(FRAME LAYOUT) ********* %xxxxx% represents variable
+				name and should not be translated
+			</note>
+		</header>
+		<body>
+			<group resname="DMP Consumer" restype="file">
+
+				<!-- index.jspx -->
+				<trans-unit id="mainTitle">
+					<source>%projectName%</source>
+					<target>%projectName%</target>
+				</trans-unit>
+
+				<!-- banner.jspx -->
+				<trans-unit id="bannerTitle">
+					<source>Banner</source>
+					<target>バナー</target>
+				</trans-unit>
+
+				<trans-unit id="helpCenter">
+					<source>Help Center</source>
+					<target>ヘルプセンター</target>
+				</trans-unit>
+
+				<trans-unit id="linkToUrl">
+					<source>link to this page</source>
+					<target>このページへのリンク</target>
+				</trans-unit>
+				
+				<trans-unit id="linkToUrlDescription">
+					<source>Change URL address to a format suitable for a bookmark.</source>
+					<target>URL アドレスをブックマークに適切な書式に変更します。</target>
+				</trans-unit>				
+				<!-- embed.jspx -->
+				<trans-unit id="embeddedPDFNotSupported">
+					<source>
+						Your browser does not support embedded PDF
+						files.
+					</source>
+					<target>ご使用のブラウザでは埋め込み PDF ファイルがサポートされていません。</target>
+				</trans-unit>
+
+
+				<!-- error.jspx -->
+				<trans-unit id="errorTitle">
+					<source>Error in the Page</source>
+					<target>ページのエラー</target>
+				</trans-unit>
+				<trans-unit id="errorHeader">
+					<source>
+						The page you requested contains an error and
+						cannot be displayed.
+					</source>
+					<target>リクエストされたページはエラーがあるため表示できません。</target>
+				</trans-unit>
+				<trans-unit id="errorStatus">
+					<source>Error Status:</source>
+					<target>エラー ステータス:</target>
+				</trans-unit>
+				<trans-unit id="errorStackTrace">
+					<source>Error Stack Trace</source>
+					<target>エラースタックトレース</target>
+				</trans-unit>
+
+				<!-- form_annotation.jspx -->
+				<trans-unit id="annotationFormTitle">
+					<source>Comment</source>
+					<target>コメント</target>
+				</trans-unit>
+				<trans-unit id="submitAnnotation">
+					<source>Save</source>
+					<target>保存</target>
+				</trans-unit>
+				<trans-unit id="resetAnnotation">
+					<source>Reset</source>
+					<target>リセット</target>
+				</trans-unit>
+				<trans-unit id="clearAnnotation">
+					<source>Clear</source>
+					<target>消去</target>
+				</trans-unit>
+
+				<!-- form_volume.jspx -->
+				<trans-unit id="volumeRedirectTitle">
+					<source>Media Location Not Found</source>
+					<target>メディアの場所が見つかりません</target>
+				</trans-unit>
+				<trans-unit id="mediaNotFound">
+					<source>
+						The media containing the page you are requesting
+						cannot be found.
+					</source>
+					<target>リクエストされたページを含むメディアが見つかりません。</target>
+				</trans-unit>
+				<trans-unit id="mediaInsertOrRelocate">
+					<source>
+						If it is on a removable media, insert it now and
+						retry. If the media location is changed, specify
+						its new location.
+					</source>
+					<target>リムーバブル メディアの場合、メディアを挿入して再実行してください。メディアの場所が変更されている場合、新しい場所を指定してください。</target>
+				</trans-unit>
+
+				<trans-unit id="mediaNotFoundAndReadOnly">
+					<source>
+						You must install %projectName% to access content in another volume.
+					</source>
+					<target>別のボリュームのコンテンツにアクセスするには、%projectName% をインストールする必要があります。</target>
+				</trans-unit>
+
+				<trans-unit id="mediaRetry">
+					<source>Try Again</source>
+					<target>再試行</target>
+				</trans-unit>
+				<trans-unit id="mediaNewLocation">
+					<source>
+						Specify a new location and try again.
+					</source>
+					<target>新しい場所を指定して再実行してください。</target>
+				</trans-unit>
+				<trans-unit id="mediaLocation">
+					<source>
+						Disk Location: (for example e:\ /mnt/cdrom)
+					</source>
+					<target>ディスクの場所: (例 e:\ /mnt/cdrom)</target>
+				</trans-unit>
+				<trans-unit id="mediaTryAgainButton">
+					<source>Try Again</source>
+					<target>再試行</target>
+				</trans-unit>
+				<trans-unit id="mediaResetButton">
+					<source>Reset</source>
+					<target>リセット</target>
+				</trans-unit>
+				<trans-unit id="volumeInfo">
+					<source>Volume Information:</source>
+					<target>ボリューム情報:</target>
+				</trans-unit>
+				<!-- frame_content.jspx -->
+
+				<trans-unit id="contentFrameset">
+					<source>Content</source>
+					<target>コンテンツ</target>
+				</trans-unit>
+
+				<!-- frame_main.jspx -->
+				<trans-unit id="mainFrameset">
+					<source>%projectName% Main Frameset</source>
+					<target>%projectName% メインフレームセット</target>
+				</trans-unit>
+
+				<!-- frame_nav.jspx -->
+				<trans-unit id="navigation">
+					<source>Navigation Frameset</source>
+					<target>ナビゲーションフレームセット</target>
+				</trans-unit>
+
+				<!-- frame_tabs.jspx -->
+				<trans-unit id="tabs">
+					<source>Navigation Tabs Frameset</source>
+					<target>ナビゲーションタブフレームセット</target>
+				</trans-unit>
+
+				<!-- frame_views.jspx -->
+				<trans-unit id="frameViews">
+					<source>
+						Frameset for Different Functional Area
+					</source>
+					<target>異なる機能領域のフレームセット</target>
+				</trans-unit>
+
+
+
+				<!-- info_succeed.jspx -->
+				<trans-unit id="configurationSaved">
+					<source>Configuration Saved Successfully</source>
+					<target>設定が保存されました</target>
+				</trans-unit>
+				<trans-unit id="continue">
+					<source>Continue</source>
+					<target>続行</target>
+				</trans-unit>
+
+				<!-- search_xxx.jspx -->
+				<trans-unit id="simple">
+					<source>Simple</source>
+					<target>単純</target>
+				</trans-unit>
+				<trans-unit id="advanced">
+					<source>Advanced</source>
+					<target>アドバンス</target>
+				</trans-unit>
+				<trans-unit id="targetSearch">
+					<source>Target Search To:</source>
+					<target>検索ターゲット: </target>
+				</trans-unit>
+				<trans-unit id="entireDoc">
+					<source>Entire Document</source>
+					<target>文書全体</target>
+				</trans-unit>
+				<trans-unit id="docHeader">
+					<source>Document Headers</source>
+					<target>文書ヘッダー</target>
+				</trans-unit>
+				<trans-unit id="primaryHeader">
+					<source>Primary Headers</source>
+					<target>プライマリヘッダー</target>
+				</trans-unit>
+				<trans-unit id="secondaryHeader">
+					<source>Secondary Headers</source>
+					<target>セカンダリヘッダー</target>
+				</trans-unit>
+				<trans-unit id="tertiaryHeader">
+					<source>Tertiary Headers</source>
+					<target>第 3 のヘッダー</target>
+				</trans-unit>				
+				<trans-unit id="documentType">
+					<source>Document Type:</source>
+					<target>文書型:</target>
+				</trans-unit>
+				<trans-unit id="allDoc">
+					<source>All Documents</source>
+					<target>すべての文書</target>
+				</trans-unit>
+				<trans-unit id="htmlDoc">
+					<source>HTML documents</source>
+					<target>HTML 文書</target>
+				</trans-unit>
+				<trans-unit id="pdfDoc">
+					<source>PDF documents</source>
+					<target>PDF 文書</target>
+				</trans-unit>
+				<trans-unit id="allitems">
+					<source>All Items</source>
+					<target>すべてのアイテム</target>
+				</trans-unit>
+				<trans-unit id="locale">
+					<source>Language</source>
+					<target>言語</target>
+				</trans-unit>
+				<trans-unit id="noResults">
+					<source>No Results Found</source>
+					<target>結果が見つかりません</target>
+				</trans-unit>
+				<trans-unit id="displaySearchResults">
+					<source>{0} - {1} of total {2} search results</source>
+					<target>合計 {2} 個中 {0} - {1} の検索結果</target>
+				</trans-unit>
+
+				<!--  status_error -->
+
+				<trans-unit id="cantAccessContent">
+					<source>Unable to Access Content</source>
+					<target>コンテンツにアクセスできません</target>
+				</trans-unit>
+
+				<trans-unit id="invalidLicense">
+					<source>Your License is not Valid</source>
+					<target>ライセンスが無効です</target>
+				</trans-unit>
+
+				<trans-unit id="cannotVerifyLicense">
+					<source>Unrecognized Serial Number</source>
+					<target>認識できないシリアル番号</target>
+				</trans-unit>
+
+				<trans-unit id="serialNumberInvalid">
+					<source>
+						You may have entered your serial number
+						incorrectly or the license file has been
+						corrupted. Contact %supportContactInfo% for
+						support.
+					</source>
+					<target>シリアル番号が正しく入力されなかったか、ライセンスファイルが破損しています。%supportContactInfo% にお問い合わせください。</target>
+				</trans-unit>
+
+				<trans-unit id="pleaseEnterSerialNumber">
+					<source>
+						If you have a serial number, enter it now.
+					</source>
+					<target>シリアル番号をお持ちの場合、入力してください。</target>
+				</trans-unit>
+
+				<trans-unit id="enterSerialNumber">
+					<source>Serial Number</source>
+					<target>シリアル番号</target>
+				</trans-unit>
+
+				<trans-unit id="requireInstall">
+					<source>This Application must be Installed</source>
+					<target>このアプリケーションをインストールする必要があります</target>
+				</trans-unit>
+
+				<trans-unit id="askToRunSetup">
+					<source>
+						This application has not been installed. Run the setup
+						program and enter your serial number.
+					</source>
+					<target>このアプリケーションはインストールされていません。セットアップ プログラムを実行してシリアル番号を入力してください。</target>
+				</trans-unit>
+
+				<trans-unit id="licenseExpired">
+					<source>Content Has Expired</source>
+					<target>コンテンツの有効期限が切れています</target>
+				</trans-unit>
+
+				<trans-unit id="expirationDate">
+					<source>Expiration Date:</source>
+					<target>有効期限:</target>
+				</trans-unit>
+				
+				<trans-unit id="askToRenew">
+					<source>
+						The content has expired and you can no longer
+						access the content in this file. Contact
+						%supportContactInfo% to extend the license or
+						obtain a new copy.
+					</source>
+					<target>コンテンツの有効期限が切れているため、このファイルのコンテンツにアクセスできません。%supportContactInfo% にお問い合わせの上、ライセンスを延長するか新しいコピーを入手してください。</target>
+				</trans-unit>
+
+				<trans-unit id="noAvailableLicense">
+					<source>No More Sessions Avaliable</source>
+					<target>使用できるセッションはこれ以上ありません</target>
+				</trans-unit>
+
+				<trans-unit id="askToWait">
+					<source>
+						The maximum number of users are
+						accessing the content. Please wait and try again later.
+						Contact %supportContactInfo% for more
+						information.
+					</source>
+					<target>ユーザーの最大数がコンテンツにすでにアクセスしています。しばらくしてから再実行してください。詳細は、%supportContactInfo% にお問い合わせください。</target>
+				</trans-unit>
+
+				<trans-unit id="unknownLicenseError">
+					<source>Unknown License Error</source>
+					<target>不明なライセンスエラー</target>
+				</trans-unit>
+
+				<trans-unit id="contactVendor">
+					<source>
+						Contact %supportContactInfo% for support.
+					</source>
+					<target>%supportContactInfo% にお問い合わせください。</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFound">
+					<source>Page Not Found</source>
+					<target>ページが見つかりません</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotFoundDescription">
+					<source>
+						The page you were trying to access does not
+						exist.
+					</source>
+					<target>アクセスしようとしているページは存在しません。</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailable">
+					<source>Page Not Available</source>
+					<target>ページを使用できません</target>
+				</trans-unit>
+
+				<trans-unit id="pageNotAvailableDescription">
+					<source>
+						The page you were trying to access is not
+						available for the current user profile.
+					</source>
+					<target>アクセスしようとしているページは、現在のユーザープロファイルでは使用できません。</target>
+				</trans-unit>
+
+				<trans-unit id="requestPage">
+					<source>The page you were requesting:</source>
+					<target>リクエストされたページ:</target>
+				</trans-unit>
+
+				<!-- tabs.jspx -->
+				<trans-unit id="navigationTabs">
+					<source>Tabs</source>
+					<target>タブ</target>
+				</trans-unit>
+				<trans-unit id="tableOfContent">
+					<source>Table of Contents</source>
+					<target>目次</target>
+				</trans-unit>
+
+				<trans-unit id="search">
+					<source>Search</source>
+					<target>検索</target>
+				</trans-unit>
+
+				<trans-unit id="indexterms">
+					<source>Index Terms</source>
+					<target>索引語</target>
+				</trans-unit>
+
+				<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>ブックマーク</target>
+				</trans-unit>
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>設定</target>
+				</trans-unit>
+				<trans-unit id="language">
+					<source>Language</source>
+					<target>言語</target>
+				</trans-unit>
+
+				<!-- toolbar_bookmark.jspx -->
+				<trans-unit id="toolbarBookmark">
+					<source>Bookmark Toolbar</source>
+					<target>ブックマーク ツールバー</target>
+				</trans-unit>
+				<trans-unit id="deleteSelectedBookmark">
+					<source>Delete Selected Bookmark</source>
+					<target>選択したブックマークを削除</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarks">
+					<source>Delete All Bookmarks</source>
+					<target>すべてのブックマークを削除</target>
+				</trans-unit>
+				<trans-unit id="deleteAllBookmarksConfirm">
+					<source>
+						Are you sure you want to delete all bookmarks?
+					</source>
+					<target>すべてのブックマークを削除しますか?</target>
+				</trans-unit>
+				<trans-unit id="noBookmarkSelected">
+					<source>No bookmark is selected.</source>
+					<target>ブックマークが選択されていません。</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="toolbarConfig">
+					<source>Configuration Toolbar</source>
+					<target>設定ツールバー</target>
+				</trans-unit>
+				<trans-unit id="configLocaleAndLayout">
+					<source>
+						Configure Locale and Layout Settings
+					</source>
+					<target>ロケールおよびレイアウトを設定</target>
+				</trans-unit>
+				<trans-unit id="configUpdate">
+					<source>Configure Update Preferences</source>
+					<target>更新環境を設定</target>
+				</trans-unit>
+
+				<!-- toolbar_main.jspx -->
+				<trans-unit id="toolbarMain">
+					<source>Main Toolbar</source>
+					<target>メインツールバー</target>
+				</trans-unit>
+				<trans-unit id="goBack">
+					<source>Go Back</source>
+					<target>戻る</target>
+				</trans-unit>
+				<trans-unit id="goForward">
+					<source>Go Forward</source>
+					<target>進む</target>
+				</trans-unit>
+				<trans-unit id="previousTopic">
+					<source>Previous Topic</source>
+					<target>前のトピック</target>
+				</trans-unit>
+				<trans-unit id="nextTopic">
+					<source>Next Topic</source>
+					<target>次のトピック</target>
+				</trans-unit>
+				<trans-unit id="synchronize">
+					<source>Show in Table of Contents</source>
+					<target>目次に表示</target>
+				</trans-unit>
+				<trans-unit id="bookmarkThisPage">
+					<source>Bookmark This Page</source>
+					<target>このページをブックマークに追加</target>
+				</trans-unit>
+				<trans-unit id="addAnnotation">
+					<source>Add Comment</source>
+					<target>コメントを追加</target>
+				</trans-unit>
+				<trans-unit id="print">
+					<source>Print</source>
+					<target>印刷</target>
+				</trans-unit>
+				<trans-unit id="reload">
+					<source>Reload</source>
+					<target>再ロード</target>
+				</trans-unit>
+				<trans-unit id="toggleNavPane">
+					<source>Toggle Navigation Panel</source>
+					<target>ナビゲーションパネルを切り替え</target>
+				</trans-unit>
+				
+				<!-- toolbar_result.jspx -->
+				<trans-unit id="toolbarResult">
+					<source>Search Result Toolbar</source>
+					<target>検索結果ツールバー</target>
+				</trans-unit>
+
+				<trans-unit id="sortedBy">
+					<source>Sorted by:</source>
+					<target>ソート順:</target>
+				</trans-unit>
+
+				<trans-unit id="relavance">
+					<source>Relevance</source>
+					<target>関連性</target>
+				</trans-unit>
+
+				<trans-unit id="toc">
+					<source>Table of Contents</source>
+					<target>目次</target>
+				</trans-unit>
+
+				<!-- toolbar_toc.jspx -->
+				<trans-unit id="toolbarToc">
+					<source>Table of Content Toolbar</source>
+					<target>目次ツールバー</target>
+				</trans-unit>
+				<trans-unit id="expandAll">
+					<source>Expand All Topics</source>
+					<target>すべてのトピックを展開</target>
+				</trans-unit>
+				<trans-unit id="collapseAll">
+					<source>Collapse All Topics</source>
+					<target>すべてのトピックを縮小</target>
+				</trans-unit>
+
+				<trans-unit id="arbortextEditorHelp">
+					<source>Arbortext Editor Help</source>
+					<target>Arbortext Editor ヘルプ</target>
+				</trans-unit>
+
+				<trans-unit id="pdfManuals">
+					<source>PDF Manuals</source>
+					<target>PDF マニュアル</target>
+				</trans-unit>
+
+				<!-- toolbar_index_term.jspx -->
+				<trans-unit id="toolbarIndexTerm">
+					<source>Index Term Toolbar</source>
+					<target>索引語ツールバー</target>
+				</trans-unit>
+
+				<!-- toolbar_config.jspx -->
+				<trans-unit id="configTitle">
+					<source>Configuration Toolbar</source>
+					<target>設定ツールバー</target>
+				</trans-unit>
+
+				<!-- validate.jspx -->
+
+
+				<!-- view_bookmark.jspx -->
+				<!--  defined in tabs.jspx
+					<trans-unit id="bookmark">
+					<source>Bookmark</source>
+					<target>Bookmark</target>
+					</trans-unit>
+				-->
+
+				<!-- view_config_locale.jspx -->
+				<trans-unit id="layoutTitle">
+					<source>Configure Layout Information</source>
+					<target>レイアウト情報を設定</target>
+				</trans-unit>
+				<trans-unit id="errorInInput">
+					<source>
+						The specified values contain errors. Correct the
+						items marked with asterisks (*).
+					</source>
+					<target>指定した値にはエラーが含まれています。アスタリスク (*) の付いたアイテムを修正してください。</target>
+				</trans-unit>
+
+				<trans-unit id="errorMessage">
+					<source>Error Message</source>
+					<target>エラー メッセージ</target>
+				</trans-unit>
+				<trans-unit id="defaultLocale">
+					<source>Default Locale</source>
+					<target>デフォルト ロケール</target>
+				</trans-unit>
+
+				<trans-unit id="clientLocale">
+					<source>
+						Use this locale for the current user only.
+					</source>
+					<target>現在のユーザーのみにこのロケールを使用します。</target>
+				</trans-unit>
+				<trans-unit id="localePreference">
+					<source>Profile Settings</source>
+					<target>プロファイル設定</target>
+				</trans-unit>
+				<trans-unit id="requestLocale">
+					<source>Base on user platform locale.</source>
+					<target>ユーザーのプラットフォームのロケールを使用します。</target>
+				</trans-unit>
+				<trans-unit id="fixedLocale">
+					<source>Use this locale globally.</source>
+					<target>このロケールをグローバルに使用します。</target>
+				</trans-unit>
+				<trans-unit id="searchKeywordHighlight">
+					<source>Highlight Search Terms</source>
+					<target>検索用語をハイライト</target>
+				</trans-unit>
+				<trans-unit id="highlightandCreatelink">
+					<source>Highlight and Create Link</source>
+					<target>ハイライトしてリンクを作成</target>
+				</trans-unit>
+				<trans-unit id="highlightOnly">
+					<source>Highlight Only</source>
+					<target>ハイライトのみ</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>更新されたトピックをハイライト</target>
+				</trans-unit>
+				
+				<!-- view_config_update.jspx -->
+				<trans-unit id="updateTitle">
+					<source>Configure Update Properties</source>
+					<target>更新プロパティを設定</target>
+				</trans-unit>
+				<trans-unit id="updateFromRemoteUrl">
+					<source>Remote URL</source>
+					<target>リモート URL</target>
+				</trans-unit>
+				<trans-unit id="updateFromLocalFolder">
+					<source>Local Folder</source>
+					<target>ローカルフォルダ</target>
+				</trans-unit>
+				<trans-unit id="updateFrequency"> 
+					<source>Update Frequency</source>
+					<target>更新の頻度</target>
+				</trans-unit>
+				<trans-unit id="timeOfTheDay"> <!-- What time of the day should the update run, 1pm, 2pm? -->
+					<source>Time of the Day</source>
+					<target>時間</target>
+				</trans-unit>
+				<trans-unit id="minutefrequency">
+					<source>Update Interval (Minute)</source>
+					<target>更新の間隔 (分)</target>
+				</trans-unit>
+				<trans-unit id="hourfrequency">
+					<source>Update Interval (Hour)</source>
+					<target>更新の間隔 (時間)</target>
+				</trans-unit>
+				<trans-unit id="updateMinutely">
+					<source>Monthly</source>
+					<target>毎月</target>
+				</trans-unit>
+				<trans-unit id="updateHourly">
+					<source>Hourly</source>
+					<target>毎時間</target>
+				</trans-unit>
+				<trans-unit id="updateDaily">
+					<source>Daily</source>
+					<target>毎日</target>
+				</trans-unit>
+				<trans-unit id="updateWeekly">
+					<source>Weekly</source>
+					<target>毎週</target>
+				</trans-unit>
+				<trans-unit id="updateMonthly">
+					<source>Monthly</source>
+					<target>毎月</target>
+				</trans-unit>				
+				<trans-unit id="updateLocation">
+					<source>Update Location</source>
+					<target>更新場所</target>
+				</trans-unit>
+				<trans-unit id="enableUpdateProxy">
+					<source>Enable Proxy</source>
+					<target>プロキシを有効</target>
+				</trans-unit>
+				<trans-unit id="proxySettings">
+					<source>Proxy Settings</source>
+					<target>プロキシ設定</target>
+				</trans-unit>
+				<trans-unit id="updateHistory">
+					<source>Update History</source>
+					<target>更新履歴</target>
+				</trans-unit>
+				<trans-unit id="proxyHost">
+					<source>Proxy Server Host</source>
+					<target>プロキシ サーバー ホスト</target>
+				</trans-unit>
+				<trans-unit id="proxyPort">
+					<source>Proxy Server Port</source>
+					<target>プロキシ サーバー ポート</target>
+				</trans-unit>
+				<trans-unit id="password">
+					<source>Password</source>
+					<target>パスワード</target>
+				</trans-unit>
+				<trans-unit id="username">
+					<source>User Name</source>
+					<target>ユーザー名</target>
+				</trans-unit>
+
+				<trans-unit id="updatePreference">
+					<source>Content Update Properties</source>
+					<target>コンテンツ更新プロパティ</target>
+				</trans-unit>
+
+				<trans-unit id="disabled">
+					<source>Disabled</source>
+					<target>無効化</target>
+				</trans-unit>
+
+				<trans-unit id="automatic">
+					<source>
+						Update automatically at scheduled time
+					</source>
+					<target>スケジュールされた時間に自動更新</target>
+				</trans-unit>
+				<trans-unit id="atLaunch">
+					<source>
+						Update while starting the application
+					</source>
+					<target>アプリケーションの開始中に更新</target>
+				</trans-unit>
+				<trans-unit id="manual">
+					<source>
+						Update by clicking on the Update button
+					</source>
+					<target>「更新」ボタンをクリックすることによって更新</target>
+				</trans-unit>
+				<trans-unit id="updateContent">
+					<!-- Translation should match "Update Content" above-->
+					<source>Update Content</source>
+					<target>コンテンツ更新</target>
+				</trans-unit>
+				<trans-unit id="updateDate">
+					<source>Update Date</source>
+					<target>更新日</target>
+				</trans-unit>
+				<trans-unit id="logDetail">
+					<source>Detail Update Log</source>
+					<target>詳細更新ログ</target>
+				</trans-unit>
+
+				<!-- update.jspx -->
+				<trans-unit id="runUpdateTitle">
+					<source>Updating ...</source>
+					<target>更新中 ...</target>
+				</trans-unit>
+				<trans-unit id="updateStatus">
+					<source>Update Status</source>
+					<target>更新ステータス</target>
+				</trans-unit>
+				<trans-unit id="reloadAfterUpdate">
+					<source>Refresh</source>
+					<target>更新</target>
+				</trans-unit>
+				<!-- view_config_proxy.jspx -->
+				<trans-unit id="proxyTitle">
+					<source>Configure Proxy Server Information</source>
+					<target>プロキシ サーバー情報を設定</target>
+				</trans-unit>
+
+				<!-- view_config_highlight.jspx -->
+				<trans-unit id="configureHighlightTitle">
+					<source>Search Term Highlighting</source>
+					<target>検索用語のハイライト</target>
+				</trans-unit>
+				<trans-unit id="enable">
+					<source>Enable</source>
+					<target>有効</target>
+				</trans-unit>
+				<trans-unit id="disable">
+					<source>Disable</source>
+					<target>無効</target>
+				</trans-unit>
+				<trans-unit id="highlightStyle">
+					<source>Highlight Style</source>
+					<target>ハイライトのスタイル</target>
+				</trans-unit>
+				<trans-unit id="highlightUpdated">
+					<source>Highlight Updated Topics</source>
+					<target>更新されたトピックをハイライト</target>
+				</trans-unit>				
+				<trans-unit id="pdfHighlightLimitation">
+					<source>
+						Note: Search term highlighting in PDF documents
+						is not always accurate.
+					</source>
+					<target>注記: PDF 文書の検索用語ハイライトは常に正しいとは限りません。</target>
+				</trans-unit>
+				<trans-unit id="rememberSettings">
+					<source>
+						Save Configuration Settings
+					</source>
+					<target>設定を保存</target>
+				</trans-unit>
+
+				<!-- view_config_profile.jspx -->
+				<trans-unit id="configureProfile">
+					<source>Profile Settings</source>
+					<target>プロファイル設定</target>
+				</trans-unit>
+
+				<!-- view_config.jspx -->
+				<trans-unit id="english">
+					<source>English</source>
+					<target>英語</target>
+				</trans-unit>
+				<trans-unit id="germany">
+					<source>Germany</source>
+					<target>ドイツ語</target>
+				</trans-unit>
+				<trans-unit id="french">
+					<source>French</source>
+					<target>フランス語</target>
+				</trans-unit>
+				<trans-unit id="spanish">
+					<source>Spanish</source>
+					<target>スペイン語</target>
+				</trans-unit>
+				<trans-unit id="chinese-simplied">
+					<source>Simplified Chinese</source>
+					<target>中国語簡体文字</target>
+				</trans-unit>
+				<trans-unit id="chinese-traditional">
+					<source>Traditional Chinese</source>
+					<target>中国語繁体文字</target>
+				</trans-unit>
+				<trans-unit id="korean">
+					<source>Korean</source>
+					<target>韓国語</target>
+				</trans-unit>
+				<trans-unit id="japanese">
+					<source>Japanese</source>
+					<target>日本語</target>
+				</trans-unit>
+				<trans-unit id="italian">
+					<source>Italian</source>
+					<target>イタリア語</target>
+				</trans-unit>
+
+				<!-- view_result.jspx -->
+				<trans-unit id="searchOutput">
+					<source>Search Result Page</source>
+					<target>検索結果ページ</target>
+				</trans-unit>
+				<trans-unit id="searchTips">
+					<source>Search Tips</source>
+					<target>検索のヒント</target>
+				</trans-unit>
+				<trans-unit id="links">
+					<source>Links</source>
+					<target>リンク</target>
+				</trans-unit>
+
+				<!-- view_toc.jspx -->
+				<trans-unit id="tableOfContents">
+					<source>Table of Contents</source>
+					<target>目次</target>
+				</trans-unit>
+
+				<!--  view_indexterm.jspx -->
+				<trans-unit id="indexTerm">
+					<source>Index Term</source>
+					<target>索引語</target>
+				</trans-unit>
+
+				<!-- views.jspx -->
+				<trans-unit id="views">
+					<source>Views</source>
+					<target>表示</target>
+				</trans-unit>
+
+				<!-- volume_encrypted.jspx -->
+				<trans-unit id="volumeEncrpted">
+					<source>The File is Encrypted</source>
+					<target>ファイルは暗号化されています</target>
+				</trans-unit>
+				<trans-unit id="volumeEncrptedDetail">
+					<source>
+						The file you are trying to open is encrypted and
+						cannot be opened. You may not have appropriate
+						privileges to view the file. Contact
+						%supportContactInfo% for further support.
+					</source>
+					<target>開こうとしているファイルは暗号化されており、開くことができません。ファイルを表示するために必要な権限がない可能性があります。%supportContactInfo% にお問い合わせください。</target>
+				</trans-unit>
+
+
+				<!-- General -->
+				<trans-unit id="home">
+					<source>Home</source>
+					<target>ホーム</target>
+				</trans-unit>
+
+				<trans-unit id="searchPage">
+					<source>Search Page</source>
+					<target>検索ページ</target>
+				</trans-unit>
+				<trans-unit id="submit">
+					<source>Submit</source>
+					<target>送信</target>
+				</trans-unit>
+
+				<trans-unit id="configuration">
+					<source>Configuration</source>
+					<target>設定</target>
+				</trans-unit>
+
+				<trans-unit id="help">
+					<source>How to Use %projectName%</source>
+					<target>%projectName% の使用方法</target>
+				</trans-unit>
+
+				<!-- Help Center content_config.xml terms -->
+
+				<trans-unit id="userRole">
+					<source>User Role:</source>
+					<target>ユーザーロール:</target>
+				</trans-unit>
+
+				<trans-unit id="user">
+					<source>User</source>
+					<target>ユーザー</target>
+
+				</trans-unit>
+
+				<trans-unit id="developer">
+					<source>Developer</source>
+					<target>開発者</target>
+				</trans-unit>
+
+				<trans-unit id="administrator">
+					<source>Administrator</source>
+					<target>管理者</target>
+				</trans-unit>
+
+				<trans-unit id="product">
+					<source>Arbortext Product:</source>
+					<target>Arbortext 製品:</target>
+				</trans-unit>
+
+				<trans-unit id="toolhelp">
+					<source>Help</source>
+					<target>ヘルプ</target>
+				</trans-unit>
+
+				<trans-unit id="support">
+                			<source>PTC Customer Support website</source>
+                			<target>PTC カスタマーサポートの Web サイト</target>
+				</trans-unit>
+
+			</group>
+		</body>
+	</file>
+</xliff>

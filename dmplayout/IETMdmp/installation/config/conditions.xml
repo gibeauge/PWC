@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<conditions>
+<condition type="java" id="showserial">
+	<java>
+		<class>com.arbortext.dmc.consumer.Main</class>
+		<method>isEncrypted</method>
+	</java>
+	<returnvalue type="boolean">true</returnvalue>
+</condition>
+
+
+
+<condition type="java" id="showuptodate">
+	<java>
+		<class>com.arbortext.dmc.consumer.Main</class>
+		<method>isCurrentVersionInstalled</method>
+	</java>
+	<returnvalue type="boolean">true</returnvalue>
+</condition>
+
+<condition type="java" id="showneedupgrade">
+	<java>
+		<class>com.arbortext.dmc.consumer.Main</class>
+		<method>isPreviousVersionInstalled</method>
+	</java>
+	<returnvalue type="boolean">true</returnvalue>
+</condition>
+
+<condition type="java" id="runupgrade">
+	<java>
+		<class>com.arbortext.dmc.consumer.Main</class>
+		<method>isPreviousVersionInstalled</method>
+	</java>
+	<returnvalue type="boolean">false</returnvalue>
+</condition>
+
+<condition type="java" id="showshortcut">
+	<java>
+		<class>com.arbortext.dmc.consumer.Main</class>
+		<method>showShortcutPanel</method>
+	</java>
+	<returnvalue type="boolean">true</returnvalue>
+</condition>
+
+<panelcondition panelid="shortcut" conditionid="showshortcut"/>
+
+<panelcondition panelid="target" conditionid="runupgrade"/>
+
+<panelcondition panelid="uptodate" conditionid="showuptodate"/>
+
+<panelcondition panelid="needupgrade" conditionid="showneedupgrade"/>
+
+<panelcondition panelid="serialnumber" conditionid="showserial"/>
+</conditions>
+

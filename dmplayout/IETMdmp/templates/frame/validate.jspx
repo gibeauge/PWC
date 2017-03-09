@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:directive.page language="java" errorPage="error.jspx" />
+
+	<atidmc:layout var="layout" />
+
+	<atidmc:validate var="bean" />
+
+	<c:choose>
+		<c:when test="${!bean.valid}">
+			<jsp:forward page="${bean.source}" />
+		</c:when>
+		<c:otherwise>
+			<jsp:forward page="../../index.jspx?task=SUCCEED" />
+		</c:otherwise>
+	</c:choose>
+
+</jsp:root>

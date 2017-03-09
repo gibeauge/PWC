@@ -1,0 +1,12 @@
+This manual contains proprietary information of Pratt &amp; Whitney Canada Corp. (ÅçP&amp;WCÅç), which P&amp;WC provides in
+confidence and solely for the purposes of supporting engine certification and providing applicable information regarding
+the proper use, maintenance, inspection, repair, servicing and parts application of P&amp;WC products and services, as
+directed therein. Neither this manual nor any information in it may be disclosed to others, or used for any other
+purpose, including, without limitation, to design, create, develop, reproduce, manufacture or derive any design, part,
+product, material, process, modification, configuration change or repair, or obtain FAA or other government approval to
+do so. Possession and use of this manual is also subject to the restrictions set out in P&amp;WCÅfs Technical Data
+Agreement (a copy of which may be obtained by contacting P&amp;WC Technical Publications). The contents of this
+manual may be subject to export control laws. Unauthorized export or re-export of the manual, or parts thereof, is
+prohibited. By accepting and possessing this manual, you agree to be bound by the foregoing terms.
+If a Government agency or department intends to disclose any information, written notice should be given to:
+VP - Legal Services, Pratt &amp; Whitney Canada Corp., 1000 Marie-Victorin (01BE5), Longueuil, Quebec J4G 1A1.

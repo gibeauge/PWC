@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DigitalMediaComposerConfig>
+	<ProjectInfo projectName="Arbortext Digital Media Consumer" projectId="ArbortextDMC" company="Arbortext Inc." version="1.0.0" role="dealer" locale="en_US " portRange="45000-65000" composeId="FX22343" mediaVendorBuildVersion="Build MPLR1-198" installationMode="NO_INSTALL" browserMode="EMBEDDED">
+	</ProjectInfo>
+	<CipherInfo licenseHref="config/license" keystoreHref="config/keystore" keySize="128" provider="SunJCE" serialNo="Q14kQ0BeJyEuLVZZJ047WEBULSVKNDI0LDElIjs=" keyNo="SDpYOChXOV4sJ0cnRjpZVUxRJD1ZJCEr" keyAlias="licenseKey" cipherInfoClass="com.arbortext.dmc.config.crypto.impl.DefaultCipherDescription" algorithm="AES"/>
+	<TocInfo profileHref="config/profiles.xml">
+		<Manager class="com.arbortext.dmc.config.meta.impl.TocInfoManagerImpl"/>
+	</TocInfo>
+	<MetaDataInfo class="com.arbortext.dmc.config.meta.impl.MetaDataInfoManagerImpl" indexTemplate="config/indexterm_templates.xml">
+		<Parameter name="metadata_handler">
+			com.arbortext.dmc.xmldb.XMLDBMetaDataHandler
+		</Parameter>
+		<Parameter name="dbbase">data</Parameter>
+		<Parameter name="dbname">DMC</Parameter>
+		<Parameter name="dbconfig">db.xml</Parameter>
+		<Parameter name="dbcollection">metadata</Parameter>
+	</MetaDataInfo>
+	<VolumeInfo></VolumeInfo>
+	<FileTypeInfo searchCfgHref="config/srhcfg.xml" mimemap="config/mimetype.xml" fieldsetsHref="config/fieldset.xml" defaultFieldName="Content" defaultMetaDataBuilder="com.arbortext.dmc.index.meta.DefaultFileMetaDataBuilder">
+		<Type name="PDF" mime="application/pdf">
+			<Parser class="com.arbortext.dmc.index.parser.PDFMultiPageParser">
+				<Parameter name="maxLevel">2</Parameter>
+			</Parser>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.pdf.PDFMetaDataBuilder"/>
+		</Type>
+		<Type name="HTML" mime="text/html" fieldsetsSupported="true">
+			<Parser class="com.arbortext.dmc.index.parser.HTMLParser">
+				<Parameter name="fieldset">
+					config/fieldset.xml
+				</Parameter>
+			</Parser>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.html.HTMLMetaDataBuilder">
+				<Parameter name="retrieveDescriptionFromContent">
+					true
+				</Parameter>
+				<Parameter name="descriptionLength">200</Parameter>
+				<Parameter name="descriptionSkipTags">SCRIPT</Parameter>
+			</MetaBuilder>
+		</Type>
+		<Type name="XML" mime="text/xml">
+			<Parser class="com.arbortext.dmc.index.parser.XMLParser">
+			</Parser>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.xml.XMLMetaDataBuilder"/>
+		</Type>
+		<Type name="TEXT" mime="text/plain">
+			<Parser class="com.arbortext.dmc.index.parser.TextParser"/>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.text.TextMetaDataBuilder"/>
+		</Type>
+		<Type name="POWERPOINT" mime="application/powerpoint">
+			<Parser class="com.arbortext.dmc.index.parser.msoffice.MSOfficeTextParser"/>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.msoffice.MSPropertySetMetaDataBuilder"/>
+		</Type>
+		<Type name="MSWORD" mime="application/msword">
+			<Parser class="com.arbortext.dmc.index.parser.msoffice.MSOfficeTextParser"/>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.msoffice.MSPropertySetMetaDataBuilder"/>
+		</Type>		
+		<Type name="EXCEL" mime="application/vnd.ms-excel">
+			<Parser class="com.arbortext.dmc.index.parser.msoffice.MSOfficeTextParser"/>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.msoffice.MSPropertySetMetaDataBuilder"/>
+		</Type>		
+		<Type name="POWERPOINT2007" mime="application/vnd.openxmlformats-officedocument.presentationml.presentation">
+			<Parser class="com.arbortext.dmc.index.parser.msoffice.MSOfficeTextParser"/>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.msoffice.MSPropertySetMetaDataBuilder"/>
+		</Type>
+		<Type name="MSWORD2007" mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+			<Parser class="com.arbortext.dmc.index.parser.msoffice.MSOfficeTextParser"/>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.msoffice.MSPropertySetMetaDataBuilder"/>
+		</Type>		
+		<Type name="EXCEL2007" mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+			<Parser class="com.arbortext.dmc.index.parser.msoffice.MSOfficeTextParser"/>
+			<MetaBuilder class="com.arbortext.dmc.index.parser.msoffice.MSPropertySetMetaDataBuilder"/>
+		</Type>
+	</FileTypeInfo>
+	<SearchInfo cacheSize="10" encodingmap="config/encodingmap.xml">
+		<Index href="index"/>
+		<Locale locale="pt_BR">
+			<Analyzer class="com.arbortext.dmc.search.analysis.BrazilianAnalyzerWrapper">
+				<Parameter name="stopwordList">
+					config/stopwords_br.xml
+				</Parameter>
+				<Parameter name="stemExclusionList">
+					config/stem_br.xml
+				</Parameter>
+				<Parameter name="usedTermSupported">true</Parameter>
+			</Analyzer>
+		</Locale>
+		<Locale locale="en_US" defaultEncoding="ISO-8859-1">
+			<Analyzer class="com.arbortext.dmc.search.analysis.EnglishAnalyzerWrapper">
+				<Parameter name="stopwordList">
+					config/stopwords_en.xml
+				</Parameter>
+				<Parameter name="usedTermSupported">true</Parameter>
+			</Analyzer>
+		</Locale>
+		<Locale locale="fr_FR" defaultEncoding="ISO-8859-1">
+			<Analyzer class="com.arbortext.dmc.search.analysis.FrenchAnalyzerWrapper">
+				<Parameter name="stopwordList">
+					config/stopwords_fr.xml
+				</Parameter>
+				<Parameter name="stemExclusionList">
+					config/stem_fr.xml
+				</Parameter>
+				<Parameter name="disableStemming">true</Parameter>
+				<Parameter name="usedTermSupported">true</Parameter>
+			</Analyzer>
+		</Locale>
+		<Locale locale="de_DE" defaultEncoding="ISO-8859-1">
+			<Analyzer class="com.arbortext.dmc.search.analysis.GermanAnalyzerWrapper">
+				<Parameter name="stopwordList">
+					config/stopwords_de.xml
+				</Parameter>
+				<Parameter name="stemExclusionList">
+					config/stem_de.xml
+				</Parameter>
+				<Parameter name="usedTermSupported">true</Parameter>
+			</Analyzer>
+		</Locale>
+		<Locale locale="nl_NL">
+			<Analyzer class="com.arbortext.dmc.search.analysis.DutchAnalyzerWrapper">
+				<Parameter name="stopwordList">
+					config/stopwords_nl.xml
+				</Parameter>
+				<Parameter name="stemExclusionList">
+					config/stem_nl.xml
+				</Parameter>
+				<Parameter name="usedTermSupported">true</Parameter>
+			</Analyzer>
+		</Locale>
+		<Locale locale="zh_TW" defaultEncoding="Big5" doubleIndex="true">
+			<Analyzer class="com.arbortext.dmc.search.analysis.ChineseAnalyzerWrapper"/>
+		</Locale>
+		<Locale locale="zh_CN" defaultEncoding="gb2312" doubleIndex="true">
+			<Analyzer class="com.arbortext.dmc.search.analysis.ChineseAnalyzerWrapper"/>
+		</Locale>
+		<Locale locale="ja_JP" defaultEncoding="Shift_JIS" doubleIndex="true">
+			<Analyzer class="com.arbortext.dmc.search.analysis.ChineseAnalyzerWrapper"/>
+		</Locale>
+		<Locale locale="ko_KR" defaultEncoding="koi8-r" doubleIndex="true">
+			<Analyzer class="com.arbortext.dmc.search.analysis.ChineseAnalyzerWrapper"/>
+		</Locale>
+		<Locale locale="ru_RU">
+			<Analyzer class="com.arbortext.dmc.search.analysis.RussianAnalyzerWrapper">
+				<Parameter name="stopwordList">
+					config/stopwords_ru.xml
+				</Parameter>
+				<Parameter name="stemExclusionList">
+					config/stem_ru.xml
+				</Parameter>
+				<Parameter name="usedTermSupported">true</Parameter>
+			</Analyzer>
+		</Locale>
+		<Locale locale="cs_CZ">
+			<Analyzer class="com.arbortext.dmc.search.analysis.CzechAnalyzerWrapper">
+				<Parameter name="stopwordList">
+					config/stopwords_cz.xml
+				</Parameter>
+				<Parameter name="stemExclusionList">
+					config/stem_cz.xml
+				</Parameter>
+				<Parameter name="usedTermSupported">true</Parameter>
+			</Analyzer>
+		</Locale>
+	</SearchInfo>
+	<LayoutInfo class="com.arbortext.dmc.config.layout.impl.LayoutInfoManagerImpl" localePreference="USER_CLIENT">
+		<Parameter name="template">frame</Parameter>
+	</LayoutInfo>
+	<UpdateInfo/>
+</DigitalMediaComposerConfig>

@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+
+	<atidmc:config var="update" javaClass="${layout.beans['UPDATE']}" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }" />
+
+	<c:set var="schedule" value="${update.updateScheduleParser }"/>
+	
+	<fmt:setLocale value="${layout.locale}" />
+
+	<html>
+	<head>
+	<title>${resourceBundle['updateTitle']}</title>
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"><!--  --></link>
+	<script language="JavaScript"> <![CDATA[
+	
+		function enable(elms, names, enabled){
+			for (var i=0; i < elms.length; i++) {
+				for (var j=0; j < names.length; j++) {
+					if (elms[i].name == names[j]) {
+						elms[i].disabled = !enabled;
+						break;
+					}
+				}				
+			}
+		}
+	
+		function setProxy(enabled){
+			var elms = document.update.elements;
+			var names = ["host", "port", "username", "password"];
+			enable(elms, names, enabled);
+		}
+				
+		function enableUpdate() {
+			var elms = document.update.elements;
+			var names = ["day", "updateSchedule", "updateProtocol", "updateFile", "updateUri"];			
+			enable(elms, names, true);		
+		}
+				
+		function disableUpdate() {
+			var elms = document.update.elements;
+			var names = ["day", "updateSchedule", "updateProtocol", "updateFile", "updateUri"];			
+			enable(elms, names, false);
+		}		
+
+		function disableAutoUpdate() {
+			enableUpdate();
+			var elms = document.update.elements;
+			var names = ["day", "updateSchedule"];			
+			enable(elms, names, false);
+		}		
+				
+		function setAutomatic(enabled){
+			var elms = document.update.elements;
+			var names = ["day", "updateSchedule", "updateProtocol", "updateFile", "updateUri"];			
+			enable(elms, names, enabled);
+			setTime(elms);
+		}
+		
+		function setTime (elms) {
+			var set = false;
+			
+			for (var i=0; i < elms.length; i++) {
+				if (elms[i].name == "updateSchedule" && elms[i].checked) {
+					set = true;
+					break;
+				}			
+			}
+
+			if (set)
+				return;
+				
+			for (var i=0; i < elms.length; i++) {
+				if (elms[i].name == "updateSchedule") {
+					elms[i].checked = true;
+					break;
+				}			
+			}	
+		}
+		
+		function checkEnabled(){
+			var elms = document.update.elements;
+			
+			for (var i=0; i<elms.length; i++) {			
+				
+				//alert(elms[i].id + " checked: " + elms[i].checked);
+				
+				if (elms[i].id=="automatic") {
+					if (elms[i].checked) {
+						setAutomatic(true);
+					} 
+				} else if (elms[i].id=="useProxy") {
+					if (elms[i].checked) {
+						setProxy(true);
+					} else {
+						setProxy(false);
+					}				
+				} else if (elms[i].id=="disabled") {
+					if (elms[i].checked) {
+						disableUpdate();
+					}
+				} else if (elms[i].id=="manual") {
+					if (elms[i].checked) {
+						disableAutoUpdate();
+					}
+				}			
+			}
+			
+		}
+
+	]]></script>		
+	</head>
+	<body onload="checkEnabled()">
+	<div id="configUpdate"><!-- update setting --> <!-- 
+			1. proxy settings	(host, port, username, password)
+			2. update preference (disabled, manual, at launch)
+	   	  --> <c:if test="${update.readable}">
+		<h1>${resourceBundle['updateTitle']}</h1>
+		<c:choose>
+			<c:when test="${!update.defined}">
+				<p><font color="red"> ${update.errorMessage} </font></p>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${!update.valid}">
+					<p><font color="red"> ${resourceBundle['errorInInput']}
+					</font></p>
+					<br/>
+					<font color="red"> ${resourceBundle['errorMessage']}:
+					${update.errorMessage} </font>
+					<br />
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+		<form method="post" action="index.jspx" id="update" name="update"
+			accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+		<input type="hidden" name="config" value="UPDATE"/>
+		<input type="hidden" name="task" value="VALIDATE"/>	
+		<ul>
+			<c:choose>
+				<c:when test="${update.writable}">
+
+
+					<li class="configRow"></li>
+					<li class="configRow"><span class="configHeader">${resourceBundle['updatePreference']}</span></li>
+					<li class="configRow"><span class="configField"> <c:choose>
+						<c:when test="${update.updatePreference == update.disabled}">
+							<input type="radio" name="updatePreference" id="disabled" onclick="disableUpdate()"
+								value="${update.disabled}" checked="true">${resourceBundle['disabled']}</input>
+						</c:when>
+						<c:otherwise>
+							<input type="radio" name="updatePreference" id="disabled" onclick="disableUpdate()"
+								value="${update.disabled}">${resourceBundle['disabled']}</input>
+						</c:otherwise>
+					</c:choose> </span></li>
+					<li class="configRow"><span class="configField"> <c:choose>
+						<c:when test="${update.updatePreference == update.manual}">
+							<input type="radio" name="updatePreference" id="manual" onclick="disableAutoUpdate()"
+								value="${update.manual}" checked="true">${resourceBundle['manual']}</input>
+						</c:when>
+						<c:otherwise>
+							<input type="radio" name="updatePreference" id="manual" onclick="disableAutoUpdate()"
+								value="${update.manual}">${resourceBundle['manual']}</input>
+						</c:otherwise>
+					</c:choose> </span></li>
+					<li class="configRow"><span class="configField"> <c:choose>
+						<c:when test="${update.updatePreference == update.atLaunch}">
+							<input type="radio" name="updatePreference" id="atLaunch" onclick="disableAutoUpdate()"
+								value="${update.atLaunch}" checked="true">${resourceBundle['atLaunch']}</input>
+						</c:when>
+						<c:otherwise>
+							<input type="radio" name="updatePreference" id="atLaunch" onclick="disableAutoUpdate()"
+								value="${update.atLaunch}">${resourceBundle['atLaunch']}</input>
+						</c:otherwise>
+					</c:choose> </span></li>					
+					<li class="configRow"><span class="configField"> <c:choose>
+						<c:when test="${update.updatePreference == update.automatic}">
+							<input type="radio" name="updatePreference" id="automatic" onclick="setAutomatic(this.checked)"
+								value="${update.automatic}" checked="true">${resourceBundle['automatic']}</input>
+						</c:when>
+						<c:otherwise>
+							<input type="radio" name="updatePreference" id="automatic" onclick="setAutomatic(this.checked)"
+								value="${update.automatic}">${resourceBundle['automatic']}</input>
+						</c:otherwise>
+					</c:choose> </span>
+					<ul>					
+					<li class="configRow"><span class="configHeader">${resourceBundle['updateFrequency']}</span></li>
+					<li class="configRow"><span class="configField">
+										<c:choose>
+					<c:when test="${update.minutely }">
+					<input type="radio" name="updateSchedule" value="minutely" checked="true">${resourceBundle['updateMinutely']}</input>&#160;
+					</c:when>
+					<c:otherwise>
+					<input type="radio" name="updateSchedule" value="minutely">${resourceBundle['updateMinutely']}</input>&#160;
+					</c:otherwise>
+					</c:choose>	
+					</span></li>
+					<li class="configRow"><span class="configField">
+						${resourceBundle['minutefrequency'] }: <select name="minute" id="minute" onchange="setAutomatic(true)">
+							<c:forEach items="${schedule.minutely}" var="mm">	
+								<c:choose>
+									<c:when test="${update.minuteFrequency == mm.key }">
+										<option value="${mm.key}" selected="true">${mm.value}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${mm.key}">${mm.value}</option>
+									</c:otherwise>
+								</c:choose>		
+							</c:forEach>
+						</select>
+					</span>
+					</li>
+					<li class="configRow"><span class="configField">
+										<c:choose>
+					<c:when test="${update.hourly }">
+					<input type="radio" name="updateSchedule" value="hourly" checked="true">${resourceBundle['updateHourly']}</input>&#160;
+					</c:when>
+					<c:otherwise>
+					<input type="radio" name="updateSchedule" value="hourly">${resourceBundle['updateHourly']}</input>&#160;
+					</c:otherwise>
+					</c:choose>	
+					</span></li>
+					<li class="configRow"><span class="configField">
+						${resourceBundle['hourfrequency'] }: <select name="hour" id="hour" onchange="setAutomatic(true)">
+							<c:forEach items="${schedule.hourly}" var="hh">	
+								<c:choose>
+									<c:when test="${update.hourFrequency == hh.key }">
+										<option value="${hh.key}" selected="true">${hh.value}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${hh.key}">${hh.value}</option>
+									</c:otherwise>
+								</c:choose>		
+							</c:forEach>
+						</select>
+					</span>
+					</li>
+                    <li class="configRow"><span class="configField">										
+					<c:choose>
+					<c:when test="${update.daily }">
+					<input type="radio" name="updateSchedule" value="daily" checked="true">${resourceBundle['updateDaily']}</input>&#160;
+					</c:when>
+					<c:otherwise>
+					<input type="radio" name="updateSchedule" value="daily">${resourceBundle['updateDaily']}</input>&#160;
+					</c:otherwise>
+					</c:choose>					
+					</span></li>
+					<li class="configRow"><span class="configField">
+						${resourceBundle['timeOfTheDay'] }: <select name="day" id="day" onchange="setAutomatic(true)">
+							<c:forEach items="${schedule.hours}" var="h">	
+								<c:choose>
+									<c:when test="${update.hourOfDay == h.key }">
+										<option value="${h.key}" selected="true">${h.value}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${h.key}">${h.value}</option>
+									</c:otherwise>
+								</c:choose>		
+							</c:forEach>
+						</select>
+					</span>
+					</li>
+					<li class="configRow"><span class="configField">
+					<c:choose>
+					<c:when test="${update.weekly }">
+						<input type="radio" name="updateSchedule" value="weekly" checked="true">${resourceBundle['updateWeekly']}</input>&#160;
+					</c:when>
+					<c:otherwise>
+						<input type="radio" name="updateSchedule" value="weekly">${resourceBundle['updateWeekly']}</input>&#160;
+					</c:otherwise>
+					</c:choose> &#160;
+						<select name="week" id="week">
+							<c:forEach items="${schedule.weekdays}" var="w">
+								<c:choose>
+									<c:when test="${update.dayOfWeek == w.key }">
+										<option value="${w.key}" selected="true">${w.value}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${w.key}">${w.value}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</select>&#160;					
+					</span></li>
+					<li class="configRow"><span class="configField">
+						<c:choose>
+							<c:when test="${update.monthly }">
+								<input type="radio" name="updateSchedule" value="monthly" checked="true">${resourceBundle['updateMonthly']}</input>&#160;						
+							</c:when>
+							<c:otherwise>
+								<input type="radio" name="updateSchedule" value="monthly">${resourceBundle['updateMonthly']}</input>&#160;
+							</c:otherwise>
+						</c:choose>	&#160;
+						<select name="month" id="month">
+						<c:forEach items="${schedule.daysOfMonth}" var="d">
+							<c:choose>
+								<c:when test="${update.dayOfMonth == d.key }">
+								<option value="${d.key}" selected="true">${d.value}</option>
+								</c:when>
+								<c:otherwise>
+								<option value="${d.key}">${d.value}</option>
+								</c:otherwise>
+							</c:choose>							
+						</c:forEach>
+						</select>&#160;				
+					</span></li>
+					</ul>
+					</li>
+					<li class="configRow"></li>
+					<li class="configRow"><span class="configHeader">${resourceBundle['updateLocation']}</span></li>
+					<c:choose>
+						<c:when test="${update.updateProtocol == 'HTTP'}">
+							<li class="configRow"><span class="configField"><input
+								type="radio" checked="true" name="updateProtocol" value="HTTP"><c:if test="${!update.isValid['updateUri']}"><font color="red">*</font></c:if>${resourceBundle['updateFromRemoteUrl']}</input></span> <span class="configField">&#160;<input type="text"
+								name="updateUri" value="${update.updateUri}"></input></span></li>
+							<li class="configRow"><span class="configField"><input
+								type="radio" name="updateProtocol" value="FILE"><c:if test="${!update.isValid['updateFile']}"><font color="red">*</font></c:if>${resourceBundle['updateFromLocalFolder']}</input></span> <span class="configField">&#160;<input type="text"
+								name="updateFile" value="${update.updateFile}"></input></span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="configRow"><span class="configField"><input
+								type="radio" name="updateProtocol" value="HTTP"><c:if test="${!update.isValid['updateUri']}"><font color="red">*</font></c:if>${resourceBundle['updateFromRemoteUrl']}</input></span> <span class="configField">&#160;<input type="text"
+								name="updateUri" value="${update.updateUri}"></input></span></li>
+							<li class="configRow"><span class="configField"><input
+								type="radio" checked="true" name="updateProtocol" value="FILE"><c:if test="${!update.isValid['updateFile']}"><font color="red">*</font></c:if>${resourceBundle['updateFromLocalFolder']}</input></span> <span class="configField">&#160;<input type="text"
+								name="updateFile" value="${update.updateFile}"></input></span></li>
+						</c:otherwise>
+
+					</c:choose>
+					<li class="configRow"><span class="configHeader">${resourceBundle['proxySettings']}</span></li>
+					<li class="configRow"><span class="configField">
+					<c:choose>
+							<c:when test="${update.useProxy }">
+								<input type="checkbox" id="useProxy" name="useProxy" value="true" checked="true" onclick="setProxy(this.checked)">${resourceBundle['enableUpdateProxy']}</input>&#160;						
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" id="useProxy" name="useProxy" value="true" onclick="setProxy(this.checked)">${resourceBundle['enableUpdateProxy']}</input>&#160;
+							</c:otherwise>
+					</c:choose>	&#160;
+					</span>
+					<ul>
+					<c:choose>
+						<c:when test="${!update.isValid.host}">
+							<li class="configRow"><span class="configField"><font
+								color="red">${resourceBundle['proxyHost']}*</font></span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="configRow"><span class="configField">${resourceBundle['proxyHost']}</span></li>
+						</c:otherwise>
+					</c:choose>
+					<li class="configRow"><span class="configField"> <input id="host"
+						type="text" name="host" value="${update.host}" /> </span></li>
+
+					<c:choose>
+						<c:when test="${!update.isValid.port}">
+							<li class="configRow"><span class="configField"><font
+								color="red">${resourceBundle['proxyPort']}*</font></span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="configRow"><span class="configField">${resourceBundle['proxyPort']}</span></li>
+						</c:otherwise>
+					</c:choose>
+
+					<li class="configRow"><span class="configField"><input id="port"
+						type="text" name="port" value="${update.port}" /></span></li>
+
+
+					<c:choose>
+						<c:when test="${!update.isValid.username}">
+							<li class="configRow"><span class="configField"><font
+								color="red">${resourceBundle['username']}*</font></span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="configRow"><span class="configField">${resourceBundle['username']}</span></li>
+						</c:otherwise>
+					</c:choose>
+
+					<li class="configRow"><span class="configField"><input id="username"
+						type="text" name="username" value="${update.username}" /> </span></li>
+
+					<c:choose>
+						<c:when test="${!update.isValid.password}">
+							<li class="configRow"><span class="configField"><font
+								color="red">${resourceBundle['password']}*</font></span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="configRow"><span class="configField">${resourceBundle['password']}</span></li>
+						</c:otherwise>
+					</c:choose>
+
+					<li class="configRow"><span class="configField"><input id="password"
+						type="password" name="password" value="${update.password}" /></span></li>
+					</ul>
+					</li>
+					<li class="configRow"></li>
+					<li class="configRow"><input type="submit"
+						value="${resourceBundle['submit']}" /></li>
+				</c:when>
+			</c:choose>
+		</ul>
+		</form>
+		<!-- 		
+			1. update history (readonly)
+			2. run update content
+        -->
+		<h4>${resourceBundle['updateHistory']}</h4>
+		<table>
+			<c:forEach var="item" items="${update.updateLogs}">
+				<tr>
+					<td colspan="2"><a target="content"
+						href="_updateLog?id=${item.id}&amp;xsl=${layout.template}xsl/updatelog.xsl">
+					<fmt:formatDate value="${item.date.time}" type="both"
+						dateStyle="full" /> </a></td>
+				</tr>
+			</c:forEach>
+
+		</table>
+	</c:if></div>
+	<div id="footer"></div>
+	</body>
+	</html>
+
+</jsp:root>

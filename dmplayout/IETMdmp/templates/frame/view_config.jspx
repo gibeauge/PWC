@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+
+	<atidmc:layout var="layout" />
+	
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+		
+	<!-- 
+	<atidmc:config var="project" javaClass="${layout.beans['PROJECT']}"/>
+	<atidmc:config var="license" javaClass="${layout.beans['LICENSE']}"/>
+	<atidmc:config var="browser" javaClass="${layout.beans['BROWSER']}"/>
+	<atidmc:config var="volume" javaClass="${layout.beans['VOLUME']}" />
+	 -->
+
+	<atidmc:config var="update" javaClass="${layout.beans['UPDATE']}" />
+	<atidmc:config var="template" javaClass="${layout.beans['TEMPLATE']}" />
+
+	<fmt:setLocale value="${layout.locale}" />
+
+	<html>
+	<head>
+	<title>${resourceBundle['layoutTitle']}</title>
+	<link rel="Stylesheet" type="text/css" media="all"
+		href="${layout.template}css/dmc.css"></link>
+	</head>
+	<body>
+	<div id="config"><!-- project settings --> <!-- 
+			1. project information (readonly)
+			2. license information (readonly)
+			3. port range			
+	--> <!-- layout and language settings --> <!-- 
+			1. default locale setting
+				a. use user client locale 
+				b. use user specified locale (stored in cookie and user dependent)
+				c. use default locale set in config file (same locale for all users)
+				   [this option only matters for web server install, 
+				   it is the same as (b) for a single user install]
+			2. list and select avaliable templates
+			3. list and select template parameters
+			4. embedded/external browser	
+			5. browser location
+	--> <c:if test="${template.readable}">
+		<h1>${resourceBundle['layoutTitle']}</h1>
+		<c:choose>
+			<c:when test="${!template.defined}">
+				<p><font color="red"> ${template.errorMessage} </font></p>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${!template.valid}">
+					<p><font color="red"> ${resourceBundle['errorInInput']} </font></p>
+					<br><font color="red"> ${resourceBundle['errorMessage']}:
+					${template.errorMessage} </font></br>
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+
+		<form method="post" action="index.jspx"
+			accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+		<input type="hidden" name="config" value="TEMPLATE"/>
+		<input type="hidden" name="task" value="VALIDATE"/>			
+		<ul>
+			<c:choose>
+				<c:when test="${template.writable}">
+					<li class="configRow"><span class="configHeader">${resourceBundle['localePreference']}</span></li>
+					<li class="configRow">
+					<c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.REQUEST}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true"
+								value="${template.localePreferences.REQUEST}">${resourceBundle['requestLocale']}</input></span>
+
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference"
+								value="${template.localePreferences.REQUEST}">${resourceBundle['requestLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"> <c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.USER_CLIENT}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true"
+								value="${template.localePreferences.USER_CLIENT}">${resourceBundle['clientLocale']}</input></span>
+
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference"
+								value="${template.localePreferences.USER_CLIENT}">${resourceBundle['clientLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"> <c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.FIXED}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true"
+								value="${template.localePreferences.FIXED}">${resourceBundle['fixedLocale']}</input></span>
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference"
+								value="${template.localePreferences.FIXED}">${resourceBundle['fixedLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					
+					<li class="configRow"><span class="configHeader">${resourceBundle['defaultLocale']}</span></li>
+					<li class="configRow">
+					<span class="configField"><select name="locale">
+						<c:choose>
+							<c:when test="${template.locale == 'en_US'}">
+								<option value="en_US" selected="selected">${resourceBundle['English']}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="en_US">${resourceBundle['English']}</option>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${template.locale == 'ko_KR'}">
+								<option value="ko_KR" selected="selected">${resourceBundle['Korean']}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="ko_KR">${resourceBundle['Korean']}</option>
+							</c:otherwise>
+						</c:choose>
+					</select></span></li>
+					<li class="configRow"><span class="configHeader">${resourceBundle['searchKeywordHighlight']}</span></li>
+			        <li class="configRow">
+					<span class="configField">					
+					<c:choose>
+						<c:when
+							test="${template.modules.highlight.parameters.createLink == 'true'}">
+							<input type="radio" checked="true"
+								name="${template.moduleParamNames.highlight.createLink}"
+								value="true">${resourceBundle['highlightandCreatelink']}</input>
+						</c:when>
+						<c:otherwise>
+							<input type="radio"
+								name="${template.moduleParamNames.highlight.createLink}"
+								value="true">${resourceBundle['highlightandCreatelink']}</input>
+						</c:otherwise>
+					</c:choose></span></li>
+					<li class="configRow"> <span
+						class="configField"><c:choose>
+						<c:when
+							test="${template.modules.highlight.parameters.createLink == 'false'}">
+							<input type="radio" checked="true"
+								name="${template.moduleParamNames.highlight.createLink}"
+								value="false">${resourceBundle['highlightOnly']}</input>
+						</c:when>
+						<c:otherwise>
+							<input type="radio"
+								name="${template.moduleParamNames.highlight.createLink}"
+								value="false">${resourceBundle['highlightOnly']}</input>
+						</c:otherwise>
+					</c:choose></span></li>
+					<li class="configRow"><input type="submit"
+						value="${resourceBundle['submit']}" /></li>
+				</c:when>
+				<c:otherwise>
+					<li><span class="configHeader">${resourceBundle['localePreference']}</span> </li>
+					
+					<li class="configRow">
+					<c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.REQUEST}">
+							<span class="configField"> <input type="radio"
+								name="localePreference" checked="true" disabled="true"
+								value="${template.localePreferences.REQUEST}">${resourceBundle['requestLocale']}</input></span>
+
+						</c:when>
+						<c:otherwise>
+							<span class="configField"> <input type="radio"
+								name="localePreference" disabled="true"
+								value="${template.localePreferences.REQUEST}">${resourceBundle['requestLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>					
+					<li class="configRow"> <c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.USER_CLIENT}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true" disabled="true"
+								value="${template.localePreferences.USER_CLIENT}">${resourceBundle['clientLocale']}</input></span>
+
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference" disabled="true"
+								value="${template.localePreferences.USER_CLIENT}">${resourceBundle['clientLocale']}</input></span>
+
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"> <c:choose>
+						<c:when
+							test="${template.localePreference == template.localePreferences.FIXED}">
+							<span class="configField"><input type="radio"
+								name="localePreference" checked="true" disabled="true"
+								value="${template.localePreferences.FIXED}">${resourceBundle['fixedLocale']}</input></span>
+						</c:when>
+						<c:otherwise>
+							<span class="configField"><input type="radio"
+								name="localePreference" disabled="true"
+								value="${template.localePreferences.FIXED}">${resourceBundle['fixedLocale']}</input></span>
+						</c:otherwise>
+					</c:choose></li>
+					<li class="configRow"><span class="configHeader">${resourceBundle['defaultLocale']}</span> </li>
+					<li class="configRow">
+					<span class="configField"><select name="locale" disabled="true">
+						<c:choose>
+							<c:when test="${template.locale == 'en_US'}">
+								<option value="en_US" selected="selected">${resourceBundle['English']}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="en_US">${resourceBundle['English']}</option>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${template.locale == 'ko_KR'}">
+								<option value="ko_KR" selected="selected">${resourceBundle['Korean']}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="ko_KR">${resourceBundle['Korean']}</option>
+							</c:otherwise>
+						</c:choose>
+					</select></span></li>
+					<li class="configRow"><span class="configHeader">${resourceBundle['searchKeywordHighlight']}</span></li>
+					<li class="configRow">
+					<span class="configField"><c:choose>
+						<c:when
+							test="${template.modules.highlight.parameters.createLink == 'true'}">
+							<input type="radio" checked="true" disabled="true"
+								name="${template.moduleParamNames.highlight.createLink}"
+								value="true">${resourceBundle['highlightandCreatelink']}</input>
+						</c:when>
+						<c:otherwise>
+							<input type="radio" disabled="true"
+								name="${template.moduleParamNames.highlight.createLink}"
+								value="true">${resourceBundle['highlightandCreatelink']}</input>
+						</c:otherwise>
+					</c:choose></span></li>
+					<li class="configRow"> <span
+						class="configField"><c:choose>
+						<c:when
+							test="${template.modules.highlight.parameters.createLink == 'false'}">
+							<input type="radio" checked="true" disabled="true"
+								name="${template.moduleParamNames.highlight.createLink}"
+								value="false">${resourceBundle['highlightOnly']}</input>
+						</c:when>
+						<c:otherwise>
+							<input type="radio" disabled="true"
+								name="${template.moduleParamNames.highlight.createLink}"
+								value="false">${resourceBundle['highlightOnly']}</input>
+						</c:otherwise>
+					</c:choose></span></li>
+
+				</c:otherwise>
+			</c:choose>
+		</ul>
+		</form>
+
+
+	</c:if> <!-- update setting --> <!-- 
+			1. proxy settings	(host, port, username, password)
+			2. update preference (disabled, manual, at launch)
+		 --> <!-- 
+	<c:if test="${update.readable}">
+		<h4>${resourceBundle['updateTitle']}</h4>
+
+		<c:choose>
+			<c:when test="${!update.defined}">
+				<p><font color="red"> ${update.errorMessage} </font></p>
+			</c:when>
+			<c:otherwise>
+				<c:if test="${!update.valid}">
+					<p><font color="red"> ${resourceBundle['errorInInput']} </font></p>
+					<br><font color="red"> ${resourceBundle['errorMessage']}: ${update.errorMessage} </font></br>
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+
+		<form method="post" action="${layout.configActions.UPDATE}"
+			accept-charset="utf-8" enctype="application/x-www-form-urlencoded">
+
+		<table>
+			<c:choose>
+				<c:when test="${update.writable}">
+					<tr>
+						<c:choose>
+							<c:when test="${!update.isValid.host}">
+								<td><font color="red">${resourceBundle['proxyHost']}*</font></td>
+							</c:when>
+							<c:otherwise>
+								<td>${resourceBundle['proxyHost']}</td>
+							</c:otherwise>
+						</c:choose>
+						<td><input type="text" name="host" value="${update.host}" /></td>
+					</tr>
+					<tr>
+						<c:choose>
+							<c:when test="${!update.isValid.port}">
+								<td><font color="red">${resourceBundle['proxyPort']}*</font></td>
+							</c:when>
+							<c:otherwise>
+								<td>${resourceBundle['proxyPort']}</td>
+							</c:otherwise>
+						</c:choose>
+
+						<td><input type="text" name="port" value="${update.port}" /></td>
+					</tr>
+					<tr>
+						<c:choose>
+							<c:when test="${!update.isValid.username}">
+								<td><font color="red">${resourceBundle['username']}*</font></td>
+							</c:when>
+							<c:otherwise>
+								<td>${resourceBundle['username']}</td>
+							</c:otherwise>
+						</c:choose>
+
+						<td><input type="text" name="username" value="${update.username}" />
+						</td>
+					</tr>
+					<tr>
+						<c:choose>
+							<c:when test="${!update.isValid.password}">
+								<td><font color="red">${resourceBundle['password']}*</font></td>
+							</c:when>
+							<c:otherwise>
+								<td>${resourceBundle['password']}</td>
+							</c:otherwise>
+						</c:choose>
+
+						<td><input type="password" name="password"
+							value="${update.password}" /></td>
+					</tr>
+					<tr>
+						<td>${resourceBundle['updatePreference']}</td>
+						<td><select name="updatePreference">
+							<c:choose>
+								<c:when test="${update.updatePreference == update.disabled}">
+									<option value="${update.disabled}" selected="selected">${resourceBundle['disabled']}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${update.disabled}">${resourceBundle['disabled']}</option>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${update.updatePreference == update.manual}">
+									<option value="${update.manual}" selected="selected">${resourceBundle['manual']}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${update.manual}">${resourceBundle['manual']}</option>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${update.updatePreference == update.atLaunch}">
+									<option value="${update.atLaunch}" selected="selected">${resourceBundle['atLaunch']}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${update.atLaunch}">${resourceBundle['atLaunch']}</option>
+								</c:otherwise>
+							</c:choose>
+						</select></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit"
+							value="${resourceBundle['submit']}" /></td>
+					</tr>
+
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td>${resourceBundle['proxyHost']}</td>
+						<td><input type="text" disabled="true" name="host"
+							value="${update.host}" /></td>
+					</tr>
+					<tr>
+						<td>${resourceBundle['proxyPort']}</td>
+						<td><input type="text" disabled="true" name="port"
+							value="${update.port}" /></td>
+					</tr>
+					<tr>
+						<td>${resourceBundle['username']}</td>
+						<td><input type="text" disabled="true" name="username"
+							value="${update.username}" /></td>
+					</tr>
+					<tr>
+						<td>${resourceBundle['password']}</td>
+						<td><input type="password" disabled="true" name="password"
+							value="${update.password}" /></td>
+					</tr>
+					<tr>
+						<td>${resourceBundle['updatePreference']}</td>
+						<td><select name="updatePreference" disabled="true">
+							<c:choose>
+								<c:when test="${update.updatePreference == update.disabled}">
+									<option value="${update.disabled}" selected="selected">${resourceBundle['disabled']}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${update.disabled}">${resourceBundle['disabled']}</option>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${update.updatePreference == update.manual}">
+									<option value="${update.manual}" selected="selected">${resourceBundle['manual']}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${update.manual}">${resourceBundle['manual']}</option>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${update.updatePreference == update.atLaunch}">
+									<option value="${update.atLaunch}" selected="selected">${resourceBundle['atLaunch']}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${update.atLaunch}">${resourceBundle['atLaunch']}</option>
+								</c:otherwise>
+							</c:choose>
+						</select></td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+		</table>
+		</form>
+ 		--> <!-- 		
+			1. update history (readonly)
+			2. run update content
+        --> <!-- 
+		<h4>${resourceBundle['updateHistory']}</h4>
+		<table>
+			<c:forEach var="item" items="${update.updateLogs}">
+				<tr>
+					<td colspan="2"><br> ${resourceBundle['updateDate']}: <fmt:formatDate
+						value="${item.date.time}" type="both" dateStyle="full" /> </br>
+					<a href="${layout.template}showLog.jspx?logId=${item.logHref}">
+					${resourceBundle['logDetail']} </a></td>
+				</tr>
+			</c:forEach>
+			<form method="post" action="/updateContent">
+				<input type="submit" name="update content" disabled="true" 
+				value="${resourceBundle['updateContent']}"/>
+			</form>
+		</table>
+	</c:if>
+				 --> <!-- volume settings --> <!-- 
+			1. volume information
+		 --></div>
+	<div id="footer"></div>
+	</body>
+	</html>
+
+</jsp:root>

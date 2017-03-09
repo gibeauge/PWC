@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:atidmc="http://www.arbortext.com/namespace/dmc/consumer">
+
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+	<jsp:directive.page language="java" errorPage="error.jspx"
+		contentType="text/html; charset=UTF-8" />
+
+	<atidmc:layout var="layout" />
+
+	<atidmc:framemanager var="manager" />
+
+	<c:set var="resourceBundle" value="${layout.resourceBundle }"/>
+	
+	<html>
+	<head>
+	<title>${resourceBundle['navigationTabs']}</title>
+	<script language="JavaScript">
+		var viewFrameName = "viewsFrame";	
+		var tabFrameName = "tabs";
+		var tabToolbarFrameName = "tabToolbarFrame";
+	</script>
+	<script language="JavaScript"
+		src="${layout.template}javascript/utils.js">
+	<![CDATA[
+					// leave some space, so that the serializer won't collapse element
+					// which could cause browser to mis-behave
+			]]></script>			
+	<script language="JavaScript"
+		src="${layout.template}javascript/tab.js">
+	<![CDATA[
+					// leave some space, so that the serializer won't collapse element
+					// which could cause browser to mis-behave
+			]]></script>
+
+	<link rel="stylesheet" type="text/css"
+		href="${layout.template}css/dmc.css" media="all"></link>
+
+	</head>
+	<!-- 
+	<body onload="clickOnTab(0, tabFrameName, viewFrameName, '${manager.moduleMap.tocView.view}', tabToolbarFrameName, '${manager.moduleMap.tocView.toolbar}')">
+	 -->	 
+	<body>
+	
+	<table class="tabs">	
+		<tr  height="20">
+		    <c:set var="idx" value="0"/>
+			<c:forEach var="item" items="${manager.modules}">
+				<c:if test="${item.show}">
+				<c:choose>
+					<c:when test="${layout.requestParam.view == null and idx == 0}">
+					<td id="${idx}" class="tabOn"
+					onClick="clickOnTab(${idx}, tabFrameName, viewFrameName, '${item.view}', tabToolbarFrameName, '${item.toolbar}')"><img
+					src="${layout.template}${item.tabImage}"
+					alt="${resourceBundle[item.tabAlt]}"
+					title="${resourceBundle[item.tabAlt]}"/></td>
+					</c:when>
+					<c:when test="${layout.requestParam.view[0] == item.view}">
+					<td id="${idx}" class="tabOn"
+					onClick="clickOnTab(${idx}, tabFrameName, viewFrameName, '${item.view}', tabToolbarFrameName, '${item.toolbar}')"><img
+					src="${layout.template}${item.tabImage}"
+					alt="${resourceBundle[item.tabAlt]}"
+					title="${resourceBundle[item.tabAlt]}"/></td>
+					</c:when>
+					<c:otherwise>
+					<td id="${idx}" class="tabOff"
+					onClick="clickOnTab(${idx}, tabFrameName, viewFrameName, '${item.view}', tabToolbarFrameName, '${item.toolbar}')"><img
+					src="${layout.template}${item.tabImage}"
+					alt="${resourceBundle[item.tabAlt]}"
+					title="${resourceBundle[item.tabAlt]}"/></td>					
+					</c:otherwise>
+				</c:choose>
+				<c:set var="idx" value="${idx+1}"/>				
+				</c:if>
+			</c:forEach>
+		</tr>
+	</table>
+
+	</body>
+	</html>
+</jsp:root>

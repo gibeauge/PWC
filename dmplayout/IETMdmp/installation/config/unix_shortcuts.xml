@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+
+<shortcuts>
+
+	<skipIfNotSupported/>
+
+	<programGroup defaultName="%projectName%" location="applications" />
+
+	<shortcut name="%projectName%" programGroup="yes" desktop="yes"
+		applications="no" startMenu="yes" startup="no"
+		target="$INSTALL_PATH/%appName%" 
+		workingDirectory="$INSTALL_PATH"
+		initialState="noShow" 
+		iconFile="$INSTALL_PATH/installation/icons/appicon.gif" 
+		type="Application" encoding="UTF-8" 
+		description="%projectName% Application">
+		<createForPack name="Core" />
+	</shortcut>
+
+	<shortcut name="Uninstall %projectName%" 
+	    programGroup="yes" 
+	    desktop="no"
+		applications="no" 
+		startMenu="no" 
+		startup="no" 
+		target="$INSTALL_PATH/uninstall"
+		iconFile="$INSTALL_PATH/installation/icons/uninstall.gif" 	
+		initialState="noShow" 
+		workingDirectory="$INSTALL_PATH" 
+		type="Application" 
+		encoding="UTF-8"
+		description="Uninstall %projectName%">
+		<createForPack name="Core" />
+	</shortcut>
+
+
+</shortcuts>
