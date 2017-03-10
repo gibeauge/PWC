@@ -3,6 +3,7 @@
     xmlns:fn="http://www.pwc.ca"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:saxon="http://saxon.sf.net/"
+    xmlns:exslt="http://exslt.org/common"
     exclude-result-prefixes="xs fn saxon"
     xmlns:random="http://exslt.org/random"
     extension-element-prefixes="random"
@@ -17,6 +18,8 @@
 
 <!-- ************************************************************** -->
 <!-- PARAMETERS -->
+
+<xsl:param name="applic" select="'GAC-OEM=no'"/>
 
 <xsl:variable name="base-uri">
   <xsl:for-each select="/pm">
@@ -78,9 +81,80 @@
       <xsl:if test="dmRefAddressItems/dmTitle">
         <tocTitle><xsl:copy-of select="dmRefAddressItems/dmTitle"/></tocTitle>
       </xsl:if>
+      <xsl:choose>
+        <xsl:when test="$doc//identAndStatusSection/dmStatus/referencedApplicGroup">
+          <xsl:variable name="dm-tree">
+            <tmpTree>
+              <xsl:apply-templates select="$doc/*" mode="set-applic-valid"/>
+              <xsl:apply-templates select="$doc/*"/>
+            </tmpTree>
+          </xsl:variable>
+          <xsl:apply-templates select="exslt:node-set($dm-tree)/*" mode="filtering"/>
+        </xsl:when>
+        <xsl:otherwise>
       <xsl:apply-templates select="$doc/*"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </dmInclusion>
   </xsl:if>
+</xsl:template>
+
+<!-- ************************************************************** -->
+<!-- *** DM PROCESSING (filtering) *** -->
+
+<xsl:variable name="g_applic-ident" select="tokenize($applic,'=')[1]"/>
+<xsl:variable name="g_applic-value" select="tokenize($applic,'=')[2]"/>
+<xsl:variable name="g_applic-sep" select="'||'"/>
+
+<xsl:template match="dmodule" mode="set-applic-valid">
+  <xsl:variable name="applic-group" select=".//identAndStatusSection/dmStatus/referencedApplicGroup"/>
+  <applicValidIds>
+    <xsl:for-each select="$applic-group/applic[assert[@applicPropertyIdent=$g_applic-ident and @applicPropertyValues=$g_applic-value]]">
+      <xsl:value-of select="@id"/>
+        <xsl:value-of select="$g_applic-sep"/>
+    </xsl:for-each>
+  </applicValidIds>
+  <applicOtherValidIds>
+    <xsl:for-each select="$applic-group/applic[assert[@applicPropertyIdent!=$g_applic-ident]]">
+      <xsl:value-of select="@id"/>
+      <xsl:value-of select="$g_applic-sep"/>
+    </xsl:for-each>
+  </applicOtherValidIds>
+</xsl:template>
+
+<xsl:template match="tmpTree" mode="filtering">
+  <xsl:apply-templates mode="filtering"/>
+</xsl:template>
+
+<xsl:template match="applicValidIds|applicOtherValidIds" mode="filtering"/>
+
+<xsl:template match="identAndStatusSection/dmStatus/referencedApplicGroup" mode="filtering">
+  <xsl:if test="count(applic) != count(applic[assert[@applicPropertyIdent=$g_applic-ident]])">
+    <xsl:copy>
+      <xsl:apply-templates select="node()[not(self::applic[assert[@applicPropertyIdent=$g_applic-ident]])]|@*" mode="filtering"/>
+    </xsl:copy>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="content//*[@applicRefId]" mode="filtering" priority="10">
+  <xsl:choose>
+    <xsl:when test="contains(ancestor::tmpTree/applicValidIds, concat(@applicRefId, $g_applic-sep))">
+      <xsl:copy>
+        <xsl:apply-templates select="node()|@*[not(name()='applicRefId')]" mode="filtering"/>
+      </xsl:copy>
+    </xsl:when>
+    <xsl:when test="contains(ancestor::tmpTree/applicOtherValidIds, concat(@applicRefId, $g_applic-sep))">
+    <xsl:copy>
+        <xsl:apply-templates select="node()|@*" mode="filtering"/>
+    </xsl:copy>
+    </xsl:when>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="@*|node()" mode="filtering">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()" mode="filtering"/>
+  </xsl:copy>
 </xsl:template>
 
 <!-- ************************************************************** -->
