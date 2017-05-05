@@ -595,12 +595,15 @@
   </div>
 </xsl:template>
 
-<xsl:template match="noSupportEquips|noSupplies|noSpares">
+<xsl:template match="noSupportEquips|noSupplies|noSpares" name="no-equip">
   <tr><td colspan="4"><xsl:value-of select="fn:getGenText('none')"/></td></tr>
 </xsl:template>
 
 <xsl:template match="supportEquipDescrGroup|supplyDescrGroup|spareDescrGroup">
   <xsl:apply-templates/>
+  <xsl:if test="not(*)">
+    <xsl:call-template name="no-equip"/>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="supportEquipDescr|supplyDescr|spareDescr">
@@ -658,6 +661,9 @@
   <div class="s-reqgroup">
     <div style="width: 100%" class="s-reqgroup-title"><xsl:value-of select="fn:getGenText('reqsafety')"/></div>
     <xsl:apply-templates/>
+    <xsl:if test="not(*)">
+      <xsl:call-template name="no-safety"/>
+    </xsl:if>
   </div>
 </xsl:template>
 
@@ -668,7 +674,7 @@
   </div>
 </xsl:template>
 
-<xsl:template match="noSafety">
+<xsl:template match="noSafety" name="no-safety">
   <div><xsl:value-of select="fn:getGenText('none')"/></div>
 </xsl:template>
 
