@@ -154,12 +154,13 @@ function convert() {
     }
 
     # These parameters are required.
-    local inFile    = parameterArray['file'];
+    local inFileZip = parameterArray['file'];
+	local inFile 	= inFileZip;
     local outFile   = parameterArray['output-file'];
     local outFileHtml = outFile . ".html";
 
     local errorMessage = "";
-	local errorDetails = "";
+    local errorDetails = "";
 
     # Pre-process
     local newInFile = "";
@@ -182,10 +183,10 @@ function convert() {
         debug_msg("  > Before hook");
         debug_array($parameterArray, "PARAMS");
         result = e3::convert2(inFile, outFileHtml, parameterArray);
-
-		if (index(result, "*result:error*")>0) {
-			errorMessage = "Error during HTML processing\n";
-			errorDetails = get_composer_log_contents();
+		
+        if (index(result, "*result:error*")>0) {
+            errorMessage = "Error during HTML processing\n";
+            errorDetails = get_composer_log_contents();
         }
     }
 
@@ -198,7 +199,7 @@ function convert() {
             errorMessage = rc;
         }
     }
-
+	
     # Remove temporary files
     if ($ZIP_EXTRACT_DIR != "") {
         execute("remove_file -r -f " . ZIP_EXTRACT_DIR);
@@ -208,6 +209,14 @@ function convert() {
     }
 
     if (errorMessage == "") {
+		# Create archives
+		debug_msg("  > Archives created");
+		local d = javascript("var d = new Date(); eval(d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2));");
+		local archInFile = dirname(inFileZip) . basename(inFileZip, ".zip") . "_" . $d . ".zip";
+		local archOutFile = dirname(outFile) . basename(outFile, ".zip") . "_" . $d . ".zip";
+		copy_file $inFileZip $archInFile;
+		copy_file $outFile $archOutFile;
+	
         debug_msg("Post-process OK\n");
         #result = "result: ok";
         result = "ok";
@@ -215,7 +224,7 @@ function convert() {
     else {
         debug_msg("ERROR");
         debug_msg($errorMessage);
-		debug_msg($errorDetails);
+        debug_msg($errorDetails);
         #result = "result: error<br/><br/>" . errorMessage;
         result = "error";
     }
@@ -391,8 +400,8 @@ function s1000d_postprocess(inFile, outFile, parameterArray[]) {
     }
     else {
         debug_msg("  > Zip file created " . $outFile . " from " . $folderDir);
-    # Delete temporary files
-    execute("remove_file -r -f " . dirFolder);
+		# Delete temporary files
+		execute("remove_file -r -f " . dirFolder);
     }
 
     return result;
